@@ -1,0 +1,42 @@
+body {
+	/* font-family: Roboto, Arial, sans-serif; */
+	/* font-size: 85%; */
+}
+section {
+	margin: 15px -10px;
+}
+.table thead th {
+	vertical-align: middle;
+}
+.table:not(.table-sm) thead th {
+	color: white;
+}
+.dataTables_filter {
+	display: none;
+}
+.number-only {
+	text-align: right;
+}
+.dropdown-divider {
+	border-top: 1px solid #cccccc;
+}
+.navbar-bg {
+	height: 70px;
+}
+.page-title {
+	color: white;
+	margin-top: 5px;
+}
+select.form-control:not([size]):not([multiple]) {
+	height: 30px;
+	padding: 5px;
+}
+.btn-form {
+	width: 100px;
+}
+.modal-header {
+	padding-bottom: 20px;
+}
+.form-group {
+	margin-bottom: 15px;
+}
