@@ -1,0 +1,28 @@
+<div class="card card-primary card-outline">
+    <form action="{{ @BASE.'/model/update/'.@PARAMS.model_id }}" method="POST" enctype="multipart/form-data">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Model Code</label>
+              <div class="col-md-9">
+                <input name="model_code" class="form-control form-control-sm" value="{{ @POST.model_code }}">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Model Desc</label>
+              <div class="col-md-9">
+                <input name="model_desc" class="form-control form-control-sm" value="{{ @POST.model_desc }}">
+              </div>
+            </div>
+          </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-footer bg-whitesmoke">
+        <button type="submit" name="update" class="btn btn-primary btn-sm btn-form"><b>Perbarui</b></button>
+        <a href="../../model" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
+      </div>
+    </form>
+  </div>

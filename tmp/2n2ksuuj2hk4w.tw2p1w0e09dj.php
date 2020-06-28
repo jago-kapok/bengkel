@@ -1,0 +1,49 @@
+<script>
+  $(function(){
+
+    'use strict'
+
+    // Get context with jQuery - using jQuery's .get() method.
+    var targetChartCanvas = $('#targetChart').get(0).getContext('2d')
+
+    var targetChartData = {
+      labels  : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      datasets: [
+        {
+          backgroundColor     : 'rgba(60,141,188,0.9)',
+          borderColor         : 'rgba(60,141,188,0.8)',
+          data                : [<?= ($jan) ?>, <?= ($feb) ?>, <?= ($mar) ?>, <?= ($apr) ?>, <?= ($may) ?>, <?= ($jun) ?>, <?= ($jul) ?>, <?= ($aug) ?>, <?= ($sep) ?>, <?= ($oct) ?>, <?= ($nov) ?>, <?= ($dec) ?>],
+		  lineTension: 0
+        },
+      ]
+    }
+
+    var targetChartOptions = {
+      maintainAspectRatio : false,
+      responsive : true,
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }],
+        yAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }]
+      }
+    }
+
+    // This will get the first returned node in the jQuery collection.
+    var targetChart = new Chart(targetChartCanvas, { 
+        type: 'line', 
+        data: targetChartData,
+        options: targetChartOptions
+      }
+    )
+  })
+  </script>

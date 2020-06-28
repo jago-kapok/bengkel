@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-  <base href="{{ @BASE.'/'.@UI }}" />
+  <base href="<?= ($BASE.'/'.$UI) ?>" />
   <!-- Document title -->
-  <title>{{ @site }}</title>
+  <title><?= ($site) ?></title>
 
   <meta name="robots" content="noindex, nofollow" />
 
@@ -42,7 +42,7 @@
         <form class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-			<h5 class="page-title">{{ @page_title }}</h5>
+			<h5 class="page-title"><?= ($page_title) ?></h5>
           </ul>
         </form>
         <ul class="navbar-nav navbar-right">
@@ -84,15 +84,15 @@
       <div class="main-sidebar">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="{{ @BASE.'/' }}">PD. Nusa Jaya Pump</a>
+            <a href="<?= ($BASE.'/') ?>">PD. Nusa Jaya Pump</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{ @BASE.'/' }}">NJP</a>
+            <a href="<?= ($BASE.'/') ?>">NJP</a>
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li>
-              <a href="{{ @BASE.'/' }}" class="nav-link"><i class="fas fa-tachometer-alt text-primary"></i><span>Dashboard</span></a>
+              <a href="<?= ($BASE.'/') ?>" class="nav-link"><i class="fas fa-tachometer-alt text-primary"></i><span>Dashboard</span></a>
             </li>
 			<li class="menu-header">Data Master &amp; Transaksi</li>
             <li class="nav-item dropdown">
@@ -145,12 +145,12 @@
 			    <span>&times;</span>
 			  </button>
 		    </div>
-		    <form action="{{ @BASE.'/user/update/'.@SESSION.id }}" method="POST">
+		    <form action="<?= ($BASE.'/user/update/'.$SESSION['id']) ?>" method="POST">
 		      <div class="modal-body">
 				<div class="container p-2">
 				  <div class="form-group row">
 					<label>Username</label>
-					<input name="user_name" class="form-control form-control-sm" value="{{ @SESSION.username }}" readonly>
+					<input name="user_name" class="form-control form-control-sm" value="<?= ($SESSION['username']) ?>" readonly>
 				  </div>
 				  <div class="form-group row">
 					<label>New Password <span class="text-danger">*</span></label>

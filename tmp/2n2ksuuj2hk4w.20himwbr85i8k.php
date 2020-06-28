@@ -19,12 +19,12 @@
   <script src="../../ui/assets/plugins/chart.js/Chart.min.js"></script>
   
   <!-- Datatable Data -->
-  <include href="datatables/user.html">
-  <include href="datatables/model.html">
-  <include href="datatables/customer.html">
-  <include href="datatables/item.html">
+  <?php echo $this->render('datatables/user.html',NULL,get_defined_vars(),0); ?>
+  <?php echo $this->render('datatables/model.html',NULL,get_defined_vars(),0); ?>
+  <?php echo $this->render('datatables/customer.html',NULL,get_defined_vars(),0); ?>
+  <?php echo $this->render('datatables/item.html',NULL,get_defined_vars(),0); ?>
   
-  <include href="home/chart.html">
+  <?php echo $this->render('home/chart.html',NULL,get_defined_vars(),0); ?>
   
   <script>
 	/* ============================================================== */

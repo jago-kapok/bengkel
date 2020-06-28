@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 
 $f3 = require('lib/base.php');
 
