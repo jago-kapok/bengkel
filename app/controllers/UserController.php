@@ -44,8 +44,7 @@ class UserController extends Controller {
 			if($this->f3->get('FILES.user_image["name"]') != ''){
 				$user_image = str_replace(" ", "_", $this->f3->get('POST.user_fullname')).'.'.pathinfo($this->f3->get('FILES.user_image["name"]'), PATHINFO_EXTENSION);
 			} else {
-				$user->getById($this->f3->get('PARAMS.user_id'));
-				$user_image = $user->user_image;
+				$user_image = $this->f3->get('POST.user_image_temp');
 			}
 			
 			$user->edit($this->f3->get('PARAMS.user_id'), $user_image);

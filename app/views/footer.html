@@ -71,18 +71,18 @@
 	/* Menangkap data dari modal									= */
 	/* ============================================================== */
 	
-	/* Unit */
-	$('#update_unit').on('show.bs.modal', function(event){
+	/* Model */
+	$('#update_model').on('show.bs.modal', function(event){
 	  var button = $(event.relatedTarget);
-	  var id_satuan = button.data('id_satuan');
-	  var nama_satuan = button.data('nama_satuan');
-	  var kode_satuan = button.data('kode_satuan');
+	  var model_id = button.data('model_id');
+	  var model_code = button.data('model_code');
+	  var model_desc = button.data('model_desc');
 	  
 	  var modal = $(this);
-	  modal.find('.modal-title').text('Update Data : ' + nama_satuan);
-	  modal.find('.modal-body input[name=id_satuan]').val(id_satuan);
-	  modal.find('.modal-body input[name=nama_satuan]').val(nama_satuan);
-	  modal.find('.modal-body input[name=kode_satuan]').val(kode_satuan);
+	  modal.find('.modal-title').text('Update : ' + model_code);
+	  modal.find('.modal-body input[name=model_id]').val(model_id);
+	  modal.find('.modal-body input[name=model_code]').val(model_code);
+	  modal.find('.modal-body input[name=model_desc]').val(model_desc);
 	});
 	
 	/* ============================================================== */

@@ -42,6 +42,7 @@
 			<label class="col-md-3 col-form-label">Upload Foto</label>
 			<div class="col-md-9">
 			  <input type="file" name="user_image" class="form-control form-control-sm" onchange="return previewImage(this)">
+			  <input type="hidden" name="user_image_temp" class="form-control form-control-sm" value="{{ @POST.user_image }}">
 			</div>
 		  </div>
 		</div>

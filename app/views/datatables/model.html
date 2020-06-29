@@ -1,6 +1,5 @@
 <script>
-
-    $(document).ready(function () {
+	$(document).ready(function () {
         var table = $('#model_table').DataTable({
             "scrollX": false,
             "ordering": false,
@@ -16,8 +15,8 @@
             "columns": [
                 { data: 0 }, { data: 1 },
                 {
-                    "render": function (data, type) {
-                        return '<a href="{{ @BASE."/model/update/' + data + '" }}" class="badge badge-info p-1" title="Perbarui Data"><i class="fa fa-pen"></i></>';
+                    "render": function (data, type, full) {
+                        return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Perbarui Data" data-toggle="modal" data-target="#update_model" data-model_id="' + data + '" data-model_code="' + full[0] + '" data-model_desc="' + full[1] + '"><i class="fa fa-pen"></i></>';
                     }
                 }
             ]

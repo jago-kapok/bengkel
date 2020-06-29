@@ -40,3 +40,12 @@ select.form-control:not([size]):not([multiple]) {
 .form-group {
 	margin-bottom: 15px;
 }
+.text-white {
+	color: white;
+}
+.form-control {
+	border: 1px solid #cccccc;
+}
+.form-control[readonly]:focus {
+	background-color: #e9ecef;
+}
