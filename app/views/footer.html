@@ -84,6 +84,36 @@
 	  modal.find('.modal-body input[name=model_code]').val(model_code);
 	  modal.find('.modal-body input[name=model_desc]').val(model_desc);
 	});
+
+	/* Customer */
+	$('#update_customer').on('show.bs.modal', function(event){
+	  var button = $(event.relatedTarget);
+	  var customer_id = button.data('customer_id');
+	  var customer_code = button.data('customer_code');
+	  var customer_name = button.data('customer_name');
+	  var customer_address = button.data('customer_address');
+	  var customer_city = button.data('customer_city');
+	  var customer_phone = button.data('customer_phone');
+	  var customer_name_other = button.data('customer_name_other');
+	  var customer_address_other = button.data('customer_address_other');
+	  var customer_city_other = button.data('customer_city_other');
+	  var customer_phone_other = button.data('customer_phone_other');
+	  var customer_note = button.data('customer_note');
+	  
+	  var modal = $(this);
+	  modal.find('.modal-title').text('Update : ' + customer_code);
+	  modal.find('.modal-body input[name=customer_id]').val(customer_id);
+	  modal.find('.modal-body input[name=customer_code]').val(customer_code);
+	  modal.find('.modal-body input[name=customer_name]').val(customer_name);
+	  modal.find('.modal-body input[name=customer_address]').val(customer_address);
+	  modal.find('.modal-body input[name=customer_city]').val(customer_city);
+	  modal.find('.modal-body input[name=customer_phone]').val(customer_phone);
+	  modal.find('.modal-body input[name=customer_name_other]').val(customer_name_other);
+	  modal.find('.modal-body input[name=customer_address_other]').val(customer_address_other);
+	  modal.find('.modal-body input[name=customer_city_other]').val(customer_city_other);
+	  modal.find('.modal-body input[name=customer_phone_other]').val(customer_phone_other);
+	  modal.find('.modal-body input[name=customer_note]').val(customer_note);
+	});
 	
 	/* ============================================================== */
 	/* Fungsi preview image											= */
