@@ -1,5 +1,4 @@
 <script>
-
     $(document).ready(function () {
         var table = $('#customer_table').DataTable({
             "scrollX": false,
@@ -16,8 +15,8 @@
             "columns": [
                 { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
                 {
-                    "render": function (data, type) {
-                        return '<a href="{{ @BASE."/customer/update/' + data + '" }}" class="badge badge-info p-1" title="Perbarui Data"><i class="fa fa-pen"></i></>';
+                    "render": function (data, type, full) {
+                        return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Perbarui Data" data-toggle="modal" data-target="#update_customer" data-customer_id="' + data + '" data-customer_code="' + full[0] + '" data-customer_name="' + full[1] + '" data-customer_address="' + full[2] + '" data-customer_city="' + full[3] + '" data-customer_phone="' + full[4] + '"><i class="fa fa-pen"></i></>';
                     }
                 }
             ]
