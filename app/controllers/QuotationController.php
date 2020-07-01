@@ -26,7 +26,8 @@ class QuotationController extends Controller {
 			\Flash::instance()->addMessage('Berhasil membuat penawaran "'.$this->f3->get('POST.quotation_number').'"', 'success');
 			$this->f3->reroute('/quotation/view/'.$quotation->quotation_id);
 		} else {
-			$item = new Item($this->db);
+			$customer = new Customer($this->db);
+			$this->f3->set('data_customer', $customer->getAll());
 			
 			$this->f3->set('page_title','Penawaran Baru');
 			$this->f3->set('header','header/header.html');

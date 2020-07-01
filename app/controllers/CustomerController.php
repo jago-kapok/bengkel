@@ -18,6 +18,13 @@ class CustomerController extends Controller {
 		die($customer->data($draw, $length, $offset, $search));
 	}
 	
+	public function get_data(){
+		$customer_id = $this->f3->get('PARAMS.customer_id');
+				
+		$customer = new Customer($this->db);
+		die($customer->getData($customer_id));
+	}
+	
 	public function create(){
 		if($this->f3->exists('POST.create')){
 			$customer = new Customer($this->db);

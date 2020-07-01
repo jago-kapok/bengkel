@@ -1,0 +1,30 @@
+<script>
+
+$(document).ready(function(){
+  var table = $('#invoice_table').DataTable({
+	"scrollX": false,
+	"ordering": false,
+	"scrollCollapse": true,
+	"processing": true,
+	"serverSide": true,
+	"lengthChange": false,
+	"searching": true,
+	"ajax": {
+	  "url": "{{ @BASE.'/invoice/data' }}",
+	  "type": "POST"
+	},
+	"columns": [
+	  { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
+	  {
+		"render": function (data, type, full){
+		  return '<a href="{{ @BASE."/invoice/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Invoice"><i class="fa fa-print"></i></a>&nbsp;<a href="{{ @BASE."/invoice/view/' + data + '" }}" class="badge badge-info p-1" title="Lihat Invoice"><i class="fa fa-search"></i></a>&nbsp;<a href="{{ @BASE."/invoice/cancel/' + full[6] + '" }}" class="badge badge-info p-1" title="Batalkan Invoice"><i class="fa fa-ban"></i></a>';
+		}
+	  }
+	]
+  });
+	
+  $('#invoice_search').on('keyup', function(){
+	table.search(this.value).draw();
+  });
+});
+</script>

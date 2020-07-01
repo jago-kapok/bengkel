@@ -23,6 +23,10 @@
   <include href="datatables/model.html">
   <include href="datatables/customer.html">
   <include href="datatables/item.html">
+  <include href="datatables/quotation.html">
+  <include href="datatables/invoice.html">
+  <include href="datatables/invoice_ppn.html">
+  <include href="datatables/invoice_cash.html">
   
   <include href="home/chart.html">
   
@@ -100,6 +104,28 @@
         reader.readAsDataURL(input.files[0]);
       }
     }
+	
+	/* ============================================================== */
+	/* Fungsi get data customer										= */
+	/* ============================================================== */
+	
+	$('input[name=customer_id]').change(function(){
+	  $('input[name=customer_name]').empty();
+	  $('input[name=customer_phone]').empty();
+	  $('input[name=customer_city]').empty();
+	  $('input[name=customer_address]').empty();
+	  $('input[name=customer_notes]').empty();
+	  
+	  $.getJSON("{{ @BASE.'/customer/get-data/' }}" + this.value, function(data){
+		$.each(data, function(key, value){
+		  $('input[name=customer_name]').val(value.customer_name);
+		  $('input[name=customer_phone]').val(value.customer_phone);
+		  $('input[name=customer_city]').val(value.customer_city);
+		  $('input[name=customer_address]').val(value.customer_address);
+		  $('input[name=customer_notes]').val(value.customer_notes);
+		});
+	  });
+	});
 	
 	/* ============================================================== */
 	/* Fungsi Notifikasi											= */

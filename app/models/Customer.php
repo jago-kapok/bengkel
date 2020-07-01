@@ -95,6 +95,11 @@ class Customer extends DB\SQL\Mapper {
 		$this->save();
 	}
 	
+	public function getAll(){
+		$this->load();
+		return $this->query;
+	}
+	
 	public function getById($customer_id){
 		$this->load(array('customer_id = ?', $customer_id));
 		$this->copyTo('POST');
@@ -105,4 +110,23 @@ class Customer extends DB\SQL\Mapper {
 		$this->copyFrom('POST');
 		$this->update();
 	}
+	
+	public function getData($customer_id){
+		$output = array();
+		
+		$this->load(array('customer_id = ?', $customer_id));
+		$query = $this->query;
+			
+		foreach($query as $data){
+			$output[] = array(
+				"customer_name" => $data['customer_name'],
+				"customer_address" => $data['customer_address'],
+				"customer_phone" => $data['customer_phone'],
+				"customer_city" => $data['customer_city'],
+				"customer_note" => $data['customer_note'],
+			);
+		}
+		
+		echo json_encode($output);
+    }
 }
