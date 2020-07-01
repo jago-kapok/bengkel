@@ -37,9 +37,6 @@ select.form-control:not([size]):not([multiple]) {
 .modal-header {
 	padding-bottom: 20px;
 }
-.form-group {
-	margin-bottom: 15px;
-}
 .text-white {
 	color: white;
 }
@@ -47,5 +44,30 @@ select.form-control:not([size]):not([multiple]) {
 	border: 1px solid #cccccc;
 }
 .form-control[readonly]:focus {
+	background-color: #e9ecef;
+}
+.form-app {
+	height: 25px;
+	padding: 1px 5px;
+	font-size: 12px
+}
+.form-group {
+	margin-bottom: 10px;
+}
+label {
+	margin-bottom: 0px;
+}
+input {
+	border: 1px solid #c5cbd0;
+}
+.table:not(.table-sm):not(.table-md):not(.dataTable) th, .table:not(.table-sm):not(.table-md):not(.dataTable) td {
+	height: 30px;
+	font-size: 12px;
+	text-align: center;
+	color: black;
+	padding: 0px 5px;
+	border: 1px solid #858585
+}
+.readonly {
 	background-color: #e9ecef;
 }
