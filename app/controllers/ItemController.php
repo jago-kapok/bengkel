@@ -19,22 +19,13 @@ class ItemController extends Controller {
 	}
 	
 	public function create(){
-		if($this->f3->exists('POST.create')){
-			$item = new Item($this->db);
-			$item->add(str_replace(" ", "_", $this->f3->get('POST.item_code')).'.'.pathinfo($this->f3->get('FILES.item_image["name"]'), PATHINFO_EXTENSION));
+		$item = new Item($this->db);
+		$item->add(str_replace(" ", "_", $this->f3->get('POST.item_code')).'.'.pathinfo($this->f3->get('FILES.item_image["name"]'), PATHINFO_EXTENSION));
 			
-			self::upload($this->f3->get('FILES.item_image'), str_replace(" ", "_", $this->f3->get('POST.item_code')));
+		self::upload($this->f3->get('FILES.item_image'), str_replace(" ", "_", $this->f3->get('POST.item_code')));
 			
-			\Flash::instance()->addMessage('Berhasil menambah data "'.$this->f3->get('POST.otem_code').'"', 'success');
-			$this->f3->reroute('/item');
-		} else {
-			$level = new Level($this->db);
-			$this->f3->set('data_level', $level->all());
-			
-			$this->f3->set('page_title','Tambah Data Barang');
-			$this->f3->set('header','header/header.html');
-			$this->f3->set('view','item/create.html');
-		}
+		\Flash::instance()->addMessage('Berhasil menambah data "'.$this->f3->get('POST.item_code').'"', 'success');
+		$this->f3->reroute('/item');
 	}
 	
 	public function update(){

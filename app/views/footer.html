@@ -23,6 +23,8 @@
   <include href="datatables/model.html">
   <include href="datatables/customer.html">
   <include href="datatables/item.html">
+  <include href="datatables/stock.html">
+  <include href="datatables/supplier.html">
   
   <include href="home/chart.html">
   
@@ -113,6 +115,88 @@
 	  modal.find('.modal-body input[name=customer_city_other]').val(customer_city_other);
 	  modal.find('.modal-body input[name=customer_phone_other]').val(customer_phone_other);
 	  modal.find('.modal-body input[name=customer_note]').val(customer_note);
+	});
+
+	/* Item */
+	$('#update_item').on('show.bs.modal', function(event){
+	  var button = $(event.relatedTarget);
+	  var item_id = button.data('item_id');
+	  var item_code = button.data('item_code');
+	  var item_part_no = button.data('item_part_no');
+	  var item_desc = button.data('item_desc');
+	  var item_price = button.data('item_price');
+	  var item_unit = button.data('item_unit');
+	  var item_stamping = button.data('item_stamping');
+	  var item_physical = button.data('item_physical');
+	  var item_similar = button.data('item_similar');
+	  var item_pn = button.data('item_pn');
+	  var item_brand_1 = button.data('item_brand_1');
+	  var item_bradn_2 = button.data('item_bradn_2');
+	  var item_brand_3 = button.data('item_brand_3');
+	  var item_note = button.data('item_note');
+	  var item_image = button.data('item_image');
+	  
+	  var modal = $(this);
+	  modal.find('.modal-title').text('Update : ' + item_code);
+	  modal.find('.modal-body input[name=item_id]').val(item_id);
+	  modal.find('.modal-body input[name=item_code]').val(item_code);
+	  modal.find('.modal-body input[name=item_part_no]').val(item_part_no);
+	  modal.find('.modal-body input[name=item_desc]').val(item_desc);
+	  modal.find('.modal-body input[name=item_price]').val(item_price);
+	  modal.find('.modal-body input[name=item_unit]').val(item_unit);
+	  modal.find('.modal-body input[name=item_stamping]').val(item_stamping);
+	  modal.find('.modal-body input[name=item_physical]').val(item_physical);
+	  modal.find('.modal-body input[name=item_similar]').val(item_similar);
+	  modal.find('.modal-body input[name=item_pn]').val(item_pn);
+	  modal.find('.modal-body input[name=item_brand_1]').val(item_brand_1);
+	  modal.find('.modal-body input[name=item_bradn_2]').val(item_bradn_1);
+	  modal.find('.modal-body input[name=item_brand_3]').val(item_brand_3);
+	  modal.find('.modal-body input[name=item_note]').val(item_note);
+	  modal.find('.modal-body input[name=item_image]').val(item_image);
+	});
+
+	/* Stock */
+	$('#update_stock').on('show.bs.modal', function(event){
+	  var button = $(event.relatedTarget);
+	  var stock_id = button.data('stock_id');
+	  var item_id = button.data('item_id');
+	  var stock_min = button.data('stock_min');
+	  var stock_max = button.data('stock_max');
+	  var stock_first = button.data('stock_first');
+	  var stock_on_hand = button.data('stock_on_hand');
+	  var stock_by = button.data('stock_by');
+	  var stock_date = button.data('stock_date');
+	  
+	  var modal = $(this);
+	  modal.find('.modal-title').text('Update : ' + item_id);
+	  modal.find('.modal-body input[name=stock_id]').val(stock_id);
+	  modal.find('.modal-body input[name=item_id]').val(item_id);
+	  modal.find('.modal-body input[name=stock_min]').val(stock_min);
+	  modal.find('.modal-body input[name=stock_max]').val(stock_max);
+	  modal.find('.modal-body input[name=stock_first]').val(stock_first);
+	  modal.find('.modal-body input[name=stock_on_hand]').val(stock_on_hand);
+	  modal.find('.modal-body input[name=stock_by]').val(stock_by);
+	  modal.find('.modal-body input[name=stock_date]').val(stock_date);
+	});
+
+	/* Supplier */
+	$('#update_supplier').on('show.bs.modal', function(event){
+	  var button = $(event.relatedTarget);
+	  var supplier_id = button.data('supplier_id');
+	  var supplier_code = button.data('supplier_code');
+	  var supplier_name = button.data('supplier_name');
+	  var supplier_address = button.data('supplier_address');
+	  var supplier_city = button.data('supplier_city');
+	  var supplier_phone = button.data('supplier_phone');
+	  
+	  var modal = $(this);
+	  modal.find('.modal-title').text('Update : ' + supplier_code);
+	  modal.find('.modal-body input[name=supplier_id]').val(supplier_id);
+	  modal.find('.modal-body input[name=supplier_code]').val(supplier_code);
+	  modal.find('.modal-body input[name=supplier_name]').val(supplier_name);
+	  modal.find('.modal-body input[name=supplier_address]').val(supplier_address);
+	  modal.find('.modal-body input[name=supplier_city]').val(supplier_city);
+	  modal.find('.modal-body input[name=supplier_phone]').val(supplier_phone);
 	});
 	
 	/* ============================================================== */

@@ -1,0 +1,102 @@
+<div class="card p-2">
+    <F3:repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
+      <div class="alert alert-{{ @msg.status }} alert-dismissible show fade">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <i class="fa fa-info-circle"></i>&nbsp;&nbsp;{{ @msg.text | esc }}
+      </div>
+    </F3:repeat>
+    
+    <div class="row mb-1">
+      <div class="col-md-8">
+        <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#create_stock">
+          Tambah Stok
+        </a>
+      </div>
+      <div class="col-md-4 pull-right">
+        <div class="input-group">
+          <input id="stock_search" class="form-control form-control-sm" placeholder="Cari Data ...">
+          <span class="input-group-append">
+            <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
+          </span>
+        </div>
+      </div>
+    </div>
+      
+    <table id="stock_table" class="table table-striped" style="width:100%">
+      <thead class="bg-app">
+        <tr>
+          <th>ID Barang</th>
+          <th>Stok Min</th>
+          <th>Stok Max</th>
+          <th>Pilihan</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  
+  <div class="modal fade" id="create_stock" role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header bg-info">
+          <h5 class="modal-title text-white">Tambah Stok</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span>&times;</span>
+          </button>
+        </div>
+        <form action="{{ @BASE.'/stock/create/' }}" method="POST">
+            <div class="modal-body">
+                <div class="container p-2">
+                    <div class="form-group">
+                        <label>ID Barang</label>
+                        <input name="item_id" class="form-control form-control-sm">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Stok Minimal</label>
+                            <input type="number" name="stock_min" class="form-control form-control-sm">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Stok Maksimal</label>
+                            <input type="number" name="stock_max" class="form-control form-control-sm">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>Stok Pertama</label>
+                            <input type="number" name="stock_first" class="form-control form-control-sm">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Stok Tersedia</label>
+                            <input type="number" name="stock_on_hand" class="form-control form-control-sm">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Stock By</label>
+                            <input name="stock_by" class="form-control form-control-sm">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>Tanggal</label>
+                            <input name="stock_date" class="form-control form-control-sm">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer bg-light">
+                <div class="col-md-auto">
+                    <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Simpan</button>
+                </div>
+                <div class="col-md-auto">
+                    <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>

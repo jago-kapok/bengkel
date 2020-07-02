@@ -1,0 +1,351 @@
+<div class="card card-primary card-outline">
+  <form action="{{ @BASE.'/quotation/create' }}" method="POST" enctype="multipart/form-data">
+    <div class="card-body">
+	  <div class="row">
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>No. Invoice</label>
+			<input name="invoice_number" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>No. Penawaran</label>
+			<input name="quotation_number" class="form-control form-control-sm form-app" value="0000001/2020" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>Tgl. Penawaran</label>
+			<input type="date" name="quotation_date" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>Tgl. Tanda Terima</label>
+			<input type="date" name="quotation_date_received" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>Tgl. Invoice</label>
+			<input type="date" name="invoice_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>Mekanik</label>
+			<input name="invoice_date" class="form-control form-control-sm form-app">
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>ID Pelanggan</label>
+			<input name="customer_id" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-6">
+		  <div class="form-group">
+			<label>Nama Pelanggan</label>
+			<input name="customer_name" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>No. Telepon</label>
+			<input name="customer_phone" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>Kota</label>
+			<input name="customer_city" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-6 offset-md-2">
+		  <div class="form-group">
+			<input name="customer_address" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-4">
+		  <div class="form-group">
+			<input name="customer_note" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>Model</label>
+			<input name="customer_model" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>Engine</label>
+			<input name="customer_engine" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>Pump Assy</label>
+			<input name="customer_pump_assy" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>PO / WO</label>
+			<input name="customer_po_wo" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>S/N</label>
+			<input name="customer_serial_number" class="form-control form-control-sm form-app" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<label>No. Faktur Pajak</label>
+			<input name="" class="form-control form-control-sm form-app">
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="row">
+		<table class="table table-bordered table-responsive">
+		  <thead>
+			<tr class="bg-secondary" style="color:black">
+			  <th class="col-md-1">Kode</th>
+			  <th class="col-md-1">No. Part</th>
+			  <th class="col-md-1">Deskripsi</th>
+			  <th class="col-md-1">Qty</th>
+			  <th class="col-md-1">Qty (UP)</th>
+			  <th class="col-md-1">Harga / Unit</th>
+			  <th class="col-md-1">Harga / Unit (UP)</th>
+			  <th class="col-md-1">Total</th>
+			  <th class="col-md-1">Merk</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr>
+			  <td><input style="width:100px"></td>
+			  <td><input style="width:100px"></td>
+			  <td><input style="width:250px"></td>
+			  <td><input class="number-only" style="width:50px"></td>
+			  <td><input class="number-only" style="width:50px"></td>
+			  <td><input class="number-only" style="width:100px"></td>
+			  <td><input class="number-only" style="width:100px"></td>
+			  <td><input class="number-only" style="width:100px"></td>
+			  <td><input style="width:100px"></td>
+			</tr>
+			<tr>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:250px" readonly></td>
+			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			</tr>
+			<tr>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:250px" readonly></td>
+			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			</tr>
+			<tr>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:250px" readonly></td>
+			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			</tr>
+			<tr>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:250px" readonly></td>
+			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			</tr>
+			<tr>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:250px" readonly></td>
+			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			</tr>
+			<tr>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:250px" readonly></td>
+			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			</tr>
+			<tr>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:250px" readonly></td>
+			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			</tr>
+			<tr>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:250px" readonly></td>
+			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			</tr>
+			<tr>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:250px" readonly></td>
+			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:50px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="number-only readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:100px" readonly></td>
+			</tr>
+		  </tbody>
+		</table>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-md-9">
+		  <div class="form-group row">
+			<label class="col-md-2">Nozzle</label>
+			<div class="col-md-8">
+			  <input name="quotation_nozzle" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		</div>
+		<div class="col-md-3">
+		  <div class="form-group row">
+			<label class="col-md-4">Part</label>
+			<div class="col-md-8">
+			  <input name="quotation_part_charge" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-md-9">
+		  <div class="form-group row">
+			<label class="col-md-2">Keterangan</label>
+			<div class="col-md-8">
+			  <input name="quotation_note_1" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		</div>
+		<div class="col-md-3">
+		  <div class="form-group row">
+			<label class="col-md-4">Diskon</label>
+			<div class="col-md-8">
+			  <input name="quotation_discount" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-md-9">
+		  <div class="form-group row">
+			<label class="col-md-2"></label>
+			<div class="col-md-8">
+			  <input name="quotation_note_2" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		</div>
+		<div class="col-md-3">
+		  <div class="form-group row">
+			<label class="col-md-4">Servis</label>
+			<div class="col-md-8">
+			  <input name="quotation_service_charge" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-md-9">
+		  <div class="form-group row">
+			<label class="col-md-2">Terbilang</label>
+			<div class="col-md-8">
+			  <input name="" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		</div>
+		<div class="col-md-3">
+		  <div class="form-group row">
+			<label class="col-md-4">PPN</label>
+			<div class="col-md-8">
+			  <input name="quotation_ppn" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-md-9">
+		  <div class="form-group row">
+			<label class="col-md-2">Cash</label>
+			<div class="col-md-8">
+			  <input name="" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		</div>
+		<div class="col-md-3">
+		  <div class="form-group row">
+			<label class="col-md-4">Total</label>
+			<div class="col-md-8">
+			  <input name="quotation_total" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<div class="card-footer bg-secondary">
+	  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form"><b>Simpan</b></button>
+	  <a href="../../user" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
+	</div>
+  </form>
+</div>
