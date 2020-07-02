@@ -8,11 +8,12 @@
 
   <div class="row mb-1">
 	<div class="col-md-8">
-	  <a href="../../user/create" class="btn btn-success btn-sm">Tambah Pengguna</a>
+	  <button type="button" class="btn btn-info btn-sm mr-2">Filter Penawaran</a>
+	  <button type="button" class="btn btn-danger btn-sm">Cetak ke PDF</a>
 	</div>
 	<div class="col-md-4 pull-right">
 	  <div class="input-group">
-		<input id="user_search" class="form-control form-control-sm" placeholder="Cari Data ...">
+		<input id="quotation_search" class="form-control form-control-sm" placeholder="Cari Data ...">
 		<span class="input-group-append">
 		  <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
 		</span>
@@ -20,13 +21,15 @@
 	</div>
   </div>
   
-  <table id="user_table" class="table table-striped" style="width:100%">
+  <table id="quotation_table" class="table table-striped" style="width:100%">
 	<thead class="bg-app">
       <tr>
-		<th>Nama Lengkap</th>
-        <th>Username</th>
-        <th>Nama File</th>
-        <th>Terakhir Login</th>
+        <th>No. Penawaran</th>
+		<th>Tgl. Penawaran</th>
+        <th>Nama Pelanggan</th>
+        <th>Nilai Penawaran</th>
+        <th>No. Invoice</th>
+        <th>Tgl. Invoice</th>
         <th>Pilihan</th>
       </tr>
     </thead>

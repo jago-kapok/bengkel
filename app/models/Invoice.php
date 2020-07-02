@@ -1,9 +1,9 @@
 <?php
 date_default_timezone_set("Asia/Jakarta");
 
-class Quotation extends DB\SQL\Mapper {
+class Invoice extends DB\SQL\Mapper {
     public function __construct(DB\SQL $db){
-        parent::__construct($db, 'quotation');
+        parent::__construct($db, 'invoice');
     }
 
     public function data($draw, $length, $offset, $search){
@@ -13,10 +13,10 @@ class Quotation extends DB\SQL\Mapper {
 		$output['recordsTotal'] = $output['recordsFiltered'] = $total;
 		$output['data'] = array();
 		
-		$query = $this->db->exec("SELECT * FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
-			quotation_number LIKE ? OR
+		$query = $this->db->exec("SELECT * FROM invoice JOIN customer ON invoice.customer_id = customer.customer_id JOIN quotation ON invoice.quotation_id = quotation.quotation_id WHERE
+			invoice_number LIKE ? OR
 			customer_name LIKE ? OR
-			invoice_number LIKE ? ORDER BY quotation.quotation_id DESC LIMIT ? OFFSET ?",
+			quotation_number LIKE ? ORDER BY invoice.invoice_number DESC LIMIT ? OFFSET ?",
 			array(
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -26,10 +26,10 @@ class Quotation extends DB\SQL\Mapper {
 			)
 		);
 			
-		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
-			quotation_number LIKE ? OR
+		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM invoice JOIN customer ON invoice.customer_id = customer.customer_id JOIN quotation ON invoice.quotation_id = quotation.quotation_id WHERE
+			invoice_number LIKE ? OR
 			customer_name LIKE ? OR
-			invoice_number LIKE ?",
+			quotation_number LIKE ?",
 			array(
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -45,12 +45,12 @@ class Quotation extends DB\SQL\Mapper {
 		
 		foreach($query as $data) {
 			$output['data'][] = array(
-				$data['quotation_number'],
-				date('d/m/Y', strtotime($data['quotation_date'])),
-				$data['customer_name'],
-				number_format($data['quotation_part_charge'] + $data['quotation_service_charge']),
 				$data['invoice_number'],
 				date('d/m/Y', strtotime($data['invoice_date'])),
+				$data['customer_name'],
+				number_format($data['invoice_part_charge'] + $data['invoice_service_charge']),
+				$data['quotation_number'],
+				date('d/m/Y', strtotime($data['quotation_date'])),
 				$data['quotation_id']
 			);
 		}

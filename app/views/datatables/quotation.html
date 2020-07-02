@@ -1,0 +1,30 @@
+<script>
+
+$(document).ready(function(){
+  var table = $('#quotation_table').DataTable({
+	"scrollX": false,
+	"ordering": false,
+	"scrollCollapse": true,
+	"processing": true,
+	"serverSide": true,
+	"lengthChange": false,
+	"searching": true,
+	"ajax": {
+	  "url": "{{ @BASE.'/quotation/data' }}",
+	  "type": "POST"
+	},
+	"columns": [
+	  { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 }, { data: 5 },
+	  {
+		"render": function (data, type, full){
+		  return '<a href="{{ @BASE."/quotation/update/' + data + '" }}" class="badge badge-info p-1" title="Perbarui Data"><i class="fa fa-pen"></i></a>&nbsp;<a href="{{ @BASE."/quotation/view/' + data + '" }}" class="badge badge-success p-1" title="Lihat Penawaran"><i class="fa fa-search"></i></a>&nbsp;<a href="{{ @BASE."/quotation/view/' + data + '" }}" class="badge badge-danger p-1" title="Batalkan Penawaran" onclick="returb confirm(\'Anda ingin membatalkan penawaran ini ?\')"><i class="fa fa-ban"></i></a>';
+		}
+	  }
+	]
+  });
+	
+  $('#quotation_search').on('keyup', function(){
+	table.search(this.value).draw();
+  });
+});
+</script>
