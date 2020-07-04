@@ -8,7 +8,9 @@
   
   <div class="row mb-1">
     <div class="col-md-8">
-      <a href="../../customer/create" class="btn btn-success btn-sm">Tambah Customer</a>
+      <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#create_customer">
+        Tambah Pelanggan
+      </a>
     </div>
     <div class="col-md-4 pull-right">
       <div class="input-group">
@@ -33,4 +35,146 @@
     </thead>
     <tbody></tbody>
   </table>
+</div>
+
+<div class="modal fade" id="create_customer" role="dialog">
+  <div class="modal-dialog modal-lg">
+	<div class="modal-content">
+	  <div class="modal-header bg-info">
+		<h5 class="modal-title"><span class="text-white">Tambah Pelanggan</span></h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		  <span>&times;</span>
+		</button>
+	  </div>
+	  <form action="{{ @BASE.'/customer/create/' }}" method="POST">
+		<div class="modal-body">
+		  <div class="row p-2">
+			<div class="col-md-6">
+			  <div class="form-group">
+			    <label>ID Pelanggan</label>
+			    <input name="customer_code" class="form-control form-control-sm">
+			  </div>
+			  <div class="form-group">
+				<label>Nama</label>
+				<input name="customer_name" class="form-control form-control-sm">
+			  </div>
+			  <div class="form-group">
+			    <label>Alamat</label>
+			    <textarea name="customer_address" class="form-control form-control-sm" rows="2"></textarea>
+			  </div>
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+				  <label>Kota</label>
+				  <input name="customer_city" class="form-control form-control-sm">
+			    </div>
+				<div class="form-group col-md-6">
+				  <label>No. Telepon</label>
+				  <input name="customer_phone" class="form-control form-control-sm">
+			    </div>
+			  </div>
+			  <div class="form-group">
+				<label>Catatan</label>
+				<textarea name="customer_note" class="form-control form-control-sm" rows="2"></textarea>
+			  </div>
+			</div>
+			<div class="col-md-6">
+			  <div class="form-group" style="margin-top:62px">
+			    <label class="text-primary">Nama Lain</label>
+			    <input name="customer_name_other" class="form-control form-control-sm">
+			  </div>
+			  <div class="form-group">
+			    <label class="text-primary">Alamat Lain</label>
+			    <textarea name="customer_address_other" class="form-control form-control-sm" rows="2"></textarea>
+			  </div>
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+				  <label class="text-primary">Kota Lain</label>
+				  <input name="customer_city_other" class="form-control form-control-sm">
+			    </div>
+				<div class="form-group col-md-6">
+				  <label class="text-primary">No. Telepon Lain</label>
+				  <input name="customer_phone_other" class="form-control form-control-sm">
+			    </div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="modal-footer bg-light">
+		  <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Simpan</button>
+		  <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
+		</div>
+	  </form>
+	</div>
+  </div>
+</div>
+
+<div class="modal fade" id="update_customer" role="dialog">
+  <div class="modal-dialog modal-lg">
+	<div class="modal-content">
+	  <div class="modal-header bg-info">
+		<h5 class="modal-title text-white"><span class="text-white"></span></h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		  <span>&times;</span>
+		</button>
+	  </div>
+	  <form action="{{ @BASE.'/customer/update/' }}" method="POST">
+		<div class="modal-body">
+		  <div class="row p-2">
+			<div class="col-md-6">
+			  <div class="form-group">
+			    <label>ID Pelanggan</label>
+			    <input name="customer_code" class="form-control form-control-sm">
+			  </div>
+			  <div class="form-group">
+				<label>Nama</label>
+				<input name="customer_name" class="form-control form-control-sm">
+			  </div>
+			  <div class="form-group">
+			    <label>Alamat</label>
+			    <textarea name="customer_address" class="form-control form-control-sm" rows="2"></textarea>
+			  </div>
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+				  <label>Kota</label>
+				  <input name="customer_city" class="form-control form-control-sm">
+			    </div>
+				<div class="form-group col-md-6">
+				  <label>No. Telepon</label>
+				  <input name="customer_phone" class="form-control form-control-sm">
+			    </div>
+			  </div>
+			  <div class="form-group">
+				<label>Catatan</label>
+				<textarea name="customer_note" class="form-control form-control-sm" rows="2"></textarea>
+			  </div>
+			</div>
+			<div class="col-md-6">
+			  <div class="form-group" style="margin-top:62px">
+			    <label class="text-primary">Nama Lain</label>
+			    <input name="customer_name_other" class="form-control form-control-sm">
+			  </div>
+			  <div class="form-group">
+			    <label class="text-primary">Alamat Lain</label>
+			    <textarea name="customer_address_other" class="form-control form-control-sm" rows="2"></textarea>
+			  </div>
+			  <div class="form-row">
+			    <div class="form-group col-md-6">
+				  <label class="text-primary">Kota Lain</label>
+				  <input name="customer_city_other" class="form-control form-control-sm">
+			    </div>
+				<div class="form-group col-md-6">
+				  <label class="text-primary">No. Telepon Lain</label>
+				  <input name="customer_phone_other" class="form-control form-control-sm">
+			    </div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="modal-footer bg-light">
+		  <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Simpan</button>
+		  <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
+		</div>
+	  </form>
+	</div>
+  </div>
 </div>
