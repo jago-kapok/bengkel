@@ -38,7 +38,7 @@
 	/* ============================================================== */
 	
 	<!-- $('input').prop('autocomplete','off'); -->
-  		
+	
 	/* ============================================================== */
 	/* Fungsi input hanya nomer										= */
 	/* ============================================================== */
@@ -223,7 +223,8 @@
 	/* Fungsi get data customer										= */
 	/* ============================================================== */
 	
-	$('input[name=customer_id]').change(function(){
+	$('input[name=customer_code]').change(function(){
+	  $('input[name=customer_id]').empty();
 	  $('input[name=customer_name]').empty();
 	  $('input[name=customer_phone]').empty();
 	  $('input[name=customer_city]').empty();
@@ -232,6 +233,7 @@
 	  
 	  $.getJSON("{{ @BASE.'/customer/get-data/' }}" + this.value, function(data){
 		$.each(data, function(key, value){
+		  $('input[name=customer_id]').val(value.customer_id);
 		  $('input[name=customer_name]').val(value.customer_name);
 		  $('input[name=customer_phone]').val(value.customer_phone);
 		  $('input[name=customer_city]').val(value.customer_city);

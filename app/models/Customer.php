@@ -111,14 +111,15 @@ class Customer extends DB\SQL\Mapper {
 		$this->update();
 	}
 	
-	public function getData($customer_id){
+	public function getData($customer_code){
 		$output = array();
 		
-		$this->load(array('customer_id = ?', $customer_id));
+		$this->load(array('customer_code = ?', $customer_code));
 		$query = $this->query;
 			
 		foreach($query as $data){
 			$output[] = array(
+				"customer_id" => $data['customer_id'],
 				"customer_name" => $data['customer_name'],
 				"customer_address" => $data['customer_address'],
 				"customer_phone" => $data['customer_phone'],

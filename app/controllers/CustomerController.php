@@ -19,10 +19,10 @@ class CustomerController extends Controller {
 	}
 	
 	public function get_data(){
-		$customer_id = $this->f3->get('PARAMS.customer_id');
+		$customer_code = $this->f3->get('PARAMS.customer_code');
 				
 		$customer = new Customer($this->db);
-		die($customer->getData($customer_id));
+		die($customer->getData($customer_code));
 	}
 	
 	public function create(){

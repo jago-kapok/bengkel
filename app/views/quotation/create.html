@@ -1,23 +1,26 @@
-<div class="card card-primary card-outline">
+<div class="">
   <form action="{{ @BASE.'/quotation/create' }}" method="POST" enctype="multipart/form-data">
-    <div class="card-body">
+    <div class="">
 	  <div class="row">
 		<div class="col-md-2">
-		  <div class="form-group">
-			<label>No. Penawaran</label>
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">No. :</span>
+			</div>
 			<input name="quotation_number" class="form-control form-control-sm form-app" value="0000001/2020" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2 offset-6">
 		  <div class="form-group">
-			<label>Tgl. Penawaran</label>
 			<input type="date" name="quotation_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2">
-		  <div class="form-group">
-			<label>Tgl. Tanda Terima</label>
-			<input type="date" name="quotation_date_received" class="form-control form-control-sm form-app">
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">TT</span>
+			</div>
+			<input type="date" name="quotation_date_received" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. Tanda Terima">
 		  </div>
 		</div>
 	  </div>
@@ -25,25 +28,22 @@
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<label>ID Pelanggan</label>
-			<input name="customer_id" class="form-control form-control-sm form-app" list="data-customer">
+			<input name="customer_code" class="form-control form-control-sm form-app" list="data-customer" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID Pelanggan">
+			<input type="hidden" name="customer_id" class="form-control form-control-sm form-app">
 		  </div>
 		</div>
 		<div class="col-md-6">
 		  <div class="form-group">
-			<label>Nama Pelanggan</label>
 			<input name="customer_name" class="form-control form-control-sm form-app" placeholder="Nama Pelanggan" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2">
 		  <div class="form-group">
-			<label>No. Telepon</label>
 			<input name="customer_phone" class="form-control form-control-sm form-app" placeholder="No. Telepon" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2">
 		  <div class="form-group">
-			<label>Kota</label>
 			<input name="customer_city" class="form-control form-control-sm form-app" placeholder="Kota" readonly>
 		  </div>
 		</div>
@@ -64,37 +64,32 @@
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<label>Model</label>
-			<input name="customer_model" class="form-control form-control-sm form-app">
+			<input name="customer_model" class="form-control form-control-sm form-app" placeholder="Model" data-toggle="tooltip" title="Model">
 		  </div>
 		</div>
 		<div class="col-md-2">
 		  <div class="form-group">
-			<label>Engine</label>
-			<input name="customer_engine" class="form-control form-control-sm form-app">
+			<input name="customer_engine" class="form-control form-control-sm form-app" placeholder="Engine" data-toggle="tooltip" title="Engine">
 		  </div>
 		</div>
 		<div class="col-md-3">
 		  <div class="form-group">
-			<label>Pump Assy</label>
-			<input name="customer_pump_assy" class="form-control form-control-sm form-app">
+			<input name="customer_pump_assy" class="form-control form-control-sm form-app" placeholder="Pump Assy" data-toggle="tooltip" title="Pump Assy">
 		  </div>
 		</div>
 		<div class="col-md-3">
 		  <div class="form-group">
-			<label>PO / WO</label>
-			<input name="customer_po_wo" class="form-control form-control-sm form-app">
+			<input name="customer_po_wo" class="form-control form-control-sm form-app" placeholder="PO/WO" data-toggle="tooltip" title="PO/WO">
 		  </div>
 		</div>
 		<div class="col-md-2">
 		  <div class="form-group">
-			<label>S/N</label>
-			<input name="customer_serial_number" class="form-control form-control-sm form-app">
+			<input name="customer_serial_number" class="form-control form-control-sm form-app" placeholder="S/N" data-toggle="tooltip" title="S/N">
 		  </div>
 		</div>
 	  </div>
 	  
-	  <div class="row">
+	  <div class="row mr-0 ml-0">
 		<table class="table table-bordered table-responsive">
 		  <thead>
 			<tr class="bg-info" style="color:black">
@@ -120,7 +115,7 @@
 			  <td><input class="number-only" style="width:100px"></td>
 			  <td><input class="number-only" style="width:100px"></td>
 			  <td><input class="number-only" style="width:100px"></td>
-			  <td><input style="width:100px"></td>
+			  <td><input style="width:95px"></td>
 			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<tr>
@@ -132,7 +127,7 @@
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:95px" readonly></td>
 			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<tr>
@@ -144,7 +139,8 @@
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:95px" readonly></td>
+			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<tr>
 			  <td><input class="readonly" style="width:100px" readonly></td>
@@ -155,7 +151,8 @@
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:95px" readonly></td>
+			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<tr>
 			  <td><input class="readonly" style="width:100px" readonly></td>
@@ -166,7 +163,8 @@
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:95px" readonly></td>
+			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<tr>
 			  <td><input class="readonly" style="width:100px" readonly></td>
@@ -177,7 +175,8 @@
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:95px" readonly></td>
+			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<tr>
 			  <td><input class="readonly" style="width:100px" readonly></td>
@@ -188,7 +187,8 @@
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:95px" readonly></td>
+			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<tr>
 			  <td><input class="readonly" style="width:100px" readonly></td>
@@ -199,29 +199,8 @@
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
 			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			</tr>
-			<tr>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:250px" readonly></td>
-			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			</tr>
-			<tr>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:250px" readonly></td>
-			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
+			  <td><input class="readonly" style="width:95px" readonly></td>
+			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
 			</tr>
 		  </tbody>
 		</table>
@@ -314,7 +293,7 @@
 		</div>
 	  </div>
 	</div>
-	<div class="card-footer bg-secondary">
+	<div class="card-footer">
 	  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form"><b>Simpan</b></button>
 	  <a href="../../user" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
 	</div>
@@ -323,6 +302,6 @@
 
 <datalist id="data-customer">
 <repeat group="{{ @data_customer }}" value="{{ $customer }}">
-  <option value="{{ @customer.customer_id }}">{{ @customer.customer_code }} | {{ @customer.customer_name }}
+  <option value="{{ @customer.customer_code }}">{{ @customer.customer_code }} | {{ @customer.customer_name }}
 </repeat>
 </datalist>

@@ -47,27 +47,39 @@ select.form-control:not([size]):not([multiple]) {
 	background-color: #e9ecef;
 }
 .form-app {
-	height: 25px;
-	padding: 1px 5px;
-	font-size: 12px
+	height: 20px;
+	padding: 0px 5px;
+	font-size: 11px
 }
 .form-group {
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
 label {
 	margin-bottom: 0px;
 }
 input {
 	border: 1px solid #c5cbd0;
+	text-transform: uppercase;
 }
 .table:not(.table-sm):not(.table-md):not(.dataTable) th, .table:not(.table-sm):not(.table-md):not(.dataTable) td {
-	height: 30px;
-	font-size: 12px;
+	height: 25px;
+	font-size: 11px;
 	text-align: center;
 	color: black;
 	padding: 0px 5px;
 	border: 1px solid #858585
 }
 .readonly {
+	background-color: #e9ecef;
+}
+.table td, .table th {
+	padding: 5px 10px;
+	vertical-align: middle;
+}
+.table-striped tbody tr:nth-of-type(2n+1) {
+	background-color: #f0f0f0;
+}
+.input-group > .input-group-prepend > .input-group-text {
+	border-color: #cccccc;
 	background-color: #e9ecef;
 }
