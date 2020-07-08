@@ -23,11 +23,30 @@ class QuotationController extends Controller {
 			$quotation = new Quotation($this->db);
 			$quotation->add();
 			
-			\Flash::instance()->addMessage('Berhasil membuat penawaran "'.$this->f3->get('POST.quotation_number').'"', 'success');
-			$this->f3->reroute('/quotation/view/'.$quotation->quotation_id);
+			$quotation_detail = new QuotationDetail($this->db);
+			$quotation_detail->add($quotation->quotation_id);
+			
+			// \Flash::instance()->addMessage('Berhasil membuat penawaran "'.$this->f3->get('POST.quotation_number').'"', 'success');
+			// $this->f3->reroute('/quotation/view/'.$quotation->quotation_id);
 		} else {
+			$current = '/'.date("Y");
+			$query = $this->db->exec("SELECT MAX(quotation_number) AS last FROM quotation WHERE quotation_number LIKE '%$current'");
+			foreach($query as $result){
+				$last = $result['last'];
+			}
+			$lastNo = substr($last, 0, 7);
+			$nextNo = $lastNo + 1;
+			$quotation_no = sprintf('%07s', $nextNo).$current;
+			$this->f3->set('quotation_number',$quotation_no);
+			
 			$customer = new Customer($this->db);
 			$this->f3->set('data_customer', $customer->getAll());
+			
+			$model = new Model($this->db);
+			$this->f3->set('data_model', $model->getAll());
+			
+			$item = new Item($this->db);
+			$this->f3->set('data_item', $item->getAll());
 			
 			$this->f3->set('page_title','Penawaran Baru');
 			$this->f3->set('header','header/header.html');

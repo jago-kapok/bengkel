@@ -18,6 +18,13 @@ class ItemController extends Controller {
 		die($item->data($draw, $length, $offset, $search));
 	}
 	
+	public function get_data(){
+		$item_code = $this->f3->get('PARAMS.item_code');
+				
+		$item = new Item($this->db);
+		die($item->getData($item_code));
+	}
+	
 	public function create(){
 		if($this->f3->exists('POST.create')){
 			$item = new Item($this->db);

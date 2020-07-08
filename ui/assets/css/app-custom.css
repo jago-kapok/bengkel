@@ -31,6 +31,11 @@ select.form-control:not([size]):not([multiple]) {
 	height: 30px;
 	padding: 5px;
 }
+select.form-control:not([size]):not([multiple]).form-app {
+	height: 20px;
+	padding: 0px;
+	font-size: 11px
+}
 .btn-form {
 	width: 100px;
 }
@@ -41,10 +46,10 @@ select.form-control:not([size]):not([multiple]) {
 	color: white;
 }
 .form-control {
-	border: 1px solid #cccccc;
+	border: 1px solid #858585;
 }
-.form-control[readonly]:focus {
-	background-color: #e9ecef;
+.form-control[readonly], .form-control[readonly]:focus {
+	background-color: #f4f6f9;
 }
 .form-app {
 	height: 20px;
@@ -58,7 +63,7 @@ label {
 	margin-bottom: 0px;
 }
 input {
-	border: 1px solid #c5cbd0;
+	border: 1px solid #cccccc;
 	text-transform: uppercase;
 }
 .table:not(.table-sm):not(.table-md):not(.dataTable) th, .table:not(.table-sm):not(.table-md):not(.dataTable) td {
@@ -70,7 +75,7 @@ input {
 	border: 1px solid #858585
 }
 .readonly {
-	background-color: #e9ecef;
+	background-color: #f4f6f9;
 }
 .table td, .table th {
 	padding: 5px 10px;
@@ -80,6 +85,21 @@ input {
 	background-color: #f0f0f0;
 }
 .input-group > .input-group-prepend > .input-group-text {
-	border-color: #cccccc;
-	background-color: #e9ecef;
+	border-color: #858585;
+	background-color: #c2c3c4;
+}
+.form-control::-webkit-input-placeholder{
+	color:#9f9f9f;opacity:1
+}
+.form-control::-moz-placeholder{
+	color:#9f9f9f;opacity:1
+}
+.form-control:-ms-input-placeholder{
+	color:#9f9f9f;opacity:1
+}
+.form-control::-ms-input-placeholder{
+	color:#9f9f9f;opacity:1
+}
+.form-control::placeholder{
+	color:#9f9f9f;opacity:1
 }

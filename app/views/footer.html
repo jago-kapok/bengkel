@@ -8,6 +8,7 @@
   <script src="../../ui/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../../ui/assets/js/jquery.nicescroll.min.js"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script> -->
+  <script src="../../ui/assets/js/jquery.number.min.js"></script>
   <!-- DataTables -->
   <script src="../../ui/assets/plugins/datatables/jquery.dataTables.js"></script>
   <script src="../../ui/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -38,6 +39,12 @@
 	/* ============================================================== */
 	
 	<!-- $('input').prop('autocomplete','off'); -->
+	
+	/* ============================================================== */
+	/* Inisialisasi Jquery number pada class money-mask				= */
+	/* ============================================================== */
+	
+	$('.number-only').number(true);
 	
 	/* ============================================================== */
 	/* Fungsi input hanya nomer										= */
@@ -243,6 +250,80 @@
 	  });
 	});
 	
+	/* ============================================================== */
+	/* Fungsi get data item											= */
+	/* ============================================================== */
+	
+	function getData(id, val){
+	  $('#item_part_no_' + id).empty();
+	  $('#item_desc_' + id).empty();
+	  $('#item_price_' + id).empty();
+	  $('#item_brand_' + id).empty();
+	  
+	  $.getJSON("{{ @BASE.'/item/get-data/' }}" + val, function(data){
+		$.each(data, function(key, value){
+		  $('#item_part_no_' + id).val(value.item_part_no);
+		  $('#item_desc_' + id).val(value.item_desc);
+		  $('#item_price_' + id).val(new Intl.NumberFormat().format(value.item_price));
+		  $('#item_price_temp_' + id).val(value.item_price);
+		  $('#item_brand_' + id).val(value.item_brand_1);
+		});
+	  });
+	  
+	  $('#item_part_no_' + id).attr('readonly', true);
+	  $('#item_desc_' + id).attr('readonly', true);
+	  $('#item_price_' + id).attr('readonly', true);
+	  $('#item_amount_' + id).attr('readonly', true);
+	  
+	  $('#item_part_no_' + id).addClass('readonly');
+	  $('#item_desc_' + id).addClass('readonly');
+	  $('#item_price_' + id).addClass('readonly');
+	  $('#item_amount_' + id).addClass('readonly');
+	  
+	  $('#item_qty_' + id).focus();
+	}
+	
+	/* ============================================================== */
+	/* Fungsi total													= */
+	/* ============================================================== */
+	
+	function getTotal(id, val){
+	  let item_price = $('#item_price_temp_' + id).val();
+	  $('#item_amount_' + id).val(new Intl.NumberFormat().format(val * item_price));
+	  $('#item_amount_temp_' + id).val(val * item_price);
+	}
+	
+	/* ============================================================== */
+	/* Fungsi total	part											= */
+	/* ============================================================== */
+	
+	$(".number-only").on("keyup", function(){
+	  let = total = 0;
+	  $(".amount").each(function(){
+		if($(this).val() !== ""){
+		  total += parseInt($(this).val(), 10);
+		}
+	  });
+
+	  $("#quotation_part_charge").html(new Intl.NumberFormat().format(total));
+	  $("input[name=quotation_part_charge").val(total);
+	  
+	  $("#quotation_total").html(new Intl.NumberFormat().format(total));
+	  $("input[name=quotation_total").val(total);
+	});
+	
+	/* ============================================================== */
+	/* Fungsi total	keseluruhan										= */
+	/* ============================================================== */
+	
+	$("input[name=quotation_service_charge]").on("keyup", function(){
+	  let quotation_part_charge = $("input[name=quotation_part_charge]").val();
+	  let total = parseInt(this.value) + parseInt(quotation_part_charge);
+	  
+	  $("#quotation_total").html(new Intl.NumberFormat().format(total));
+	  $("input[name=quotation_total").val(total);
+	});
+
 	/* ============================================================== */
 	/* Fungsi Notifikasi											= */
 	/* ============================================================== */

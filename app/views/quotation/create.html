@@ -7,12 +7,13 @@
 			<div class="input-group-prepend">
 			  <span class="input-group-text form-app">No. :</span>
 			</div>
-			<input name="quotation_number" class="form-control form-control-sm form-app" value="0000001/2020" readonly>
+			<input name="quotation_number" class="form-control form-control-sm form-app" value="{{ @quotation_number }}" readonly>
+			<input type="hidden" name="quotation_status" value="1">
 		  </div>
 		</div>
 		<div class="col-md-2 offset-6">
 		  <div class="form-group">
-			<input type="date" name="quotation_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" readonly>
+			<input type="date" name="" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2">
@@ -20,7 +21,7 @@
 			<div class="input-group-prepend">
 			  <span class="input-group-text form-app">TT</span>
 			</div>
-			<input type="date" name="quotation_date_received" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. Tanda Terima">
+			<input type="date" name="quotation_date_received" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. Tanda Terima" required>
 		  </div>
 		</div>
 	  </div>
@@ -28,7 +29,7 @@
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="customer_code" class="form-control form-control-sm form-app" list="data-customer" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID Pelanggan">
+			<input name="customer_code" class="form-control form-control-sm form-app" list="data-customer" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID Pelanggan" required>
 			<input type="hidden" name="customer_id" class="form-control form-control-sm form-app">
 		  </div>
 		</div>
@@ -64,27 +65,32 @@
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="customer_model" class="form-control form-control-sm form-app" placeholder="Model" data-toggle="tooltip" title="Model">
+			<select name="quotation_model" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Model">
+			  <option disabled selected>-- Pilih Model --</option>
+			  <repeat group="{{ @data_model }}" value="{{ $model }}">
+				<option value="{{ @model.model_desc }}">{{ @model.model_code }} | {{ @model.model_desc }}</option>
+			  </repeat>
+			</select>
 		  </div>
 		</div>
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="customer_engine" class="form-control form-control-sm form-app" placeholder="Engine" data-toggle="tooltip" title="Engine">
+			<input name="quotation_engine" class="form-control form-control-sm form-app" placeholder="Engine" data-toggle="tooltip" title="Engine">
 		  </div>
 		</div>
 		<div class="col-md-3">
 		  <div class="form-group">
-			<input name="customer_pump_assy" class="form-control form-control-sm form-app" placeholder="Pump Assy" data-toggle="tooltip" title="Pump Assy">
+			<input name="quotation_pump_assy" class="form-control form-control-sm form-app" placeholder="Pump Assy" data-toggle="tooltip" title="Pump Assy">
 		  </div>
 		</div>
 		<div class="col-md-3">
 		  <div class="form-group">
-			<input name="customer_po_wo" class="form-control form-control-sm form-app" placeholder="PO/WO" data-toggle="tooltip" title="PO/WO">
+			<input name="quotation_po_wo" class="form-control form-control-sm form-app" placeholder="PO/WO" data-toggle="tooltip" title="PO/WO">
 		  </div>
 		</div>
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="customer_serial_number" class="form-control form-control-sm form-app" placeholder="S/N" data-toggle="tooltip" title="S/N">
+			<input name="quotation_serial_number" class="form-control form-control-sm form-app" placeholder="S/N" data-toggle="tooltip" title="S/N">
 		  </div>
 		</div>
 	  </div>
@@ -106,102 +112,37 @@
 			</tr>
 		  </thead>
 		  <tbody>
+			<loop from="{{ @i=0 }}" to="{{ @i < 8 }}" step="{{ @i++ }}">
 			<tr>
-			  <td><input style="width:100px"></td>
-			  <td><input style="width:100px"></td>
-			  <td><input style="width:250px"></td>
-			  <td><input class="number-only" style="width:50px"></td>
-			  <td><input class="number-only" style="width:50px"></td>
-			  <td><input class="number-only" style="width:100px"></td>
-			  <td><input class="number-only" style="width:100px"></td>
-			  <td><input class="number-only" style="width:100px"></td>
-			  <td><input style="width:95px"></td>
+			  <td>
+			    <select id="{{ @i }}" name="data[{{ @i }}][quotation_detail_item_code]" style="width:100px" onchange="return getData(this.id, this.value)">
+				  <option disabled selected></option>
+				  <repeat group="{{ @data_item }}" value="{{ $item }}">
+					<option value="{{ @item.item_code }}">{{ @item.item_code }}</option>
+				  </repeat>
+				</select>
+			  </td>
+			  <td>
+			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_part_no]" style="width:100px">
+			  </td>
+			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_desc]" style="width:250px"></td>
+			  <td>
+			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][quotation_detail_qty]" class="number-only" style="width:50px" onkeyup="return getTotal({{ @i }}, this.value)">
+			  </td>
+			  <td><input name="data[{{ @i }}][quotation_detail_qty_up]" class="number-only" style="width:50px"></td>
+			  <td>
+			    <input id="item_price_{{ @i }}" class="number-only readonly " style="width:100px" readonly>
+			    <input type="hidden" id="item_price_temp_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]">
+			  </td>
+			  <td><input name="data[{{ @i }}][quotation_detail_unit_price_up]" class="number-only" style="width:100px"></td>
+			  <td>
+			    <input id="item_amount_{{ @i }}" class="number-only readonly" style="width:100px" readonly>
+			    <input type="hidden" id="item_amount_temp_{{ @i }}" name="data[{{ @i }}][quotation_detail_amount]" class="amount">
+			  </td>
+			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][quotation_detail_brand]" style="width:95px"></td>
 			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
 			</tr>
-			<tr>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:250px" readonly></td>
-			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:95px" readonly></td>
-			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
-			</tr>
-			<tr>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:250px" readonly></td>
-			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:95px" readonly></td>
-			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
-			</tr>
-			<tr>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:250px" readonly></td>
-			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:95px" readonly></td>
-			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
-			</tr>
-			<tr>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:250px" readonly></td>
-			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:95px" readonly></td>
-			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
-			</tr>
-			<tr>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:250px" readonly></td>
-			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:95px" readonly></td>
-			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
-			</tr>
-			<tr>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:250px" readonly></td>
-			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:95px" readonly></td>
-			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
-			</tr>
-			<tr>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:250px" readonly></td>
-			  <td><input class="readonly" class="number-only" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:50px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="number-only readonly" style="width:100px" readonly></td>
-			  <td><input class="readonly" style="width:95px" readonly></td>
-			  <td><a href="#" class="text-danger"><i class="fa fa-trash"></i></a></td>
-			</tr>
+			</loop>
 		  </tbody>
 		</table>
 	  </div>
@@ -214,38 +155,12 @@
 			  <input name="quotation_nozzle" class="form-control form-control-sm form-app">
 			</div>
 		  </div>
-		</div>
-		<div class="col-md-3">
-		  <div class="form-group row">
-			<label class="col-md-4">Part</label>
-			<div class="col-md-8">
-			  <input name="quotation_part_charge" class="form-control form-control-sm form-app">
-			</div>
-		  </div>
-		</div>
-	  </div>
-	  
-	  <div class="row">
-		<div class="col-md-9">
 		  <div class="form-group row">
 			<label class="col-md-2">Keterangan</label>
 			<div class="col-md-8">
 			  <input name="quotation_note_1" class="form-control form-control-sm form-app">
 			</div>
 		  </div>
-		</div>
-		<div class="col-md-3">
-		  <div class="form-group row">
-			<label class="col-md-4">Diskon</label>
-			<div class="col-md-8">
-			  <input name="quotation_discount" class="form-control form-control-sm form-app">
-			</div>
-		  </div>
-		</div>
-	  </div>
-	  
-	  <div class="row">
-		<div class="col-md-9">
 		  <div class="form-group row">
 			<label class="col-md-2"></label>
 			<div class="col-md-8">
@@ -253,43 +168,41 @@
 			</div>
 		  </div>
 		</div>
+		
 		<div class="col-md-3">
-		  <div class="form-group row">
-			<label class="col-md-4">Servis</label>
-			<div class="col-md-8">
-			  <input name="quotation_service_charge" class="form-control form-control-sm form-app">
-			</div>
-		  </div>
-		</div>
-	  </div>
-	  
-	  <div class="row">
-		<div class="col-md-9">
-		  <div class="form-group row">
-			<label class="col-md-2">Terbilang</label>
-			<div class="col-md-8">
-			  <input name="" class="form-control form-control-sm form-app" readonly>
-			</div>
-		  </div>
-		</div>
-		<div class="col-md-3">
-		  <div class="form-group row">
-			<label class="col-md-4">PPN</label>
-			<div class="col-md-8">
-			  <input name="quotation_ppn" class="form-control form-control-sm form-app">
-			</div>
-		  </div>
-		</div>
-	  </div>
-	  
-	  <div class="row">
-		<div class="col-md-3 offset-9">
-		  <div class="form-group row">
-			<label class="col-md-4">Total</label>
-			<div class="col-md-8">
-			  <input name="quotation_total" class="form-control form-control-sm form-app">
-			</div>
-		  </div>
+		  <table class="table table-bordered table-striped">
+			<tr>
+			  <th class="col-md-6">PART</th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td class="col-md-6" style="text-align:right">
+				<b><span id="quotation_part_charge"></span></b>
+			    <input type="hidden" name="quotation_part_charge">
+			  </td>
+			</tr>
+			<tr>
+			  <th>DISKON</th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td><input name="quotation_discount" class="number-only" style="width:125px"></td>
+			</tr>
+			<tr>
+			  <th>SERVICE</th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td><input name="quotation_service_charge" class="number-only" style="width:125px"></td>
+			</tr>
+			<tr>
+			  <th>PPN</th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td><input name="quotation_ppn" class="number-only" style="width:125px"></td>
+			</tr>
+			<tr>
+			  <th>TOTAL</th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td style="text-align:right">
+			    <b><span id="quotation_total"></span></b>
+			    <input type="hidden" name="quotation_total">
+			  </td>
+			</tr>
+		  </table>
 		</div>
 	  </div>
 	</div>

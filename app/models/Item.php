@@ -70,6 +70,11 @@ class Item extends DB\SQL\Mapper {
 		echo json_encode($output);
 	}
 	
+	public function getAll(){
+		$this->load();
+		return $this->query;
+	}
+	
 	public function add($item_image){
 		$this->item_image = $item_image;
 		$this->copyFrom('POST');
@@ -87,4 +92,22 @@ class Item extends DB\SQL\Mapper {
 		$this->copyFrom('POST');
 		$this->update();
 	}
+	
+	public function getData($item_code){
+		$output = array();
+		
+		$this->load(array('item_code = ?', $item_code));
+		$query = $this->query;
+			
+		foreach($query as $data){
+			$output[] = array(
+				"item_part_no" => $data['item_part_no'],
+				"item_desc" => $data['item_desc'],
+				"item_price" => $data['item_price'],
+				"item_brand_1" => $data['item_brand_1']
+			);
+		}
+		
+		echo json_encode($output);
+    }
 }

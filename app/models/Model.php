@@ -50,6 +50,11 @@ class Model extends DB\SQL\Mapper {
 		echo json_encode($output);
 	}
 	
+	public function getAll(){
+		$this->load();
+		return $this->query;
+	}
+	
 	public function add(){
 		$this->copyFrom('POST');
 		$this->save();
