@@ -13,7 +13,7 @@ class Quotation extends DB\SQL\Mapper {
 		$output['recordsTotal'] = $output['recordsFiltered'] = $total;
 		$output['data'] = array();
 		
-		$query = $this->db->exec("SELECT * FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
+		$query = $this->db->exec("SELECT quotation.*, invoice.invoice_number AS invoice_number FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
 			quotation_number LIKE ? OR
 			customer_name LIKE ? OR
 			invoice_number LIKE ? ORDER BY quotation.quotation_id DESC LIMIT ? OFFSET ?",
@@ -50,7 +50,6 @@ class Quotation extends DB\SQL\Mapper {
 				$data['customer_name'],
 				number_format($data['quotation_part_charge'] + $data['quotation_service_charge']),
 				$data['invoice_number'],
-				date('d/m/Y', strtotime($data['invoice_date'])),
 				$data['quotation_id']
 			);
 		}
@@ -66,6 +65,10 @@ class Quotation extends DB\SQL\Mapper {
 	public function getById($quotation_id){
 		$this->load(array('quotation_id = ?', $quotation_id));
 		$this->copyTo('POST');
+	}
+	
+	public function getViewById($quotation_id){
+		$query = $this->db->exec("SELECT * FROM quotation JOIN quotation_detail ON quotation.quotation_id = quotation_detail.quotation_id")
 	}
 	
 	public function edit($quotation_id){

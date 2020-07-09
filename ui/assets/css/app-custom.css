@@ -64,7 +64,10 @@ label {
 }
 input {
 	border: 1px solid #cccccc;
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
+}
+input:focus {
+	border: 1px solid #95a0f4;
 }
 .table:not(.table-sm):not(.table-md):not(.dataTable) th, .table:not(.table-sm):not(.table-md):not(.dataTable) td {
 	height: 25px;

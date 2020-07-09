@@ -290,7 +290,25 @@
 	function getTotal(id, val){
 	  let item_price = $('#item_price_temp_' + id).val();
 	  $('#item_amount_' + id).val(new Intl.NumberFormat().format(val * item_price));
-	  $('#item_amount_temp_' + id).val(val * item_price);
+	}
+	
+	/* ============================================================== */
+	/* Fungsi clear row												= */
+	/* ============================================================== */
+	
+	function clearRow(id){
+	  $('#item_' + id + ' input').val("");
+	  $('#item_' + id + ' select').val("");
+	  
+	  $('#item_part_no_' + id).attr('readonly', false);
+	  $('#item_desc_' + id).attr('readonly', false);
+	  $('#item_price_' + id).attr('readonly', false);
+	  $('#item_amount_' + id).attr('readonly', false);
+	  
+	  $('#item_part_no_' + id).removeClass('readonly');
+	  $('#item_desc_' + id).removeClass('readonly');
+	  $('#item_price_' + id).removeClass('readonly');
+	  $('#item_amount_' + id).removeClass('readonly');
 	}
 	
 	/* ============================================================== */
@@ -304,24 +322,26 @@
 		  total += parseInt($(this).val(), 10);
 		}
 	  });
+	  
+	  if($(this).val() == ""){
+		$(this).val(0);
+	  }
 
 	  $("#quotation_part_charge").html(new Intl.NumberFormat().format(total));
 	  $("input[name=quotation_part_charge").val(total);
 	  
 	  $("#quotation_total").html(new Intl.NumberFormat().format(total));
 	  $("input[name=quotation_total").val(total);
-	});
-	
-	/* ============================================================== */
-	/* Fungsi total	keseluruhan										= */
-	/* ============================================================== */
-	
-	$("input[name=quotation_service_charge]").on("keyup", function(){
-	  let quotation_part_charge = $("input[name=quotation_part_charge]").val();
-	  let total = parseInt(this.value) + parseInt(quotation_part_charge);
 	  
-	  $("#quotation_total").html(new Intl.NumberFormat().format(total));
-	  $("input[name=quotation_total").val(total);
+	  // Total keseluruhan
+	  let quotation_part_charge = $("input[name=quotation_part_charge]").val();
+	  let quotation_discount = $("input[name=quotation_discount]").val();
+	  let quotation_service_charge = $("input[name=quotation_service_charge]").val();
+	  
+	  let grand_total = parseInt(quotation_part_charge) + parseInt(quotation_service_charge) + parseInt(quotation_discount);
+	  
+	  $("#quotation_total").html(new Intl.NumberFormat().format(grand_total));
+	  $("input[name=quotation_total").val(grand_total);
 	});
 
 	/* ============================================================== */

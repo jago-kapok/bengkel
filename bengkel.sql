@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2020 at 12:16 PM
+-- Generation Time: Jul 09, 2020 at 11:59 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -91,7 +91,8 @@ CREATE TABLE `invoice_detail` (
   `invoice_detail_unit_price` int(11) DEFAULT NULL,
   `invoice_detail_unit_price_up` int(11) DEFAULT NULL,
   `invoice_detail_amount` double DEFAULT NULL,
-  `invoice_detail_brand` varchar(20) DEFAULT NULL
+  `invoice_detail_brand` varchar(20) DEFAULT NULL,
+  `invoice_detail_profit` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -198,7 +199,8 @@ CREATE TABLE `model` (
 
 INSERT INTO `model` (`model_id`, `model_code`, `model_desc`) VALUES
 (1, '01', 'FIP'),
-(2, '02', 'ROTARY');
+(2, '02', 'ROTARY'),
+(3, '03-A', 'BAN LUAR');
 
 -- --------------------------------------------------------
 
@@ -210,7 +212,7 @@ CREATE TABLE `quotation` (
   `quotation_id` int(11) NOT NULL,
   `customer_id` int(11) DEFAULT NULL,
   `quotation_number` varchar(15) DEFAULT NULL,
-  `quotation_date` datetime DEFAULT NULL,
+  `quotation_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `quotation_received_date` datetime DEFAULT NULL,
   `quotation_model` varchar(25) DEFAULT NULL,
   `quotation_engine` varchar(45) DEFAULT NULL,
@@ -225,8 +227,81 @@ CREATE TABLE `quotation` (
   `quotation_note_1` text,
   `quotation_note_2` text,
   `quotation_status` int(11) DEFAULT NULL,
+  `quotation_total` double DEFAULT NULL,
   `quotation_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `quotation`
+--
+
+INSERT INTO `quotation` (`quotation_id`, `customer_id`, `quotation_number`, `quotation_date`, `quotation_received_date`, `quotation_model`, `quotation_engine`, `quotation_serial_number`, `quotation_part_charge`, `quotation_service_charge`, `quotation_discount`, `quotation_ppn`, `quotation_po_wo`, `quotation_pump_assy`, `quotation_nozzle`, `quotation_note_1`, `quotation_note_2`, `quotation_status`, `quotation_total`, `quotation_by`) VALUES
+(1, 1, '0000001/2020', '2020-07-07 17:00:00', '2020-07-06 00:00:00', 'FIP', 'ENGINE', 'SN', 250000, 10000, 0, 0, 'POWO', 'PUMP', 'nozzle', 'ket 1', 'ket 2', 1, 260000, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quotation_detail`
+--
+
+CREATE TABLE `quotation_detail` (
+  `quotation_detail_id` int(11) NOT NULL,
+  `quotation_id` int(11) DEFAULT NULL,
+  `quotation_detail_item_code` varchar(25) DEFAULT NULL,
+  `quotation_detail_item_part_no` varchar(25) DEFAULT NULL,
+  `quotation_detail_item_desc` varchar(40) DEFAULT NULL,
+  `quotation_detail_qty` int(11) DEFAULT NULL,
+  `quotation_detail_qty_up` int(11) DEFAULT NULL,
+  `quotation_detail_unit_price` int(11) DEFAULT NULL,
+  `quotation_detail_unit_price_up` int(11) DEFAULT NULL,
+  `quotation_detail_amount` double DEFAULT NULL,
+  `quotation_detail_brand` varchar(20) DEFAULT NULL,
+  `quotation_detail_profit` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `quotation_detail`
+--
+
+INSERT INTO `quotation_detail` (`quotation_detail_id`, `quotation_id`, `quotation_detail_item_code`, `quotation_detail_item_part_no`, `quotation_detail_item_desc`, `quotation_detail_qty`, `quotation_detail_qty_up`, `quotation_detail_unit_price`, `quotation_detail_unit_price_up`, `quotation_detail_amount`, `quotation_detail_brand`, `quotation_detail_profit`) VALUES
+(1, 1, '29639', '150S6705', 'NOZZLE', 1, 0, 50000, 0, 50000, '', NULL),
+(2, 1, '4682110000', '468211-0000', 'MAJOT KIT', 2, 0, 100000, 0, 200000, '', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quotation_file`
+--
+
+CREATE TABLE `quotation_file` (
+  `quotation_file_id` int(11) NOT NULL,
+  `quotation_id` int(11) DEFAULT NULL,
+  `quotation_file_receipt` text,
+  `quotation_file_delivery` text,
+  `quotation_file_fip` text,
+  `quotation_file_delivery_cancel` text,
+  `quotation_file_fip_agreement` text,
+  `quotation_file_po_wo` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status`
+--
+
+CREATE TABLE `status` (
+  `status_id` int(11) NOT NULL,
+  `status_desc` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `status`
+--
+
+INSERT INTO `status` (`status_id`, `status_desc`) VALUES
+(1, '-'),
+(2, 'BATAL');
 
 -- --------------------------------------------------------
 
@@ -289,7 +364,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `user_fullname`, `user_name`, `user_password`, `user_level`, `user_image`, `user_last_login`) VALUES
 (1, 'Administrator', 'admin', NULL, 1, 'Administrator.png', NULL),
-(2, 'User', 'user', NULL, 2, 'User.png', NULL);
+(2, 'User', 'user', NULL, 2, 'User.png', NULL),
+(3, 'Other', 'other', NULL, 2, 'Other.png', NULL),
+(4, 'Lain3', 'lain2', NULL, 2, 'Lain2.png', NULL);
 
 --
 -- Indexes for dumped tables
@@ -350,6 +427,24 @@ ALTER TABLE `quotation`
   ADD PRIMARY KEY (`quotation_id`);
 
 --
+-- Indexes for table `quotation_detail`
+--
+ALTER TABLE `quotation_detail`
+  ADD PRIMARY KEY (`quotation_detail_id`);
+
+--
+-- Indexes for table `quotation_file`
+--
+ALTER TABLE `quotation_file`
+  ADD PRIMARY KEY (`quotation_file_id`);
+
+--
+-- Indexes for table `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`status_id`);
+
+--
 -- Indexes for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -404,12 +499,27 @@ ALTER TABLE `level`
 -- AUTO_INCREMENT for table `model`
 --
 ALTER TABLE `model`
-  MODIFY `model_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `model_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `quotation`
 --
 ALTER TABLE `quotation`
-  MODIFY `quotation_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `quotation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `quotation_detail`
+--
+ALTER TABLE `quotation_detail`
+  MODIFY `quotation_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `quotation_file`
+--
+ALTER TABLE `quotation_file`
+  MODIFY `quotation_file_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `status`
+--
+ALTER TABLE `status`
+  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
@@ -419,7 +529,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -26,8 +26,8 @@ class QuotationController extends Controller {
 			$quotation_detail = new QuotationDetail($this->db);
 			$quotation_detail->add($quotation->quotation_id);
 			
-			// \Flash::instance()->addMessage('Berhasil membuat penawaran "'.$this->f3->get('POST.quotation_number').'"', 'success');
-			// $this->f3->reroute('/quotation/view/'.$quotation->quotation_id);
+			\Flash::instance()->addMessage('Berhasil membuat penawaran "'.$this->f3->get('POST.quotation_number').'"', 'success');
+			$this->f3->reroute('/quotation/view/'.$quotation->quotation_id);
 		} else {
 			$current = '/'.date("Y");
 			$query = $this->db->exec("SELECT MAX(quotation_number) AS last FROM quotation WHERE quotation_number LIKE '%$current'");
@@ -83,18 +83,9 @@ class QuotationController extends Controller {
 		}
 	}
 	
-	public function upload($file, $file_name){
-		$web = \Web::instance();
-		$this->f3->set('UPLOADS','ui/assets/img/user/');
-
-		$files = $web->receive(function($file, $formFieldName){
-				return true;
-			},
-			true, // Overwrite file
-			function($fileBaseName, $formFieldName) use ($file_name){
-				$temp = explode(".", $fileBaseName);
-				return $file_name . "." . end($temp);
-			}
-		);
+	public function view(){
+		$this->f3->set('page_title','Lihat Detil Penawaran');
+		$this->f3->set('header','header/header.html');
+        $this->f3->set('view','quotation/view.html');
 	}
 }
