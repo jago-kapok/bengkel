@@ -1,5 +1,6 @@
 <div class="">
   <form action="{{ @BASE.'/quotation/create' }}" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="quotation_status" value="1">
     <div class="">
 	  <div class="row">
 		<div class="col-md-2">
@@ -8,7 +9,6 @@
 			  <span class="input-group-text form-app">No. :</span>
 			</div>
 			<input name="quotation_number" class="form-control form-control-sm form-app" value="{{ @quotation_number }}" readonly>
-			<input type="hidden" name="quotation_status" value="1">
 		  </div>
 		</div>
 		<div class="col-md-2 offset-6">
@@ -98,7 +98,7 @@
 	  <div class="row mr-0 ml-0">
 		<table class="table table-bordered table-responsive">
 		  <thead>
-			<tr class="bg-info" style="color:black">
+			<tr class="bg-primary">
 			  <th class="col-md-1">Kode</th>
 			  <th class="col-md-1">No. Part</th>
 			  <th class="col-md-1">Deskripsi</th>
@@ -106,8 +106,8 @@
 			  <th class="col-md-1">Qty (UP)</th>
 			  <th class="col-md-1">Harga / Unit</th>
 			  <th class="col-md-1">Harga / Unit (UP)</th>
-			  <th class="col-md-1">Total</th>
 			  <th class="col-md-1">Merk</th>
+			  <th class="col-md-1">Total</th>
 			  <th class="col-md-1">#</th>
 			</tr>
 		  </thead>
@@ -135,10 +135,10 @@
 			    <input type="hidden" id="item_price_temp_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price_temp]">
 			  </td>
 			  <td><input name="data[{{ @i }}][quotation_detail_unit_price_up]" class="number-only" style="width:100px"></td>
+			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][quotation_detail_brand]" style="width:95px"></td>
 			  <td>
 			    <input id="item_amount_{{ @i }}" name="data[{{ @i }}][quotation_detail_amount]" class="number-only amount" style="width:100px">
 			  </td>
-			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][quotation_detail_brand]" style="width:95px"></td>
 			  <td>
 			    <a href="javascript:void(0)" class="text-danger" onclick="return clearRow({{ @i }})"><i class="fa fa-trash"></i></a>
 			  </td>

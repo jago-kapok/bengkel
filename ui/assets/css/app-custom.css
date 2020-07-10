@@ -45,6 +45,9 @@ select.form-control:not([size]):not([multiple]).form-app {
 .text-white {
 	color: white;
 }
+.text-left {
+	text-align: left;
+}
 .form-control {
 	border: 1px solid #858585;
 }
@@ -72,7 +75,7 @@ input:focus {
 .table:not(.table-sm):not(.table-md):not(.dataTable) th, .table:not(.table-sm):not(.table-md):not(.dataTable) td {
 	height: 25px;
 	font-size: 11px;
-	text-align: center;
+	text-align: left;
 	color: black;
 	padding: 0px 5px;
 	border: 1px solid #858585
@@ -105,4 +108,17 @@ input:focus {
 }
 .form-control::placeholder{
 	color:#9f9f9f;opacity:1
+}
+.width-75 {
+	width: 75px;
+}
+.width-150 {
+	width: 150px;
+}
+.width-300 {
+	width: 300px;
+}
+.span-app {
+	padding: 5px;
+	font-size: 12px;
 }

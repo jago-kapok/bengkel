@@ -84,7 +84,13 @@ class QuotationController extends Controller {
 	}
 	
 	public function view(){
-		$this->f3->set('page_title','Lihat Detil Penawaran');
+		$quotation = new Quotation($this->db);
+		$quotation->getById($this->f3->get('PARAMS.quotation_id'));
+		
+		$quotation_detail = new QuotationDetail($this->db);
+		$this->f3->set('data_quotation_detail', $quotation_detail->getById($this->f3->get('PARAMS.quotation_id')));
+		
+		$this->f3->set('page_title','Detil Penawaran - No : '.$quotation->quotation_number);
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','quotation/view.html');
 	}

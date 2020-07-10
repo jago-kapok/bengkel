@@ -63,12 +63,16 @@ class Quotation extends DB\SQL\Mapper {
 	}
 	
 	public function getById($quotation_id){
+		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = quotation.customer_id";
+		$this->customer_address = "SELECT customer_address FROM customer WHERE customer.customer_id = quotation.customer_id";
+		$this->customer_city = "SELECT customer_city FROM customer WHERE customer.customer_id = quotation.customer_id";
 		$this->load(array('quotation_id = ?', $quotation_id));
 		$this->copyTo('POST');
 	}
 	
 	public function getViewById($quotation_id){
-		$query = $this->db->exec("SELECT * FROM quotation JOIN quotation_detail ON quotation.quotation_id = quotation_detail.quotation_id")
+		$query = $this->db->exec("SELECT * FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id JOIN status ON quotation.quotation_status = status.status_id JOIN user ON quotation.created_by = user.user_id WHERE quotation.quotation_id = ?", $quotation_id);
+		return $query;
 	}
 	
 	public function edit($quotation_id){

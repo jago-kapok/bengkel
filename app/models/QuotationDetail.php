@@ -49,4 +49,9 @@ class QuotationDetail extends DB\SQL\Mapper {
 			}
 		}
 	}
+	
+	function getById($quotation_id){
+		$this->load(array('quotation_id = ?', $quotation_id));
+		return $this->query;
+	}
 }
