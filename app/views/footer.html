@@ -23,15 +23,12 @@
   <include href="datatables/model.html">
   <include href="datatables/customer.html">
   <include href="datatables/item.html">
-<<<<<<< HEAD
   <include href="datatables/stock.html">
   <include href="datatables/supplier.html">
-=======
   <include href="datatables/quotation.html">
   <include href="datatables/invoice.html">
   <include href="datatables/invoice_ppn.html">
   <include href="datatables/invoice_cash.html">
->>>>>>> 1fe9206937788ebb9e90c2a8bd4869baf1b8c6ab
   
   <include href="home/chart.html">
   
@@ -215,7 +212,7 @@
         var reader = new FileReader();
 
         reader.onload = function(e){
-          $('#preview_image').attr('src', e.target.result);
+          $('#preview_image').attr('src', e.target.result).height(180).width(180);
         }
 
         reader.readAsDataURL(input.files[0]);

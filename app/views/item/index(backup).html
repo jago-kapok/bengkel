@@ -1,42 +1,43 @@
 <div class="card p-2">
-    <F3:repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
-      <div class="alert alert-{{ @msg.status }} alert-dismissible show fade">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <i class="fa fa-info-circle"></i>&nbsp;&nbsp;{{ @msg.text | esc }}
-      </div>
-    </F3:repeat>
-    
-    <div class="row mb-1">
-      <div class="col-md-8">
-        <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#create_item">
-          Tambah Barang
-        </a>
-      </div>
-      <div class="col-md-4 pull-right">
-        <div class="input-group">
-          <input id="item_search" class="form-control form-control-sm" placeholder="Cari Data ...">
-          <span class="input-group-append">
-            <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
-          </span>
-        </div>
-      </div>
-    </div>
-      
-    <table id="item_table" class="table table-striped" style="width:100%">
-      <thead class="bg-app">
-        <tr>
-            <th>Kode Barang</th>
-            <th>No. Bagian</th>
-            <th>Deskripsi</th>
-            <th>Unit</th>
-            <th>Pilihan</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-  
-  <div class="modal fade" id="create_item" role="dialog">
+	<F3:repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
+		<div class="alert alert-{{ @msg.status }} alert-dismissible show fade">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<i class="fa fa-info-circle"></i>&nbsp;&nbsp;{{ @msg.text | esc }}
+		</div>
+	</F3:repeat>
+
+	<div class="row mb-1">
+		<div class="col-md-8">
+			<a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal"
+				data-target="#create_item">
+				Tambah Barang
+			</a>
+		</div>
+		<div class="col-md-4 pull-right">
+			<div class="input-group">
+				<input id="item_search" class="form-control form-control-sm" placeholder="Cari Data ...">
+				<span class="input-group-append">
+					<a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<table id="item_table" class="table table-striped" style="width:100%">
+		<thead class="bg-app">
+			<tr>
+				<th>Kode Barang</th>
+				<th>No. Bagian</th>
+				<th>Deskripsi</th>
+				<th>Unit</th>
+				<th>Pilihan</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+
+<div class="modal fade" id="create_item" role="dialog">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header bg-info">
@@ -141,39 +142,5 @@
 		</div>
 	</div>
 </div>
+
   
-  <div class="modal fade" id="update_item" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header bg-info">
-          <h5 class="modal-title text-white"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span>&times;</span>
-          </button>
-        </div>
-        <form action="{{ @BASE.'/item/update/' }}" method="POST">
-          <div class="modal-body">
-            <input type="hidden" name="item_id">
-            <div class="container p-2">
-              <div class="form-group row">
-                <label>Kode Barang</label>
-                <input name="item_code" class="form-control form-control-sm">
-              </div>
-              <div class="form-group row">
-                <label>Deskripsi <span class="text-danger">*</span></label>
-                <input name="item_desc" class="form-control form-control-sm" required>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer bg-light">
-            <div class="col-md-6">
-              <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Perbarui</button>
-            </div>
-            <div class="col-md-6">
-              <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>

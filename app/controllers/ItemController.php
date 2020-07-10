@@ -19,43 +19,35 @@ class ItemController extends Controller {
 	}
 	
 	public function create(){
-		$item = new Item($this->db);
-		$item->add(str_replace(" ", "_", $this->f3->get('POST.item_code')).'.'.pathinfo($this->f3->get('FILES.item_image["name"]'), PATHINFO_EXTENSION));
+		if($this->f3->exists('POST.update')){
+			$item = new Item($this->db);
+			$item->add(str_replace(" ", "_", $this->f3->get('POST.item_code')).'.'.pathinfo($this->f3->get('FILES.item_image["name"]'), PATHINFO_EXTENSION));
 			
-		self::upload($this->f3->get('FILES.item_image'), str_replace(" ", "_", $this->f3->get('POST.item_code')));
+			self::upload($this->f3->get('FILES.item_image'), str_replace(" ", "_", $this->f3->get('POST.item_code')));
 			
-		\Flash::instance()->addMessage('Berhasil menambah data "'.$this->f3->get('POST.item_code').'"', 'success');
-		$this->f3->reroute('/item');
+			\Flash::instance()->addMessage('Berhasil menambah data "'.$this->f3->get('POST.item_code').'"', 'success');
+			$this->f3->reroute('/item');
+		} else {
+			$this->f3->set('page_title','Data Barang');
+			$this->f3->set('header','header/header.html');
+			$this->f3->set('view','item/index.html');
+		}	
 	}
 	
 	public function update(){
 		if($this->f3->exists('POST.update')){
 			$item = new Item($this->db);
+			$item->add(str_replace(" ", "_", $this->f3->get('POST.item_code')).'.'.pathinfo($this->f3->get('FILES.item_image["name"]'), PATHINFO_EXTENSION));
 			
-			if($this->f3->get('FILES.item_image["name"]') != ''){
-				$item_image = str_replace(" ", "_", $this->f3->get('POST.item_image')).'.'.pathinfo($this->f3->get('FILES.item_image["name"]'), PATHINFO_EXTENSION);
-			} else {
-				$item->getById($this->f3->get('PARAMS.item_id'));
-				$item_image = $item->item_image;
-			}
-			
-			$item->edit($this->f3->get('PARAMS.item_id'), $item_image);
-			
-			self::upload($this->f3->get('FILES.item_image'), str_replace(" ", "_", $this->f3->get('POST.item_image')));
+			self::upload($this->f3->get('FILES.item_image'), str_replace(" ", "_", $this->f3->get('POST.item_code')));
 			
 			\Flash::instance()->addMessage('Berhasil memperbarui data "'.$this->f3->get('POST.item_code').'"', 'success');
 			$this->f3->reroute('/item');
 		} else {
-			$item = new Item($this->db);
-			$item->getById($this->f3->get('PARAMS.item_id'));
-			
-			$level = new Level($this->db);
-			$this->f3->set('data_level', $level->all());
-			
-			$this->f3->set('page_title','Perbarui Data Barang');
+			$this->f3->set('page_title','Data Barang');
 			$this->f3->set('header','header/header.html');
-			$this->f3->set('view','item/update.html');
-		}
+			$this->f3->set('view','item/index.html');
+		}	
 	}
 	
 	public function upload($file, $file_name){

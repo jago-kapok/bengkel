@@ -1,29 +1,29 @@
 <script>
-  $(document).ready(function () {
-    var table = $('#item_table').DataTable({
-      "scrollX": false,
-      "ordering": false,
-      "scrollCollapse": true,
-      "processing": true,
-      "serverSide": true,
-      "lengthChange": false,
-      "searching": true,
-      "ajax": {
-        "url": "{{ @BASE.'/item/data' }}",
-        "type": "POST"
-      },
-      "columns": [
-        { data: 0 }, { data: 1 }, { data: 2 }, { data: 4 },
-        {
-          "render": function (data, type, full) {
-            return '<a href="../../ui/assets/img/item/' + full[13] + '" class="badge badge-success p-1" title="Lihat Produk" target="_blank"><i class="fa fa-image"></i></a>&nbsp;<a href="javascript:void(0)" class="badge badge-info p-1" title="Perbarui Data" data-toggle="modal" data-target="#update_item"><i class="fa fa-pen"></i></a>';
-          }
-        }
-      ]
-    });
+	$(document).ready(function () {
+        var table = $('#item_table').DataTable({
+            "scrollX": false,
+            "ordering": false,
+            "scrollCollapse": true,
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "searching": true,
+            "ajax": {
+                "url": "{{ @BASE.'/item/data' }}",
+                "type": "POST"
+            },
+            "columns": [
+                { data: 0 }, { data: 1 }, { data: 2 }, { data: 4 },
+                {
+                    "render": function (data, type, full) {
+                        return '<a href="../../ui/assets/img/item/' + full[13] + '" class="badge badge-success p-1" title="Lihat Produk" target="_blank"><i class="fa fa-image"></i></a>&nbsp;<a href="javascript:void(0)" class="badge badge-info p-1" title="Perbarui Data" data-toggle="modal" data-target="#update_item" data-item_id="' + data + '" data-item_code="' + full[0] + '" data-item_part_no="' + full[1] + '" data-item_desc="' + full[2] + '" data-item_price="' + full[3] + '"><i class="fa fa-pen"></i></>';
+                    }
+                }
+            ]
+        });
 
-    $('#item_search').on('keyup', function () {
-      table.search(this.value).draw();
+        $('#model_search').on('keyup', function () {
+            table.search(this.value).draw();
+        });
     });
-  });
 </script>

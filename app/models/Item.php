@@ -17,8 +17,28 @@ class Item extends DB\SQL\Mapper {
 			item_code LIKE ? OR
 			item_part_no LIKE ? OR
 			item_desc LIKE ? OR
-			item_unit LIKE ? ORDER BY item_id DESC LIMIT ? OFFSET ?",
+			item_price LIKE ? OR
+			item_unit LIKE ? OR
+			item_stamping LIKE ? OR
+			item_physical LIKE ? OR
+			item_similar LIKE ? OR
+			item_pn LIKE ? OR
+			item_brand_1 LIKE ? OR
+			item_bradn_2 LIKE ? OR
+			item_brand_3 LIKE ? OR
+			item_note LIKE ? OR
+			item_image LIKE ? ORDER BY item_id DESC LIMIT ? OFFSET ?",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -32,8 +52,28 @@ class Item extends DB\SQL\Mapper {
 			item_code LIKE ? OR
 			item_part_no LIKE ? OR
 			item_desc LIKE ? OR
-			item_unit LIKE ?",
+			item_price LIKE ? OR
+			item_unit LIKE ? OR
+			item_stamping LIKE ? OR
+			item_physical LIKE ? OR
+			item_similar LIKE ? OR
+			item_pn LIKE ? OR
+			item_brand_1 LIKE ? OR
+			item_bradn_2 LIKE ? OR
+			item_brand_3 LIKE ? OR
+			item_note LIKE ? OR
+			item_image LIKE ?",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',

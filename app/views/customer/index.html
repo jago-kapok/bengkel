@@ -5,7 +5,7 @@
       <i class="fa fa-info-circle"></i>&nbsp;&nbsp;{{ @msg.text | esc }}
     </div>
   </F3:repeat>
-  
+
   <div class="row mb-1">
     <div class="col-md-8">
       <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#create_customer">
@@ -14,14 +14,14 @@
     </div>
     <div class="col-md-4 pull-right">
       <div class="input-group">
-		<input id="customer_search" class="form-control form-control-sm" placeholder="Cari Data ...">
+        <input id="customer_search" class="form-control form-control-sm" placeholder="Cari Data ...">
         <span class="input-group-append">
           <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
         </span>
       </div>
     </div>
   </div>
-    
+
   <table id="customer_table" class="table table-striped" style="width:100%">
     <thead class="bg-app">
       <tr>
@@ -39,161 +39,159 @@
 
 <div class="modal fade" id="create_customer" role="dialog">
   <div class="modal-dialog modal-md">
-	<div class="modal-content">
-	  <div class="modal-header bg-info">
-		<h5 class="modal-title"><span class="text-white">Tambah Pelanggan</span></h5>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		  <span>&times;</span>
-		</button>
-	  </div>
-	  <form action="{{ @BASE.'/customer/create/' }}" method="POST">
-		<div class="modal-body">
-		  <div class="container p-2">
-			<div class="form-group">
-			  <label>ID Pelanggan</label>
-			  <input name="customer_code" class="form-control form-control-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <h5 class="modal-title"><span class="text-white">Tambah Pelanggan</span></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
       </div>
+      <form action="{{ @BASE.'/customer/create/' }}" method="POST">
+        <div class="modal-body">
+          <div class="container p-2">
+            <div class="form-group">
+              <label>ID Pelanggan</label>
+              <input name="customer_code" class="form-control form-control-sm">
+            </div>
 
-      <div class="form-row">
-			<div class="form-group col-md-6">
-			  <label>Nama</label>
-			  <input name="customer_name" class="form-control form-control-sm">
-      </div>
-      <div class="form-group col-md-6">
-			  <label>Nama Lain</label>
-			  <input name="customer_name_other" class="form-control form-control-sm">
-      </div>
-      </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Nama</label>
+                <input name="customer_name" class="form-control form-control-sm">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Nama Lain</label>
+                <input name="customer_name_other" class="form-control form-control-sm">
+              </div>
+            </div>
 
-      <div class="form-group">
-			  <label>Alamat</label>
-			  <input name="customer_address" class="form-control form-control-sm">
-      </div>
-      <div class="form-group">
-			  <label>Alamat Lain</label>
-			  <input name="customer_address_other" class="form-control form-control-sm">
-      </div>
+            <div class="form-group">
+              <label>Alamat</label>
+              <input name="customer_address" class="form-control form-control-sm">
+            </div>
+            <div class="form-group">
+              <label>Alamat Lain</label>
+              <input name="customer_address_other" class="form-control form-control-sm">
+            </div>
 
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Kota</label>
+                <input name="customer_city" class="form-control form-control-sm">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Kota Lain</label>
+                <input name="customer_city_other" class="form-control form-control-sm">
+              </div>
+            </div>
 
-      <div class="form-row">
-      <div class="form-group col-md-6">
-			  <label>Kota</label>
-			  <input name="customer_city" class="form-control form-control-sm">
-      </div>
-      <div class="form-group col-md-6">
-			  <label>Kota Lain</label>
-			  <input name="customer_city_other" class="form-control form-control-sm">
-      </div>
-      </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>No. Telepon</label>
+                <input name="customer_phone" class="form-control form-control-sm">
+              </div>
+              <div class="form-group col-md-6">
+                <label>No. Telepon Lain</label>
+                <input name="customer_phone_other" class="form-control form-control-sm">
+              </div>
+            </div>
 
-      <div class="form-row">
-      <div class="form-group col-md-6">
-			  <label>No. Telepon</label>
-			  <input name="customer_phone" class="form-control form-control-sm">
-      </div>
-      <div class="form-group col-md-6">
-			  <label>No. Telepon Lain</label>
-			  <input name="customer_phone_other" class="form-control form-control-sm">
-      </div>
-      </div>
+            <div class="form-group">
+              <label>Catatan</label>
+              <input type="text" name="customer_note" class="form-control form-control-sm">
+            </div>
+          </div>
+        </div>
 
-      <div class="form-group">
-			  <label>Catatan</label>
-			  <input type="text" name="customer_note" class="form-control form-control-sm">
-      </div>
-		  </div>
+        <div class="modal-footer bg-light">
+          <div class="col-md-auto">
+            <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Simpan</button>
+          </div>
+          <div class="col-md-auto">
+            <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </form>
     </div>
-    
-		<div class="modal-footer bg-light">
-		  <div class="col-md-auto">
-			<button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Simpan</button>
-		  </div>
-		  <div class="col-md-auto">
-			<button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
-		  </div>
-    </div>
-	  </form>
-	</div>
   </div>
 </div>
 
 <div class="modal fade" id="update_customer" role="dialog">
   <div class="modal-dialog modal-md">
-	<div class="modal-content">
-	  <div class="modal-header bg-info">
-		<h5 class="modal-title text-white"><span class="text-white"></span></h5>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		  <span>&times;</span>
-		</button>
-	  </div>
-	  <form action="{{ @BASE.'/customer/update/' }}" method="POST">
-		<div class="modal-body">
-      <input type="hidden" name="customer_id">
-		  <div class="container p-2">
-			<div class="form-group">
-			  <label>ID Pelanggan</label>
-			  <input name="customer_code" class="form-control form-control-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <h5 class="modal-title text-white"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
       </div>
+      <form action="{{ @BASE.'/customer/update/' }}" method="POST">
+        <div class="modal-body">
+          <input type="hidden" name="customer_id">
+          <div class="container p-2">
+            <div class="form-group">
+              <label>ID Pelanggan</label>
+              <input name="customer_code" class="form-control form-control-sm">
+            </div>
 
-      <div class="form-row">
-			<div class="form-group col-md-6">
-			  <label>Nama</label>
-			  <input name="customer_name" class="form-control form-control-sm">
-      </div>
-      <div class="form-group col-md-6">
-			  <label>Nama Lain</label>
-			  <input name="customer_name_other" class="form-control form-control-sm">
-      </div>
-      </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Nama</label>
+                <input name="customer_name" class="form-control form-control-sm">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Nama Lain</label>
+                <input name="customer_name_other" class="form-control form-control-sm">
+              </div>
+            </div>
 
-      <div class="form-group">
-			  <label>Alamat</label>
-			  <input name="customer_address" class="form-control form-control-sm">
-      </div>
-      <div class="form-group">
-			  <label>Alamat Lain</label>
-			  <input name="customer_address_other" class="form-control form-control-sm">
-      </div>
+            <div class="form-group">
+              <label>Alamat</label>
+              <input name="customer_address" class="form-control form-control-sm">
+            </div>
+            <div class="form-group">
+              <label>Alamat Lain</label>
+              <input name="customer_address_other" class="form-control form-control-sm">
+            </div>
 
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Kota</label>
+                <input name="customer_city" class="form-control form-control-sm">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Kota Lain</label>
+                <input name="customer_city_other" class="form-control form-control-sm">
+              </div>
+            </div>
 
-      <div class="form-row">
-      <div class="form-group col-md-6">
-			  <label>Kota</label>
-			  <input name="customer_city" class="form-control form-control-sm">
-      </div>
-      <div class="form-group col-md-6">
-			  <label>Kota Lain</label>
-			  <input name="customer_city_other" class="form-control form-control-sm">
-      </div>
-      </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>No. Telepon</label>
+                <input name="customer_phone" class="form-control form-control-sm">
+              </div>
+              <div class="form-group col-md-6">
+                <label>No. Telepon Lain</label>
+                <input name="customer_phone_other" class="form-control form-control-sm">
+              </div>
+            </div>
 
-      <div class="form-row">
-      <div class="form-group col-md-6">
-			  <label>No. Telepon</label>
-			  <input name="customer_phone" class="form-control form-control-sm">
-      </div>
-      <div class="form-group col-md-6">
-			  <label>No. Telepon Lain</label>
-			  <input name="customer_phone_other" class="form-control form-control-sm">
-      </div>
-      </div>
+            <div class="form-group">
+              <label>Catatan</label>
+              <input type="text" name="customer_note" class="form-control form-control-sm">
+            </div>
+          </div>
+        </div>
 
-      <div class="form-group">
-			  <label>Catatan</label>
-			  <input type="text" name="customer_note" class="form-control form-control-sm">
-      </div>
-		  </div>
+        <div class="modal-footer bg-light">
+          <div class="col-md-auto">
+            <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Perbarui</button>
+          </div>
+          <div class="col-md-auto">
+            <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
+          </div>
+        </div>
+      </form>
     </div>
-    
-		<div class="modal-footer bg-light">
-		  <div class="col-md-auto">
-			<button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Simpan</button>
-		  </div>
-		  <div class="col-md-auto">
-			<button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
-		  </div>
-    </div>
-	  </form>
-	</div>
   </div>
 </div>

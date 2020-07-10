@@ -18,13 +18,6 @@ class CustomerController extends Controller {
 		die($customer->data($draw, $length, $offset, $search));
 	}
 	
-	public function get_data(){
-		$customer_id = $this->f3->get('PARAMS.customer_id');
-				
-		$customer = new Customer($this->db);
-		die($customer->getData($customer_id));
-	}
-	
 	public function create(){
 		$customer = new Customer($this->db);
 		$customer->add();
@@ -34,7 +27,7 @@ class CustomerController extends Controller {
 	}
 	
 	public function update(){
-		$customer = new Customer($this->db);				
+		$customer = new Customer($this->db);	
 		$customer->edit($this->f3->get('POST.customer_id'));			
 			
 		\Flash::instance()->addMessage('Berhasil memperbarui data "'.$this->f3->get('POST.customer_name').'"', 'success');
