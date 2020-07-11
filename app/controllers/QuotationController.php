@@ -26,7 +26,6 @@ class QuotationController extends Controller {
 			$quotation_detail = new QuotationDetail($this->db);
 			$quotation_detail->add($quotation->quotation_id);
 			
-			\Flash::instance()->addMessage('Berhasil membuat penawaran "'.$this->f3->get('POST.quotation_number').'"', 'success');
 			$this->f3->reroute('/quotation/view/'.$quotation->quotation_id);
 		} else {
 			$current = '/'.date("Y");
@@ -64,28 +63,40 @@ class QuotationController extends Controller {
 				$user_image = $this->f3->get('POST.user_image_temp');
 			}
 			
-			$user->edit($this->f3->get('PARAMS.user_id'), $user_image);
-			
-			self::upload($this->f3->get('FILES.user_image'), str_replace(" ", "_", $this->f3->get('POST.user_fullname')));
-			
-			\Flash::instance()->addMessage('Berhasil memperbarui data "'.$this->f3->get('POST.user_fullname').'"', 'success');
 			$this->f3->reroute('/user');
 		} else {
-			$user = new User($this->db);
-			$user->getById($this->f3->get('PARAMS.user_id'));
+			$quotation = new Quotation($this->db);
+			$quotation->getById($this->f3->get('PARAMS.quotation_id'));
 			
-			$level = new Level($this->db);
-			$this->f3->set('data_level', $level->all());
+			$quotation_total = $quotation->quotation_part_charge + $quotation->quotation_service_charge;
+			$quotation_ppn = ($quotation_total - $quotation->quotation_discount) * ($quotation->quotation_ppn / 100);
+			$this->f3->set('quotation_ppn', $quotation_ppn);
 			
-			$this->f3->set('page_title','Perbarui Data User');
+			$quotation_detail = new QuotationDetail($this->db);
+			$this->f3->set('data_quotation_detail', $quotation_detail->getById($this->f3->get('PARAMS.quotation_id')));
+			
+			$customer = new Customer($this->db);
+			$this->f3->set('data_customer', $customer->getAll());
+			
+			$model = new Model($this->db);
+			$this->f3->set('data_model', $model->getAll());
+			
+			$item = new Item($this->db);
+			$this->f3->set('data_item', $item->getAll());
+			
+			$this->f3->set('page_title','Update Penawaran - No : '.$quotation->quotation_number);
 			$this->f3->set('header','header/header.html');
-			$this->f3->set('view','user/update.html');
+			$this->f3->set('view','quotation/update.html');
 		}
 	}
 	
 	public function view(){
 		$quotation = new Quotation($this->db);
 		$quotation->getById($this->f3->get('PARAMS.quotation_id'));
+		
+		$quotation_total = $quotation->quotation_part_charge + $quotation->quotation_service_charge;
+		$quotation_ppn = ($quotation_total - $quotation->quotation_discount) * ($quotation->quotation_ppn / 100);
+		$this->f3->set('quotation_ppn', $quotation_ppn);
 		
 		$quotation_detail = new QuotationDetail($this->db);
 		$this->f3->set('data_quotation_detail', $quotation_detail->getById($this->f3->get('PARAMS.quotation_id')));

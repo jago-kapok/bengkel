@@ -272,12 +272,10 @@
 	  
 	  $('#item_part_no_' + id).attr('readonly', true);
 	  $('#item_desc_' + id).attr('readonly', true);
-	  $('#item_price_' + id).attr('readonly', true);
 	  $('#item_amount_' + id).attr('readonly', true);
 	  
 	  $('#item_part_no_' + id).addClass('readonly');
 	  $('#item_desc_' + id).addClass('readonly');
-	  $('#item_price_' + id).addClass('readonly');
 	  $('#item_amount_' + id).addClass('readonly');
 	  
 	  $('#item_qty_' + id).focus();
@@ -287,9 +285,10 @@
 	/* Fungsi total													= */
 	/* ============================================================== */
 	
-	function getTotal(id, val){
-	  let item_price = $('#item_price_temp_' + id).val();
-	  $('#item_amount_' + id).val(new Intl.NumberFormat().format(val * item_price));
+	function getTotal(id){
+	  let item_qty = $('#item_qty_' + id).val();
+	  let item_price = $('#item_price_' + id).val();
+	  $('#item_amount_' + id).val(new Intl.NumberFormat().format(item_qty * item_price));
 	}
 	
 	/* ============================================================== */
@@ -302,13 +301,13 @@
 	  
 	  $('#item_part_no_' + id).attr('readonly', false);
 	  $('#item_desc_' + id).attr('readonly', false);
-	  $('#item_price_' + id).attr('readonly', false);
 	  $('#item_amount_' + id).attr('readonly', false);
 	  
 	  $('#item_part_no_' + id).removeClass('readonly');
 	  $('#item_desc_' + id).removeClass('readonly');
-	  $('#item_price_' + id).removeClass('readonly');
 	  $('#item_amount_' + id).removeClass('readonly');
+	  
+	  getGrandTotal();
 	}
 	
 	/* ============================================================== */
@@ -337,8 +336,13 @@
 	  let quotation_part_charge = $("input[name=quotation_part_charge]").val();
 	  let quotation_discount = $("input[name=quotation_discount]").val();
 	  let quotation_service_charge = $("input[name=quotation_service_charge]").val();
+	  let quotation_ppn_percentage = $("input[name=quotation_ppn]").val();
 	  
-	  let grand_total = parseInt(quotation_part_charge) + parseInt(quotation_service_charge) + parseInt(quotation_discount);
+	  let total_no_ppn = (parseInt(quotation_part_charge) + parseInt(quotation_service_charge) - parseInt(quotation_discount));
+	  let quotation_ppn =  parseInt(total_no_ppn) * (parseInt(quotation_ppn_percentage) / 100);
+	  let grand_total = parseInt(total_no_ppn) + parseInt(quotation_ppn);
+	  
+	  $("#quotation_ppn").html(new Intl.NumberFormat().format(quotation_ppn));
 	  
 	  $("#quotation_total").html(new Intl.NumberFormat().format(grand_total));
 	  $("input[name=quotation_total").val(grand_total);

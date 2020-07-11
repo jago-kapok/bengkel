@@ -58,14 +58,21 @@ class Quotation extends DB\SQL\Mapper {
 	}
 	
 	public function add(){
+		$f3 = \Base::instance();
+		
 		$this->copyFrom('POST');
+		$this->quotation_service_charge = str_replace(',', '', $f3->get('POST.quotation_service_charge'));
+		$this->quotation_discount = str_replace(',', '', $f3->get('POST.quotation_discount'));
 		$this->save();
 	}
 	
 	public function getById($quotation_id){
+		$this->customer_code = "SELECT customer_code FROM customer WHERE customer.customer_id = quotation.customer_id";
 		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = quotation.customer_id";
 		$this->customer_address = "SELECT customer_address FROM customer WHERE customer.customer_id = quotation.customer_id";
 		$this->customer_city = "SELECT customer_city FROM customer WHERE customer.customer_id = quotation.customer_id";
+		$this->customer_phone = "SELECT customer_phone FROM customer WHERE customer.customer_id = quotation.customer_id";
+		$this->customer_note = "SELECT customer_note FROM customer WHERE customer.customer_id = quotation.customer_id";
 		$this->load(array('quotation_id = ?', $quotation_id));
 		$this->copyTo('POST');
 	}

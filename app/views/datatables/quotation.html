@@ -14,13 +14,29 @@ $(document).ready(function(){
 	  "type": "POST"
 	},
 	"columns": [
-	  { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
+	  { data: 0 }, { data: 1 }, { data: 2 },
+	  {
+	    "render": function (data, type, full){
+		  return 'Rp <span style="float:right; margin-right:25px">' + data + '</span>';
+		}
+	  },
+	  { data: 4 },
 	  {
 		"render": function (data, type, full){
 		  return '<a href="{{ @BASE."/quotation/update/' + data + '" }}" class="badge badge-success p-1" title="Cetak Penawaran"><i class="fa fa-print"></i></a>&nbsp;<a href="{{ @BASE."/quotation/update/' + data + '" }}" class="badge badge-info p-1" title="Perbarui Data"><i class="fa fa-pen"></i></a>&nbsp;<a href="{{ @BASE."/quotation/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Penawaran"><i class="fa fa-search"></i></a>&nbsp;<a href="{{ @BASE."/quotation/view/' + data + '" }}" class="badge badge-danger p-1" title="Batalkan Penawaran" onclick="returb confirm(\'Anda ingin membatalkan penawaran ini ?\')"><i class="fa fa-ban"></i></a>';
 		}
 	  }
 	]
+  });
+  
+  $('a.toggle-vis').on( 'click', function (e) {
+    e.preventDefault();
+ 
+    // Get the column API objec
+	var column = table.column( $(this).attr('data-column') );
+ 
+    // Toggle the visibility
+    column.visible(!column.visible());
   });
 	
   $('#quotation_search').on('keyup', function(){

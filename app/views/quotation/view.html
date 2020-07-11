@@ -1,9 +1,4 @@
 <div class="card p-2">
-  <div class="card-header">
-	<div class="row">
-	  <a href="javascript:void(0)" class="btn btn-success btn-sm"><i class="fa fa-print"></i> Cetak Penawaran</a>
-	</div>
-  </div>
   <div class="row mb-1">
     <div class="col-md-6">
 	  <label class="col-sm-4"><b>Tgl. Penawaran</b></label>
@@ -46,7 +41,7 @@
 	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_serial_number) }}</span>
 	</div>
 	<div class="col-md-6">
-	  <label class="col-sm-4"><b>Alamat / Kota</b></label>
+	  <label class="col-sm-4"><b>Tgl. Invoice</b></label>
 	  <span class="col-sm-8">: {{ date('d F Y', strtotime(@POST.invoice_date)) }}</span>
 	</div>
   </div>
@@ -56,9 +51,9 @@
 	  <thead>
 		<tr class="bg-primary">
 		  <th>No.</th>
-		  <th class="width-150">Kode</th>
-		  <th class="width-150">No. Part</th>
-		  <th class="width-300">Deskripsi</th>
+		  <th class="width-100">Kode</th>
+		  <th class="width-100">No. Part</th>
+		  <th class="width-500">Deskripsi</th>
 		  <th class="width-75">Qty</th>
 		  <th class="width-150">Harga / Unit</th>
 		  <th class="width-150">Merk</th>
@@ -91,22 +86,27 @@
 		</tr>
 		<tr>
 		  <th colspan="7" style="border:none">
-			<span>- {{ strtoupper(@POST.quotation_note_1) }}</span>
-		  </th>
-		  <th><center>DIKON</center></th>
-		  <td class="text-right">Rp {{ number_format(@POST.quotation_discount) }}</td>
-		</tr>
-		<tr>
-		  <th colspan="7" style="border:none">
 			<span>- {{ strtoupper(@POST.quotation_note_2) }}</span>
 		  </th>
 		  <th><center>SERVIS</center></th>
 		  <td class="text-right">Rp {{ number_format(@POST.quotation_service_charge) }}</td>
 		</tr>
 		<tr>
+		  <th colspan="7" style="border:none">
+			<span>- {{ strtoupper(@POST.quotation_note_1) }}</span>
+		  </th>
+		  <th><center>DISKON</center></th>
+		  <td class="text-right">Rp {{ number_format(@POST.quotation_discount) }}</td>
+		</tr>
+		<tr>
 		  <th colspan="7" style="border:none"></th>
-		  <th><center>PPN</center></th>
-		  <td class="text-right">Rp {{ number_format(@POST.quotation_ppn) }}</td>
+		  <th class="bg-secondary"><center>SEBELUM PPN</center></th>
+		  <td class="bg-secondary text-right"><b>Rp {{ number_format(@POST.quotation_total - @quotation_ppn) }}</b></td>
+		</tr>
+		<tr>
+		  <th colspan="7" style="border:none"></th>
+		  <th><center>PPN <span>{{ @POST.quotation_ppn }}%</span></center></th>
+		  <td class="text-right">Rp {{ number_format(@quotation_ppn) }}</td>
 		</tr>
 		<tr>
 		  <th colspan="7" style="border:none"></th>
@@ -115,5 +115,9 @@
 		</tr>
 	  </tbody>
 	</table>
+  </div>
+  
+  <div class="card-footer" style="border-top:1px solid #cecece">
+	<a href="javascript:void(0)" class="btn btn-success btn-sm"><i class="fa fa-print"></i> Cetak Penawaran</a>
   </div>
 </div>

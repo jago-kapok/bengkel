@@ -67,7 +67,7 @@ label {
 }
 input {
 	border: 1px solid #cccccc;
-	/* text-transform: uppercase; */
+	text-transform: uppercase;
 }
 input:focus {
 	border: 1px solid #95a0f4;
@@ -112,11 +112,14 @@ input:focus {
 .width-75 {
 	width: 75px;
 }
+.width-100 {
+	width: 100px;
+}
 .width-150 {
 	width: 150px;
 }
-.width-300 {
-	width: 300px;
+.width-500 {
+	width: 500px;
 }
 .span-app {
 	padding: 5px;

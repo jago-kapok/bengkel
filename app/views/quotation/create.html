@@ -21,7 +21,7 @@
 			<div class="input-group-prepend">
 			  <span class="input-group-text form-app">TT</span>
 			</div>
-			<input type="date" name="quotation_date_received" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. Tanda Terima" required>
+			<input type="date" name="quotation_received_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. Tanda Terima" required>
 		  </div>
 		</div>
 	  </div>
@@ -66,7 +66,7 @@
 		<div class="col-md-2">
 		  <div class="form-group">
 			<select name="quotation_model" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Model">
-			  <option disabled selected>-- Pilih Model --</option>
+			  <option disabled selected>-- PILIH MODEL --</option>
 			  <repeat group="{{ @data_model }}" value="{{ $model }}">
 				<option value="{{ @model.model_desc }}">{{ @model.model_code }} | {{ @model.model_desc }}</option>
 			  </repeat>
@@ -127,11 +127,11 @@
 			  </td>
 			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_desc]" style="width:250px"></td>
 			  <td>
-			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][quotation_detail_qty]" class="number-only" style="width:50px" onkeyup="return getTotal({{ @i }}, this.value)">
+			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][quotation_detail_qty]" class="number-only" style="width:50px" onkeyup="return getTotal({{ @i }})">
 			  </td>
 			  <td><input name="data[{{ @i }}][quotation_detail_qty_up]" class="number-only" style="width:50px"></td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]" class="number-only" style="width:100px">
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]" class="number-only" style="width:100px" onkeyup="return getTotal({{ @i }})">
 			    <input type="hidden" id="item_price_temp_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price_temp]">
 			  </td>
 			  <td><input name="data[{{ @i }}][quotation_detail_unit_price_up]" class="number-only" style="width:100px"></td>
@@ -140,7 +140,11 @@
 			    <input id="item_amount_{{ @i }}" name="data[{{ @i }}][quotation_detail_amount]" class="number-only amount" style="width:100px">
 			  </td>
 			  <td>
-			    <a href="javascript:void(0)" class="text-danger" onclick="return clearRow({{ @i }})"><i class="fa fa-trash"></i></a>
+			    <center>
+				  <a href="javascript:void(0)" class="text-danger" onclick="return clearRow({{ @i }})">
+				    <i class="fa fa-trash"></i>
+				  </a>
+				</center>
 			  </td>
 			</tr>
 			</loop>
@@ -175,15 +179,10 @@
 			<tr>
 			  <th class="col-md-6">PART</th>
 			  <td style="border-right-color:transparent">Rp</td>
-			  <td class="col-md-6" style="text-align:right">
+			  <td class="col-md-6 text-right">
 				<b><span id="quotation_part_charge"></span></b>
 			    <input type="hidden" name="quotation_part_charge">
 			  </td>
-			</tr>
-			<tr>
-			  <th>DISKON</th>
-			  <td style="border-right-color:transparent">Rp</td>
-			  <td><input name="quotation_discount" class="number-only" style="width:125px" value="0"></td>
 			</tr>
 			<tr>
 			  <th>SERVICE</th>
@@ -191,14 +190,23 @@
 			  <td><input name="quotation_service_charge" class="number-only" style="width:125px" value="0"></td>
 			</tr>
 			<tr>
-			  <th>PPN</th>
+			  <th>DISKON</th>
 			  <td style="border-right-color:transparent">Rp</td>
-			  <td><input name="quotation_ppn" class="number-only" style="width:125px" value="0"></td>
+			  <td><input name="quotation_discount" class="number-only" style="width:125px" value="0"></td>
+			</tr>
+			<tr>
+			  <th>PPN &nbsp;
+			    <input name="quotation_ppn" maxlength="2" class="number-only" value="0" style="width:25px"> %
+			  </th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td class="text-right">
+			    <span id="quotation_ppn"></span>
+			  </td>
 			</tr>
 			<tr>
 			  <th>TOTAL</th>
 			  <td style="border-right-color:transparent">Rp</td>
-			  <td style="text-align:right">
+			  <td class="text-right">
 			    <b><span id="quotation_total"></span></b>
 			    <input type="hidden" name="quotation_total">
 			  </td>
