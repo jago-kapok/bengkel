@@ -1,5 +1,5 @@
 <div class="">
-  <form action="{{ @BASE.'/quotation/create' }}" method="POST" enctype="multipart/form-data">
+  <form action="{{ @BASE.'/quotation/update/'.@PARAMS.quotation_id }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="quotation_status" value="1">
     <div class="">
 	  <div class="row">
@@ -112,7 +112,44 @@
 			</tr>
 		  </thead>
 		  <tbody>
-			<loop from="{{ @i=0 }}" to="{{ @i < 8 }}" step="{{ @i++ }}">
+			<repeat group="{{ @data_quotation_detail }}" key="{{ @no }}" value="{{ $quotation_detail }}">
+			<tr id="item_{{ @no + 10 }}">
+			  <td>
+			    <select id="{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_item_code]" style="width:100px" onchange="return getData(this.id, this.value)">
+				  <option disabled selected></option>
+				  <repeat group="{{ @data_item }}" value="{{ $item }}">
+					<option value="{{ @item.item_code }}" <check if="{{ @quotation_detail.quotation_detail_item_code == @item.item_code }}">selected</check>>{{ @item.item_code }}</option>
+				  </repeat>
+				</select>
+			  </td>
+			  <td>
+			    <input id="item_part_no_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_item_part_no]" value="{{ @quotation_detail.quotation_detail_item_part_no }}" style="width:100px" readonly>
+			  </td>
+			  <td><input id="item_desc_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_item_desc]" value="{{ @quotation_detail.quotation_detail_item_desc }}" style="width:250px" readonly></td>
+			  <td>
+			    <input id="item_qty_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_qty]" class="number-only" value="{{ @quotation_detail.quotation_detail_qty }}" style="width:50px" onkeyup="return getTotal({{ @no + 10 }})">
+			  </td>
+			  <td><input name="data[{{ @no + 10 }}][quotation_detail_qty_up]" class="number-only" style="width:50px"></td>
+			  <td>
+			    <input id="item_price_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price]" class="number-only" value="{{ number_format(@quotation_detail.quotation_detail_unit_price) }}" style="width:100px" onkeyup="return getTotal({{ @no + 10 }})">
+			    <input type="hidden" id="item_price_temp_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price_temp]">
+			  </td>
+			  <td><input name="data[{{ @no + 10 }}][quotation_detail_unit_price_up]" class="number-only" style="width:100px"></td>
+			  <td><input id="item_brand_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_brand]" value="{{ @quotation_detail.quotation_detail_brand }}" style="width:95px"></td>
+			  <td>
+			    <input id="item_amount_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_amount]" class="number-only amount" value="{{ number_format(@quotation_detail.quotation_detail_amount) }}" style="width:100px">
+			  </td>
+			  <td>
+			    <center>
+				  <a href="javascript:void(0)" class="text-danger" onclick="return clearRow({{ @no + 10 }})">
+				    <i class="fa fa-trash"></i>
+				  </a>
+				</center>
+			  </td>
+			</tr>
+			</repeat>
+			
+			<loop from="{{ @i=0 }}" to="{{ @i < (8 - count(@data_quotation_detail)) }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
 			    <select id="{{ @i }}" name="data[{{ @i }}][quotation_detail_item_code]" style="width:100px" onchange="return getData(this.id, this.value)">
@@ -216,7 +253,7 @@
 	  </div>
 	</div>
 	<div class="card-footer">
-	  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form"><b>Simpan</b></button>
+	  <button type="submit" name="update" class="btn btn-primary btn-sm btn-form"><b>Update</b></button>
 	  <a href="../../user" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
 	</div>
   </form>

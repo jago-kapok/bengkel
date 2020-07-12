@@ -14,10 +14,16 @@ $(document).ready(function(){
 	  "type": "POST"
 	},
 	"columns": [
-	  { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
+	  { data: 0 }, { data: 1 }, { data: 2 },
+	  {
+	    "render": function (data, type, full){
+		  return 'Rp <span style="float:right; margin-right:25px">' + data + '</span>';
+		}
+	  },
+	  { data: 4 },
 	  {
 		"render": function (data, type, full){
-		  return '<a href="{{ @BASE."/invoice/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Invoice"><i class="fa fa-print"></i></a>&nbsp;<a href="{{ @BASE."/invoice/view/' + data + '" }}" class="badge badge-info p-1" title="Lihat Invoice"><i class="fa fa-search"></i></a>&nbsp;<a href="{{ @BASE."/invoice/cancel/' + full[6] + '" }}" class="badge badge-info p-1" title="Batalkan Invoice"><i class="fa fa-ban"></i></a>';
+		  return '<a href="{{ @BASE."/invoice/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Invoice" target="_blank"><i class="fa fa-print"></i></a>&nbsp;<a href="{{ @BASE."/invoice/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Invoice"><i class="fa fa-search"></i></a>&nbsp;<a href="{{ @BASE."/invoice/file/' + data + '" }}" class="badge badge-primary p-1" title="Lampirkan File"><i class="fa fa-image"></i></a>&nbsp;<a href="{{ @BASE."/invoice/cancel/' + full[6] + '" }}" class="badge badge-danger p-1" title="Batalkan Invoice" onclick="return confirm(\'Anda ingin membatalkan invoice nomor : ' + full[0] + ' ?\')"><i class="fa fa-ban"></i></a>';
 		}
 	  }
 	]

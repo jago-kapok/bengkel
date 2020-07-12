@@ -326,26 +326,26 @@
 		$(this).val(0);
 	  }
 
-	  $("#quotation_part_charge").html(new Intl.NumberFormat().format(total));
-	  $("input[name=quotation_part_charge").val(total);
+	  $("#part_charge_display").html(new Intl.NumberFormat().format(total));
+	  $("#part_charge").val(total);
 	  
-	  $("#quotation_total").html(new Intl.NumberFormat().format(total));
-	  $("input[name=quotation_total").val(total);
+	  $("#total_display").html(new Intl.NumberFormat().format(total));
+	  $("#total").val(total);
 	  
 	  // Total keseluruhan
-	  let quotation_part_charge = $("input[name=quotation_part_charge]").val();
-	  let quotation_discount = $("input[name=quotation_discount]").val();
-	  let quotation_service_charge = $("input[name=quotation_service_charge]").val();
-	  let quotation_ppn_percentage = $("input[name=quotation_ppn]").val();
+	  let quotation_part_charge = $("#part_charge").val();
+	  let quotation_discount = $("#discount").val();
+	  let quotation_service_charge = $("#service_charge").val();
+	  let quotation_ppn_percentage = $("#ppn").val();
 	  
 	  let total_no_ppn = (parseInt(quotation_part_charge) + parseInt(quotation_service_charge) - parseInt(quotation_discount));
 	  let quotation_ppn =  parseInt(total_no_ppn) * (parseInt(quotation_ppn_percentage) / 100);
 	  let grand_total = parseInt(total_no_ppn) + parseInt(quotation_ppn);
 	  
-	  $("#quotation_ppn").html(new Intl.NumberFormat().format(quotation_ppn));
+	  $("#ppn_display").html(new Intl.NumberFormat().format(quotation_ppn));
 	  
-	  $("#quotation_total").html(new Intl.NumberFormat().format(grand_total));
-	  $("input[name=quotation_total").val(grand_total);
+	  $("#grand_total_display").html(new Intl.NumberFormat().format(grand_total));
+	  $("#grand_total").val(grand_total);
 	});
 
 	/* ============================================================== */

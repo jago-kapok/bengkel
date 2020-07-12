@@ -13,10 +13,11 @@ class Quotation extends DB\SQL\Mapper {
 		$output['recordsTotal'] = $output['recordsFiltered'] = $total;
 		$output['data'] = array();
 		
-		$query = $this->db->exec("SELECT quotation.*, invoice.invoice_number AS invoice_number FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
-			quotation_number LIKE ? OR
+		$query = $this->db->exec("SELECT quotation.*, invoice.invoice_number AS invoice_number, customer.customer_name FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
+			(quotation_number LIKE ? OR
 			customer_name LIKE ? OR
-			invoice_number LIKE ? ORDER BY quotation.quotation_id DESC LIMIT ? OFFSET ?",
+			invoice_number LIKE ?) AND
+			quotation_status != 2 ORDER BY quotation.quotation_id DESC LIMIT ? OFFSET ?",
 			array(
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -27,9 +28,10 @@ class Quotation extends DB\SQL\Mapper {
 		);
 			
 		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
-			quotation_number LIKE ? OR
+			(quotation_number LIKE ? OR
 			customer_name LIKE ? OR
-			invoice_number LIKE ?",
+			invoice_number LIKE ?) AND
+			quotation_status != 2",
 			array(
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -46,7 +48,7 @@ class Quotation extends DB\SQL\Mapper {
 		foreach($query as $data) {
 			$output['data'][] = array(
 				$data['quotation_number'],
-				date('d/m/Y', strtotime($data['quotation_date'])),
+				date('d F Y', strtotime($data['quotation_date'])),
 				$data['customer_name'],
 				number_format($data['quotation_part_charge'] + $data['quotation_service_charge']),
 				$data['invoice_number'],
@@ -55,6 +57,11 @@ class Quotation extends DB\SQL\Mapper {
 		}
 
 		echo json_encode($output);
+	}
+	
+	public function getAll(){
+		$this->load(array('quotation_status = 1'));
+		return $this->query;
 	}
 	
 	public function add(){
@@ -73,13 +80,16 @@ class Quotation extends DB\SQL\Mapper {
 		$this->customer_city = "SELECT customer_city FROM customer WHERE customer.customer_id = quotation.customer_id";
 		$this->customer_phone = "SELECT customer_phone FROM customer WHERE customer.customer_id = quotation.customer_id";
 		$this->customer_note = "SELECT customer_note FROM customer WHERE customer.customer_id = quotation.customer_id";
+		$this->invoice_number = "SELECT invoice_number FROM invoice WHERE invoice.quotation_id = quotation.quotation_id";
+		$this->invoice_date = "SELECT invoice_date FROM invoice WHERE invoice.quotation_id = quotation.quotation_id";
+		
 		$this->load(array('quotation_id = ?', $quotation_id));
 		$this->copyTo('POST');
 	}
 	
-	public function getViewById($quotation_id){
-		$query = $this->db->exec("SELECT * FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id JOIN status ON quotation.quotation_status = status.status_id JOIN user ON quotation.created_by = user.user_id WHERE quotation.quotation_id = ?", $quotation_id);
-		return $query;
+	public function getByNumber($quotation_number){
+		$this->load(array('quotation_number = ?', $quotation_number));
+		return $this->query;
 	}
 	
 	public function edit($quotation_id){

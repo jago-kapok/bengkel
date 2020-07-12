@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2020 at 11:59 AM
--- Server version: 10.1.9-MariaDB
--- PHP Version: 5.6.15
+-- Generation Time: Jul 12, 2020 at 08:17 AM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,6 +21,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `bengkel`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company`
+--
+
+CREATE TABLE `company` (
+  `company_id` int(11) NOT NULL,
+  `company_name` varchar(50) DEFAULT NULL,
+  `company_address` varchar(200) DEFAULT NULL,
+  `company_city` varchar(50) DEFAULT NULL,
+  `company_phone` varchar(50) DEFAULT NULL,
+  `company_fax` varchar(50) DEFAULT NULL,
+  `company_logo` varchar(200) DEFAULT NULL,
+  `company_desc` varchar(200) DEFAULT NULL,
+  `company_info` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `company`
+--
+
+INSERT INTO `company` (`company_id`, `company_name`, `company_address`, `company_city`, `company_phone`, `company_fax`, `company_logo`, `company_desc`, `company_info`) VALUES
+(1, 'PD NUSA JAYA PUMP', 'Jl. A. Yani Km. 2 (Depan PDAM) Banjarmasin', NULL, '(0511) 3252154, 3255941', '(0511) 3255941', '', 'Calibration INJ PUMP - PT. PUMP - Rotary PUMP', 'For : Caterpillar, Komatsu, Cummins, Bosch, Nippon Denso, Diesel Kiki, Zexel, Etc.');
 
 -- --------------------------------------------------------
 
@@ -71,8 +98,16 @@ CREATE TABLE `invoice` (
   `invoice_note_internal` text,
   `invoice_note_payment` text,
   `invoice_status` int(11) DEFAULT NULL,
+  `invoice_total` double DEFAULT NULL,
   `invoice_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`invoice_id`, `quotation_id`, `customer_id`, `invoice_number`, `invoice_date`, `invoice_received_date`, `invoice_part_charge`, `invoice_service_charge`, `invoice_discount`, `invoice_ppn`, `invoice_mechanic`, `invoice_tax_number`, `invoice_note_customer`, `invoice_note_internal`, `invoice_note_payment`, `invoice_status`, `invoice_total`, `invoice_by`) VALUES
+(2, 1, 1, '000001/2020', '2020-07-12 00:00:00', '0000-00-00 00:00:00', 250000, 10000, 0, 0, 'mecha', NULL, 'ket 1', 'ket 2', 'cash', 1, 260000, NULL);
 
 -- --------------------------------------------------------
 
@@ -88,12 +123,20 @@ CREATE TABLE `invoice_detail` (
   `invoice_detail_item_desc` varchar(40) DEFAULT NULL,
   `invoice_detail_qty` int(11) DEFAULT NULL,
   `invoice_detail_qty_up` int(11) DEFAULT NULL,
-  `invoice_detail_unit_price` int(11) DEFAULT NULL,
-  `invoice_detail_unit_price_up` int(11) DEFAULT NULL,
+  `invoice_detail_unit_price` double DEFAULT NULL,
+  `invoice_detail_unit_price_up` double DEFAULT NULL,
   `invoice_detail_amount` double DEFAULT NULL,
   `invoice_detail_brand` varchar(20) DEFAULT NULL,
   `invoice_detail_profit` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `invoice_detail`
+--
+
+INSERT INTO `invoice_detail` (`invocie_detail_id`, `invoice_id`, `invoice_detail_item_code`, `invoice_detail_item_part_no`, `invoice_detail_item_desc`, `invoice_detail_qty`, `invoice_detail_qty_up`, `invoice_detail_unit_price`, `invoice_detail_unit_price_up`, `invoice_detail_amount`, `invoice_detail_brand`, `invoice_detail_profit`) VALUES
+(1, 2, '29639', '150S6705', 'NOZZLE', 1, 0, 50000, 0, 50000, '', NULL),
+(2, 2, '4682110000', '468211-0000', 'MAJOT KIT', 2, 0, 100000, 0, 200000, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -236,7 +279,8 @@ CREATE TABLE `quotation` (
 --
 
 INSERT INTO `quotation` (`quotation_id`, `customer_id`, `quotation_number`, `quotation_date`, `quotation_received_date`, `quotation_model`, `quotation_engine`, `quotation_serial_number`, `quotation_part_charge`, `quotation_service_charge`, `quotation_discount`, `quotation_ppn`, `quotation_po_wo`, `quotation_pump_assy`, `quotation_nozzle`, `quotation_note_1`, `quotation_note_2`, `quotation_status`, `quotation_total`, `quotation_by`) VALUES
-(1, 1, '0000001/2020', '2020-07-07 17:00:00', '2020-07-06 00:00:00', 'FIP', 'ENGINE', 'SN', 250000, 10000, 0, 0, 'POWO', 'PUMP', 'nozzle', 'ket 1', 'ket 2', 1, 260000, NULL);
+(1, 1, '000001/2020', '2020-07-07 17:00:00', '2020-07-06 00:00:00', 'FIP', 'ENGINE', 'SN', 250000, 10000, 0, 0, 'POWO', 'PUMP', 'nozzle', 'ket 1', 'ket 2', 1, 260000, NULL),
+(2, 2, '000002/2020', '2020-07-12 03:56:36', '2020-07-08 00:00:00', 'ROTARY', 'engine2', '2012345', 310000, 0, 0, 10, 'powo2', 'pump assy', 'nozzle2', 'ket2', 'ket3', 1, 341000, NULL);
 
 -- --------------------------------------------------------
 
@@ -252,8 +296,9 @@ CREATE TABLE `quotation_detail` (
   `quotation_detail_item_desc` varchar(40) DEFAULT NULL,
   `quotation_detail_qty` int(11) DEFAULT NULL,
   `quotation_detail_qty_up` int(11) DEFAULT NULL,
-  `quotation_detail_unit_price` int(11) DEFAULT NULL,
-  `quotation_detail_unit_price_up` int(11) DEFAULT NULL,
+  `quotation_detail_unit_price` double DEFAULT NULL,
+  `quotation_detail_unit_price_up` double DEFAULT NULL,
+  `quotation_detail_unit_price_temp` double DEFAULT NULL,
   `quotation_detail_amount` double DEFAULT NULL,
   `quotation_detail_brand` varchar(20) DEFAULT NULL,
   `quotation_detail_profit` double DEFAULT NULL
@@ -263,9 +308,12 @@ CREATE TABLE `quotation_detail` (
 -- Dumping data for table `quotation_detail`
 --
 
-INSERT INTO `quotation_detail` (`quotation_detail_id`, `quotation_id`, `quotation_detail_item_code`, `quotation_detail_item_part_no`, `quotation_detail_item_desc`, `quotation_detail_qty`, `quotation_detail_qty_up`, `quotation_detail_unit_price`, `quotation_detail_unit_price_up`, `quotation_detail_amount`, `quotation_detail_brand`, `quotation_detail_profit`) VALUES
-(1, 1, '29639', '150S6705', 'NOZZLE', 1, 0, 50000, 0, 50000, '', NULL),
-(2, 1, '4682110000', '468211-0000', 'MAJOT KIT', 2, 0, 100000, 0, 200000, '', NULL);
+INSERT INTO `quotation_detail` (`quotation_detail_id`, `quotation_id`, `quotation_detail_item_code`, `quotation_detail_item_part_no`, `quotation_detail_item_desc`, `quotation_detail_qty`, `quotation_detail_qty_up`, `quotation_detail_unit_price`, `quotation_detail_unit_price_up`, `quotation_detail_unit_price_temp`, `quotation_detail_amount`, `quotation_detail_brand`, `quotation_detail_profit`) VALUES
+(1, 1, '29639', '150S6705', 'NOZZLE', 1, 0, 50000, 0, NULL, 50000, '', NULL),
+(2, 1, '4682110000', '468211-0000', 'MAJOT KIT', 2, 0, 100000, 0, NULL, 200000, '', NULL),
+(3, 2, '29639', '150S6705', 'NOZZLE', 1, 0, 60000, 0, NULL, 60000, '', 10000),
+(4, 2, '4682110000', '468211-0000', 'MAJOT KIT', 2, 0, 110000, 0, NULL, 220000, '', 20000),
+(5, 2, NULL, '', 'service murni', 1, 0, 30000, 0, NULL, 30000, '', 30000);
 
 -- --------------------------------------------------------
 
@@ -323,6 +371,20 @@ CREATE TABLE `stock` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `stock_history`
+--
+
+CREATE TABLE `stock_history` (
+  `stock_history_id` int(11) NOT NULL,
+  `purchase_id` int(11) DEFAULT NULL,
+  `invoice_id` int(11) DEFAULT NULL,
+  `stock_history_value` int(11) DEFAULT NULL,
+  `stock_history_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `supplier`
 --
 
@@ -371,6 +433,12 @@ INSERT INTO `user` (`user_id`, `user_fullname`, `user_name`, `user_password`, `u
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `company`
+--
+ALTER TABLE `company`
+  ADD PRIMARY KEY (`company_id`);
 
 --
 -- Indexes for table `customer`
@@ -445,6 +513,12 @@ ALTER TABLE `status`
   ADD PRIMARY KEY (`status_id`);
 
 --
+-- Indexes for table `stock_history`
+--
+ALTER TABLE `stock_history`
+  ADD PRIMARY KEY (`stock_history_id`);
+
+--
 -- Indexes for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -461,6 +535,11 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `company`
+--
+ALTER TABLE `company`
+  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
@@ -469,12 +548,12 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `invoice_detail`
 --
 ALTER TABLE `invoice_detail`
-  MODIFY `invocie_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `invocie_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `invoice_file`
 --
@@ -504,12 +583,12 @@ ALTER TABLE `model`
 -- AUTO_INCREMENT for table `quotation`
 --
 ALTER TABLE `quotation`
-  MODIFY `quotation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `quotation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `quotation_detail`
 --
 ALTER TABLE `quotation_detail`
-  MODIFY `quotation_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `quotation_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `quotation_file`
 --
@@ -521,6 +600,11 @@ ALTER TABLE `quotation_file`
 ALTER TABLE `status`
   MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `stock_history`
+--
+ALTER TABLE `stock_history`
+  MODIFY `stock_history_id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -529,7 +613,8 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

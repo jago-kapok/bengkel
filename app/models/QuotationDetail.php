@@ -22,6 +22,7 @@ class QuotationDetail extends DB\SQL\Mapper {
 				quotation_detail_qty_up,
 				quotation_detail_unit_price,
 				quotation_detail_unit_price_up,
+				quotation_detail_unit_price_temp,
 				quotation_detail_amount,
 				quotation_detail_brand,
 				quotation_detail_profit) VALUES
@@ -33,6 +34,7 @@ class QuotationDetail extends DB\SQL\Mapper {
 				:quotation_detail_qty_up,
 				:quotation_detail_unit_price,
 				:quotation_detail_unit_price_up,
+				:quotation_detail_unit_price_temp,
 				:quotation_detail_amount,
 				:quotation_detail_brand,
 				:quotation_detail_profit)",
@@ -45,6 +47,7 @@ class QuotationDetail extends DB\SQL\Mapper {
 					':quotation_detail_qty_up' => str_replace(',', '', $value['quotation_detail_qty_up']),
 					':quotation_detail_unit_price' => str_replace(',', '', $value['quotation_detail_unit_price']),
 					':quotation_detail_unit_price_up' => str_replace(',', '', $value['quotation_detail_unit_price_up']),
+					':quotation_detail_unit_price_temp' => str_replace(',', '', $value['quotation_detail_unit_price_temp']),
 					':quotation_detail_amount' => str_replace(',', '', $value['quotation_detail_qty']) * str_replace(',', '', $value['quotation_detail_unit_price']),
 					':quotation_detail_brand' => $value['quotation_detail_brand'],
 					':quotation_detail_profit' => (str_replace(',', '', $value['quotation_detail_unit_price']) - $value['quotation_detail_unit_price_temp']) * str_replace(',', '', $value['quotation_detail_qty'])

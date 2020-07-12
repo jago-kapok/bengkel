@@ -8,8 +8,10 @@
 
   <div class="row mb-1">
 	<div class="col-md-8">
-	  <button type="button" class="btn btn-info btn-sm mr-2">Filter Penawaran</a>
-	  <button type="button" class="btn btn-danger btn-sm">Cetak ke PDF</a>
+	  <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#create_invoice">
+	    Invoice Baru
+	  </a>
+	  <button type="button" class="btn btn-danger btn-sm">Rekap Invoice</a>
 	</div>
 	<div class="col-md-4 pull-right">
 	  <div class="input-group">
@@ -24,14 +26,45 @@
   <table id="invoice_table" class="table table-striped" style="width:100%">
 	<thead class="bg-app">
       <tr>
-		<th>No. Invoice</th>
-        <th>Tgl. Invoice</th>
-        <th>Nama Pelanggan</th>
-        <th>Nilai Invoice</th>
-        <th>No. Penawaran</th>
-        <th>Pilihan</th>
+		<th class="width-75">No. Invoice</th>
+        <th class="width-100">Tgl. Invoice</th>
+        <th class="width-500">Nama Pelanggan</th>
+        <th class="width-150">Nilai Invoice</th>
+        <th class="width-150">No. Penawaran</th>
+        <th class="width-150">Pilihan</th>
       </tr>
     </thead>
 	<tbody></tbody>
   </table>
 </div>
+
+<div class="modal fade" id="create_invoice" role="dialog">
+  <div class="modal-dialog modal-sm">
+	<div class="modal-content">
+	  <div class="modal-header bg-info">
+		<h5 class="modal-title"><span class="text-white">Pilih No. Penawaran</span></h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		  <span>&times;</span>
+		</button>
+	  </div>
+	  <form action="{{ @BASE.'/invoice/from-quotation/' }}" method="POST">
+		<div class="modal-body">
+		  <div class="row p-2">
+			<label>No. Penawaran</label>
+			<input name="quotation_number" class="form-control form-control-sm" list="data-quotation" required>
+		  </div>
+		</div>
+		<div class="modal-footer bg-light">
+		  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form">Submit</button>
+		  <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
+		</div>
+	  </form>
+	</div>
+  </div>
+</div>
+
+<datalist id="data-quotation">
+  <repeat group="{{ @data_quotation }}" value="{{ $quotation }}">
+    <option value="{{ @quotation.quotation_number }}">{{ @quotation.quotation_number }}
+  </repeat>
+</datalist>

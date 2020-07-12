@@ -33,10 +33,11 @@ class QuotationController extends Controller {
 			foreach($query as $result){
 				$last = $result['last'];
 			}
-			$lastNo = substr($last, 0, 7);
+			$lastNo = substr($last, 0, 6);
 			$nextNo = $lastNo + 1;
-			$quotation_no = sprintf('%07s', $nextNo).$current;
+			$quotation_no = sprintf('%06s', $nextNo).$current;
 			$this->f3->set('quotation_number',$quotation_no);
+			/* Quotation Number */
 			
 			$customer = new Customer($this->db);
 			$this->f3->set('data_customer', $customer->getAll());
@@ -68,8 +69,8 @@ class QuotationController extends Controller {
 			$quotation = new Quotation($this->db);
 			$quotation->getById($this->f3->get('PARAMS.quotation_id'));
 			
-			$quotation_total = $quotation->quotation_part_charge + $quotation->quotation_service_charge;
-			$quotation_ppn = ($quotation_total - $quotation->quotation_discount) * ($quotation->quotation_ppn / 100);
+			$quotation_total = $quotation->quotation_part_charge + $quotation->quotation_service_charge - $quotation->quotation_discount;
+			$quotation_ppn = $quotation_total * ($quotation->quotation_ppn / 100);
 			$this->f3->set('quotation_ppn', $quotation_ppn);
 			
 			$quotation_detail = new QuotationDetail($this->db);
@@ -94,12 +95,18 @@ class QuotationController extends Controller {
 		$quotation = new Quotation($this->db);
 		$quotation->getById($this->f3->get('PARAMS.quotation_id'));
 		
-		$quotation_total = $quotation->quotation_part_charge + $quotation->quotation_service_charge;
-		$quotation_ppn = ($quotation_total - $quotation->quotation_discount) * ($quotation->quotation_ppn / 100);
+		$quotation_total = ($quotation->quotation_part_charge + $quotation->quotation_service_charge) - $quotation->quotation_discount;
+		$quotation_ppn = $quotation_total * ($quotation->quotation_ppn / 100);
 		$this->f3->set('quotation_ppn', $quotation_ppn);
 		
 		$quotation_detail = new QuotationDetail($this->db);
 		$this->f3->set('data_quotation_detail', $quotation_detail->getById($this->f3->get('PARAMS.quotation_id')));
+		
+		$profit_total = array();
+		foreach($quotation_detail->getById($this->f3->get('PARAMS.quotation_id')) as $data){
+			array_push($profit_total, $data['quotation_detail_profit']);
+		}
+		$this->f3->set('profit_total', array_sum($profit_total));
 		
 		$this->f3->set('page_title','Detil Penawaran - No : '.$quotation->quotation_number);
 		$this->f3->set('header','header/header.html');

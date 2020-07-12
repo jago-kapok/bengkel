@@ -6,14 +6,14 @@
 		<div class="col-md-2">
 		  <div class="input-group mb-2">
 			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">No. :</span>
+			  <span class="input-group-text form-app">NO. :</span>
 			</div>
 			<input name="quotation_number" class="form-control form-control-sm form-app" value="{{ @quotation_number }}" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2 offset-6">
 		  <div class="form-group">
-			<input type="date" name="" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" readonly>
+			<input type="date" name="" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2">
@@ -21,7 +21,7 @@
 			<div class="input-group-prepend">
 			  <span class="input-group-text form-app">TT</span>
 			</div>
-			<input type="date" name="quotation_received_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. Tanda Terima" required>
+			<input type="date" name="quotation_received_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. TANDA TERIMA" required>
 		  </div>
 		</div>
 	  </div>
@@ -29,7 +29,7 @@
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="customer_code" class="form-control form-control-sm form-app" list="data-customer" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID Pelanggan" required>
+			<input name="customer_code" class="form-control form-control-sm form-app" list="data-customer" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" required>
 			<input type="hidden" name="customer_id" class="form-control form-control-sm form-app">
 		  </div>
 		</div>
@@ -65,7 +65,7 @@
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<select name="quotation_model" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Model">
+			<select name="quotation_model" class="form-control form-control-sm form-app" data-toggle="tooltip" title="MODEL">
 			  <option disabled selected>-- PILIH MODEL --</option>
 			  <repeat group="{{ @data_model }}" value="{{ $model }}">
 				<option value="{{ @model.model_desc }}">{{ @model.model_code }} | {{ @model.model_desc }}</option>
@@ -75,12 +75,12 @@
 		</div>
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="quotation_engine" class="form-control form-control-sm form-app" placeholder="Engine" data-toggle="tooltip" title="Engine">
+			<input name="quotation_engine" class="form-control form-control-sm form-app" placeholder="Engine" data-toggle="tooltip" title="ENGINE">
 		  </div>
 		</div>
 		<div class="col-md-3">
 		  <div class="form-group">
-			<input name="quotation_pump_assy" class="form-control form-control-sm form-app" placeholder="Pump Assy" data-toggle="tooltip" title="Pump Assy">
+			<input name="quotation_pump_assy" class="form-control form-control-sm form-app" placeholder="Pump Assy" data-toggle="tooltip" title="PUMP ASSY">
 		  </div>
 		</div>
 		<div class="col-md-3">
@@ -155,13 +155,13 @@
 	  <div class="row">
 		<div class="col-md-9">
 		  <div class="form-group row">
-			<label class="col-md-2">Nozzle</label>
+			<label class="col-md-2">NOZZLE</label>
 			<div class="col-md-8">
 			  <input name="quotation_nozzle" class="form-control form-control-sm form-app">
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2">Keterangan</label>
+			<label class="col-md-2">KETERANGAN</label>
 			<div class="col-md-8">
 			  <input name="quotation_note_1" class="form-control form-control-sm form-app">
 			</div>
@@ -180,35 +180,35 @@
 			  <th class="col-md-6">PART</th>
 			  <td style="border-right-color:transparent">Rp</td>
 			  <td class="col-md-6 text-right">
-				<b><span id="quotation_part_charge"></span></b>
-			    <input type="hidden" name="quotation_part_charge">
+				<b><span id="part_charge_display"></span></b>
+			    <input type="hidden" id="part_charge" name="quotation_part_charge">
 			  </td>
 			</tr>
 			<tr>
 			  <th>SERVICE</th>
 			  <td style="border-right-color:transparent">Rp</td>
-			  <td><input name="quotation_service_charge" class="number-only" style="width:125px" value="0"></td>
+			  <td><input id="service_charge" name="quotation_service_charge" class="number-only" style="width:125px" value="0"></td>
 			</tr>
 			<tr>
 			  <th>DISKON</th>
 			  <td style="border-right-color:transparent">Rp</td>
-			  <td><input name="quotation_discount" class="number-only" style="width:125px" value="0"></td>
+			  <td><input id="discount" name="quotation_discount" class="number-only" style="width:125px" value="0"></td>
 			</tr>
 			<tr>
 			  <th>PPN &nbsp;
-			    <input name="quotation_ppn" maxlength="2" class="number-only" value="0" style="width:25px"> %
+			    <input id="ppn" name="quotation_ppn" maxlength="2" class="number-only" value="0" style="width:25px"> %
 			  </th>
 			  <td style="border-right-color:transparent">Rp</td>
 			  <td class="text-right">
-			    <span id="quotation_ppn"></span>
+			    <span id="ppn_display"></span>
 			  </td>
 			</tr>
 			<tr>
 			  <th>TOTAL</th>
 			  <td style="border-right-color:transparent">Rp</td>
 			  <td class="text-right">
-			    <b><span id="quotation_total"></span></b>
-			    <input type="hidden" name="quotation_total">
+			    <b><span id="grand_total_display"></span></b>
+			    <input type="hidden" id="grand_total" name="quotation_total">
 			  </td>
 			</tr>
 		  </table>
@@ -217,13 +217,13 @@
 	</div>
 	<div class="card-footer">
 	  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form"><b>Simpan</b></button>
-	  <a href="../../user" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
+	  <a href="../../quotation" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
 	</div>
   </form>
 </div>
 
 <datalist id="data-customer">
-<repeat group="{{ @data_customer }}" value="{{ $customer }}">
-  <option value="{{ @customer.customer_code }}">{{ @customer.customer_code }} | {{ @customer.customer_name }}
-</repeat>
+  <repeat group="{{ @data_customer }}" value="{{ $customer }}">
+    <option value="{{ @customer.customer_code }}">{{ @customer.customer_code }} | {{ @customer.customer_name }}
+  </repeat>
 </datalist>
