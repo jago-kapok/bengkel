@@ -85,14 +85,16 @@ class Invoice extends DB\SQL\Mapper {
 		$this->copyTo('POST');
 	}
 	
-	public function getDataToPrint($invoice_id){
-		$this->db->exec("SELECT * FROM invoice JOIN customer ON invoice.customer_id = customer.customer_id JOIN quotation ON invoice.quotation_id = quotation.quotation_id WHERE invoice.invoice_id = ?", $invoice_id);
-	}
-	
 	public function edit($quotation_id){
 		$this->load(array('quotation_id = ?', $quotation_id));
 		
 		$this->copyFrom('POST');
 		$this->update();
+	}
+	
+	public function getDataMonth($month, $year){
+		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = invoice.customer_id";
+		$this->load(array('MONTH(invoice_date) LIKE ? AND YEAR(invoice_date) = ?', array('%'.$month.'%', $year)));
+		return $this->query;
 	}
 }

@@ -98,4 +98,10 @@ class Quotation extends DB\SQL\Mapper {
 		$this->copyFrom('POST');
 		$this->update();
 	}
+	
+	public function invoiced($quotation_id){
+		$this->load(array('quotation_id = ?', $quotation_id));
+		$this->quotation_status = 2;
+		$this->update();
+	}
 }

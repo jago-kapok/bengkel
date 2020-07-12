@@ -64,6 +64,9 @@ class InvoiceController extends Controller {
 		$invoice_detail = new InvoiceDetail($this->db);
 		$invoice_detail->add($invoice->invoice_id);
 		
+		$quotation = new Quotation($this->db);
+		$quotation->invoiced($invoice->quotation_id);
+		
 		$this->f3->reroute('/invoice/view/'.$invoice->invoice_id);
 	}
 	

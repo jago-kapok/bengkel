@@ -1,0 +1,43 @@
+<div class="card p-2">
+  <div class="row mb-1">
+    <div class="col-md-8">
+      <a href="{{ @BASE.'/report/ppn/print/'.@invoice_month.'/'.@invoice_year }}" class="btn btn-danger btn-sm" target="_blank">
+	    Cetak Rekapitulasi
+	  </a>
+    </div>
+    <div class="col-md-4 pull-right">
+      <div class="input-group">
+        <input id="searching" class="form-control form-control-sm" placeholder="Cari Data ...">
+        <span class="input-group-append">
+          <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
+        </span>
+      </div>
+    </div>
+  </div>
+    
+  <table id="simple_table" class="table table-striped" style="width:100%">
+    <thead class="bg-app">
+      <tr>
+        <th>No.</th>
+        <th class="width-100">Tanggal</th>
+        <th>Invoice</th>
+        <th class="width-500">Nama Pelanggan</th>
+        <th class="width-100">Jasa</th>
+        <th class="width-100">Parts</th>
+        <th class="width-100">PPN</th>
+      </tr>
+    </thead>
+    <tbody>
+	  <repeat group="{{ @data_invoice }}" key="{{ @no }}" value="{{ $invoice }}">
+		<tr>
+		  <td>{{ @no + 1 }}</td>
+		  <td>{{ date('d F Y', strtotime(@invoice.invoice_date)) }}</td>
+		  <td>{{ @invoice.invoice_number }}</td>
+		  <td>{{ @invoice.customer_name }}</td>
+		  <td class="text-right">Rp {{ number_format(@invoice.invoice_part_charge) }}</td>
+		  <td class="text-right">Rp {{ number_format(@invoice.invoice_service_charge) }}</td>
+		  <td class="text-right">Rp {{ number_format(@invoice_ppn) }}</td>
+	  </repeat>
+	</tbody>
+  </table>
+</div>

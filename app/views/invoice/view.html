@@ -22,13 +22,13 @@
   <div class="row mb-1">
     <div class="col-md-6">
 	  <label class="col-sm-4"><b>Model</b></label>
-	  <span class="col-sm-8">: {{ strtoupper(@POST.invoice_model) }}</span>
+	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_model) }}</span>
 	</div>
   </div>
   <div class="row mb-1">
     <div class="col-md-6">
 	  <label class="col-sm-4"><b>Unit / Engine</b></label>
-	  <span class="col-sm-8">: {{ strtoupper(@POST.invoice_engine) }}</span>
+	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_engine) }}</span>
 	</div>
 	<div class="col-md-6">
 	  <label class="col-sm-4"><b>No. Penawaran</b></label>
@@ -38,7 +38,7 @@
   <div class="row mb-1">
     <div class="col-md-6">
 	  <label class="col-sm-4"><b>Serial Number</b></label>
-	  <span class="col-sm-8">: {{ strtoupper(@POST.invoice_serial_number) }}</span>
+	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_serial_number) }}</span>
 	</div>
 	<div class="col-md-6">
 	  <label class="col-sm-4"><b>Tgl. Penawaran</b></label>
@@ -86,14 +86,14 @@
 		</tr>
 		<tr>
 		  <th colspan="6" style="border:none">
-			<span>- {{ strtoupper(@POST.invoice_note_2) }}</span>
+			<span>- {{ strtoupper(@POST.invoice_note_customer) }}</span>
 		  </th>
 		  <th><center>SERVIS</center></th>
 		  <td class="text-right">Rp {{ number_format(@POST.invoice_service_charge) }}</td>
 		</tr>
 		<tr>
 		  <th colspan="6" style="border:none">
-			<span>- {{ strtoupper(@POST.invoice_note_1) }}</span>
+			<span>- {{ strtoupper(@POST.invoice_note_internal) }}</span>
 		  </th>
 		  <th><center>DISKON</center></th>
 		  <td class="text-right">Rp {{ number_format(@POST.invoice_discount) }}</td>
@@ -104,12 +104,16 @@
 		  <td class="bg-secondary text-right"><b>Rp {{ number_format(@POST.invoice_total - @invoice_ppn) }}</b></td>
 		</tr>
 		<tr>
-		  <th colspan="6" style="border:none"></th>
+		  <th colspan="6" style="border:none">
+			Cash :
+		  </th>
 		  <th><center>PPN <span>{{ @POST.invoice_ppn }}%</span></center></th>
 		  <td class="text-right">Rp {{ number_format(@invoice_ppn) }}</td>
 		</tr>
 		<tr>
-		  <th colspan="6" style="border:none"></th>
+		  <th colspan="6" style="border:none">
+			<span>- {{ strtoupper(@POST.invoice_note_payment) }}</span>
+		  </th>
 		  <th class="bg-secondary"><center>TOTAL</center></th>
 		  <td class="bg-secondary text-right"><b>Rp {{ number_format(@POST.invoice_total) }}</b></td>
 		</tr>

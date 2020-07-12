@@ -118,7 +118,7 @@
 			    <select id="{{ @i }}" name="data[{{ @i }}][quotation_detail_item_code]" style="width:100px" onchange="return getData(this.id, this.value)">
 				  <option disabled selected></option>
 				  <repeat group="{{ @data_item }}" value="{{ $item }}">
-					<option value="{{ @item.item_code }}">{{ @item.item_code }}</option>
+					<option value="{{ @item.item_code }}">{{ @item.item_code }} | {{ @item.item_desc }}</option>
 				  </repeat>
 				</select>
 			  </td>
