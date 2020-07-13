@@ -57,4 +57,8 @@ class InvoiceDetail extends DB\SQL\Mapper {
 		$this->load(array('invoice_id = ?', $invoice_id));
 		return $this->query;
 	}
+	
+	function beforeEdit($invoice_id){
+		$this->db->exec("DELETE invoice_detail WHERE invoice_id = ?", $invoice_id);
+	}
 }

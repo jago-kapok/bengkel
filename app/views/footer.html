@@ -308,7 +308,33 @@
 	  $('#item_desc_' + id).removeClass('readonly');
 	  $('#item_amount_' + id).removeClass('readonly');
 	  
-	  getGrandTotal();
+	  let = total = 0;
+	  $(".amount").each(function(){
+		if($(this).val() !== ""){
+		  total += parseInt($(this).val(), 10);
+		}
+	  });
+
+	  $("#part_charge_display").html(new Intl.NumberFormat().format(total));
+	  $("#part_charge").val(total);
+	  
+	  $("#total_display").html(new Intl.NumberFormat().format(total));
+	  $("#total").val(total);
+	  
+	  // Total keseluruhan
+	  let quotation_part_charge = $("#part_charge").val();
+	  let quotation_discount = $("#discount").val();
+	  let quotation_service_charge = $("#service_charge").val();
+	  let quotation_ppn_percentage = $("#ppn").val();
+	  
+	  let total_no_ppn = (parseInt(quotation_part_charge) + parseInt(quotation_service_charge) - parseInt(quotation_discount));
+	  let quotation_ppn =  parseInt(total_no_ppn) * (parseInt(quotation_ppn_percentage) / 100);
+	  let grand_total = parseInt(total_no_ppn) + parseInt(quotation_ppn);
+	  
+	  $("#ppn_display").html(new Intl.NumberFormat().format(quotation_ppn));
+	  
+	  $("#grand_total_display").html(new Intl.NumberFormat().format(grand_total));
+	  $("#grand_total").val(grand_total);
 	}
 	
 	/* ============================================================== */
@@ -316,16 +342,15 @@
 	/* ============================================================== */
 	
 	$(".number-only").on("keyup", function(){
+	  if($(this).val() == ""){
+		$(this).val(0);
+	  }
 	  let = total = 0;
 	  $(".amount").each(function(){
 		if($(this).val() !== ""){
 		  total += parseInt($(this).val(), 10);
 		}
 	  });
-	  
-	  if($(this).val() == ""){
-		$(this).val(0);
-	  }
 
 	  $("#part_charge_display").html(new Intl.NumberFormat().format(total));
 	  $("#part_charge").val(total);

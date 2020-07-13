@@ -72,19 +72,7 @@ class InvoiceController extends Controller {
 	
 	public function update(){
 		if($this->f3->exists('POST.update')){
-			$user = new User($this->db);
 			
-			if($this->f3->get('FILES.user_image["name"]') != ''){
-				$user_image = str_replace(" ", "_", $this->f3->get('POST.user_fullname')).'.'.pathinfo($this->f3->get('FILES.user_image["name"]'), PATHINFO_EXTENSION);
-			} else {
-				$user_image = $this->f3->get('POST.user_image_temp');
-			}
-			
-			$user->edit($this->f3->get('PARAMS.user_id'), $user_image);
-			
-			self::upload($this->f3->get('FILES.user_image'), str_replace(" ", "_", $this->f3->get('POST.user_fullname')));
-			
-			\Flash::instance()->addMessage('Berhasil memperbarui data "'.$this->f3->get('POST.user_fullname').'"', 'success');
 			$this->f3->reroute('/user');
 		} else {
 			$user = new User($this->db);

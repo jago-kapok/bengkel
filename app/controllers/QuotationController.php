@@ -56,15 +56,14 @@ class QuotationController extends Controller {
 	
 	public function update(){
 		if($this->f3->exists('POST.update')){
-			$user = new User($this->db);
+			$quotation = new Quotation($this->db);
+			$quotation->edit($this->f3->get('PARAMS.quotation_id'));
 			
-			if($this->f3->get('FILES.user_image["name"]') != ''){
-				$user_image = str_replace(" ", "_", $this->f3->get('POST.user_fullname')).'.'.pathinfo($this->f3->get('FILES.user_image["name"]'), PATHINFO_EXTENSION);
-			} else {
-				$user_image = $this->f3->get('POST.user_image_temp');
-			}
+			$quotation_detail = new QuotationDetail($this->db);
+			$quotation_detail->beforeEdit($this->f3->get('PARAMS.quotation_id'));
+			$quotation_detail->add($this->f3->get('PARAMS.quotation_id'));
 			
-			$this->f3->reroute('/user');
+			$this->f3->reroute('/quotation/view/'.$this->f3->get('PARAMS.quotation_id'));
 		} else {
 			$quotation = new Quotation($this->db);
 			$quotation->getById($this->f3->get('PARAMS.quotation_id'));

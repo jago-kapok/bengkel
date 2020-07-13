@@ -132,7 +132,7 @@
 			  <td><input name="data[{{ @no + 10 }}][quotation_detail_qty_up]" class="number-only" style="width:50px"></td>
 			  <td>
 			    <input id="item_price_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price]" class="number-only" value="{{ number_format(@quotation_detail.quotation_detail_unit_price) }}" style="width:100px" onkeyup="return getTotal({{ @no + 10 }})">
-			    <input type="hidden" id="item_price_temp_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price_temp]">
+			    <input type="hidden" id="item_price_temp_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price_temp]" value="{{ @quotation.quotation_detail_unit_price_temp }}">
 			  </td>
 			  <td><input name="data[{{ @no + 10 }}][quotation_detail_unit_price_up]" class="number-only" style="width:100px"></td>
 			  <td><input id="item_brand_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_brand]" value="{{ @quotation_detail.quotation_detail_brand }}" style="width:95px"></td>
@@ -217,35 +217,35 @@
 			  <th class="col-md-6">PART</th>
 			  <td style="border-right-color:transparent">Rp</td>
 			  <td class="col-md-6 text-right">
-				<b><span id="quotation_part_charge">{{ number_format(@POST.quotation_part_charge) }}</span></b>
-			    <input type="hidden" name="quotation_part_charge" value="{{ @POST.quotation_part_charge }}">
+				<b><span id="part_charge_display">{{ number_format(@POST.quotation_part_charge) }}</span></b>
+			    <input type="hidden" id="part_charge" name="quotation_part_charge" value="{{ @POST.quotation_part_charge }}">
 			  </td>
 			</tr>
 			<tr>
 			  <th>SERVICE</th>
 			  <td style="border-right-color:transparent">Rp</td>
-			  <td><input name="quotation_service_charge" class="number-only" style="width:125px" value="{{ @POST.quotation_service_charge }}"></td>
+			  <td><input id="service_charge" name="quotation_service_charge" class="number-only" style="width:125px" value="{{ @POST.quotation_service_charge }}"></td>
 			</tr>
 			<tr>
 			  <th>DISKON</th>
 			  <td style="border-right-color:transparent">Rp</td>
-			  <td><input name="quotation_discount" class="number-only" style="width:125px" value="{{ @POST.quotation_discount }}"></td>
+			  <td><input id="discount" name="quotation_discount" class="number-only" style="width:125px" value="{{ @POST.quotation_discount }}"></td>
 			</tr>
 			<tr>
 			  <th>PPN &nbsp;
-			    <input name="quotation_ppn" maxlength="2" class="number-only" value="{{ @POST.quotation_ppn }}" style="width:25px"> %
+			    <input id="ppn" name="quotation_ppn" maxlength="2" class="number-only" value="{{ @POST.quotation_ppn }}" style="width:25px"> %
 			  </th>
 			  <td style="border-right-color:transparent">Rp</td>
 			  <td class="text-right">
-			    <span id="quotation_ppn">{{ number_format(@quotation_ppn) }}</span>
+			    <span id="ppn_display">{{ number_format(@quotation_ppn) }}</span>
 			  </td>
 			</tr>
 			<tr>
 			  <th>TOTAL</th>
 			  <td style="border-right-color:transparent">Rp</td>
 			  <td class="text-right">
-			    <b><span id="quotation_total">{{ number_format(@POST.quotation_total) }}</span></b>
-			    <input type="hidden" name="quotation_total" value="{{ @POST.quotation_total }}">
+			    <b><span id="grand_total_display">{{ number_format(@POST.quotation_total) }}</span></b>
+			    <input type="hidden" id="grand_total" name="quotation_total" value="{{ @POST.quotation_total }}">
 			  </td>
 			</tr>
 		  </table>

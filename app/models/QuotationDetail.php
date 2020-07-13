@@ -57,7 +57,11 @@ class QuotationDetail extends DB\SQL\Mapper {
 	}
 	
 	function getById($quotation_id){
-		$this->load(array('quotation_id = ?', $quotation_id));
+		$this->load(array('quotation_number = ?', $quotation_id));
 		return $this->query;
+	}
+	
+	function beforeEdit($quotation_id){
+		$this->db->exec("DELETE quotation_detail WHERE quotation_id = ?", $quotation_id);
 	}
 }
