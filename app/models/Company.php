@@ -10,4 +10,15 @@ class Company extends DB\SQL\Mapper {
 		$this->load(array('company_id = 1'));
 		return $this->query;
 	}
+	
+	public function getData(){
+		$this->load(array('company_id = 1'));
+		$this->copyTo('POST');
+	}
+	
+	public function edit($company_id){
+		$this->load(array('company_id = ?', $company_id));
+		$this->copyFrom('POST');
+		$this->update();
+	}
 }

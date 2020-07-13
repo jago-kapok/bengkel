@@ -65,6 +65,11 @@ class Supplier extends DB\SQL\Mapper {
 		echo json_encode($output);
 	}
 	
+	public function getAll(){
+		$this->load();
+		return $this->query;
+	}
+	
 	public function add(){
 		$this->copyFrom('POST');
 		$this->save();
@@ -80,4 +85,23 @@ class Supplier extends DB\SQL\Mapper {
 		$this->copyFrom('POST');
 		$this->update();
 	}
+	
+	public function getData($supplier_code){
+		$output = array();
+		
+		$this->load(array('supplier_code = ?', $supplier_code));
+		$query = $this->query;
+			
+		foreach($query as $data){
+			$output[] = array(
+				"supplier_id" => $data['supplier_id'],
+				"supplier_name" => $data['supplier_name'],
+				"supplier_address" => $data['supplier_address'],
+				"supplier_city" => $data['supplier_city'],
+				"supplier_phone" => $data['supplier_phone']
+			);
+		}
+		
+		echo json_encode($output);
+    }
 }

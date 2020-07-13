@@ -19,11 +19,23 @@ class StockController extends Controller {
 	}
 	
 	public function create(){
-		$stock = new Stock($this->db);
-		$stock->add();
+		if($this->f3->exists('POST.create')){
+			$stock = new Stock($this->db);
+			$stock->add();
+				
+			\Flash::instance()->addMessage('Berhasil menambah data "'.$this->f3->get('POST.item_id').'"', 'success');
+			$this->f3->reroute('/stock');
+		} else {
+			$item = new Item($this->db);
+			$this->f3->set('data_item', $item->getAll());
 			
-		\Flash::instance()->addMessage('Berhasil menambah data "'.$this->f3->get('POST.item_id').'"', 'success');
-		$this->f3->reroute('/stock');
+			$supplier = new Supplier($this->db);
+			$this->f3->set('data_supplier', $supplier->getAll());
+			
+			$this->f3->set('page_title','Transaksi Pembelian');
+			$this->f3->set('header','header/header.html');
+			$this->f3->set('view','stock/create.html');
+		}
 	}
 	
 	public function update(){

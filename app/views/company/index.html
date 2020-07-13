@@ -1,0 +1,74 @@
+<div class="card card-primary card-outline">
+  <form action="{{ @BASE.'/company' }}" method="POST" enctype="multipart/form-data">
+    <div class="card-body">
+	  <div class="row">
+		<div class="col-md-3">		  
+		  <div class="form-group">
+			<div class="card">
+			  <div class="card-body box-profile">
+				<div class="text-center">
+				  <img id="preview_image" class="profile-user-img img-fluid" src="../../ui/assets/img/logo.jpg" width="200">
+				</div>
+			  </div>
+			</div>
+		  </div>
+	    </div>
+		
+		<div class="col-md-9">
+		  <div class="form-group row">
+			<label class="col-md-3 col-form-label">Nama Perusahaan</label>
+			<div class="col-md-9">
+			  <input name="company_name" class="form-control form-control-sm" value="{{ @POST.company_name }}">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-3 col-form-label">Alamat</label>
+			<div class="col-md-9">
+			  <input name="company_address" class="form-control form-control-sm" value="{{ @POST.company_address }}">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-3 col-form-label">Kota</label>
+			<div class="col-md-9">
+			  <input name="company_city" class="form-control form-control-sm" value="{{ @POST.company_city }}">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-3 col-form-label">Telepon</label>
+			<div class="col-md-9">
+			  <input name="company_phone" class="form-control form-control-sm" value="{{ @POST.company_phone }}">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-3 col-form-label">Fax</label>
+			<div class="col-md-9">
+			  <input name="company_fax" class="form-control form-control-sm" value="{{ @POST.company_fax }}">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-3 col-form-label">Deskripsi</label>
+			<div class="col-md-9">
+			  <input name="company_desc" class="form-control form-control-sm" value="{{ @POST.company_desc }}">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-3 col-form-label">Bidang</label>
+			<div class="col-md-9">
+			  <input name="company_info" class="form-control form-control-sm" value="{{ @POST.company_info }}">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-3 col-form-label">Upload Foto</label>
+			<div class="col-md-9">
+			  <input type="file" name="user_image" class="form-control form-control-sm" onchange="return previewImage(this)" disabled>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<div class="card-footer bg-whitesmoke">
+	  <button type="submit" name="update" class="btn btn-primary btn-sm btn-form"><b>Perbarui</b></button>
+	  <a href="../../" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
+	</div>
+  </form>
+</div>

@@ -58,7 +58,6 @@
 		  <th class="width-150">Harga / Unit</th>
 		  <th class="width-150">Merk</th>
 		  <th class="width-150">Total</th>
-		  <th class="width-150">Profit</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -72,7 +71,6 @@
 			<td class="text-right">Rp {{ number_format(@quotation_detail.quotation_detail_unit_price) }}</td>
 			<td>{{ strtoupper(@quotation_detail.quotation_detail_brand) }}</td>
 			<td class="text-right">Rp {{ number_format(@quotation_detail.quotation_detail_amount) }}</td>
-			<td class="text-right">Rp {{ number_format(@quotation_detail.quotation_detail_profit) }}</td>
 		  </tr>
 		</repeat>
 	  </tbody>
@@ -112,11 +110,6 @@
 		  <th colspan="6" style="border:none"></th>
 		  <th class="bg-secondary"><center>TOTAL</center></th>
 		  <td class="bg-secondary text-right"><b>Rp {{ number_format(@POST.quotation_total) }}</b></td>
-		</tr>
-		<tr>
-		  <th colspan="6" style="border:none"></th>
-		  <th class="bg-light" colspan="2"><center>TOTAL PROFIT</center></th>
-		  <td class="bg-light text-right"><b>Rp {{ number_format(@profit_total) }}</b></td>
 		</tr>
 	  </tbody>
 	</table>

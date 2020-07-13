@@ -13,20 +13,12 @@ class Stock extends DB\SQL\Mapper {
 		$output['recordsTotal'] = $output['recordsFiltered'] = $total;
 		$output['data'] = array();
 		
-		$query = $this->db->exec("SELECT * FROM stock WHERE
-			item_id LIKE ? OR
+		$query = $this->db->exec("SELECT * FROM stock JOIN item ON stock.item_id = item.item_id WHERE
+			item_code LIKE ? OR
+			item_desc LIKE ? OR
 			stock_min LIKE ? OR
-			stock_min LIKE ? OR
-			stock_max LIKE ? OR
-			stock_first LIKE ? OR
-			stock_on_hand LIKE ? OR
-			stock_by LIKE ? OR
-			stock_date LIKE ? ORDER BY stock_id DESC LIMIT ? OFFSET ?",
+			stock_on_hand LIKE ? ORDER BY stock_id DESC LIMIT ? OFFSET ?",
 			array(
-				'%'.$search.'%',
-				'%'.$search.'%',
-				'%'.$search.'%',
-				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -36,20 +28,12 @@ class Stock extends DB\SQL\Mapper {
 			)
 		);
 			
-		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM stock WHERE
-			item_id LIKE ? OR
+		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM stock JOIN item ON stock.item_id = item.item_id WHERE
+			item_code LIKE ? OR
+			item_desc LIKE ? OR
 			stock_min LIKE ? OR
-			stock_min LIKE ? OR
-			stock_max LIKE ? OR
-			stock_first LIKE ? OR
-			stock_on_hand LIKE ? OR
-			stock_by LIKE ? OR
-			stock_date LIKE ?",
+			stock_on_hand LIKE ?",
 			array(
-				'%'.$search.'%',
-				'%'.$search.'%',
-				'%'.$search.'%',
-				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -65,13 +49,10 @@ class Stock extends DB\SQL\Mapper {
 		
 		foreach($query as $data) {
 			$output['data'][] = array(
-				$data['item_id'],
+				$data['item_code'],
+				$data['item_desc'],
 				$data['stock_min'],
-				$data['stock_max'],
-				$data['stock_first'],
 				$data['stock_on_hand'],
-				$data['stock_by'],
-				$data['stock_date'],
 				$data['stock_id']
 			);
 		}

@@ -26,6 +26,7 @@
   <include href="datatables/item.html">
   <include href="datatables/stock.html">
   <include href="datatables/supplier.html">
+  <include href="datatables/purchase.html">
   <include href="datatables/quotation.html">
   <include href="datatables/invoice.html">
   <include href="datatables/invoice_ppn.html">
@@ -167,30 +168,6 @@
 	  modal.find('.modal-body input[name=item_image]').val(item_image);
 	});
 
-	/* Stock */
-	$('#update_stock').on('show.bs.modal', function(event){
-	  var button = $(event.relatedTarget);
-	  var stock_id = button.data('stock_id');
-	  var item_id = button.data('item_id');
-	  var stock_min = button.data('stock_min');
-	  var stock_max = button.data('stock_max');
-	  var stock_first = button.data('stock_first');
-	  var stock_on_hand = button.data('stock_on_hand');
-	  var stock_by = button.data('stock_by');
-	  var stock_date = button.data('stock_date');
-	  
-	  var modal = $(this);
-	  modal.find('.modal-title').text('Update : ' + item_id);
-	  modal.find('.modal-body input[name=stock_id]').val(stock_id);
-	  modal.find('.modal-body input[name=item_id]').val(item_id);
-	  modal.find('.modal-body input[name=stock_min]').val(stock_min);
-	  modal.find('.modal-body input[name=stock_max]').val(stock_max);
-	  modal.find('.modal-body input[name=stock_first]').val(stock_first);
-	  modal.find('.modal-body input[name=stock_on_hand]').val(stock_on_hand);
-	  modal.find('.modal-body input[name=stock_by]').val(stock_by);
-	  modal.find('.modal-body input[name=stock_date]').val(stock_date);
-	});
-
 	/* Supplier */
 	$('#update_supplier').on('show.bs.modal', function(event){
 	  var button = $(event.relatedTarget);
@@ -206,7 +183,7 @@
 	  modal.find('.modal-body input[name=supplier_id]').val(supplier_id);
 	  modal.find('.modal-body input[name=supplier_code]').val(supplier_code);
 	  modal.find('.modal-body input[name=supplier_name]').val(supplier_name);
-	  modal.find('.modal-body textarea[name=supplier_address]').val(supplier_address);
+	  modal.find('.modal-body input[name=supplier_address]').val(supplier_address);
 	  modal.find('.modal-body input[name=supplier_city]').val(supplier_city);
 	  modal.find('.modal-body input[name=supplier_phone]').val(supplier_phone);
 	});
@@ -252,10 +229,33 @@
 	});
 	
 	/* ============================================================== */
+	/* Fungsi get data customer										= */
+	/* ============================================================== */
+	
+	$('input[name=supplier_code]').change(function(){
+	  $('input[name=supplier_id]').empty();
+	  $('input[name=supplier_name]').empty();
+	  $('input[name=supplier_address]').empty();
+	  $('input[name=supplier_city]').empty();
+	  $('input[name=supplier_phone]').empty();
+	  
+	  $.getJSON("{{ @BASE.'/supplier/get-data/' }}" + this.value, function(data){
+		$.each(data, function(key, value){
+		  $('input[name=supplier_id]').val(value.supplier_id);
+		  $('input[name=supplier_name]').val(value.supplier_name);
+		  $('input[name=supplier_address]').val(value.supplier_address);
+		  $('input[name=supplier_city]').val(value.supplier_city);
+		  $('input[name=supplier_phone]').val(value.supplier_phone);
+		});
+	  });
+	});
+	
+	/* ============================================================== */
 	/* Fungsi get data item											= */
 	/* ============================================================== */
 	
 	function getData(id, val){
+	  $('#item_id_' + id).empty();
 	  $('#item_part_no_' + id).empty();
 	  $('#item_desc_' + id).empty();
 	  $('#item_price_' + id).empty();
@@ -263,6 +263,7 @@
 	  
 	  $.getJSON("{{ @BASE.'/item/get-data/' }}" + val, function(data){
 		$.each(data, function(key, value){
+		  $('#item_id_' + id).val(value.item_id);
 		  $('#item_part_no_' + id).val(value.item_part_no);
 		  $('#item_desc_' + id).val(value.item_desc);
 		  $('#item_price_' + id).val(new Intl.NumberFormat().format(value.item_price));

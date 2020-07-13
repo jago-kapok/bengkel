@@ -9,12 +9,12 @@
     <div class="row mb-1">
       <div class="col-md-8">
         <a href="{{ @BASE.'/purchase/create' }}" class="btn btn-success btn-sm">
-          Tambah Stok
+          Tambah Pembelian
         </a>
       </div>
       <div class="col-md-4 pull-right">
         <div class="input-group">
-          <input id="stock_search" class="form-control form-control-sm" placeholder="Cari Data ...">
+          <input id="purchase_search" class="form-control form-control-sm" placeholder="Cari Data ...">
           <span class="input-group-append">
             <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
           </span>
@@ -22,13 +22,13 @@
       </div>
     </div>
       
-    <table id="stock_table" class="table table-striped" style="width:100%">
+    <table id="purchase_table" class="table table-striped" style="width:100%">
       <thead class="bg-app">
         <tr>
-          <th>Kode Barang</th>
-          <th>Nama Barang</th>
-          <th>Stok Min</th>
-          <th>Srok Tersdia</th>
+          <th>No. Invoice / Nota</th>
+          <th>Tgl. Pembelian</th>
+          <th>Nama Supplier</th>
+          <th>Telepon</th>
           <th>Pilihan</th>
         </tr>
       </thead>

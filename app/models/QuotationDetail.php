@@ -24,8 +24,7 @@ class QuotationDetail extends DB\SQL\Mapper {
 				quotation_detail_unit_price_up,
 				quotation_detail_unit_price_temp,
 				quotation_detail_amount,
-				quotation_detail_brand,
-				quotation_detail_profit) VALUES
+				quotation_detail_brand) VALUES
 				(:quotation_id,
 				:quotation_detail_item_code,
 				:quotation_detail_item_part_no,
@@ -36,8 +35,7 @@ class QuotationDetail extends DB\SQL\Mapper {
 				:quotation_detail_unit_price_up,
 				:quotation_detail_unit_price_temp,
 				:quotation_detail_amount,
-				:quotation_detail_brand,
-				:quotation_detail_profit)",
+				:quotation_detail_brand)",
 				array(
 					':quotation_id' => $quotation_id,
 					':quotation_detail_item_code' => $value['quotation_detail_item_code'],
@@ -49,15 +47,14 @@ class QuotationDetail extends DB\SQL\Mapper {
 					':quotation_detail_unit_price_up' => str_replace(',', '', $value['quotation_detail_unit_price_up']),
 					':quotation_detail_unit_price_temp' => str_replace(',', '', $value['quotation_detail_unit_price_temp']),
 					':quotation_detail_amount' => str_replace(',', '', $value['quotation_detail_qty']) * str_replace(',', '', $value['quotation_detail_unit_price']),
-					':quotation_detail_brand' => $value['quotation_detail_brand'],
-					':quotation_detail_profit' => (str_replace(',', '', $value['quotation_detail_unit_price']) - $value['quotation_detail_unit_price_temp']) * str_replace(',', '', $value['quotation_detail_qty'])
+					':quotation_detail_brand' => $value['quotation_detail_brand']
 				));
 			}
 		}
 	}
 	
 	function getById($quotation_id){
-		$this->load(array('quotation_number = ?', $quotation_id));
+		$this->load(array('quotation_id = ?', $quotation_id));
 		return $this->query;
 	}
 	

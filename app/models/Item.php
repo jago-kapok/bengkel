@@ -101,6 +101,7 @@ class Item extends DB\SQL\Mapper {
 			
 		foreach($query as $data){
 			$output[] = array(
+				"item_id" => $data['item_id'],
 				"item_part_no" => $data['item_part_no'],
 				"item_desc" => $data['item_desc'],
 				"item_price" => $data['item_price'],

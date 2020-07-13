@@ -1,0 +1,55 @@
+<div class="card p-2" style="font-size:12px">
+  <div class="row mb-1">
+    <div class="col-md-6">
+	  <label class="col-sm-4"><b>Tgl. Pembelian</b></label>
+	  <span class="col-sm-8">: {{ date('d F Y', strtotime(@POST.purchase_date)) }}</span>
+	</div>
+	<div class="col-md-6">
+	  <label class="col-sm-4"><b>Nama Supplier</b></label>
+	  <span class="col-sm-8">: {{ strtoupper(@POST.supplier_name) }}</span>
+	</div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-md-6">
+	  <label class="col-sm-4"><b>No. Penawaran</b></label>
+	  <span class="col-sm-8">: {{ @POST.purchase_number }}</span>
+	</div>
+	<div class="col-md-6">
+	  <label class="col-sm-4"><b>Alamat / Kota</b></label>
+	  <span class="col-sm-8">: {{ strtoupper(@POST.supplier_address) }} / {{ strtoupper(@POST.supplier_city) }}</span>
+	</div>
+  </div>
+  <div class="row mb-1">
+	<div class="col-md-6 offset-6">
+	  <label class="col-sm-4"><b>No. Telepon</b></label>
+	  <span class="col-sm-8">: {{ @POST.supplier_phone }}</span>
+	</div>
+  </div>
+  
+  <div class="row m-3">
+	<table class="table table-bordered table-striped table-responsive">
+	  <thead>
+		<tr class="bg-primary">
+		  <th>No.</th>
+		  <th class="width-150">Kode</th>
+		  <th class="width-150">No. Part</th>
+		  <th class="width-500">Deskripsi</th>
+		  <th class="width-75">Qty</th>
+		  <th class="width-150">Merk</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+		<repeat group="{{ @data_purchase_detail }}" key="{{ @no }}" value="{{ $purchase_detail }}">
+		  <tr>
+			<td><center>{{ @no + 1 }}</center></td>
+			<td>{{ strtoupper(@purchase_detail.item_code) }}</td>
+			<td>{{ strtoupper(@purchase_detail.item_part_no) }}</td>
+			<td>{{ strtoupper(@purchase_detail.item_desc) }}</td>
+			<td>{{ @purchase_detail.purchase_detail_value }}</td>
+			<td>{{ @purchase_detail.item_brand_1 }}</td>
+		  </tr>
+		</repeat>
+	  </tbody>
+	</table>
+  </div>
+</div>

@@ -101,12 +101,6 @@ class QuotationController extends Controller {
 		$quotation_detail = new QuotationDetail($this->db);
 		$this->f3->set('data_quotation_detail', $quotation_detail->getById($this->f3->get('PARAMS.quotation_id')));
 		
-		$profit_total = array();
-		foreach($quotation_detail->getById($this->f3->get('PARAMS.quotation_id')) as $data){
-			array_push($profit_total, $data['quotation_detail_profit']);
-		}
-		$this->f3->set('profit_total', array_sum($profit_total));
-		
 		$this->f3->set('page_title','Detil Penawaran - No : '.$quotation->quotation_number);
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','quotation/view.html');

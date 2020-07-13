@@ -18,6 +18,13 @@ class SupplierController extends Controller {
 		die($supplier->data($draw, $length, $offset, $search));
 	}
 	
+	public function get_data(){
+		$supplier_code = $this->f3->get('PARAMS.supplier_code');
+				
+		$supplier = new Supplier($this->db);
+		die($supplier->getData($supplier_code));
+	}
+	
 	public function create(){
 		$supplier = new Supplier($this->db);
 		$supplier->add();

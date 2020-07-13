@@ -13,7 +13,7 @@ class Quotation extends DB\SQL\Mapper {
 		$output['recordsTotal'] = $output['recordsFiltered'] = $total;
 		$output['data'] = array();
 		
-		$query = $this->db->exec("SELECT quotation.*, invoice.invoice_number AS invoice_number, customer.customer_name FROM quotation JOIN customer ON quotation.customer_id = customer.customer_code LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
+		$query = $this->db->exec("SELECT quotation.*, invoice.invoice_number AS invoice_number, customer.customer_name FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
 			(quotation_number LIKE ? OR
 			customer_name LIKE ? OR
 			invoice_number LIKE ?) AND
@@ -27,7 +27,7 @@ class Quotation extends DB\SQL\Mapper {
 			)
 		);
 			
-		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM quotation JOIN customer ON quotation.customer_id = customer.customer_code LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
+		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
 			(quotation_number LIKE ? OR
 			customer_name LIKE ? OR
 			invoice_number LIKE ?) AND
