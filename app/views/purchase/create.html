@@ -1,42 +1,47 @@
-<div class="">
+<div class="" style="font-size:12px">
   <form action="{{ @BASE.'/purchase/create' }}" method="POST" enctype="multipart/form-data">
-    <div class="">
-	  <div class="row">
-		<div class="col-md-2">
-		  <input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice / Nota Pembelian" data-toggle="tooltip" title="No. Invoice / Nota Pembelian" required>
+    <div class="row">
+	  <div class="col-md-6">
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>No. Penawaran</b></label>
+		  <div class="col-md-4">
+		    <input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice / Nota Pembelian" data-toggle="tooltip" title="No. Invoice / Nota Pembelian" required>
+		  </div>
 		</div>
-		<div class="col-md-2 offset-8">
-		  <div class="form-group">
-			<input type="date" name="purchase_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. Pembelian" required>
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>Tgl. Penawaran</b></label>
+		  <div class="col-md-4">
+		    <input type="date" name="purchase_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. Pembelian" required>
 		  </div>
 		</div>
 	  </div>
 	  
-	  <div class="row">
-		<div class="col-md-2">
-		  <div class="form-group">
+	  <div class="col-md-6">
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>Kode Supplier</b></label>
+		  <div class="col-md-4">
 			<input name="supplier_code" class="form-control form-control-sm form-app" list="data-supplier" placeholder="ID Supplier" data-toggle="tooltip" title="ID SUPPLIER" autocomplete="off" required>
 			<input type="hidden" name="supplier_id" class="form-control form-control-sm form-app">
 		  </div>
-		</div>
-		<div class="col-md-4">
-		  <div class="form-group">
+		  <div class="col-md-5">
 			<input name="supplier_name" class="form-control form-control-sm form-app" placeholder="Nama Supplier" readonly>
 		  </div>
 		</div>
-		<div class="col-md-4">
-		  <div class="form-group">
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>Alamat</b></label>
+		  <div class="col-md-9">
 			<input name="supplier_address" class="form-control form-control-sm form-app" placeholder="Alamat" readonly>
 		  </div>
 		</div>
-		<div class="col-md-2">
-		  <div class="form-group">
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>No. Telepon</b></label>
+		  <div class="col-md-4">
 			<input name="supplier_phone" class="form-control form-control-sm form-app" placeholder="No. Telepon" readonly>
 		  </div>
 		</div>
 	  </div>
 	  
-	  <div class="row mr-0 ml-0">
+	  <div class="row m-0">
 		<table class="table table-bordered table-responsive">
 		  <thead>
 			<tr class="bg-primary">
