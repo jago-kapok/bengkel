@@ -10,6 +10,8 @@ section {
 }
 .table:not(.table-sm) thead th {
 	color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 .dataTables_filter {
 	display: none;
@@ -115,11 +117,17 @@ input:focus {
 .width-100 {
 	width: 100px;
 }
+.width-125 {
+	width: 125px;
+}
 .width-150 {
 	width: 150px;
 }
 .width-175 {
 	width: 175px;
+}
+.width-400 {
+	width: 400px;
 }
 .width-500 {
 	width: 500px;
@@ -130,4 +138,7 @@ input:focus {
 }
 .font-12 {
 	font-size: 12px;
+}
+.btn-app {
+	line-height: 15px;
 }

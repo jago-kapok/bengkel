@@ -58,11 +58,14 @@
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-3 col-form-label">Upload Foto</label>
-			<div class="col-md-9">
-			  <input type="file" name="user_image" class="form-control form-control-sm" onchange="return previewImage(this)" disabled>
+			<label class="col-md-3 col-form-label">Informasi Rekening</label>
+			<div class="col-md-3">
+			  <input name="company_bank" class="form-control form-control-sm" value="{{ @POST.company_bank }}">
 			</div>
-		  </div>
+			<div class="col-md-6">
+			  <input name="company_bank_account" class="form-control form-control-sm" value="{{ @POST.company_bank_account }}">
+			</div>
+		  </div>		  
 		</div>
 	  </div>
 	</div>

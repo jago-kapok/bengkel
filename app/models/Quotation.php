@@ -50,6 +50,8 @@ class Quotation extends DB\SQL\Mapper {
 				$data['quotation_number'],
 				date('d F Y', strtotime($data['quotation_date'])),
 				$data['customer_name'],
+				$data['quotation_serial_number'],
+				$data['quotation_engine'],
 				number_format($data['quotation_part_charge'] + $data['quotation_service_charge']),
 				$data['invoice_number'],
 				$data['quotation_id']

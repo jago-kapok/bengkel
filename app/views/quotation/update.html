@@ -12,16 +12,16 @@
 		  </div>
 		</div>
 		<div class="col-md-2 offset-6">
-		  <div class="form-group">
-			<input type="date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d', strtotime(@POST.quotation_date)) }}" readonly>
-		  </div>
-		</div>
-		<div class="col-md-2">
 		  <div class="input-group mb-2">
 			<div class="input-group-prepend">
 			  <span class="input-group-text form-app">TT</span>
 			</div>
-			<input type="date" name="quotation_received_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d', strtotime(@POST.quotation_received_date)) }}" data-toggle="tooltip" title="Tgl. Tanda Terima" required>
+			<input type="date" name="quotation_received_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d', strtotime(@POST.quotation_received_date)) }}" data-toggle="tooltip" title="Tgl. TANDA TERIMA" required>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input type="date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d', strtotime(@POST.quotation_date)) }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
 		  </div>
 		</div>
 	  </div>
@@ -29,7 +29,7 @@
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="customer_code" class="form-control form-control-sm form-app" value="{{ @POST.customer_code }}" list="data-customer" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID Pelanggan" required>
+			<input name="customer_code" class="form-control form-control-sm form-app" value="{{ @POST.customer_code }}" list="data-customer" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" autocomplete="off" required>
 			<input type="hidden" name="customer_id" class="form-control form-control-sm form-app" value="{{ @POST.customer_id }}">
 		  </div>
 		</div>
@@ -65,7 +65,7 @@
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<select name="quotation_model" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Model">
+			<select name="quotation_model" class="form-control form-control-sm form-app" data-toggle="tooltip" title="MODEL" required>
 			  <option disabled selected>-- PILIH MODEL --</option>
 			  <repeat group="{{ @data_model }}" value="{{ $model }}">
 				<option value="{{ @model.model_desc }}" <check if="{{ @POST.quotation_model == @model.model_desc }}">selected</check>>{{ @model.model_code }} | {{ @model.model_desc }}</option>
@@ -75,12 +75,12 @@
 		</div>
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="quotation_engine" class="form-control form-control-sm form-app" placeholder="Engine" value="{{ @POST.quotation_engine }}" data-toggle="tooltip" title="Engine">
+			<input name="quotation_engine" class="form-control form-control-sm form-app" placeholder="Engine" value="{{ @POST.quotation_engine }}" data-toggle="tooltip" title="ENGINE">
 		  </div>
 		</div>
 		<div class="col-md-3">
 		  <div class="form-group">
-			<input name="quotation_pump_assy" class="form-control form-control-sm form-app" placeholder="Pump Assy" value="{{ @POST.quotation_pump_assy }}" data-toggle="tooltip" title="Pump Assy">
+			<input name="quotation_pump_assy" class="form-control form-control-sm form-app" placeholder="Pump Assy" value="{{ @POST.quotation_pump_assy }}" data-toggle="tooltip" title="PUMP ASSY">
 		  </div>
 		</div>
 		<div class="col-md-3">
@@ -103,9 +103,10 @@
 			  <th class="col-md-1">No. Part</th>
 			  <th class="col-md-1">Deskripsi</th>
 			  <th class="col-md-1">Qty</th>
-			  <th class="col-md-1">Qty (UP)</th>
-			  <th class="col-md-1">Harga / Unit</th>
-			  <th class="col-md-1">Harga / Unit (UP)</th>
+			  <th class="col-md-1">Up</th>
+			  <th class="col-md-1">Modal</th>
+			  <th class="col-md-1">Harga</th>
+			  <th class="col-md-1">Harga (Up)</th>
 			  <th class="col-md-1">Merk</th>
 			  <th class="col-md-1">Total</th>
 			  <th class="col-md-1">#</th>
@@ -127,15 +128,17 @@
 			  </td>
 			  <td><input id="item_desc_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_item_desc]" value="{{ @quotation_detail.quotation_detail_item_desc }}" style="width:250px" readonly></td>
 			  <td>
-			    <input id="item_qty_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_qty]" class="number-only" value="{{ @quotation_detail.quotation_detail_qty }}" style="width:50px" onkeyup="return getTotal({{ @no + 10 }})">
+			    <input id="item_qty_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_qty]" class="number-only" value="{{ @quotation_detail.quotation_detail_qty }}" style="width:30px" onkeyup="return getTotal({{ @no + 10 }})">
 			  </td>
-			  <td><input name="data[{{ @no + 10 }}][quotation_detail_qty_up]" class="number-only" style="width:50px"></td>
+			  <td><input name="data[{{ @no + 10 }}][quotation_detail_qty_up]" class="number-only bg-info" style="width:30px"></td>
 			  <td>
-			    <input id="item_price_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price]" class="number-only" value="{{ number_format(@quotation_detail.quotation_detail_unit_price) }}" style="width:100px" onkeyup="return getTotal({{ @no + 10 }})">
-			    <input type="hidden" id="item_price_temp_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price_temp]" value="{{ @quotation.quotation_detail_unit_price_temp }}">
+			    <input id="item_price_temp_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price_temp]" class="number-only readonly" value="{{ @quotation.quotation_detail_unit_price_temp }}" style="width:75px" readonly>
 			  </td>
-			  <td><input name="data[{{ @no + 10 }}][quotation_detail_unit_price_up]" class="number-only" style="width:100px"></td>
-			  <td><input id="item_brand_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_brand]" value="{{ @quotation_detail.quotation_detail_brand }}" style="width:95px"></td>
+			  <td>
+			    <input id="item_price_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price]" class="number-only" value="{{ number_format(@quotation_detail.quotation_detail_unit_price) }}" style="width:75px" onkeyup="return getTotal({{ @no + 10 }})">
+			  </td>
+			  <td><input name="data[{{ @no + 10 }}][quotation_detail_unit_price_up]" class="number-only bg-info" style="width:75px"></td>
+			  <td><input id="item_brand_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_brand]" value="{{ @quotation_detail.quotation_detail_brand }}" style="width:100px"></td>
 			  <td>
 			    <input id="item_amount_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_amount]" class="number-only amount" value="{{ number_format(@quotation_detail.quotation_detail_amount) }}" style="width:100px">
 			  </td>
@@ -149,13 +152,13 @@
 			</tr>
 			</repeat>
 			
-			<loop from="{{ @i=0 }}" to="{{ @i < (8 - count(@data_quotation_detail)) }}" step="{{ @i++ }}">
+			<loop from="{{ @i=0 }}" to="{{ @i < (10 - count(@data_quotation_detail)) }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
 			    <select id="{{ @i }}" name="data[{{ @i }}][quotation_detail_item_code]" style="width:100px" onchange="return getData(this.id, this.value)">
 				  <option disabled selected></option>
 				  <repeat group="{{ @data_item }}" value="{{ $item }}">
-					<option value="{{ @item.item_code }}">{{ @item.item_code }}</option>
+					<option value="{{ @item.item_code }}">{{ @item.item_code }} | {{ @item.item_desc }}</option>
 				  </repeat>
 				</select>
 			  </td>
@@ -164,15 +167,17 @@
 			  </td>
 			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_desc]" style="width:250px"></td>
 			  <td>
-			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][quotation_detail_qty]" class="number-only" style="width:50px" onkeyup="return getTotal({{ @i }})">
+			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][quotation_detail_qty]" class="number-only" style="width:30px" onkeyup="return getTotal({{ @i }})">
 			  </td>
-			  <td><input name="data[{{ @i }}][quotation_detail_qty_up]" class="number-only" style="width:50px"></td>
+			  <td><input name="data[{{ @i }}][quotation_detail_qty_up]" class="number-only bg-info" style="width:30px"></td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]" class="number-only" style="width:100px" onkeyup="return getTotal({{ @i }})">
-			    <input type="hidden" id="item_price_temp_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price_temp]">
+			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price_temp]" class="number-only readonly" style="width:75px" readonly>
 			  </td>
-			  <td><input name="data[{{ @i }}][quotation_detail_unit_price_up]" class="number-only" style="width:100px"></td>
-			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][quotation_detail_brand]" style="width:95px"></td>
+			  <td>
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})">
+			  </td>
+			  <td><input name="data[{{ @i }}][quotation_detail_unit_price_up]" class="number-only bg-info" style="width:75px"></td>
+			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][quotation_detail_brand]" style="width:100px"></td>
 			  <td>
 			    <input id="item_amount_{{ @i }}" name="data[{{ @i }}][quotation_detail_amount]" class="number-only amount" style="width:100px">
 			  </td>
@@ -254,7 +259,7 @@
 	</div>
 	<div class="card-footer">
 	  <button type="submit" name="update" class="btn btn-primary btn-sm btn-form"><b>Update</b></button>
-	  <a href="../../user" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
+	  <a href="{{ @BASE.'/quotation/view/'.@PARAMS.quotation_id }}" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
 	</div>
   </form>
 </div>

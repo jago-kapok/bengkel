@@ -116,6 +116,8 @@
   </div>
   
   <div class="card-footer" style="border-top:1px solid #cecece">
-	<a href="{{ @BASE.'/quotation/print/'.@PARAMS.quotation_id }}" class="btn btn-success btn-sm" target="_blank"><i class="fa fa-print"></i> Cetak Penawaran</a>
+	<a href="{{ @BASE.'/quotation/print/'.@PARAMS.quotation_id }}" class="btn btn-success btn-sm mr-1" target="_blank"><i class="fa fa-print"></i>&nbsp;&nbsp;Cetak Penawaran</a>
+	<a href="{{ @BASE.'/quotation/update/'.@PARAMS.quotation_id }}" class="btn btn-info btn-sm mr-1"><i class="fa fa-pen"></i>&nbsp;&nbsp;Edit Penawaran</a>
+	<a href="{{ @BASE.'/quotation/cancel/'.@PARAMS.quotation_id }}" class="btn btn-danger btn-sm" onclick="return confirm('Anda ingin membatalkan penawaran : {{ @POST.quotation_number }} ?')"><i class="fa fa-ban"></i>&nbsp;&nbsp;Batalkan</a>
   </div>
 </div>

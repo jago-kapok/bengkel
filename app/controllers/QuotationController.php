@@ -3,7 +3,7 @@
 class QuotationController extends Controller {
 
 	public function index(){
-		$this->f3->set('page_title','Data Penawaran');
+		$this->f3->set('page_title','PENAWARAN');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','quotation/index.html');
 	}
@@ -48,7 +48,7 @@ class QuotationController extends Controller {
 			$item = new Item($this->db);
 			$this->f3->set('data_item', $item->getAll());
 			
-			$this->f3->set('page_title','Penawaran Baru');
+			$this->f3->set('page_title','PENAWARAN BARU');
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','quotation/create.html');
 		}
@@ -84,7 +84,7 @@ class QuotationController extends Controller {
 			$item = new Item($this->db);
 			$this->f3->set('data_item', $item->getAll());
 			
-			$this->f3->set('page_title','Update Penawaran - No : '.$quotation->quotation_number);
+			$this->f3->set('page_title','PENAWARAN : '.$quotation->quotation_number);
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','quotation/update.html');
 		}

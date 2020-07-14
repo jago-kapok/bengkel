@@ -12,11 +12,6 @@
 		  </div>
 		</div>
 		<div class="col-md-2 offset-6">
-		  <div class="form-group">
-			<input type="date" name="" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
-		  </div>
-		</div>
-		<div class="col-md-2">
 		  <div class="input-group mb-2">
 			<div class="input-group-prepend">
 			  <span class="input-group-text form-app">TT</span>
@@ -24,12 +19,17 @@
 			<input type="date" name="quotation_received_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. TANDA TERIMA" required>
 		  </div>
 		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input type="date" name="" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
+		  </div>
+		</div>
 	  </div>
 	  
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="customer_code" class="form-control form-control-sm form-app" list="data-customer" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" required>
+			<input name="customer_code" class="form-control form-control-sm form-app" list="data-customer" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" autocomplete="off" required>
 			<input type="hidden" name="customer_id" class="form-control form-control-sm form-app">
 		  </div>
 		</div>
@@ -65,7 +65,7 @@
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<select name="quotation_model" class="form-control form-control-sm form-app" data-toggle="tooltip" title="MODEL">
+			<select name="quotation_model" class="form-control form-control-sm form-app" data-toggle="tooltip" title="MODEL" required>
 			  <option disabled selected>-- PILIH MODEL --</option>
 			  <repeat group="{{ @data_model }}" value="{{ $model }}">
 				<option value="{{ @model.model_desc }}">{{ @model.model_code }} | {{ @model.model_desc }}</option>
@@ -103,39 +103,37 @@
 			  <th class="col-md-1">No. Part</th>
 			  <th class="col-md-1">Deskripsi</th>
 			  <th class="col-md-1">Qty</th>
-			  <th class="col-md-1">Qty (UP)</th>
-			  <th class="col-md-1">Harga / Unit</th>
-			  <th class="col-md-1">Harga / Unit (UP)</th>
+			  <th class="col-md-1">Up</th>
+			  <th class="col-md-1">Modal</th>
+			  <th class="col-md-1">Harga</th>
+			  <th class="col-md-1">Harga (Up)</th>
 			  <th class="col-md-1">Merk</th>
 			  <th class="col-md-1">Total</th>
 			  <th class="col-md-1">#</th>
 			</tr>
 		  </thead>
 		  <tbody>
-			<loop from="{{ @i=0 }}" to="{{ @i < 8 }}" step="{{ @i++ }}">
+			<loop from="{{ @i=0 }}" to="{{ @i < 10 }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
-			    <select id="{{ @i }}" name="data[{{ @i }}][quotation_detail_item_code]" style="width:100px" onchange="return getData(this.id, this.value)">
-				  <option disabled selected></option>
-				  <repeat group="{{ @data_item }}" value="{{ $item }}">
-					<option value="{{ @item.item_code }}">{{ @item.item_code }} | {{ @item.item_desc }}</option>
-				  </repeat>
-				</select>
+			    <input id="{{ @i }}" name="data[{{ @i }}][quotation_detail_item_code]" style="width:100px" onchange="return getData(this.id, this.value)" list="data-item">
 			  </td>
 			  <td>
 			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_part_no]" style="width:100px">
 			  </td>
 			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_desc]" style="width:250px"></td>
 			  <td>
-			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][quotation_detail_qty]" class="number-only" style="width:50px" onkeyup="return getTotal({{ @i }})">
+			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][quotation_detail_qty]" class="number-only" style="width:30px" onkeyup="return getTotal({{ @i }})">
 			  </td>
-			  <td><input type="number" name="data[{{ @i }}][quotation_detail_qty_up]" class="number-only" style="width:50px"></td>
+			  <td><input name="data[{{ @i }}][quotation_detail_qty_up]" class="number-only bg-info" style="width:30px"></td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]" class="number-only" style="width:100px" onkeyup="return getTotal({{ @i }})">
-			    <input type="hidden" id="item_price_temp_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price_temp]">
+			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price_temp]" class="number-only readonly" style="width:75px" readonly>
 			  </td>
-			  <td><input type="number" name="data[{{ @i }}][quotation_detail_unit_price_up]" class="number-only" style="width:100px" step="1000"></td>
-			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][quotation_detail_brand]" style="width:95px"></td>
+			  <td>
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})">
+			  </td>
+			  <td><input type="number" name="data[{{ @i }}][quotation_detail_unit_price_up]" class="number-only bg-info" style="width:75px" step="1000"></td>
+			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][quotation_detail_brand]" style="width:100px"></td>
 			  <td>
 			    <input id="item_amount_{{ @i }}" name="data[{{ @i }}][quotation_detail_amount]" class="number-only amount" style="width:100px" step="1000">
 			  </td>
@@ -224,6 +222,12 @@
 
 <datalist id="data-customer">
   <repeat group="{{ @data_customer }}" value="{{ $customer }}">
-    <option value="{{ @customer.customer_code }}">{{ @customer.customer_code }} | {{ @customer.customer_name }}
+    <option value="{{ @customer.customer_code }}">{{ @customer.customer_code }} | {{ @customer.customer_name }} | {{ @customer.customer_address }} | {{ @customer.customer_city }}
+  </repeat>
+</datalist>
+
+<datalist id="data-item">
+  <repeat group="{{ @data_item }}" value="{{ $item }}">
+	<option value="{{ @item.item_code }}">{{ @item.item_code }} | {{ @item.item_desc }}</option>
   </repeat>
 </datalist>
