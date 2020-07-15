@@ -60,19 +60,18 @@ class Stock extends DB\SQL\Mapper {
 		echo json_encode($output);
 	}
 	
-	public function add(){
-		$this->copyFrom('POST');
-		$this->save();
-	}
-	
-	public function getById($stock_id){
-		$this->load(array('stock_id = ?', $stock_id));
-		$this->copyTo('POST');
-	}
-	
-	public function edit($stock_id){
-		$this->load(array('stock_id = ?', $stock_id));
-		$this->copyFrom('POST');
-		$this->update();
+	public function beforeEdit($invoice_id){
+		$query = $this->db->exec("SELECT * FROM invoice_detail WHERE invoice_id = ?", $invoice_id);
+		
+		foreach($query as $data){
+			$this->db->exec("UPDATE stock SET stock_on_hand = (stock_on_hand + ?) WHERE item_id IN (SELECT item_id FROM stock_history WHERE invoice_id = ?)",
+				array(
+					$data['invoice_detail_qty'],
+					$invoice_id
+				)
+			);
+		}
+		
+		$this->db->exec("DELETE FROM stock_history WHERE invoice_id = ?", $invoice_id);
 	}
 }

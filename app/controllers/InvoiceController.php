@@ -48,9 +48,6 @@ class InvoiceController extends Controller {
 			$model = new Model($this->db);
 			$this->f3->set('data_model', $model->getAll());
 			
-			$item = new Item($this->db);
-			$this->f3->set('data_item', $item->getAll());
-			
 			$this->f3->set('page_title','INVOICE BARU - PENAWARAN : '.$quotation->quotation_number);
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','invoice/create.html');
@@ -72,18 +69,31 @@ class InvoiceController extends Controller {
 	
 	public function update(){
 		if($this->f3->exists('POST.update')){
+			$invoice = new Invoice($this->db);
+			$invoice->edit($this->f3->get('PARAMS.invoice_id'));
 			
-			$this->f3->reroute('/user');
+			$invoice_detail = new InvoiceDetail($this->db);
+			$invoice_detail->beforeEdit($this->f3->get('PARAMS.invoice_id'));
+			$invoice_detail->add($this->f3->get('PARAMS.invoice_id'));
+						
+			$this->f3->reroute('/invoice/view/'.$this->f3->get('PARAMS.invoice_id'));
 		} else {
-			$user = new User($this->db);
-			$user->getById($this->f3->get('PARAMS.user_id'));
+			$invoice = new Invoice($this->db);
+			$invoice->getById($this->f3->get('PARAMS.invoice_id'));
 			
-			$level = new Level($this->db);
-			$this->f3->set('data_level', $level->all());
+			$invoice_total = $invoice->invoice_part_charge + $invoice->invoice_service_charge - $invoice->invoice_discount;
+			$invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
+			$this->f3->set('invoice_ppn', $invoice_ppn);
 			
-			$this->f3->set('page_title','Perbarui Data User');
+			$invoice_detail = new InvoiceDetail($this->db);
+			$this->f3->set('data_invoice_detail', $invoice_detail->getById($this->f3->get('PARAMS.invoice_id')));
+			
+			$stock = new Stock($this->db);
+			$stock->beforeEdit($this->f3->get('PARAMS.invoice_id'));
+			
+			$this->f3->set('page_title','INVOICE : '.$invoice->invoice_number);
 			$this->f3->set('header','header/header.html');
-			$this->f3->set('view','user/update.html');
+			$this->f3->set('view','invoice/update.html');
 		}
 	}
 	
@@ -104,7 +114,7 @@ class InvoiceController extends Controller {
 		}
 		$this->f3->set('profit_total', array_sum($profit_total));
 		
-		$this->f3->set('page_title','Detil Invoice - No : '.$invoice->invoice_number);
+		$this->f3->set('page_title','INVOICE : '.$invoice->invoice_number);
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','invoice/view.html');
 	}

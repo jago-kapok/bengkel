@@ -1,3 +1,9 @@
+<check if="{{ @POST.invoice_status == 2 }}">
+  <div class="alert alert-danger" role="alert">
+    <i class="fa fa-ban"></i>&nbsp;&nbsp;<b>DIBATALKAN</> ! Invoice tidak aktif.
+  </div>
+</check>
+
 <div class="card p-2" style="font-size:12px">
   <div class="row mb-1">
     <div class="col-md-6">
@@ -16,19 +22,13 @@
 	</div>
 	<div class="col-md-6">
 	  <label class="col-sm-4"><b>Alamat / Kota</b></label>
-	  <span class="col-sm-8">: {{ strtoupper(@POST.customer_address) }} / {{ strtoupper(@POST.customer_city) }}</span>
+	  <label class="col-sm-7" style="vertical-align:top">: {{ strtoupper(@POST.customer_address) }} / {{ strtoupper(@POST.customer_city) }}</label>
 	</div>
   </div>
   <div class="row mb-1">
     <div class="col-md-6">
 	  <label class="col-sm-4"><b>Model</b></label>
 	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_model) }}</span>
-	</div>
-  </div>
-  <div class="row mb-1">
-    <div class="col-md-6">
-	  <label class="col-sm-4"><b>Unit / Engine</b></label>
-	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_engine) }}</span>
 	</div>
 	<div class="col-md-6">
 	  <label class="col-sm-4"><b>No. Penawaran</b></label>
@@ -37,12 +37,22 @@
   </div>
   <div class="row mb-1">
     <div class="col-md-6">
-	  <label class="col-sm-4"><b>Serial Number</b></label>
-	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_serial_number) }}</span>
+	  <label class="col-sm-4"><b>Unit / Engine</b></label>
+	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_engine) }}</span>
 	</div>
 	<div class="col-md-6">
 	  <label class="col-sm-4"><b>Tgl. Penawaran</b></label>
 	  <span class="col-sm-8">: {{ date('d F Y', strtotime(@POST.quotation_date)) }}</span>
+	</div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-md-6">
+	  <label class="col-sm-4"><b>Serial Number</b></label>
+	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_serial_number) }}</span>
+	</div>
+	<div class="col-md-6">
+	  <label class="col-sm-4"><b>No. Faktur Pajak</b></label>
+	  <span class="col-sm-8">: {{ @POST.invoice_tax_number }}</span>
 	</div>
   </div>
   
@@ -112,7 +122,7 @@
 		</tr>
 		<tr>
 		  <th colspan="6" style="border:none">
-			<span>- {{ strtoupper(@POST.invoice_note_payment) }}</span>
+			<span>{{ strtoupper(@POST.invoice_note_payment) }}</span>
 		  </th>
 		  <th class="bg-secondary"><center>TOTAL</center></th>
 		  <td class="bg-secondary text-right"><b>Rp {{ number_format(@POST.invoice_total) }}</b></td>
@@ -127,6 +137,17 @@
   </div>
   
   <div class="card-footer" style="border-top:1px solid #cecece">
-	<a href="{{ @BASE.'/invoice/print/'.@PARAMS.invoice_id }}" class="btn btn-success btn-sm" target="_blank"><i class="fa fa-print"></i> Cetak Invoice</a>
+	<a href="{{ @BASE.'/invoice/print/'.@PARAMS.invoice_id }}" class="btn btn-success btn-sm mr-1" target="_blank"><i class="fa fa-print"></i> Cetak Invoice</a>
+	
+	<check if="{{ @POST.invoice_status == 2 }}">
+	  <true>
+		<!-- <a href="{{ @BASE.'/Invoice/active/'.@PARAMS.invoice_id }}" class="btn btn-primary btn-sm mr-1 float-sm-right" onclick="return confirm('Anda ingin mengaktifkan kembali penawaran : {{ @POST.invoice_number }} ?')"><i class="fa fa-check"></i>&nbsp;&nbsp;Aktifkan Penawaran</a> -->
+	  </true>
+	  <false>
+		<a href="{{ @BASE.'/invoice/update/'.@PARAMS.invoice_id }}" class="btn btn-info btn-sm mr-1"><i class="fa fa-pen"></i>&nbsp;&nbsp;Edit Invoice</a>
+		<a href="{{ @BASE.'/invoice/file/'.@PARAMS.invoice_id }}" class="btn btn-primary btn-sm mr-1"><i class="fa fa-image"></i>&nbsp;&nbsp;Unggah File / Foto</a>
+		<!-- <a href="{{ @BASE.'/invoice/cancel/'.@PARAMS.invoice_id }}" class="btn btn-danger btn-sm" onclick="return confirm('Anda ingin membatalkan penawaran : {{ @POST.invoice_id }} ?')"><i class="fa fa-ban"></i>&nbsp;&nbsp;Batalkan Penawaran</a> -->
+	  </false>
+	</check>
   </div>
 </div>

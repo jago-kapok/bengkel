@@ -47,7 +47,7 @@
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input class="form-control form-control-sm form-app" value="{{ @POST.customer_code }}" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" readonly>
+			<input name="customer_code" class="form-control form-control-sm form-app" value="{{ @POST.customer_code }}" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" readonly>
 			<input type="hidden" name="customer_id" class="form-control form-control-sm form-app" value="{{ @POST.customer_id }}">
 		  </div>
 		</div>
@@ -121,9 +121,10 @@
 			  <th class="col-md-1">No. Part</th>
 			  <th class="col-md-1">Deskripsi</th>
 			  <th class="col-md-1">Qty</th>
-			  <th class="col-md-1">Qty (UP)</th>
-			  <th class="col-md-1">Harga / Unit</th>
-			  <th class="col-md-1">Harga / Unit (UP)</th>
+			  <th class="col-md-1">Up</th>
+			  <th class="col-md-1">Modal</th>
+			  <th class="col-md-1">Harga</th>
+			  <th class="col-md-1">Harga (Up)</th>
 			  <th class="col-md-1">Merk</th>
 			  <th class="col-md-1">Total</th>
 			  <th class="col-md-1">#</th>
@@ -131,31 +132,28 @@
 		  </thead>
 		  <tbody>
 			<repeat group="{{ @data_quotation_detail }}" key="{{ @no }}" value="{{ $quotation_detail }}">
-			<tr id="item_{{ @no + 10 }}">
+			<tr id="item_{{ @no + 50 }}">
 			  <td>
-			    <select id="{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_item_code]" style="width:100px" onchange="return getData(this.id, this.value)">
-				  <option disabled selected></option>
-				  <repeat group="{{ @data_item }}" value="{{ $item }}">
-					<option value="{{ @item.item_code }}" <check if="{{ @quotation_detail.quotation_detail_item_code == @item.item_code }}">selected</check>>{{ @item.item_code }}</option>
-				  </repeat>
-				</select>
+			    <input id="{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_item_code]" class="item" value="{{ @quotation_detail.quotation_detail_item_code }}" style="width:100px" onchange="return getData(this.id, this.value)" readonly>
 			  </td>
 			  <td>
-			    <input id="item_part_no_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_item_part_no]" value="{{ @quotation_detail.quotation_detail_item_part_no }}" style="width:100px" readonly>
+			    <input id="item_part_no_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_item_part_no]" value="{{ @quotation_detail.quotation_detail_item_part_no }}" style="width:100px" readonly>
 			  </td>
-			  <td><input id="item_desc_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_item_desc]" value="{{ @quotation_detail.quotation_detail_item_desc }}" style="width:250px" readonly></td>
+			  <td><input id="item_desc_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_item_desc]" value="{{ @quotation_detail.quotation_detail_item_desc }}" style="width:250px" readonly></td>
 			  <td>
-			    <input id="item_qty_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_qty]" class="number-only" value="{{ @quotation_detail.quotation_detail_qty }}" style="width:50px" onkeyup="return getTotal({{ @no + 10 }})">
+			    <input id="item_qty_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_qty]" class="number-only" value="{{ @quotation_detail.quotation_detail_qty }}" style="width:30px" onkeyup="return getTotal({{ @no + 50 }})">
 			  </td>
-			  <td><input name="data[{{ @no + 10 }}][quotation_detail_qty_up]" class="number-only" style="width:50px"></td>
+			  <td><input name="data[{{ @no + 50 }}][invoice_detail_qty_up]" class="number-only bg-info" value="{{ @quotation_detail.quotation_detail_qty_up }}" style="width:30px"></td>
 			  <td>
-			    <input id="item_price_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price]" class="number-only" value="{{ number_format(@quotation_detail.quotation_detail_unit_price) }}" style="width:100px" onkeyup="return getTotal({{ @no + 10 }})">
-			    <input type="hidden" id="item_price_temp_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price_temp]" value="{{ @quotation_detail.quotation_detail_unit_price_temp }}">
+			    <input id="item_price_temp_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price_temp]" class="number-only readonly" value="{{ number_format(@quotation_detail.quotation_detail_unit_price_temp) }}" style="width:75px">
 			  </td>
-			  <td><input name="data[{{ @no + 10 }}][quotation_detail_unit_price_up]" class="number-only" style="width:100px"></td>
-			  <td><input id="item_brand_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_brand]" value="{{ @quotation_detail.quotation_detail_brand }}" style="width:95px"></td>
 			  <td>
-			    <input id="item_amount_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_amount]" class="number-only amount" value="{{ number_format(@quotation_detail.quotation_detail_amount) }}" style="width:100px">
+			    <input id="item_price_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price]" class="number-only" value="{{ number_format(@quotation_detail.quotation_detail_unit_price) }}" style="width:75px" onkeyup="return getTotal({{ @no + 50 }})">
+			  </td>
+			  <td><input name="data[{{ @no + 50 }}][invoice_detail_unit_price_up]" class="number-only bg-info" value="{{ number_format(@quotation.quotation_detail_unit_price_up) }}" style="width:75px"></td>
+			  <td><input id="item_brand_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_brand]" value="{{ @quotation_detail.quotation_detail_brand }}" style="width:100px"></td>
+			  <td>
+			    <input id="item_amount_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_amount]" class="number-only amount" value="{{ number_format(@quotation_detail.quotation_detail_amount) }}" style="width:100px">
 			  </td>
 			  <td>
 			    <center>
@@ -167,32 +165,29 @@
 			</tr>
 			</repeat>
 			
-			<loop from="{{ @i=0 }}" to="{{ @i < (8 - count(@data_quotation_detail)) }}" step="{{ @i++ }}">
+			<loop from="{{ @i=0 }}" to="{{ @i < (10 - count(@data_quotation_detail)) }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
-			    <select id="{{ @i }}" name="data[{{ @i }}][quotation_detail_item_code]" style="width:100px" onchange="return getData(this.id, this.value)">
-				  <option disabled selected></option>
-				  <repeat group="{{ @data_item }}" value="{{ $item }}">
-					<option value="{{ @item.item_code }}">{{ @item.item_code }}</option>
-				  </repeat>
-				</select>
+			    <input id="{{ @i }}" name="data[{{ @i }}][invoice_detail_item_code]" class="items" style="width:100px" onchange="return getData(this.id, this.value)">
 			  </td>
 			  <td>
-			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_part_no]" style="width:100px">
+			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][invoice_detail_item_part_no]" style="width:100px">
 			  </td>
-			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_desc]" style="width:250px"></td>
+			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][invoice_detail_item_desc]" style="width:250px"></td>
 			  <td>
-			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][quotation_detail_qty]" class="number-only" style="width:50px" onkeyup="return getTotal({{ @i }})">
+			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][invoice_detail_qty]" class="number-only" style="width:30px" onkeyup="return getTotal({{ @i }})">
 			  </td>
-			  <td><input name="data[{{ @i }}][quotation_detail_qty_up]" class="number-only" style="width:50px"></td>
+			  <td><input name="data[{{ @i }}][invoice_detail_qty_up]" class="number-only bg-info" style="width:30px"></td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]" class="number-only" style="width:100px" onkeyup="return getTotal({{ @i }})">
-			    <input type="hidden" id="item_price_temp_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price_temp]">
+			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price_temp]" class="number-only readonly" style="width:75px" readonly>
 			  </td>
-			  <td><input name="data[{{ @i }}][quotation_detail_unit_price_up]" class="number-only" style="width:100px"></td>
-			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][quotation_detail_brand]" style="width:95px"></td>
 			  <td>
-			    <input id="item_amount_{{ @i }}" name="data[{{ @i }}][quotation_detail_amount]" class="number-only amount" style="width:100px">
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})">
+			  </td>
+			  <td><input name="data[{{ @i }}][invoice_detail_unit_price_up]" class="number-only bg-info" style="width:75px"></td>
+			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][invoice_detail_brand]" style="width:100px"></td>
+			  <td>
+			    <input id="item_amount_{{ @i }}" name="data[{{ @i }}][invoice_detail_amount]" class="number-only amount" style="width:100px">
 			  </td>
 			  <td>
 			    <center>
@@ -212,7 +207,7 @@
 		  <div class="form-group row">
 			<label class="col-md-2">NOZZLE</label>
 			<div class="col-md-8">
-			  <input class="form-control form-control-sm form-app" value="{{ @POST.quotation_nozzle }}">
+			  <input class="form-control form-control-sm form-app" value="{{ @POST.quotation_nozzle }}" readonly>
 			</div>
 		  </div>
 		  <div class="form-group row">
@@ -248,12 +243,12 @@
 			<tr>
 			  <th>SERVICE</th>
 			  <td style="border-right-color:transparent">Rp</td>
-			  <td><input id="service_charge" name="invoice_service_charge" class="number-only" style="width:125px" value="{{ @POST.quotation_service_charge }}"></td>
+			  <td><input id="service_charge" name="invoice_service_charge" class="number-only" style="width:125px" value="{{ number_format(@POST.quotation_service_charge) }}"></td>
 			</tr>
 			<tr>
 			  <th>DISKON</th>
 			  <td style="border-right-color:transparent">Rp</td>
-			  <td><input id="discount" name="invoice_discount" class="number-only" style="width:125px" value="{{ @POST.quotation_discount }}"></td>
+			  <td><input id="discount" name="invoice_discount" class="number-only" style="width:125px" value="{{ number_format(@POST.quotation_discount) }}"></td>
 			</tr>
 			<tr>
 			  <th>PPN &nbsp;
@@ -282,9 +277,3 @@
 	</div>
   </form>
 </div>
-
-<datalist id="data-customer">
-<repeat group="{{ @data_customer }}" value="{{ $customer }}">
-  <option value="{{ @customer.customer_code }}">{{ @customer.customer_code }} | {{ @customer.customer_name }}
-</repeat>
-</datalist>

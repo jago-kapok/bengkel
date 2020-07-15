@@ -35,20 +35,17 @@ class PurchaseDetail extends DB\SQL\Mapper {
 				$this->db->exec("INSERT INTO stock_history
 					(item_id,
 					purchase_id,
-					stock_history_on_hand,
 					stock_history_value,
-					stock_history_date) SELECT
+					stock_history_date) VALUES
 					:item_id,
 					:purchase_id,
-					stock_on_hand,
 					:stock_history_value,
-					:stock_history_date FROM stock WHERE item_id = :item_id",
+					:stock_history_date",
 					array(
 						':item_id' => $value['item_id'],
 						':purchase_id' => $purchase_id,
 						':stock_history_value' => $value['item_qty'],
-						':stock_history_date' => date('Y-m-d H:i:s'),
-						':item_id' => $value['item_id']
+						':stock_history_date' => date('Y-m-d H:i:s')
 					)
 				);
 			}

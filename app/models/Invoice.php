@@ -85,8 +85,8 @@ class Invoice extends DB\SQL\Mapper {
 		$this->copyTo('POST');
 	}
 	
-	public function edit($quotation_id){
-		$this->load(array('quotation_id = ?', $quotation_id));
+	public function edit($invoice_id){
+		$this->load(array('invoice_id = ?', $invoice_id));
 		
 		$this->copyFrom('POST');
 		$this->update();

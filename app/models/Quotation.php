@@ -102,9 +102,7 @@ class Quotation extends DB\SQL\Mapper {
 	}
 	
 	public function invoiced($quotation_id){
-		$this->load(array('quotation_id = ?', $quotation_id));
-		$this->quotation_status = 2;
-		$this->update();
+		$this->db->exec("UPDATE quotation SET quotation_status = 3 WHERE quotation_id = ?", $quotation_id);
 	}
 	
 	public function cancel($quotation_id){

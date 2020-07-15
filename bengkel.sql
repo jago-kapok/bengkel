@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2020 at 06:55 PM
+-- Generation Time: Jul 15, 2020 at 07:19 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -36,15 +36,17 @@ CREATE TABLE `company` (
   `company_fax` varchar(50) DEFAULT NULL,
   `company_logo` varchar(200) DEFAULT NULL,
   `company_desc` varchar(200) DEFAULT NULL,
-  `company_info` varchar(200) DEFAULT NULL
+  `company_info` varchar(200) DEFAULT NULL,
+  `company_bank` varchar(10) DEFAULT NULL,
+  `company_bank_account` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `company`
 --
 
-INSERT INTO `company` (`company_id`, `company_name`, `company_address`, `company_city`, `company_phone`, `company_fax`, `company_logo`, `company_desc`, `company_info`) VALUES
-(1, 'PD NUSA JAYA PUMP', 'Jl. A. Yani Km. 2 (Depan PDAM) Banjarmasin', '', '(0511) 3252154, 3255941', '(0511) 3255941', '', 'Calibration INJ PUMP - PT. PUMP - Rotary PUMP', 'For : Caterpillar, Komatsu, Cummins, Bosch, Nippon Denso, Diesel Kiki, Zexel, Etc.');
+INSERT INTO `company` (`company_id`, `company_name`, `company_address`, `company_city`, `company_phone`, `company_fax`, `company_logo`, `company_desc`, `company_info`, `company_bank`, `company_bank_account`) VALUES
+(1, 'PD NUSA JAYA PUMP', 'Jl. A. Yani Km. 2 (Depan PDAM) Banjarmasin', '', '(0511) 3252154, 3255941', '(0511) 3255941', '', 'Calibration INJ PUMP - PT. PUMP - Rotary PUMP', 'For : Caterpillar, Komatsu, Cummins, Bosch, Nippon Denso, Diesel Kiki, Zexel, Etc.', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -6314,6 +6316,13 @@ CREATE TABLE `invoice` (
   `invoice_by` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`invoice_id`, `quotation_id`, `customer_id`, `invoice_number`, `invoice_date`, `invoice_received_date`, `invoice_part_charge`, `invoice_service_charge`, `invoice_discount`, `invoice_ppn`, `invoice_mechanic`, `invoice_tax_number`, `invoice_note_customer`, `invoice_note_internal`, `invoice_note_payment`, `invoice_status`, `invoice_total`, `invoice_by`) VALUES
+(1, 714, 6200, '000001/2020', '2020-07-16 00:00:00', '1970-01-01 00:00:00', 65000, 0, 0, 0, 'mecha', '12345', '', 'kel : seal timer bocor, agak boro0s, asap hitam tipis  ( kapal mau berangkat jadi minta ganit sealnya aja) ', 'OK', 1, 65000, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -6335,6 +6344,14 @@ CREATE TABLE `invoice_detail` (
   `invoice_detail_brand` varchar(20) DEFAULT NULL,
   `invoice_detail_profit` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `invoice_detail`
+--
+
+INSERT INTO `invoice_detail` (`invocie_detail_id`, `invoice_id`, `invoice_detail_item_code`, `invoice_detail_item_part_no`, `invoice_detail_item_desc`, `invoice_detail_qty`, `invoice_detail_qty_up`, `invoice_detail_unit_price`, `invoice_detail_unit_price_up`, `invoice_detail_unit_price_temp`, `invoice_detail_amount`, `invoice_detail_brand`, `invoice_detail_profit`) VALUES
+(13, 1, 'SEALSHAFT', '----', 'SEAL CAMSHAFT', 2, 0, 32500, 0, 0, 65000, '', 65000),
+(14, 1, '--------', '131376-0100', 'CAMSHAFT', 0, 0, 0, 0, 0, 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -10657,7 +10674,7 @@ INSERT INTO `quotation` (`quotation_id`, `customer_id`, `quotation_number`, `quo
 (711, '5863', '0530102020', '2020-06-08 00:00:00', '2020-06-08 00:00:00', 'ROTARY', 'FORKLIFT', '03U000496', 0, 150000, 0, 0, '', '', NULL, '', 'KEL ; KALIBRASI.  LENGKAP ', 1, 150000, NULL),
 (712, '3031', '0530112020', '2020-06-08 00:00:00', '2020-06-08 00:00:00', 'FIP', 'HINO FM260', '03P01699', 0, 250000, 0, 0, '', '', NULL, 'SITE PARING LAHUNG.   ', 'EX MARET 2016     TDK ADA NEPEL2, BRACKET DEPAN, SPRING GAS 2PCS, PLATE COUPLING ', 1, 250000, NULL),
 (713, '6189', '0530122020', '2020-06-08 00:00:00', '2020-06-08 00:00:00', 'TEST NOZZLE', 'D31E', '', 1800000, 0, 0, 0, '', '', NULL, '', '', 1, 1800000, NULL),
-(714, '6200', '0530132020', '2020-06-09 00:00:00', '2020-06-09 00:00:00', 'FIP', 'KAPAL', '548K699435', 32500, 0, 0, 0, '', '101603-1830', NULL, '', 'kel : seal timer bocor, agak boro0s, asap hitam tipis  ( kapal mau berangkat jadi minta ganit sealnya aja) ', 1, 32500, NULL),
+(714, '6200', '0530132020', '2020-06-09 00:00:00', '2020-06-09 00:00:00', 'FIP', 'KAPAL', '548K699435', 32500, 0, 0, 0, '', '101603-1830', NULL, '', 'kel : seal timer bocor, agak boro0s, asap hitam tipis  ( kapal mau berangkat jadi minta ganit sealnya aja) ', 3, 32500, NULL),
 (715, '1324', '0530142020', '2020-06-09 00:00:00', '2020-06-09 00:00:00', 'ROTARY', 'L300', '11L0434', 0, 150000, 0, 0, '', '', NULL, '', '4 nozzle tanpa washer, mur lengkap.    kel : kd mau langsam, turun naik. ', 1, 150000, NULL),
 (716, '669', '0530152020', '2020-06-09 00:00:00', '2020-06-09 00:00:00', 'FIP', 'HINO FM260', '12N10420', 0, 250000, 0, 0, '', '', NULL, '', 'tdk ada nepel plate coupling, spring gas 1pcs.  ada nepel 1pcs, bracket depan, belakang ', 1, 250000, NULL),
 (717, '4230', '0530162020', '2020-06-09 00:00:00', '2020-06-09 00:00:00', 'FIP', 'HINO 500', '183810', 9642450, 0, 442450, 10, '', '', NULL, '', 'FIP ADA DI NJP SMD', 1, 10120000, NULL),
@@ -16037,6 +16054,40 @@ CREATE TABLE `quotation_file` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rework`
+--
+
+CREATE TABLE `rework` (
+  `rework_id` int(11) NOT NULL,
+  `invoice_id` int(11) DEFAULT NULL,
+  `rework_note` varchar(200) DEFAULT NULL,
+  `rework_total` double DEFAULT NULL,
+  `rework_by` int(11) DEFAULT NULL,
+  `rework_date` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rework_detail`
+--
+
+CREATE TABLE `rework_detail` (
+  `rework_detail_id` int(11) NOT NULL,
+  `rework_id` int(11) DEFAULT NULL,
+  `rework_detail_item_code` varchar(25) DEFAULT NULL,
+  `rework_detail_item_part_no` varchar(25) DEFAULT NULL,
+  `rework_detail_item_desc` varchar(40) DEFAULT NULL,
+  `rework_detail_qty` int(11) DEFAULT NULL,
+  `rework_detail_unit_price` double DEFAULT NULL,
+  `rework_detail_unit_price_temp` double DEFAULT NULL,
+  `rework_detail_amount` double DEFAULT NULL,
+  `rework_detail_profit` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `status`
 --
 
@@ -16071,7 +16122,7 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`stock_id`, `item_id`, `stock_min`, `stock_on_hand`) VALUES
-(1, 1, 1, 15),
+(1, 1, 1, 14),
 (2, 2, 1, 15),
 (3, 3, 1, 10),
 (4, 4, 1, 10),
@@ -19370,7 +19421,7 @@ INSERT INTO `stock` (`stock_id`, `item_id`, `stock_min`, `stock_on_hand`) VALUES
 (3296, 3296, 1, 10),
 (3297, 3297, 1, 10),
 (3298, 3298, 1, 10),
-(3299, 3299, 1, 10),
+(3299, 3299, 1, 8),
 (3300, 3300, 1, 10),
 (3301, 3301, 1, 10),
 (3302, 3302, 1, 10),
@@ -19495,7 +19546,6 @@ CREATE TABLE `stock_history` (
   `item_id` int(11) DEFAULT NULL,
   `invoice_id` int(11) DEFAULT NULL,
   `purchase_id` int(11) DEFAULT NULL,
-  `stock_history_on_hand` int(11) DEFAULT NULL,
   `stock_history_value` int(11) DEFAULT NULL,
   `stock_history_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -19504,9 +19554,10 @@ CREATE TABLE `stock_history` (
 -- Dumping data for table `stock_history`
 --
 
-INSERT INTO `stock_history` (`stock_history_id`, `item_id`, `invoice_id`, `purchase_id`, `stock_history_on_hand`, `stock_history_value`, `stock_history_date`) VALUES
-(1, 1, NULL, 3, 15, NULL, '2020-07-13 23:05:54'),
-(2, 2, NULL, 3, 15, NULL, '2020-07-13 23:05:54');
+INSERT INTO `stock_history` (`stock_history_id`, `item_id`, `invoice_id`, `purchase_id`, `stock_history_value`, `stock_history_date`) VALUES
+(1, 1, NULL, 3, NULL, '2020-07-13 23:05:54'),
+(2, 2, NULL, 3, NULL, '2020-07-13 23:05:54'),
+(9, 3299, 1, NULL, 2, '2020-07-16 00:04:21');
 
 -- --------------------------------------------------------
 
@@ -19645,6 +19696,18 @@ ALTER TABLE `quotation_file`
   ADD PRIMARY KEY (`quotation_file_id`);
 
 --
+-- Indexes for table `rework`
+--
+ALTER TABLE `rework`
+  ADD PRIMARY KEY (`rework_id`);
+
+--
+-- Indexes for table `rework_detail`
+--
+ALTER TABLE `rework_detail`
+  ADD PRIMARY KEY (`rework_detail_id`);
+
+--
 -- Indexes for table `status`
 --
 ALTER TABLE `status`
@@ -19694,13 +19757,13 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `invoice_detail`
 --
 ALTER TABLE `invoice_detail`
-  MODIFY `invocie_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `invocie_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `invoice_file`
@@ -19763,6 +19826,18 @@ ALTER TABLE `quotation_file`
   MODIFY `quotation_file_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `rework`
+--
+ALTER TABLE `rework`
+  MODIFY `rework_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `rework_detail`
+--
+ALTER TABLE `rework_detail`
+  MODIFY `rework_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
@@ -19778,7 +19853,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT for table `stock_history`
 --
 ALTER TABLE `stock_history`
-  MODIFY `stock_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `stock_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `supplier`
