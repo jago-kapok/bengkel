@@ -29,7 +29,7 @@
 	  <div class="row">
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="customer_code" class="form-control form-control-sm form-app" list="data-customer" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" autocomplete="off" required>
+			<input name="customer_code" class="typeahead form-control form-control-sm form-app" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" required>
 			<input type="hidden" name="customer_id" class="form-control form-control-sm form-app">
 		  </div>
 		</div>
@@ -116,7 +116,7 @@
 			<loop from="{{ @i=0 }}" to="{{ @i < 10 }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
-			    <input id="{{ @i }}" name="data[{{ @i }}][quotation_detail_item_code]" style="width:100px" onchange="return getData(this.id, this.value)" list="data-item">
+			    <input id="{{ @i }}" name="data[{{ @i }}][quotation_detail_item_code]" class="item" style="width:100px" onchange="return getData(this.id, this.value)" >
 			  </td>
 			  <td>
 			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_part_no]" style="width:100px">
@@ -219,15 +219,3 @@
 	</div>
   </form>
 </div>
-
-<datalist id="data-customer">
-  <repeat group="{{ @data_customer }}" value="{{ $customer }}">
-    <option value="{{ @customer.customer_code }}">{{ @customer.customer_code }} | {{ @customer.customer_name }} | {{ @customer.customer_address }} | {{ @customer.customer_city }}
-  </repeat>
-</datalist>
-
-<datalist id="data-item">
-  <repeat group="{{ @data_item }}" value="{{ $item }}">
-	<option value="{{ @item.item_code }}">{{ @item.item_code }} | {{ @item.item_desc }}</option>
-  </repeat>
-</datalist>

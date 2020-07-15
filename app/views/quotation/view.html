@@ -1,3 +1,9 @@
+<check if="{{ @POST.quotation_status == 2 }}">
+  <div class="alert alert-danger" role="alert">
+    <i class="fa fa-ban"></i>&nbsp;&nbsp;<b>DIBATALKAN</> ! Penawaran tidak aktif.
+  </div>
+</check>
+
 <div class="card p-2" style="font-size:12px">
   <div class="row mb-1">
     <div class="col-md-6">
@@ -117,7 +123,16 @@
   
   <div class="card-footer" style="border-top:1px solid #cecece">
 	<a href="{{ @BASE.'/quotation/print/'.@PARAMS.quotation_id }}" class="btn btn-success btn-sm mr-1" target="_blank"><i class="fa fa-print"></i>&nbsp;&nbsp;Cetak Penawaran</a>
-	<a href="{{ @BASE.'/quotation/update/'.@PARAMS.quotation_id }}" class="btn btn-info btn-sm mr-1"><i class="fa fa-pen"></i>&nbsp;&nbsp;Edit Penawaran</a>
-	<a href="{{ @BASE.'/quotation/cancel/'.@PARAMS.quotation_id }}" class="btn btn-danger btn-sm" onclick="return confirm('Anda ingin membatalkan penawaran : {{ @POST.quotation_number }} ?')"><i class="fa fa-ban"></i>&nbsp;&nbsp;Batalkan</a>
+	
+	<check if="{{ @POST.quotation_status == 2 }}">
+	  <true>
+		<a href="{{ @BASE.'/quotation/active/'.@PARAMS.quotation_id }}" class="btn btn-primary btn-sm mr-1 float-sm-right" onclick="return confirm('Anda ingin mengaktifkan kembali penawaran : {{ @POST.quotation_number }} ?')"><i class="fa fa-check"></i>&nbsp;&nbsp;Aktifkan Penawaran</a>
+	  </true>
+	  <false>
+		<a href="{{ @BASE.'/quotation/update/'.@PARAMS.quotation_id }}" class="btn btn-info btn-sm mr-1"><i class="fa fa-pen"></i>&nbsp;&nbsp;Edit Penawaran</a>
+		<a href="{{ @BASE.'/quotation/file/'.@PARAMS.quotation_id }}" class="btn btn-primary btn-sm mr-1"><i class="fa fa-image"></i>&nbsp;&nbsp;Unggah File / Foto</a>
+		<a href="{{ @BASE.'/quotation/cancel/'.@PARAMS.quotation_id }}" class="btn btn-danger btn-sm" onclick="return confirm('Anda ingin membatalkan penawaran : {{ @POST.quotation_number }} ?')"><i class="fa fa-ban"></i>&nbsp;&nbsp;Batalkan Penawaran</a>
+	  </false>
+	</check>
   </div>
 </div>

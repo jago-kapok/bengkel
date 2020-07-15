@@ -106,4 +106,12 @@ class Quotation extends DB\SQL\Mapper {
 		$this->quotation_status = 2;
 		$this->update();
 	}
+	
+	public function cancel($quotation_id){
+		$this->db->exec("UPDATE quotation SET quotation_status = 2 WHERE quotation_id = ?", $quotation_id);
+	}
+	
+	public function active($quotation_id){
+		$this->db->exec("UPDATE quotation SET quotation_status = 1 WHERE quotation_id = ?", $quotation_id);
+	}
 }

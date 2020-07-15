@@ -6,7 +6,7 @@ class InvoiceController extends Controller {
 		$quotation = new Quotation($this->db);
 		$this->f3->set('data_quotation', $quotation->getAll());
 		
-		$this->f3->set('page_title','Data Invoice');
+		$this->f3->set('page_title','INVOICE');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','invoice/index.html');
 	}
@@ -51,7 +51,7 @@ class InvoiceController extends Controller {
 			$item = new Item($this->db);
 			$this->f3->set('data_item', $item->getAll());
 			
-			$this->f3->set('page_title','Invoice Baru - No. Penawaran : '.$quotation->quotation_number);
+			$this->f3->set('page_title','INVOICE BARU - PENAWARAN : '.$quotation->quotation_number);
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','invoice/create.html');
 		}

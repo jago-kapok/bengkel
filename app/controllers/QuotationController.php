@@ -39,14 +39,8 @@ class QuotationController extends Controller {
 			$this->f3->set('quotation_number',$quotation_no);
 			/* Quotation Number */
 			
-			$customer = new Customer($this->db);
-			$this->f3->set('data_customer', $customer->getAll());
-			
 			$model = new Model($this->db);
 			$this->f3->set('data_model', $model->getAll());
-			
-			$item = new Item($this->db);
-			$this->f3->set('data_item', $item->getAll());
 			
 			$this->f3->set('page_title','PENAWARAN BARU');
 			$this->f3->set('header','header/header.html');
@@ -75,14 +69,8 @@ class QuotationController extends Controller {
 			$quotation_detail = new QuotationDetail($this->db);
 			$this->f3->set('data_quotation_detail', $quotation_detail->getById($this->f3->get('PARAMS.quotation_id')));
 			
-			$customer = new Customer($this->db);
-			$this->f3->set('data_customer', $customer->getAll());
-			
 			$model = new Model($this->db);
 			$this->f3->set('data_model', $model->getAll());
-			
-			$item = new Item($this->db);
-			$this->f3->set('data_item', $item->getAll());
 			
 			$this->f3->set('page_title','PENAWARAN : '.$quotation->quotation_number);
 			$this->f3->set('header','header/header.html');
@@ -101,8 +89,22 @@ class QuotationController extends Controller {
 		$quotation_detail = new QuotationDetail($this->db);
 		$this->f3->set('data_quotation_detail', $quotation_detail->getById($this->f3->get('PARAMS.quotation_id')));
 		
-		$this->f3->set('page_title','Detil Penawaran - No : '.$quotation->quotation_number);
+		$this->f3->set('page_title','PENAWARAN : '.$quotation->quotation_number);
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','quotation/view.html');
+	}
+	
+	public function cancel(){
+		$quotation = new Quotation($this->db);
+		$quotation->cancel($this->f3->get('PARAMS.quotation_id'));
+		
+		$this->f3->reroute('/quotation/view/'.$this->f3->get('PARAMS.quotation_id'));
+	}
+	
+	public function active(){
+		$quotation = new Quotation($this->db);
+		$quotation->active($this->f3->get('PARAMS.quotation_id'));
+		
+		$this->f3->reroute('/quotation/view/'.$this->f3->get('PARAMS.quotation_id'));
 	}
 }

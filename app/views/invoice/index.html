@@ -1,11 +1,4 @@
-<div class="card p-2">
-  <F3:repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
-	<div class="alert alert-{{ @msg.status }} alert-dismissible show fade">
-	  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-	  <i class="fa fa-info-circle"></i>&nbsp;&nbsp;{{ @msg.text | esc }}
-	</div>
-  </F3:repeat>
-
+<div class="card p-2 font-12">
   <div class="row mb-1">
 	<div class="col-md-8">
 	  <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#create_invoice">
@@ -14,23 +7,18 @@
 	  <button type="button" class="btn btn-danger btn-sm">Rekap Invoice</a>
 	</div>
 	<div class="col-md-4 pull-right">
-	  <div class="input-group">
-		<input id="invoice_search" class="form-control form-control-sm" placeholder="Cari Data ...">
-		<span class="input-group-append">
-		  <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
-		</span>
-	  </div>
+	  <input id="invoice_search" class="form-control form-control-sm font-12" placeholder="Cari Data ...">
 	</div>
   </div>
   
   <table id="invoice_table" class="table table-striped" style="width:100%">
 	<thead class="bg-app">
       <tr>
-		<th class="width-75">No. Invoice</th>
+		<th class="width-75">Invoice</th>
         <th class="width-100">Tgl. Invoice</th>
         <th class="width-500">Nama Pelanggan</th>
-        <th class="width-150">Nilai Invoice</th>
-        <th class="width-150">No. Penawaran</th>
+        <th class="width-150">Total</th>
+        <th class="width-150">Penawaran</th>
         <th class="width-150">Pilihan</th>
       </tr>
     </thead>
