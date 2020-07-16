@@ -1,0 +1,37 @@
+<script>
+
+$(document).ready(function(){
+  var table = $('#quotation_cancel_table').DataTable({
+	"scrollX": false,
+	"ordering": false,
+	"scrollCollapse": true,
+	"processing": true,
+	"serverSide": true,
+	"lengthChange": false,
+	"searching": true,
+	"pageLength": 15,
+	"ajax": {
+	  "url": "{{ @BASE.'/quotation-cancel/data' }}",
+	  "type": "POST"
+	},
+	"columns": [
+	  { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
+	  {
+	    "render": function (data, type, full){
+		  return 'Rp <span style="float:right; margin-right:25px">' + data + '</span>';
+		}
+	  },
+	  { data: 6 },
+	  {
+		"render": function (data, type, full){
+		  return '<a href="{{ @BASE."/quotation/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Penawaran" target="_blank"><i class="fa fa-print"></i></a>&nbsp;<a href="{{ @BASE."/quotation/update/' + data + '" }}" class="badge badge-info p-1" title="Perbarui Data"><i class="fa fa-pen"></i></a>&nbsp;<a href="{{ @BASE."/quotation/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Penawaran"><i class="fa fa-search"></i></a>&nbsp;<a href="{{ @BASE."/quotation/cancel/' + data + '" }}" class="badge badge-danger p-1" title="Batalkan Penawaran" onclick="return confirm(\'Anda ingin membatalkan penawaran : ' + full[0] + ' ?\')"><i class="fa fa-ban"></i></a>';
+		}
+	  }
+	]
+  });
+	
+  $('#quotation_cancel_search').on('keyup', function(){
+	table.search(this.value).draw();
+  });
+});
+</script>

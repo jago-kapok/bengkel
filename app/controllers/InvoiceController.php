@@ -118,4 +118,18 @@ class InvoiceController extends Controller {
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','invoice/view.html');
 	}
+	
+	public function cancel(){
+		$invoice = new Invoice($this->db);
+		$invoice->cancel($this->f3->get('PARAMS.invoice_id'));
+		
+		$this->f3->reroute('/invoice/view/'.$this->f3->get('PARAMS.invoice_id'));
+	}
+	
+	public function active(){
+		$invoice = new Invoice($this->db);
+		$invoice->active($this->f3->get('PARAMS.invoice_id'));
+		
+		$this->f3->reroute('/invoice/view/'.$this->f3->get('PARAMS.invoice_id'));
+	}
 }

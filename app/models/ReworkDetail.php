@@ -6,7 +6,7 @@ class ReworkDetail extends DB\SQL\Mapper {
         parent::__construct($db, 'rework_detail');
     }
 
-    public function add($rework_id, $invoice_id){
+    public function add($rework_id, $invoice_number){
 		$f3 = \Base::instance();
 		
 		$data = $f3->get('POST.data');
@@ -52,15 +52,18 @@ class ReworkDetail extends DB\SQL\Mapper {
 				
 				$this->db->exec("INSERT INTO stock_history
 					(item_id,
-					invoice_id,
+					rework_id,
+					rework_invoice,
 					stock_history_value,
 					stock_history_date) SELECT
 					item_id,
-					:invoice_id,
+					:rework_id,
+					:rework_invoice,
 					:stock_history_value,
 					:stock_history_date FROM item WHERE item_code = :item_code",
 					array(
-						':invoice_id' => $invoice_id,
+						':rework_id' => $rework_id,
+						':rework_invoice' => $invoice_number,
 						':stock_history_value' => $value['rework_detail_qty'],
 						':stock_history_date' => date('Y-m-d H:i:s'),
 						':item_code' => $value['rework_detail_item_code']

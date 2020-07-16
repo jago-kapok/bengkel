@@ -2,7 +2,7 @@
   <input type="hidden" name="customer_code">
   <div class="row mb-1">
     <div class="col-md-8">
-      <a href="{{ @BASE.'/report/cash/print/'.@invoice_month.'/'.@invoice_year }}" class="btn btn-danger btn-sm" target="_blank">
+      <a href="{{ @BASE.'/report/stock/print/' }}" class="btn btn-danger btn-sm" target="_blank">
 	    Cetak Rekapitulasi
 	  </a>
     </div>
@@ -19,23 +19,23 @@
   <table id="simple_table" class="table table-striped" style="width:100%">
     <thead class="bg-app">
       <tr>
-        <th>No.</th>
         <th class="width-100">Tanggal</th>
+        <th>Nama Barang</th>
+        <th>Pembelian</th>
         <th>Invoice</th>
-        <th class="width-500">Nama Pelanggan</th>
-        <th class="width-100">Total</th>
-        <th class="width-500">Cash</th>
+        <th>Rework</th>
+        <th>QTY</th>
       </tr>
     </thead>
     <tbody>
-	  <repeat group="{{ @data_invoice }}" key="{{ @no }}" value="{{ $invoice }}">
+	  <repeat group="{{ @data_stock_history }}" key="{{ @no }}" value="{{ $stock_history }}">
 		<tr>
-		  <td>{{ @no + 1 }}</td>
-		  <td>{{ date('d F Y', strtotime(@invoice.invoice_date)) }}</td>
-		  <td>{{ @invoice.invoice_number }}</td>
-		  <td>{{ @invoice.customer_name }}</td>
-		  <td class="text-right">Rp {{ number_format(@invoice.invoice_total) }}</td>
-		  <td>{{ @invoice.invoice_note_payment }}</td>
+		  <td>{{ date('d F Y', strtotime(@stock_history.stock_history_date)) }}</td>
+		  <td>{{ @stock_history.item_code }} | {{ @stock_history.item_desc }}</td>
+		  <td>{{ @stock_history.purchase_number }}</td>
+		  <td>{{ @stock_history.invoice_number }}</td>
+		  <td>{{ @stock_history.rework_invoice }}</td>
+		  <td>{{ @stock_history.stock_history_value }}</td>
 	  </repeat>
 	</tbody>
   </table>

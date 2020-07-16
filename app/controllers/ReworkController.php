@@ -34,45 +34,41 @@ class ReworkController extends Controller {
 	}
 	
 	public function create(){
-		$invoice = new Invoice($this->db);
-		$invoice->add();
+		$rework = new Rework($this->db);
+		$rework->add();
 		
-		$invoice_detail = new InvoiceDetail($this->db);
-		$invoice_detail->add($invoice->invoice_id);
+		$rework_detail = new ReworkDetail($this->db);
+		$rework_detail->add($rework->rework_id, $this->f3->get('POST.invoice_number'));
 		
-		$quotation = new Quotation($this->db);
-		$quotation->invoiced($invoice->quotation_id);
-		
-		$this->f3->reroute('/invoice/view/'.$invoice->invoice_id);
+		$this->f3->reroute('/rework');
 	}
 	
 	public function update(){
 		if($this->f3->exists('POST.update')){
-			$invoice = new Invoice($this->db);
-			$invoice->edit($this->f3->get('PARAMS.invoice_id'));
+			$rework = new Rework($this->db);
+			$rework->edit($this->f3->get('PARAMS.rework_id'));
 			
-			$invoice_detail = new InvoiceDetail($this->db);
-			$invoice_detail->beforeEdit($this->f3->get('PARAMS.invoice_id'));
-			$invoice_detail->add($this->f3->get('PARAMS.invoice_id'));
+			$rework_detail = new ReworkDetail($this->db);
+			$rework_detail->beforeEdit($this->f3->get('PARAMS.rework_id'));
+			$rework_detail->add($this->f3->get('PARAMS.rework_id'), $this->f3->get('POST.invoice_number'));
 						
-			$this->f3->reroute('/invoice/view/'.$this->f3->get('PARAMS.invoice_id'));
+			$this->f3->reroute('/rework');
 		} else {
-			$invoice = new Invoice($this->db);
-			$invoice->getById($this->f3->get('PARAMS.invoice_id'));
-			
-			$invoice_total = $invoice->invoice_part_charge + $invoice->invoice_service_charge - $invoice->invoice_discount;
-			$invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
-			$this->f3->set('invoice_ppn', $invoice_ppn);
-			
-			$invoice_detail = new InvoiceDetail($this->db);
-			$this->f3->set('data_invoice_detail', $invoice_detail->getById($this->f3->get('PARAMS.invoice_id')));
+			$rework = new Rework($this->db);
+			$rework->getById($this->f3->get('PARAMS.rework_id'));
+		
+			$rework_detail = new ReworkDetail($this->db);
+			$this->f3->set('data_rework_detail', $rework_detail->getById($this->f3->get('PARAMS.rework_id')));
 			
 			$stock = new Stock($this->db);
-			$stock->beforeEdit($this->f3->get('PARAMS.invoice_id'));
+			$stock->beforeEdit($this->f3->get('PARAMS.rework_id'));
 			
-			$this->f3->set('page_title','INVOICE : '.$invoice->invoice_number);
+			$invoice = new Invoice($this->db);
+			$invoice->getById($rework->invoice_id);
+			
+			$this->f3->set('page_title','REWORK - INVOICE : '.$invoice->invoice_number);
 			$this->f3->set('header','header/header.html');
-			$this->f3->set('view','invoice/update.html');
+			$this->f3->set('view','rework/update.html');
 		}
 	}
 	

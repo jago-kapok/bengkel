@@ -63,4 +63,31 @@ class Rework extends DB\SQL\Mapper {
 		$this->rework_total = str_replace(',', '', $f3->get('POST.rework_total'));
 		$this->save();
 	}
+	
+	public function getById($rework_id){
+		$this->load(array('rework_id = ?', $rework_id));
+		$this->copyTo('POST');
+	}
+	
+	public function edit($rework_id){
+		$this->load(array('rework_id = ?', $rework_id));
+		
+		$this->copyFrom('POST');
+		$this->update();
+	}
+	
+	public function beforeEdit($rework_id){
+		$query = $this->db->exec("SELECT * FROM rework_detail WHERE rework_id = ?", $rework_id);
+		
+		foreach($query as $data){
+			$this->db->exec("UPDATE stock SET stock_on_hand = (stock_on_hand + ?) WHERE item_id IN (SELECT item_id FROM stock_history WHERE rework_id = ?)",
+				array(
+					$data['invoice_detail_qty'],
+					$rework_id
+				)
+			);
+		}
+		
+		$this->db->exec("DELETE FROM stock_history WHERE rework_id = ?", $rework_id);
+	}
 }

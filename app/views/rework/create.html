@@ -65,15 +65,15 @@
 			  <td>
 			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][rework_detail_item_part_no]" style="width:100px">
 			  </td>
-			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][rework_detail_item_desc]" style="width:250px"></td>
+			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][rework_detail_item_desc]" style="width:455px"></td>
 			  <td>
 			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][rework_detail_qty]" class="number-only" style="width:30px" onkeyup="return getTotal({{ @i }})">
 			  </td>
 			  <td>
-			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][rework_detail_unit_price_temp]" class="number-only readonly" style="width:75px" readonly>
+			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][rework_detail_unit_price_temp]" class="number-only readonly" style="width:100px" readonly>
 			  </td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][rework_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})">
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][rework_detail_unit_price]" class="number-only" style="width:100px" onkeyup="return getTotal({{ @i }})">
 			  </td>
 			  <td>
 			    <input id="item_amount_{{ @i }}" name="data[{{ @i }}][rework_detail_amount]" class="number-only amount" style="width:100px">
@@ -94,19 +94,19 @@
 	  <div class="row">
 		<div class="col-md-9">
 		  <div class="form-group row">
-			<label class="col-md-2">PROBLEM</label>
+			<label class="col-md-2"><b>Problem</b></label>
 			<div class="col-md-8">
 			  <input name="rework_problem" class="form-control form-control-sm form-app">
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2">ACTION</label>
+			<label class="col-md-2"><b>Action</b></label>
 			<div class="col-md-8">
 			  <input name="rework_action" class="form-control form-control-sm form-app">
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2">KETERANGAN</label>
+			<label class="col-md-2"><b>Keterangan</b></label>
 			<div class="col-md-8">
 			  <input name="rework_note" class="form-control form-control-sm form-app">
 			</div>
@@ -120,15 +120,7 @@
 			  <td style="border-right-color:transparent">Rp</td>
 			  <td class="col-md-6 text-right">
 				<b><span id="part_charge_display"></span></b>
-			    <input type="hidden" id="part_charge" name="rework_part_charge">
-			  </td>
-			</tr>
-			<tr>
-			  <th>TOTAL</th>
-			  <td style="border-right-color:transparent">Rp</td>
-			  <td class="text-right">
-			    <b><span id="grand_total_display">{{ number_format(@POST.quotation_total) }}</span></b>
-			    <input type="hidden" id="grand_total" name="invoice_total" value="{{ @POST.quotation_total }}">
+			    <input type="hidden" id="part_charge" name="rework_total">
 			  </td>
 			</tr>
 		  </table>

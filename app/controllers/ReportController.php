@@ -1,6 +1,24 @@
 <?php
 
 class ReportController extends Controller {
+	
+	public function quotation(){
+		$quotation_month = $this->f3->get('POST.quotation_month') != 'ALL' ? $this->f3->get('POST.quotation_month') : '%';
+		
+		$quotation = new Quotation($this->db);
+		$this->f3->set('data_quotation', $quotation->getDataMonth($quotation_month, $this->f3->get('POST.quotation_year')));
+		
+		$quotation_total = ($quotation->quotation_part_charge + $quotation->quotation_service_charge) - $quotation->quotation_discount;
+		$quotation_ppn = $quotation_total * ($quotation->quotation_ppn / 100);
+		$this->f3->set('quotation_ppn', $quotation_ppn);
+		
+		$this->f3->set('quotation_month', $this->f3->get('POST.quotation_month'));
+		$this->f3->set('quotation_year', $this->f3->get('POST.quotation_year'));
+		
+		$this->f3->set('page_title','Rekapitulasi Penawaran Bulan : '.$this->f3->get('POST.quotation_month').'/'.$this->f3->get('POST.quotation_year'));
+		$this->f3->set('header','header/header.html');
+        $this->f3->set('view','report/quotation.html');
+	}
 
 	public function invoice(){
 		$invoice_month = $this->f3->get('POST.invoice_month') != 'ALL' ? $this->f3->get('POST.invoice_month') : '%';
@@ -54,5 +72,14 @@ class ReportController extends Controller {
 		$this->f3->set('page_title','Rekapitulasi Cash Bulan : '.$this->f3->get('POST.invoice_month').'/'.$this->f3->get('POST.invoice_year'));
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','report/cash.html');
+	}
+	
+	public function stock(){
+		$stock_history = new StockHistory($this->db);
+		$this->f3->set('data_stock_history', $stock_history->getAll());
+		
+		$this->f3->set('page_title','Riwayat Stok');
+		$this->f3->set('header','header/header.html');
+        $this->f3->set('view','report/stock.html');
 	}
 }

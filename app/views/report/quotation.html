@@ -2,7 +2,7 @@
   <input type="hidden" name="customer_code">
   <div class="row mb-1">
     <div class="col-md-8">
-      <a href="{{ @BASE.'/report/ppn/print/'.@invoice_month.'/'.@invoice_year }}" class="btn btn-danger btn-sm" target="_blank">
+      <a href="{{ @BASE.'/report/quotation/print/'.@quotation_month.'/'.@quotation_year }}" class="btn btn-danger btn-sm" target="_blank">
 	    Cetak Rekapitulasi
 	  </a>
     </div>
@@ -20,8 +20,8 @@
     <thead class="bg-app">
       <tr>
         <th>No.</th>
-        <th class="width-100">Tanggal</th>
-        <th>Invoice</th>
+        <th class="width-125">Tanggal</th>
+        <th>Penawaran</th>
         <th class="width-500">Nama Pelanggan</th>
         <th class="width-100">Jasa</th>
         <th class="width-100">Parts</th>
@@ -29,15 +29,15 @@
       </tr>
     </thead>
     <tbody>
-	  <repeat group="{{ @data_invoice }}" key="{{ @no }}" value="{{ $invoice }}">
+	  <repeat group="{{ @data_quotation }}" key="{{ @no }}" value="{{ $quotation }}">
 		<tr>
 		  <td>{{ @no + 1 }}</td>
-		  <td>{{ date('d F Y', strtotime(@invoice.invoice_date)) }}</td>
-		  <td>{{ @invoice.invoice_number }}</td>
-		  <td>{{ @invoice.customer_name }}</td>
-		  <td class="text-right">Rp {{ number_format(@invoice.invoice_part_charge) }}</td>
-		  <td class="text-right">Rp {{ number_format(@invoice.invoice_service_charge) }}</td>
-		  <td class="text-right">Rp {{ number_format(@invoice_ppn) }}</td>
+		  <td>{{ date('d F Y', strtotime(@quotation.quotation_date)) }}</td>
+		  <td>{{ @quotation.quotation_number }}</td>
+		  <td>{{ @quotation.customer_name }}</td>
+		  <td class="text-right">Rp {{ number_format(@quotation.quotation_part_charge) }}</td>
+		  <td class="text-right">Rp {{ number_format(@quotation.quotation_service_charge) }}</td>
+		  <td class="text-right">Rp {{ number_format(@quotation_ppn) }}</td>
 	  </repeat>
 	</tbody>
   </table>

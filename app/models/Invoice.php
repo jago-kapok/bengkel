@@ -107,4 +107,12 @@ class Invoice extends DB\SQL\Mapper {
 		$this->load(array('MONTH(invoice_date) LIKE ? AND YEAR(invoice_date) = ?', array('%'.$month.'%', $year)));
 		return $this->query;
 	}
+	
+	public function cancel($invoice_id){
+		$this->db->exec("UPDATE invoice SET invoice_status = 2 WHERE invoice_id = ?", $invoice_id);
+	}
+	
+	public function active($invoice_id){
+		$this->db->exec("UPDATE invoice SET invoice_status = 1 WHERE invoice_id = ?", $invoice_id);
+	}
 }

@@ -1,17 +1,16 @@
 <div class="card p-2 font-12">
   <div class="row mb-1">
 	<div class="col-md-8">
-	  <a href="javascript:void(0)" class="btn btn-success btn-sm mr-1" data-toggle="modal" data-target="#create_invoice">
+	  <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#create_invoice">
 	    Invoice Baru
 	  </a>
-	  <a href="{{ @BASE.'/invoice-cancel' }}" class="btn btn-danger btn-sm">Lihat Invoice Batal</a>
 	</div>
 	<div class="col-md-4 pull-right">
-	  <input id="invoice_search" class="form-control form-control-sm font-12" placeholder="Cari Data ...">
+	  <input id="invoice_cancel_search" class="form-control form-control-sm font-12" placeholder="Cari Data ...">
 	</div>
   </div>
   
-  <table id="invoice_table" class="table table-striped" style="width:100%">
+  <table id="invoice_cancel_table" class="table table-striped" style="width:100%">
 	<thead class="bg-app">
       <tr>
 		<th class="width-75">Invoice</th>

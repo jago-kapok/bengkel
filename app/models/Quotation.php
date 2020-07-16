@@ -101,6 +101,12 @@ class Quotation extends DB\SQL\Mapper {
 		$this->update();
 	}
 	
+	public function getDataMonth($month, $year){
+		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = quotation.customer_id";
+		$this->load(array('MONTH(quotation_date) LIKE ? AND YEAR(quotation_date) = ?', array('%'.$month.'%', $year)));
+		return $this->query;
+	}
+	
 	public function invoiced($quotation_id){
 		$this->db->exec("UPDATE quotation SET quotation_status = 3 WHERE quotation_id = ?", $quotation_id);
 	}
