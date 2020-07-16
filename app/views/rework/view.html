@@ -1,0 +1,153 @@
+<check if="{{ @POST.invoice_status == 2 }}">
+  <div class="alert alert-danger" role="alert">
+    <i class="fa fa-ban"></i>&nbsp;&nbsp;<b>DIBATALKAN</> ! Invoice tidak aktif.
+  </div>
+</check>
+
+<div class="card p-2" style="font-size:12px">
+  <div class="row mb-1">
+    <div class="col-md-6">
+	  <label class="col-sm-4"><b>Tgl. Invoice</b></label>
+	  <span class="col-sm-8">: {{ date('d F Y', strtotime(@POST.invoice_date)) }}</span>
+	</div>
+	<div class="col-md-6">
+	  <label class="col-sm-4"><b>Nama Pelanggan</b></label>
+	  <span class="col-sm-8">: {{ strtoupper(@POST.customer_name) }}</span>
+	</div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-md-6">
+	  <label class="col-sm-4"><b>Tgl. Tanda Terima</b></label>
+	  <span class="col-sm-8">: {{ date('d F Y', strtotime(@POST.invoice_received_date)) }}</span>
+	</div>
+	<div class="col-md-6">
+	  <label class="col-sm-4"><b>Alamat / Kota</b></label>
+	  <label class="col-sm-7" style="vertical-align:top">: {{ strtoupper(@POST.customer_address) }} / {{ strtoupper(@POST.customer_city) }}</label>
+	</div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-md-6">
+	  <label class="col-sm-4"><b>Model</b></label>
+	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_model) }}</span>
+	</div>
+	<div class="col-md-6">
+	  <label class="col-sm-4"><b>No. Penawaran</b></label>
+	  <span class="col-sm-8">: {{ @POST.quotation_number }}</span>
+	</div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-md-6">
+	  <label class="col-sm-4"><b>Unit / Engine</b></label>
+	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_engine) }}</span>
+	</div>
+	<div class="col-md-6">
+	  <label class="col-sm-4"><b>Tgl. Penawaran</b></label>
+	  <span class="col-sm-8">: {{ date('d F Y', strtotime(@POST.quotation_date)) }}</span>
+	</div>
+  </div>
+  <div class="row mb-1">
+    <div class="col-md-6">
+	  <label class="col-sm-4"><b>Serial Number</b></label>
+	  <span class="col-sm-8">: {{ strtoupper(@POST.quotation_serial_number) }}</span>
+	</div>
+	<div class="col-md-6">
+	  <label class="col-sm-4"><b>No. Faktur Pajak</b></label>
+	  <span class="col-sm-8">: {{ @POST.invoice_tax_number }}</span>
+	</div>
+  </div>
+  
+  <div class="row m-3">
+	<table class="table table-bordered table-striped table-responsive">
+	  <thead>
+		<tr class="bg-primary">
+		  <th>No.</th>
+		  <th class="width-100">Kode</th>
+		  <th class="width-100">No. Part</th>
+		  <th class="width-500">Deskripsi</th>
+		  <th class="width-75">Qty</th>
+		  <th class="width-150">Harga / Unit</th>
+		  <th class="width-150">Merk</th>
+		  <th class="width-150">Total</th>
+		  <th class="width-150">Profit</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+		<repeat group="{{ @data_invoice_detail }}" key="{{ @no }}" value="{{ $invoice_detail }}">
+		  <tr>
+			<td><center>{{ @no + 1 }}</center></td>
+			<td>{{ strtoupper(@invoice_detail.invoice_detail_item_code) }}</td>
+			<td>{{ strtoupper(@invoice_detail.invoice_detail_item_part_no) }}</td>
+			<td>{{ strtoupper(@invoice_detail.invoice_detail_item_desc) }}</td>
+			<td>{{ @invoice_detail.invoice_detail_qty }}</td>
+			<td class="text-right">Rp {{ number_format(@invoice_detail.invoice_detail_unit_price) }}</td>
+			<td>{{ strtoupper(@invoice_detail.invoice_detail_brand) }}</td>
+			<td class="text-right">Rp {{ number_format(@invoice_detail.invoice_detail_amount) }}</td>
+			<td class="text-right">Rp {{ number_format(@invoice_detail.invoice_detail_profit) }}</td>
+		  </tr>
+		</repeat>
+	  </tbody>
+	  <tbody style="border-top:2px solid">
+		<tr>
+		  <th colspan="6" style="border:none">
+			<span>Keterangan : </span>
+		  </th>
+		  <th><center>PART</center></th>
+		  <td class="text-right">Rp {{ number_format(@POST.invoice_part_charge) }}</td>
+		</tr>
+		<tr>
+		  <th colspan="6" style="border:none">
+			<span>- {{ strtoupper(@POST.invoice_note_customer) }}</span>
+		  </th>
+		  <th><center>SERVIS</center></th>
+		  <td class="text-right">Rp {{ number_format(@POST.invoice_service_charge) }}</td>
+		</tr>
+		<tr>
+		  <th colspan="6" style="border:none">
+			<span>- {{ strtoupper(@POST.invoice_note_internal) }}</span>
+		  </th>
+		  <th><center>DISKON</center></th>
+		  <td class="text-right">Rp {{ number_format(@POST.invoice_discount) }}</td>
+		</tr>
+		<tr>
+		  <th colspan="6" style="border:none"></th>
+		  <th class="bg-secondary"><center>SEBELUM PPN</center></th>
+		  <td class="bg-secondary text-right"><b>Rp {{ number_format(@POST.invoice_total - @invoice_ppn) }}</b></td>
+		</tr>
+		<tr>
+		  <th colspan="6" style="border:none">
+			Cash :
+		  </th>
+		  <th><center>PPN <span>{{ @POST.invoice_ppn }}%</span></center></th>
+		  <td class="text-right">Rp {{ number_format(@invoice_ppn) }}</td>
+		</tr>
+		<tr>
+		  <th colspan="6" style="border:none">
+			<span>{{ strtoupper(@POST.invoice_note_payment) }}</span>
+		  </th>
+		  <th class="bg-secondary"><center>TOTAL</center></th>
+		  <td class="bg-secondary text-right"><b>Rp {{ number_format(@POST.invoice_total) }}</b></td>
+		</tr>
+		<tr>
+		  <th colspan="6" style="border:none"></th>
+		  <th class="bg-light" colspan="2"><center>TOTAL PROFIT</center></th>
+		  <td class="bg-light text-right"><b>Rp {{ number_format(@profit_total) }}</b></td>
+		</tr>
+	  </tbody>
+	</table>
+  </div>
+  
+  <div class="card-footer" style="border-top:1px solid #cecece">
+	<a href="{{ @BASE.'/invoice/print/'.@PARAMS.invoice_id }}" class="btn btn-success btn-sm mr-1" target="_blank"><i class="fa fa-print"></i> Cetak Invoice</a>
+	
+	<check if="{{ @POST.invoice_status == 2 }}">
+	  <true>
+		<!-- <a href="{{ @BASE.'/Invoice/active/'.@PARAMS.invoice_id }}" class="btn btn-primary btn-sm mr-1 float-sm-right" onclick="return confirm('Anda ingin mengaktifkan kembali penawaran : {{ @POST.invoice_number }} ?')"><i class="fa fa-check"></i>&nbsp;&nbsp;Aktifkan Penawaran</a> -->
+	  </true>
+	  <false>
+		<a href="{{ @BASE.'/invoice/update/'.@PARAMS.invoice_id }}" class="btn btn-info btn-sm mr-1"><i class="fa fa-pen"></i>&nbsp;&nbsp;Edit Invoice</a>
+		<a href="{{ @BASE.'/invoice/file/'.@PARAMS.invoice_id }}" class="btn btn-primary btn-sm mr-1"><i class="fa fa-image"></i>&nbsp;&nbsp;Unggah File / Foto</a>
+		<!-- <a href="{{ @BASE.'/invoice/cancel/'.@PARAMS.invoice_id }}" class="btn btn-danger btn-sm" onclick="return confirm('Anda ingin membatalkan penawaran : {{ @POST.invoice_id }} ?')"><i class="fa fa-ban"></i>&nbsp;&nbsp;Batalkan Penawaran</a> -->
+	  </false>
+	</check>
+  </div>
+</div>

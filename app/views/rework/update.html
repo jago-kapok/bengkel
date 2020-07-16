@@ -1,0 +1,278 @@
+<div class="">
+  <form action="{{ @BASE.'/invoice/update/'.@PARAMS.invoice_id }}" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="invoice_status" value="1">
+    <div class="">
+	  <div class="row">
+		<div class="col-md-2">
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">NO. :</span>
+			</div>
+			<input name="invoice_number" class="form-control form-control-sm form-app" value="{{ @POST.invoice_number }}" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2 offset-2">
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">PNWRN</span>
+			</div>
+			<input class="form-control form-control-sm form-app" value="{{ date('d F Y', strtotime(@POST.quotation_date)) }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">TT</span>
+			</div>
+			<input class="form-control form-control-sm form-app" value="{{ date('d F Y', strtotime(@POST.quotation_received_date)) }}" data-toggle="tooltip" title="Tgl. TANDA TERIMA" readonly>
+			<input type="hidden" name="invoice_received_date" value="{{ date('Y-m-d', strtotime(@POST.quotation_received_date)) }}">
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">INV</span>
+			</div>
+			<input name="invoice_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" data-toggle="tooltip" title="Tgl. INVOICE" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input name="invoice_mechanic" class="form-control form-control-sm form-app" value="{{ @POST.invoice_mechanic }}" placeholder="Mekanik" data-toggle="tooltip" title="MEKANIK" required>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input name="customer_code" class="form-control form-control-sm form-app" value="{{ @POST.customer_code }}" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" readonly>
+			<input type="hidden" name="customer_id" class="form-control form-control-sm form-app" value="{{ @POST.customer_id }}">
+		  </div>
+		</div>
+		<div class="col-md-6">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="Nama Pelanggan" value="{{ @POST.customer_name }}" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="No. Telepon" value="{{ @POST.customer_phone }}" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="Kota" value="{{ @POST.customer_city }}" readonly>
+		  </div>
+		</div>
+	  </div>
+	  <div class="row">
+		<div class="col-md-6 offset-md-2">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="Alamat Pelanggan" value="{{ @POST.customer_address }}" readonly>
+		  </div>
+		</div>
+		<div class="col-md-4">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="Catatan" value="{{ @POST.customer_note }}" readonly>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="Model" value="{{ @POST.quotation_model }}" data-toggle="tooltip" title="MODEL" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="Engine" value="{{ @POST.quotation_engine }}" data-toggle="tooltip" title="ENGINE" readonly>
+		  </div>
+		</div>
+		<div class="col-md-3">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="Pump Assy" value="{{ @POST.quotation_pump_assy }}" data-toggle="tooltip" title="PUMP ASSY" readonly>
+		  </div>
+		</div>
+		<div class="col-md-3">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="PO/WO" value="{{ @POST.quotation_po_wo }}" data-toggle="tooltip" title="PO/WO" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="S/N" value="{{ @POST.quotation_serial_number }}" data-toggle="tooltip" title="S/N" readonly>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="row mr-0 ml-0">
+		<table class="table table-bordered table-responsive">
+		  <thead>
+			<tr class="bg-primary">
+			  <th class="col-md-1">Kode</th>
+			  <th class="col-md-1">No. Part</th>
+			  <th class="col-md-1">Deskripsi</th>
+			  <th class="col-md-1">Qty</th>
+			  <th class="col-md-1">Up</th>
+			  <th class="col-md-1">Modal</th>
+			  <th class="col-md-1">Harga</th>
+			  <th class="col-md-1">Harga (Up)</th>
+			  <th class="col-md-1">Merk</th>
+			  <th class="col-md-1">Total</th>
+			  <th class="col-md-1">#</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<repeat group="{{ @data_invoice_detail }}" key="{{ @no }}" value="{{ $invoice_detail }}">
+			<tr id="item_{{ @no + 50 }}">
+			  <td>
+			    <input id="{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_item_code]" class="item" value="{{ @invoice_detail.invoice_detail_item_code }}" style="width:100px" onchange="return getData(this.id, this.value)" readonly>
+			  </td>
+			  <td>
+			    <input id="item_part_no_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_item_part_no]" value="{{ @invoice_detail.invoice_detail_item_part_no }}" style="width:100px" readonly>
+			  </td>
+			  <td><input id="item_desc_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_item_desc]" value="{{ @invoice_detail.invoice_detail_item_desc }}" style="width:250px" readonly></td>
+			  <td>
+			    <input id="item_qty_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_qty]" class="number-only" value="{{ @invoice_detail.invoice_detail_qty }}" style="width:30px" onkeyup="return getTotal({{ @no + 50 }})">
+			  </td>
+			  <td><input name="data[{{ @no + 50 }}][invoice_detail_qty_up]" class="number-only bg-info" value="{{ @invoice_detail.invoice_detail_qty_up }}" style="width:30px"></td>
+			  <td>
+			    <input id="item_price_temp_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price_temp]" class="number-only readonly" value="{{ number_format(@invoice_detail.invoice_detail_unit_price_temp) }}" style="width:75px">
+			  </td>
+			  <td>
+			    <input id="item_price_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price]" class="number-only" value="{{ number_format(@invoice_detail.invoice_detail_unit_price) }}" style="width:75px" onkeyup="return getTotal({{ @no + 50 }})">
+			  </td>
+			  <td><input name="data[{{ @no + 50 }}][invoice_detail_unit_price_up]" class="number-only bg-info" value="{{ number_format(@quotation.invoice_detail_unit_price_up) }}" style="width:75px"></td>
+			  <td><input id="item_brand_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_brand]" value="{{ @invoice_detail.invoice_detail_brand }}" style="width:100px"></td>
+			  <td>
+			    <input id="item_amount_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_amount]" class="number-only amount" value="{{ number_format(@invoice_detail.invoice_detail_amount) }}" style="width:100px">
+			  </td>
+			  <td>
+			    <center>
+				  <a href="javascript:void(0)" class="text-danger" onclick="return clearRow({{ @no + 10 }})">
+				    <i class="fa fa-trash"></i>
+				  </a>
+				</center>
+			  </td>
+			</tr>
+			</repeat>
+			
+			<loop from="{{ @i=0 }}" to="{{ @i < (10 - count(@data_invoice_detail)) }}" step="{{ @i++ }}">
+			<tr id="item_{{ @i }}">
+			  <td>
+			    <input id="{{ @i }}" name="data[{{ @i }}][invoice_detail_item_code]" class="items" style="width:100px" onchange="return getData(this.id, this.value)">
+			  </td>
+			  <td>
+			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][invoice_detail_item_part_no]" style="width:100px">
+			  </td>
+			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][invoice_detail_item_desc]" style="width:250px"></td>
+			  <td>
+			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][invoice_detail_qty]" class="number-only" style="width:30px" onkeyup="return getTotal({{ @i }})">
+			  </td>
+			  <td><input name="data[{{ @i }}][invoice_detail_qty_up]" class="number-only bg-info" style="width:30px"></td>
+			  <td>
+			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price_temp]" class="number-only readonly" style="width:75px" readonly>
+			  </td>
+			  <td>
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})">
+			  </td>
+			  <td><input name="data[{{ @i }}][invoice_detail_unit_price_up]" class="number-only bg-info" style="width:75px"></td>
+			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][invoice_detail_brand]" style="width:100px"></td>
+			  <td>
+			    <input id="item_amount_{{ @i }}" name="data[{{ @i }}][invoice_detail_amount]" class="number-only amount" style="width:100px">
+			  </td>
+			  <td>
+			    <center>
+				  <a href="javascript:void(0)" class="text-danger" onclick="return clearRow({{ @i }})">
+				    <i class="fa fa-trash"></i>
+				  </a>
+				</center>
+			  </td>
+			</tr>
+			</loop>
+		  </tbody>
+		</table>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-md-9">
+		  <div class="form-group row">
+			<label class="col-md-2">NOZZLE</label>
+			<div class="col-md-8">
+			  <input class="form-control form-control-sm form-app" value="{{ @POST.quotation_nozzle }}" readonly>
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-2">KETERANGAN</label>
+			<div class="col-md-8">
+			  <input name="invoice_note_customer" class="form-control form-control-sm form-app" value="{{ @POST.invoice_note_customer }}">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-2"></label>
+			<div class="col-md-8">
+			  <input name="invoice_note_internal" class="form-control form-control-sm form-app" value="{{ @POST.invoice_note_internal }}">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-2">CASH</label>
+			<div class="col-md-8">
+			  <input name="invoice_note_payment" class="form-control form-control-sm form-app" value="{{ @POST.invoice_note_payment }}">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-2">FAKTUR PAJAK</label>
+			<div class="col-md-3">
+			  <input name="invoice_tax_number" class="form-control form-control-sm form-app" value="{{ @POST.invoice_tax_number }}">
+			</div>
+		  </div>
+		</div>
+		
+		<div class="col-md-3">
+		  <table class="table table-bordered table-striped">
+			<tr>
+			  <th class="col-md-6">PART</th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td class="col-md-6 text-right">
+				<b><span id="part_charge_display">{{ number_format(@POST.invoice_part_charge) }}</span></b>
+			    <input type="hidden" id="part_charge" name="invoice_part_charge" value="{{ @POST.invoice_part_charge }}">
+			  </td>
+			</tr>
+			<tr>
+			  <th>SERVICE</th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td><input id="service_charge" name="invoice_service_charge" class="number-only" style="width:125px" value="{{ number_format(@POST.invoice_service_charge) }}"></td>
+			</tr>
+			<tr>
+			  <th>DISKON</th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td><input id="discount" name="invoice_discount" class="number-only" style="width:125px" value="{{ number_format(@POST.invoice_discount) }}"></td>
+			</tr>
+			<tr>
+			  <th>PPN &nbsp;
+			    <input id="ppn" name="invoice_ppn" maxlength="2" class="number-only" value="{{ @POST.invoice_ppn }}" style="width:25px"> %
+			  </th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td class="text-right">
+			    <span id="ppn_display">{{ number_format(@invoice_ppn) }}</span>
+			  </td>
+			</tr>
+			<tr>
+			  <th>TOTAL</th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td class="text-right">
+			    <b><span id="grand_total_display">{{ number_format(@POST.invoice_total) }}</span></b>
+			    <input type="hidden" id="grand_total" name="invoice_total" value="{{ @POST.invoice_total }}">
+			  </td>
+			</tr>
+		  </table>
+		</div>
+	  </div>
+	</div>
+	<div class="card-footer">
+	  <button type="submit" name="update" class="btn btn-primary btn-sm btn-form"><b>Update</b></button>
+	</div>
+  </form>
+</div>

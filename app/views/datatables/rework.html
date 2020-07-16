@@ -1,0 +1,35 @@
+<script>
+
+$(document).ready(function(){
+  var table = $('#rework_table').DataTable({
+	"scrollX": false,
+	"ordering": false,
+	"scrollCollapse": true,
+	"processing": true,
+	"serverSide": true,
+	"lengthChange": false,
+	"searching": true,
+	"ajax": {
+	  "url": "{{ @BASE.'/rework/data' }}",
+	  "type": "POST"
+	},
+	"columns": [
+	  { data: 0 }, { data: 1 }, { data: 2 },
+	  {
+	    "render": function (data, type, full){
+		  return 'Rp <span style="float:right; margin-right:25px">' + data + '</span>';
+		}
+	  },
+	  {
+		"render": function (data, type, full){
+		  return '<a href="{{ @BASE."/rework/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Rework"><i class="fa fa-search"></i></a>';
+		}
+	  }
+	]
+  });
+	
+  $('#rework_search').on('keyup', function(){
+	table.search(this.value).draw();
+  });
+});
+</script>

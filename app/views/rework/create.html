@@ -1,0 +1,143 @@
+<div class="">
+  <form action="{{ @BASE.'/rework/create' }}" method="POST" enctype="multipart/form-data">
+	<input type="hidden" name="invoice_id" value="{{ @POST.invoice_id }}">
+    <div class="row">
+	  <div class="col-md-6">
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>No. Invoice</b></label>
+		  <div class="col-md-4">
+		    <input name="invoice_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" value="{{ @POST.invoice_number }}" readonly>
+		  </div>
+		</div>
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>Tgl. Invoice</b></label>
+		  <div class="col-md-4">
+		    <input name="invoice_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. Invoice" value="{{ date('d F Y', strtotime(@POST.invoice_date)) }}" readonly>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="col-md-6">
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>Kode Pelanggan</b></label>
+		  <div class="col-md-4">
+			<input name="customer_code" class="form-control form-control-sm form-app" placeholder="ID Supplier" data-toggle="tooltip" title="ID PELANGGAN" value="{{ @POST.customer_code }}" readonly>
+		  </div>
+		  <div class="col-md-5">
+			<input name="customer_name" class="form-control form-control-sm form-app" placeholder="Nama Supplier" value="{{ @POST.customer_name }}" readonly>
+		  </div>
+		</div>
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>Alamat</b></label>
+		  <div class="col-md-9">
+			<input name="customer_address" class="form-control form-control-sm form-app" placeholder="Alamat" value="{{ @POST.customer_address }} / {{ @POST.customer_city }}" readonly>
+		  </div>
+		</div>
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>No. Telepon</b></label>
+		  <div class="col-md-4">
+			<input name="customer_phone" class="form-control form-control-sm form-app" placeholder="No. Telepon" value="{{ @POST.customer_phone }}" readonly>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	  
+	  <div class="row mr-0 ml-0">
+		<table class="table table-bordered table-responsive">
+		  <thead>
+			<tr class="bg-primary">
+			  <th class="col-md-1">Kode</th>
+			  <th class="col-md-1">No. Part</th>
+			  <th class="col-md-1">Deskripsi</th>
+			  <th class="col-md-1">Qty</th>
+			  <th class="col-md-1">Modal</th>
+			  <th class="col-md-1">Harga</th>
+			  <th class="col-md-1">Total</th>
+			  <th class="col-md-1">#</th>
+			</tr>
+		  </thead>
+		  <tbody>			
+			<loop from="{{ @i=0 }}" to="{{ @i < 5 }}" step="{{ @i++ }}">
+			<tr id="item_{{ @i }}">
+			  <td>
+			    <input id="{{ @i }}" name="data[{{ @i }}][rework_detail_item_code]" class="item" style="width:100px" onchange="return getData(this.id, this.value)">
+			  </td>
+			  <td>
+			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][rework_detail_item_part_no]" style="width:100px">
+			  </td>
+			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][rework_detail_item_desc]" style="width:250px"></td>
+			  <td>
+			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][rework_detail_qty]" class="number-only" style="width:30px" onkeyup="return getTotal({{ @i }})">
+			  </td>
+			  <td>
+			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][rework_detail_unit_price_temp]" class="number-only readonly" style="width:75px" readonly>
+			  </td>
+			  <td>
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][rework_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})">
+			  </td>
+			  <td>
+			    <input id="item_amount_{{ @i }}" name="data[{{ @i }}][rework_detail_amount]" class="number-only amount" style="width:100px">
+			  </td>
+			  <td>
+			    <center>
+				  <a href="javascript:void(0)" class="text-danger" onclick="return clearRow({{ @i }})">
+				    <i class="fa fa-trash"></i>
+				  </a>
+				</center>
+			  </td>
+			</tr>
+			</loop>
+		  </tbody>
+		</table>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-md-9">
+		  <div class="form-group row">
+			<label class="col-md-2">PROBLEM</label>
+			<div class="col-md-8">
+			  <input name="rework_problem" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-2">ACTION</label>
+			<div class="col-md-8">
+			  <input name="rework_action" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-2">KETERANGAN</label>
+			<div class="col-md-8">
+			  <input name="rework_note" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		</div>
+		
+		<div class="col-md-3">
+		  <table class="table table-bordered table-striped">
+			<tr>
+			  <th class="col-md-6">PART</th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td class="col-md-6 text-right">
+				<b><span id="part_charge_display"></span></b>
+			    <input type="hidden" id="part_charge" name="rework_part_charge">
+			  </td>
+			</tr>
+			<tr>
+			  <th>TOTAL</th>
+			  <td style="border-right-color:transparent">Rp</td>
+			  <td class="text-right">
+			    <b><span id="grand_total_display">{{ number_format(@POST.quotation_total) }}</span></b>
+			    <input type="hidden" id="grand_total" name="invoice_total" value="{{ @POST.quotation_total }}">
+			  </td>
+			</tr>
+		  </table>
+		</div>
+	  </div>
+	</div>
+	<div class="card-footer">
+	  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form"><b>Simpan</b></button>
+	  <a href="{{ @BASE.'/rework' }}" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
+	</div>
+  </form>
+</div>

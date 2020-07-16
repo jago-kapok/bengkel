@@ -1,0 +1,56 @@
+<div class="card p-2 font-12">
+  <div class="row mb-1">
+	<div class="col-md-8">
+	  <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#create_rework">
+	    Rework Baru
+	  </a>
+	</div>
+	<div class="col-md-4 pull-right">
+	  <input id="rework_search" class="form-control form-control-sm font-12" placeholder="Cari Data ...">
+	</div>
+  </div>
+  
+  <table id="rework_table" class="table table-striped" style="width:100%">
+	<thead class="bg-app">
+      <tr>
+		<th class="width-75">Invoice</th>
+        <th class="width-100">Tgl. Rework</th>
+        <th class="width-500">Nama Pelanggan</th>
+        <th class="width-150">Total</th>
+        <th class="width-150">Pilihan</th>
+      </tr>
+    </thead>
+	<tbody></tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="create_rework" role="dialog">
+  <div class="modal-dialog modal-sm">
+	<div class="modal-content">
+	  <div class="modal-header bg-info">
+		<h5 class="modal-title"><span class="text-white">Pilih No. Invoice</span></h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		  <span>&times;</span>
+		</button>
+	  </div>
+	  <form action="{{ @BASE.'/rework/from-invoice/' }}" method="POST">
+		<div class="modal-body">
+		  <div class="row p-2">
+			<label>No. Invoice</label>
+			<input name="invoice_number" class="form-control form-control-sm" list="data-invoice" autocomplete="off" required>
+		  </div>
+		</div>
+		<div class="modal-footer bg-light">
+		  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form">Submit</button>
+		  <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
+		</div>
+	  </form>
+	</div>
+  </div>
+</div>
+
+<datalist id="data-invoice">
+  <repeat group="{{ @data_invoice }}" value="{{ $invoice }}">
+    <option value="{{ @invoice.invoice_number }}">{{ @invoice.invoice_number }}
+  </repeat>
+</datalist>

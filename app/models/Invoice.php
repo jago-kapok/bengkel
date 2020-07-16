@@ -59,6 +59,11 @@ class Invoice extends DB\SQL\Mapper {
 		echo json_encode($output);
 	}
 	
+	public function getAll(){
+		$this->load();
+		return $this->query;
+	}
+	
 	public function add(){
 		$f3 = \Base::instance();
 		
@@ -83,6 +88,11 @@ class Invoice extends DB\SQL\Mapper {
 		
 		$this->load(array('invoice_id = ?', $invoice_id));
 		$this->copyTo('POST');
+	}
+	
+	public function getByNumber($invoice_number){
+		$this->load(array('invoice_number = ?', $invoice_number));
+		return $this->query;
 	}
 	
 	public function edit($invoice_id){
