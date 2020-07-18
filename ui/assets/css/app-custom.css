@@ -67,10 +67,6 @@ select.form-control:not([size]):not([multiple]).form-app {
 label {
 	margin-bottom: 0px;
 }
-input {
-	border: 1px solid #cccccc;
-	text-transform: uppercase;
-}
 input:focus {
 	border: 1px solid #95a0f4;
 }
@@ -141,4 +137,7 @@ input:focus {
 }
 .btn-app {
 	line-height: 15px;
+}
+.btn.btn-sm {
+	padding: 3px 10px;
 }

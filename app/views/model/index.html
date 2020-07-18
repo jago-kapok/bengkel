@@ -1,4 +1,4 @@
-<div class="card p-2">
+<div class="card p-2 font-12">
   <F3:repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
     <div class="alert alert-{{ @msg.status }} alert-dismissible show fade">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -8,7 +8,7 @@
   
   <div class="row mb-1">
     <div class="col-md-8">
-      <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#create_model">
+      <a class="btn btn-success btn-sm" data-toggle="collapse" href="#create_model">
 	    Tambah Model
 	  </a>
     </div>
@@ -21,6 +21,26 @@
       </div>
     </div>
   </div>
+  
+  <div id="create_model" class="collapse">
+    <form action="{{ @BASE.'/model/create' }}" method="POST">
+	  <div class="card card-body">
+		<div class="row">
+		<div class="col-md-3">
+		  <label>Kode Model</label>
+		  <input name="model_code" class="form-control form-control-sm">
+		</div>
+		<div class="col-md-3">
+		  <label>Deskripsi</label>
+		  <input name="model_desc" class="form-control form-control-sm">
+		</div>
+		<div class="col-md-2">
+		  <button type="submit" name="create" class="btn btn-primary btn-sm btn-block" style="margin-top:20px">Submit</button>
+		</div>
+	  </div>
+	  </div>
+	</form>
+  </div>
     
   <table id="model_table" class="table table-striped" style="width:100%">
     <thead class="bg-app">
@@ -32,41 +52,6 @@
     </thead>
     <tbody></tbody>
   </table>
-</div>
-
-<div class="modal fade" id="create_model" role="dialog">
-  <div class="modal-dialog modal-sm">
-	<div class="modal-content">
-	  <div class="modal-header bg-info">
-		<h5 class="modal-title text-white">Tambah Model</h5>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		  <span>&times;</span>
-		</button>
-	  </div>
-	  <form action="{{ @BASE.'/model/create/' }}" method="POST">
-		<div class="modal-body">
-		  <div class="container p-2">
-			<div class="form-group row">
-			  <label>Kode Model</label>
-			  <input name="model_code" class="form-control form-control-sm">
-			</div>
-			<div class="form-group row">
-			  <label>Deskripsi <span class="text-danger">*</span></label>
-			  <input name="model_desc" class="form-control form-control-sm" required>
-			</div>
-		  </div>
-		</div>
-		<div class="modal-footer bg-light">
-		  <div class="col-md-6">
-			<button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Simpan</button>
-		  </div>
-		  <div class="col-md-6">
-			<button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
-		  </div>
-		</div>
-	  </form>
-	</div>
-  </div>
 </div>
 
 <div class="modal fade" id="update_model" role="dialog">

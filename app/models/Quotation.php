@@ -69,7 +69,18 @@ class Quotation extends DB\SQL\Mapper {
 	public function add(){
 		$f3 = \Base::instance();
 		
+		$current = '/'.date("Y");
+		$query = $this->db->exec("SELECT MAX(quotation_number) AS last FROM quotation WHERE quotation_number LIKE '%$current'");
+		foreach($query as $result){
+			$last = $result['last'];
+		}
+		$lastNo = substr($last, 0, 6);
+		$nextNo = $lastNo + 1;
+		$quotation_number = sprintf('%06s', $nextNo).$current;
+		/* Quotation Number */
+		
 		$this->copyFrom('POST');
+		$this->quotation_number = $quotation_number;
 		$this->quotation_service_charge = str_replace(',', '', $f3->get('POST.quotation_service_charge'));
 		$this->quotation_discount = str_replace(',', '', $f3->get('POST.quotation_discount'));
 		$this->save();

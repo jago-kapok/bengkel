@@ -13,7 +13,7 @@
   <meta name="robots" content="noindex, nofollow" />
 
   <!-- Favicons -->
-  <link rel="icon" href="../../ui/assets/img/AdminLTELogo.png" />
+  <link rel="icon" href="../../ui/assets/img/logo.jpg" />
   <!-- Bootstrap 4 -->
   <link rel="stylesheet" href="../../ui/assets/css/bootstrap.min.css">
   <!-- Font Awesome -->
@@ -29,8 +29,12 @@
   
   <style>
 	.bg-app {
-	  background-color: #6372e6;
-	  color: white;
+		background-color: #6372e6;
+		color: white;
+	}
+	input {
+		border: 1px solid #cccccc;
+		text-transform: uppercase;
 	}
   </style>
 </head>
@@ -49,23 +53,25 @@
         <ul class="navbar-nav navbar-right">
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="fa fa-bell"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
-              <div class="dropdown-header">Notifikasi</div>
+              <div class="dropdown-header">Notifikasi Stok</div>
               <div class="dropdown-list-content dropdown-list-icons">
-                <a href="#" class="dropdown-item dropdown-item-unread">
-                  <div class="dropdown-item-icon bg-primary text-white">
-                    <i class="fa fa-code"></i>
-                  </div>
-                  <div class="dropdown-item-desc">
-                    Template update is available now!
-                    <div class="time text-primary">2 Min Ago</div>
-                  </div>
-                </a>
+			    <repeat group="{{ @data_min_stock }}" key="{{ @no }}" value="{{ @stock }}">
+                  <a href="#" class="dropdown-item dropdown-item-unread">
+                    <div class="dropdown-item-icon bg-<check if="{{ @no % 2 == 0 }}"><true>primary</true><false>danger</false></check> text-white">
+                      <i class="fa fa-cube"></i>
+                    </div>
+                    <div class="dropdown-item-desc">
+                      {{ @stock.item_code }} | {{ @stock.item_desc }}
+                      <div class="time text-primary">Sisa stok : {{ @stock.stock_on_hand }}</div>
+                    </div>
+                  </a>
+				</repeat>
               </div>
             </div>
           </li>
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
             <img alt="image" src="../../ui/assets/img/img.png" class="rounded-circle mr-1">
-            <div class="d-sm-none d-lg-inline-block">Halo, Administrator</div></a>
+            <div class="d-sm-none d-lg-inline-block">Halo, {{ @SESSION.fullname }}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <div class="dropdown-title">Menu Pengguna</div>
               <a href="javascript:void(0)" class="dropdown-item has-icon" data-toggle="modal" data-target="#change_password">
@@ -75,7 +81,7 @@
                 <i class="fas fa-cog"></i> Pengaturan
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item has-icon text-danger">
+              <a href="{{ @BASE.'/logout' }}" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Keluar
               </a>
             </div>
@@ -85,7 +91,7 @@
       <div class="main-sidebar">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="{{ @BASE.'/' }}">CSS Template</a>
+            <a href="{{ @BASE.'/' }}">PD. NUSA JAYA PUMP</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ @BASE.'/' }}">NJP</a>
@@ -113,6 +119,9 @@
 			<li>
               <a href="../../rework" class="nav-link"><i class="fas fa-recycle text-danger"></i><span>Rework</span></a>
             </li>
+			
+			<!-- Only Admin -->
+			<check if="{{ @SESSION.level == 1 }}">
 			<li class="nav-item dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-copy text-info"></i><span>Laporan</span></a>
               <ul class="dropdown-menu">
@@ -130,6 +139,9 @@
 				</li>
               </ul>
             </li>
+			</check>
+			<!-- Only Admin -->
+			
 			<li class="nav-item dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-cubes text-dark"></i><span>Stok</span></a>
               <ul class="dropdown-menu">
@@ -137,14 +149,20 @@
                 <li><a href="../../supplier" class="nav-link">Master Supplier</a></li>
                 <li class="dropdown-divider"></li>
                 <li><a href="../../purchase" class="nav-link">Transaksi Pembelian</a></li>
-                <li><a href="../../report/stock" class="nav-link">Laporan Stok</a></li>
+				<!-- Only Admin -->
+				<check if="{{ @SESSION.level == 1 }}">
+                  <li><a href="../../report/stock" class="nav-link">Laporan Stok</a></li>
+				</check>
               </ul>
             </li>
 			<li class="menu-header">Lain - Lain</li>
             <li class="nav-item dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-cog"></i><span>Pengaturan</span></a>
               <ul class="dropdown-menu">
-                <li><a href="../../user" class="nav-link">Kelola Data Pengguna</a></li>
+			    <!-- Only Admin -->
+				<check if="{{ @SESSION.level == 1 }}">
+                  <li><a href="../../user" class="nav-link">Kelola Data Pengguna</a></li>
+				</check>
                 <li><a href="../../company" class="nav-link">Perusahaan</a></li>
               </ul>
             </li>
@@ -364,4 +382,5 @@
 	  </div>
 	  
 	  <div class="main-content">
+	    <input type="hidden" id="session_level" data-value="{{ @SESSION.level }}">
         <section style="margin:5px -15px">

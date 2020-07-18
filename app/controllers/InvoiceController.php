@@ -64,7 +64,7 @@ class InvoiceController extends Controller {
 		$quotation = new Quotation($this->db);
 		$quotation->invoiced($invoice->quotation_id);
 		
-		$this->f3->reroute('/invoice/view/'.$invoice->invoice_id);
+		$this->f3->reroute('/invoice/update/'.$invoice->invoice_id);
 	}
 	
 	public function update(){
@@ -76,7 +76,7 @@ class InvoiceController extends Controller {
 			$invoice_detail->beforeEdit($this->f3->get('PARAMS.invoice_id'));
 			$invoice_detail->add($this->f3->get('PARAMS.invoice_id'));
 						
-			$this->f3->reroute('/invoice/view/'.$this->f3->get('PARAMS.invoice_id'));
+			$this->f3->reroute('/invoice/update/'.$this->f3->get('PARAMS.invoice_id'));
 		} else {
 			$invoice = new Invoice($this->db);
 			$invoice->getById($this->f3->get('PARAMS.invoice_id'));
@@ -110,7 +110,7 @@ class InvoiceController extends Controller {
 		
 		$profit_total = array();
 		foreach($invoice_detail->getById($this->f3->get('PARAMS.invoice_id')) as $data){
-			array_push($profit_total, $data['invoice_detail_profit']);
+			array_push($profit_total, $data['invoice_detail_unit_price_temp'] * $data['invoice_detail_qty']);
 		}
 		$this->f3->set('profit_total', array_sum($profit_total));
 		

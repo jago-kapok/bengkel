@@ -57,14 +57,21 @@ class User extends DB\SQL\Mapper {
 	}
 	
 	public function add($user_image){
-		$this->user_image = $user_image;
+		$f3 = \Base::instance();
+		
 		$this->copyFrom('POST');
+		$this->user_password = md5($f3->get('POST.user_password'));
+		$this->user_image = $user_image;
 		$this->save();
 	}
 	
 	public function getById($user_id){
 		$this->load(array('user_id = ?', $user_id));
 		$this->copyTo('POST');
+	}
+	
+	public function getByUsername($user_name){
+		$this->load(array('user_name = ?', $user_name));
 	}
 	
 	public function edit($user_id, $user_image){

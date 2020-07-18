@@ -7,10 +7,10 @@ class Controller extends FPDF {
 	protected $db;
 
 	function beforeroute(){
-		// if($this->f3->get('SESSION.id') === NULL){
-			// $this->f3->reroute('/login');
-			// exit;
-		// }
+		if($this->f3->get('SESSION.id') === NULL){
+			$this->f3->reroute('/login');
+			exit;
+		}
 	}
 
 	function afterroute(){		

@@ -26,7 +26,10 @@ class QuotationController extends Controller {
 			$quotation_detail = new QuotationDetail($this->db);
 			$quotation_detail->add($quotation->quotation_id);
 			
-			$this->f3->reroute('/quotation/view/'.$quotation->quotation_id);
+			$quotation_file = new QuotationFile($this->db);
+			$quotation_file->add($quotation->quotation_id);
+			
+			$this->f3->reroute('/quotation/update/'.$quotation->quotation_id);
 		} else {
 			$current = '/'.date("Y");
 			$query = $this->db->exec("SELECT MAX(quotation_number) AS last FROM quotation WHERE quotation_number LIKE '%$current'");
@@ -57,7 +60,7 @@ class QuotationController extends Controller {
 			$quotation_detail->beforeEdit($this->f3->get('PARAMS.quotation_id'));
 			$quotation_detail->add($this->f3->get('PARAMS.quotation_id'));
 			
-			$this->f3->reroute('/quotation/view/'.$this->f3->get('PARAMS.quotation_id'));
+			$this->f3->reroute('/quotation/update/'.$this->f3->get('PARAMS.quotation_id'));
 		} else {
 			$quotation = new Quotation($this->db);
 			$quotation->getById($this->f3->get('PARAMS.quotation_id'));

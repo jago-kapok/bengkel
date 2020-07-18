@@ -74,4 +74,13 @@ class Stock extends DB\SQL\Mapper {
 		
 		$this->db->exec("DELETE FROM stock_history WHERE invoice_id = ?", $invoice_id);
 	}
+	
+	public function getMinStock(){
+		$this->item_code = "SELECT item_code FROM item WHERE item.item_id = stock.stock_id";		
+		$this->item_part_no = "SELECT item_part_no FROM item WHERE item.item_id = stock.stock_id";		
+		$this->item_desc = "SELECT item_desc FROM item WHERE item.item_id = stock.stock_id";
+		
+		$this->load(array('stock_on_hand < stock_min'));
+		return $this->query;
+	}
 }

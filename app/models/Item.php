@@ -52,14 +52,14 @@ class Item extends DB\SQL\Mapper {
 				$data['item_code'],
 				$data['item_part_no'],
 				$data['item_desc'],
-				$data['item_price'],
+				number_format($data['item_price']),
 				$data['item_unit'],
 				$data['item_stamping'],
 				$data['item_physical'],
 				$data['item_similar'],
 				$data['item_pn'],
 				$data['item_brand_1'],
-				$data['item_bradn_2'],
+				$data['item_brand_2'],
 				$data['item_brand_3'],
 				$data['item_note'],
 				$data['item_image'],
@@ -76,8 +76,11 @@ class Item extends DB\SQL\Mapper {
 	}
 	
 	public function add($item_image){
+		$f3 = \Base::instance();
+		
 		$this->item_image = $item_image;
 		$this->copyFrom('POST');
+		$this->item_price = str_replace(',', '', $f3->get('POST.item_price'));
 		$this->save();
 	}
 	
@@ -87,9 +90,12 @@ class Item extends DB\SQL\Mapper {
 	}
 	
 	public function edit($item_id, $item_image){
+		$f3 = \Base::instance();
 		$this->load(array('item_id = ?', $item_id));
+		
 		$this->item_image = $item_image;
 		$this->copyFrom('POST');
+		$this->item_price = str_replace(',', '', $f3->get('POST.item_price'));
 		$this->update();
 	}
 	

@@ -17,4 +17,16 @@ class StockHistory extends DB\SQL\Mapper {
 		$this->load();
 		return $this->query;
 	}
+	
+	public function getThree(){
+		$this->item_code = "SELECT item_code FROM item WHERE item.item_id = stock_history.item_id";
+		$this->item_part_no = "SELECT item_part_no FROM item WHERE item.item_id = stock_history.item_id";
+		$this->item_desc = "SELECT item_desc FROM item WHERE item.item_id = stock_history.item_id";
+		$this->purchase_number = "SELECT purchase_number FROM purchase WHERE purchase.purchase_id = stock_history.purchase_id";
+		$this->invoice_number = "SELECT invoice_number FROM invoice WHERE invoice.invoice_id = stock_history.invoice_id";
+		$this->rework_number = "SELECT rework_invoice FROM rework WHERE rework.rework_id = stock_history.rework_id";
+		
+		$this->load(NULL, array('limit'=>3, 'order'=>'stock_history_id DESC'));
+		return $this->query;
+	}
 }

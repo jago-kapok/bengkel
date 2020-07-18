@@ -1,0 +1,121 @@
+  <div class="row">
+    <div class="col-md-4">
+	  <form action="{{ @BASE.'/quotation/upload/'.@PARAMS.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+	    <div class="card-body">
+		  <h6>Tanda Terima Barang</h6>
+		  <div class="card-body box-profile">
+			<div class="text-center">
+			  <img id="preview_image_1" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_receipt }}">
+			</div>
+		  </div>
+		</div>
+		<div class="card-footer bg-whitesmoke">
+		  <input type="file" name="quotation_file_receipt" class="form-control form-control-sm" onchange="return previewFile(this, 1)" readonly>
+		  <input type="hidden" name="quotation_file_receipt_temp" value="{{ @POST.quotation_file_receipt }}">
+		  <input type="hidden" name="quotation_number" value="{{ @quotation_number }}">
+		  <button type="submit" name="submit1" class="btn btn-primary btn-sm btn-block mt-1">Upload</button>
+		</div>
+	  </form>
+    </div>
+  
+    <div class="col-md-4">
+	  <form action="{{ @BASE.'/quotation/upload/'.@PARAMS.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+		<div class="card-body">
+		  <h6>Surat Jalan</h6>
+		  <div class="card-body box-profile">
+			<div class="text-center">
+			  <img id="preview_image_2" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_delivery }}">
+			</div>
+		  </div>
+		</div>
+		<div class="card-footer bg-whitesmoke">
+		  <input type="file" name="quotation_file_delivery" class="form-control form-control-sm" onchange="return previewFile(this, 2)" readonly>
+		  <input type="hidden" name="quotation_file_delivery_temp" value="{{ @POST.quotation_file_delivery }}">
+		  <input type="hidden" name="quotation_number" value="{{ @quotation_number }}">
+		  <button type="submit" name="submit2" class="btn btn-primary btn-sm btn-block mt-1">Upload</button>
+		</div>
+	  </form>
+    </div>
+  
+    <div class="col-md-4">
+	  <form action="{{ @BASE.'/quotation/upload/'.@PARAMS.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+	    <div class="card-body">
+		  <h6>Foto FIP</h6>
+		  <div class="card-body box-profile">
+			<div class="text-center">
+			  <img id="preview_image_3" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_fip }}">
+			</div>
+		  </div>
+		</div>
+		<div class="card-footer bg-whitesmoke">
+		  <input type="file" name="quotation_file_fip" class="form-control form-control-sm" onchange="return previewFile(this, 3)" readonly>
+		  <input type="hidden" name="quotation_file_fip_temp" value="{{ @POST.quotation_file_fip }}">
+		  <input type="hidden" name="quotation_number" value="{{ @quotation_number }}">
+		  <button type="submit" name="submit3" class="btn btn-primary btn-sm btn-block mt-1">Upload</button>
+		</div>
+	  </form>
+    </div>
+	
+	<div class="col-md-4">
+	  <form action="{{ @BASE.'/quotation/upload/'.@PARAMS.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+	    <div class="card-body">
+		  <h6>Surat Jalan Batal</h6>
+		  <div class="card-body box-profile">
+			<div class="text-center">
+			  <img id="preview_image_4" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_delivery_cancel }}">
+			</div>
+		  </div>
+		</div>
+		<div class="card-footer bg-whitesmoke">
+		  <input type="file" name="quotation_file_delivery_cancel" class="form-control form-control-sm" onchange="return previewFile(this, 4)" readonly>
+		  <input type="hidden" name="quotation_file_delivery_cancel_temp" value="{{ @POST.quotation_file_delivery_cancel }}">
+		  <input type="hidden" name="quotation_number" value="{{ @quotation_number }}">
+		  <button type="submit" name="submit4" class="btn btn-primary btn-sm btn-block mt-1">Upload</button>
+		</div>
+	  </form>
+    </div>
+	
+	<div class="col-md-4">
+	  <form action="{{ @BASE.'/quotation/upload/'.@PARAMS.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+	    <div class="card-body">
+		  <h6>Persetujuan FIP</h6>
+		  <div class="card-body box-profile">
+			<div class="text-center">
+			  <img id="preview_image_5" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_fip_agreement }}">
+			</div>
+		  </div>
+		</div>
+		<div class="card-footer bg-whitesmoke">
+		  <input type="file" name="quotation_file_fip_agreement" class="form-control form-control-sm" onchange="return previewFile(this, 5)" readonly>
+		  <input type="hidden" name="quotation_file_fip_agreement_temp" value="{{ @POST.quotation_file_fip_agreement }}">
+		  <input type="hidden" name="quotation_number" value="{{ @quotation_number }}">
+		  <button type="submit" name="submit5" class="btn btn-primary btn-sm btn-block mt-1">Upload</button>
+		</div>
+	  </form>
+    </div>
+	
+	<div class="col-md-4">
+	  <form action="{{ @BASE.'/quotation/upload/'.@PARAMS.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+	    <div class="card-body">
+		  <h6>PO / WO</h6>
+		  <div class="card-body box-profile">
+			<div class="text-center">
+			  <img id="preview_image_6" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_po_wo }}">
+			</div>
+		  </div>
+		</div>
+		<div class="card-footer bg-whitesmoke">
+		  <input type="file" name="quotation_file_po_wo" class="form-control form-control-sm" onchange="return previewFile(this, 6)" readonly>
+		  <input type="hidden" name="quotation_file_po_wo_temp" value="{{ @POST.quotation_file_po_wo }}">
+		  <input type="hidden" name="quotation_number" value="{{ @quotation_number }}">
+		  <button type="submit" name="submit6" class="btn btn-primary btn-sm btn-block mt-1">Upload</button>
+		</div>
+	  </form>
+    </div>
+  </div>
+  <div class="card-footer">
+	<center>
+	  <a href="{{ @BASE.'/quotation/update/'.@PARAMS.quotation_id }}" class="btn btn-danger btn-sm">Kembali</a>
+	</center>
+  </div>
+</form>

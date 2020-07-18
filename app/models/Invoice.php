@@ -67,7 +67,18 @@ class Invoice extends DB\SQL\Mapper {
 	public function add(){
 		$f3 = \Base::instance();
 		
+		$current = '/'.date("Y");
+		$query = $this->db->exec("SELECT MAX(invoice_number) AS last FROM invoice WHERE invoice_number LIKE '%$current'");
+		foreach($query as $result){
+			$last = $result['last'];
+		}
+		$lastNo = substr($last, 0, 6);
+		$nextNo = $lastNo + 1;
+		$invoice_number = sprintf('%06s', $nextNo).$current;
+		/* Invoice Number */
+		
 		$this->copyFrom('POST');
+		$this->invoice_number = $invoice_number;
 		$this->invoice_service_charge = str_replace(',', '', $f3->get('POST.invoice_service_charge'));
 		$this->invoice_discount = str_replace(',', '', $f3->get('POST.invoice_discount'));
 		$this->save();

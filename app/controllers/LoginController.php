@@ -14,41 +14,32 @@ class LoginController extends Controller {
 		$username = $this->f3->get('POST.username');
 		$password = $this->f3->get('POST.password');
 		
-		$admin = new Admin($this->db);
-		$admin->getByUsername($username);
+		$user = new User($this->db);
+		$user->getByUsername($username);
 		
-		if($admin->dry()){
+		if($user->dry()){
 			$this->f3->reroute('/login');
 		}
 
-		if(md5($password) == $admin->password){
-			$id = $admin->id_admin;
+		if(md5($password) == $user->user_password){
+			$user_id = $user->user_id;
 
-			$admin = new Admin($this->db);
-			$admin->getById($id);
-
-			$this->f3->set('SESSION.id', $admin->id_admin);
-			$this->f3->set('SESSION.fullname', $admin->fullname);
-			$this->f3->set('SESSION.username', $admin->username);
+			$user = new User($this->db);
+			$user->getById($user_id);
+			
+			$this->f3->set('SESSION.id', $user->user_id);
+			$this->f3->set('SESSION.fullname', $user->user_fullname);
+			$this->f3->set('SESSION.username', $user->user_name);
+			$this->f3->set('SESSION.level', $user->user_level);
 			
 			$this->f3->reroute('/');
 		} else {
-			$this->f3->reroute('/');
+			$this->f3->reroute('/login');
 		}
 	}
 	
 	public function logout(){
 		$this->f3->clear('SESSION');
 		$this->f3->reroute('/login');
-	}
-	
-	public function cancel(){
-		$payment = new Payment($this->db);
-		
-		foreach($payment->getByStatus(1) as $data){
-			if(date('Y-m-d H', strtotime($data['tgl_order'].' +1 day')) <= date('Y-m-d H')){
-				$payment->cancel($data['id_order']);
-			}
-		}
 	}
 }

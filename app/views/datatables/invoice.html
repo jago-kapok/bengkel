@@ -9,6 +9,7 @@ $(document).ready(function(){
 	"serverSide": true,
 	"lengthChange": false,
 	"searching": true,
+	"pageLength": 15,
 	"ajax": {
 	  "url": "{{ @BASE.'/invoice/data' }}",
 	  "type": "POST"
@@ -23,7 +24,12 @@ $(document).ready(function(){
 	  { data: 4 },
 	  {
 		"render": function (data, type, full){
-		  return '<a href="{{ @BASE."/invoice/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Invoice" target="_blank"><i class="fa fa-print"></i></a>&nbsp;<a href="{{ @BASE."/invoice/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Invoice"><i class="fa fa-search"></i></a>&nbsp;<a href="{{ @BASE."/invoice/file/' + data + '" }}" class="badge badge-primary p-1" title="Lampirkan File"><i class="fa fa-image"></i></a>&nbsp;<a href="{{ @BASE."/invoice/cancel/' + full[6] + '" }}" class="badge badge-danger p-1" title="Batalkan Invoice" onclick="return confirm(\'Anda ingin membatalkan invoice nomor : ' + full[0] + ' ?\')"><i class="fa fa-ban"></i></a>';
+		  var session_level = $("#session_level").data('value');
+		  if(session_level != 1){
+			var admin = 'hidden';
+		  }
+		  
+		  return '<a href="{{ @BASE."/invoice/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Invoice" target="_blank"><i class="fa fa-print"></i></a> <a href="{{ @BASE."/invoice/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Invoice"' + admin + '><i class="fa fa-search"></i></a> <a href="{{ @BASE."/invoice/upload/' + data + '" }}" class="badge badge-primary p-1" title="Lampirkan File"><i class="fa fa-image"></i></a> <a href="{{ @BASE."/invoice/cancel/' + full[6] + '" }}" class="badge badge-danger p-1" title="Batalkan Invoice" onclick="return confirm(\'Anda ingin membatalkan invoice nomor : ' + full[0] + ' ?\')"><i class="fa fa-ban"></i></a>';
 		}
 	  }
 	]

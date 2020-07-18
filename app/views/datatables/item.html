@@ -8,15 +8,21 @@
       "serverSide": true,
       "lengthChange": false,
       "searching": true,
+	  "pageLength": 15,
       "ajax": {
         "url": "{{ @BASE.'/item/data' }}",
         "type": "POST"
       },
       "columns": [
-        { data: 0 }, { data: 1 }, { data: 2 }, { data: 4 },
+        { data: 0 }, { data: 1 }, { data: 2 },
+		{
+	      "render": function (data, type, full){
+		    return 'Rp <span style="float:right; margin-right:25px">' + data + '</span>';
+		  }
+	    },
         {
           "render": function (data, type, full) {
-            return '<a href="../../ui/assets/img/item/' + full[13] + '" class="badge badge-success p-1" title="Lihat Produk" target="_blank"><i class="fa fa-image"></i></a>&nbsp;<a href="javascript:void(0)" class="badge badge-info p-1" title="Perbarui Data" data-toggle="modal" data-target="#update_items"><i class="fa fa-pen"></i></a>';
+            return '<a href="../../ui/assets/img/item/' + full[14] + '" class="badge badge-success p-1" title="Lihat Produk" target="_blank"><i class="fa fa-image"></i></a>&nbsp;<a href="{{ @BASE."/item/update/' + full[14] + '" }}" class="badge badge-info p-1" title="Perbarui Data"><i class="fa fa-pen"></i></a>';
           }
         }
       ]

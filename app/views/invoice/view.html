@@ -68,7 +68,7 @@
 		  <th class="width-150">Harga / Unit</th>
 		  <th class="width-150">Merk</th>
 		  <th class="width-150">Total</th>
-		  <th class="width-150">Profit</th>
+		  <th class="width-150">Modal</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -82,55 +82,55 @@
 			<td class="text-right">Rp {{ number_format(@invoice_detail.invoice_detail_unit_price) }}</td>
 			<td>{{ strtoupper(@invoice_detail.invoice_detail_brand) }}</td>
 			<td class="text-right">Rp {{ number_format(@invoice_detail.invoice_detail_amount) }}</td>
-			<td class="text-right">Rp {{ number_format(@invoice_detail.invoice_detail_profit) }}</td>
+			<td class="text-right">Rp {{ number_format(@invoice_detail.invoice_detail_unit_price_temp * @invoice_detail.invoice_detail_qty) }}</td>
 		  </tr>
 		</repeat>
 	  </tbody>
 	  <tbody style="border-top:2px solid">
 		<tr>
-		  <th colspan="6" style="border:none">
-			<span>Keterangan : </span>
-		  </th>
+		  <th colspan="6" style="border:none"></th>
 		  <th><center>PART</center></th>
 		  <td class="text-right">Rp {{ number_format(@POST.invoice_part_charge) }}</td>
 		</tr>
 		<tr>
 		  <th colspan="6" style="border:none">
-			<span>- {{ strtoupper(@POST.invoice_note_customer) }}</span>
+			<span>Keterangan : </span>
 		  </th>
 		  <th><center>SERVIS</center></th>
 		  <td class="text-right">Rp {{ number_format(@POST.invoice_service_charge) }}</td>
 		</tr>
 		<tr>
 		  <th colspan="6" style="border:none">
-			<span>- {{ strtoupper(@POST.invoice_note_internal) }}</span>
+			<span>- {{ strtoupper(@POST.invoice_note_customer) }}</span>
 		  </th>
 		  <th><center>DISKON</center></th>
 		  <td class="text-right">Rp {{ number_format(@POST.invoice_discount) }}</td>
 		</tr>
 		<tr>
-		  <th colspan="6" style="border:none"></th>
+		  <th colspan="6" style="border:none">
+			<span>- {{ strtoupper(@POST.invoice_note_internal) }}</span>
+		  </th>
 		  <th class="bg-secondary"><center>SEBELUM PPN</center></th>
 		  <td class="bg-secondary text-right"><b>Rp {{ number_format(@POST.invoice_total - @invoice_ppn) }}</b></td>
 		</tr>
 		<tr>
-		  <th colspan="6" style="border:none">
-			Cash :
-		  </th>
+		  <th colspan="6" style="border:none"></th>
 		  <th><center>PPN <span>{{ @POST.invoice_ppn }}%</span></center></th>
 		  <td class="text-right">Rp {{ number_format(@invoice_ppn) }}</td>
 		</tr>
 		<tr>
 		  <th colspan="6" style="border:none">
-			<span>{{ strtoupper(@POST.invoice_note_payment) }}</span>
+			Cash :
 		  </th>
 		  <th class="bg-secondary"><center>TOTAL</center></th>
 		  <td class="bg-secondary text-right"><b>Rp {{ number_format(@POST.invoice_total) }}</b></td>
 		</tr>
 		<tr>
-		  <th colspan="6" style="border:none"></th>
-		  <th class="bg-light" colspan="2"><center>TOTAL PROFIT</center></th>
-		  <td class="bg-light text-right"><b>Rp {{ number_format(@profit_total) }}</b></td>
+		  <th colspan="6" style="border:none">
+			<span>{{ strtoupper(@POST.invoice_note_payment) }}</span>
+		  </th>
+		  <th class="bg-info"><center>TOTAL PROFIT</center></th>
+		  <td class="bg-info text-right"><b>Rp {{ number_format(@POST.invoice_total - @profit_total) }}</b></td>
 		</tr>
 	  </tbody>
 	</table>
@@ -145,7 +145,6 @@
 	  </true>
 	  <false>
 		<a href="{{ @BASE.'/invoice/update/'.@PARAMS.invoice_id }}" class="btn btn-info btn-sm mr-1"><i class="fa fa-pen"></i>&nbsp;&nbsp;Edit Invoice</a>
-		<a href="{{ @BASE.'/invoice/file/'.@PARAMS.invoice_id }}" class="btn btn-primary btn-sm mr-1"><i class="fa fa-image"></i>&nbsp;&nbsp;Unggah File / Foto</a>
 		<!-- <a href="{{ @BASE.'/invoice/cancel/'.@PARAMS.invoice_id }}" class="btn btn-danger btn-sm" onclick="return confirm('Anda ingin membatalkan penawaran : {{ @POST.invoice_id }} ?')"><i class="fa fa-ban"></i>&nbsp;&nbsp;Batalkan Penawaran</a> -->
 	  </false>
 	</check>
