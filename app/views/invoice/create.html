@@ -145,7 +145,7 @@
 			  </td>
 			  <td><input name="data[{{ @no + 50 }}][invoice_detail_qty_up]" class="number-only bg-info" value="{{ @quotation_detail.quotation_detail_qty_up }}" style="width:30px"></td>
 			  <td>
-			    <input id="item_price_temp_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price_temp]" class="number-only readonly" value="{{ number_format(@quotation_detail.quotation_detail_unit_price_temp) }}" style="width:75px">
+			    <input id="item_price_temp_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price_temp]" class="number-only" value="{{ number_format(@quotation_detail.quotation_detail_unit_price_temp) }}" style="width:75px">
 			  </td>
 			  <td>
 			    <input id="item_price_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price]" class="number-only" value="{{ number_format(@quotation_detail.quotation_detail_unit_price) }}" style="width:75px" onkeyup="return getTotal({{ @no + 50 }})">
@@ -168,7 +168,7 @@
 			<loop from="{{ @i=0 }}" to="{{ @i < (10 - count(@data_quotation_detail)) }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
-			    <input id="{{ @i }}" name="data[{{ @i }}][invoice_detail_item_code]" class="items" style="width:100px" onchange="return getData(this.id, this.value)">
+			    <input id="{{ @i }}" name="data[{{ @i }}][invoice_detail_item_code]" class="item" style="width:100px" onchange="return getData(this.id, this.value)">
 			  </td>
 			  <td>
 			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][invoice_detail_item_part_no]" style="width:100px">
@@ -179,10 +179,10 @@
 			  </td>
 			  <td><input name="data[{{ @i }}][invoice_detail_qty_up]" class="number-only bg-info" style="width:30px"></td>
 			  <td>
-			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price_temp]" class="number-only readonly" style="width:75px" readonly>
+			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price_temp]" class="number-only" style="width:75px">
 			  </td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})">
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})" data-toggle="tooltip" title="Tgl. INVOICE">
 			  </td>
 			  <td><input name="data[{{ @i }}][invoice_detail_unit_price_up]" class="number-only bg-info" style="width:75px"></td>
 			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][invoice_detail_brand]" style="width:100px"></td>

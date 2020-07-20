@@ -10,7 +10,8 @@ class HomeController extends Controller {
 		$this->f3->set('total_rework', $report->getRework());
 		$this->f3->set('total_item', $report->getItem());
 		
-		$year = '2020';
+		$year = $this->f3->get('POST.year') ? $this->f3->get('POST.year') : date('Y');
+		$this->f3->set('year', $year);
 		
 		$this->f3->set('jan', $report->getReport($year, 1));
 		$this->f3->set('feb', $report->getReport($year, 2));

@@ -269,6 +269,7 @@
 	  $('#item_part_no_' + id).empty();
 	  $('#item_desc_' + id).empty();
 	  $('#item_price_' + id).empty();
+	  $('#item_price_temp_' + id).empty();
 	  $('#item_brand_' + id).empty();
 	  
 	  $.getJSON("{{ @BASE.'/item/get-data/' }}" + val, function(data){
@@ -285,10 +286,12 @@
 	  $('#item_part_no_' + id).attr('readonly', true);
 	  $('#item_desc_' + id).attr('readonly', true);
 	  $('#item_amount_' + id).attr('readonly', true);
+	  $('#item_price_temp_' + id).attr('readonly', true);
 	  
 	  $('#item_part_no_' + id).addClass('readonly');
 	  $('#item_desc_' + id).addClass('readonly');
 	  $('#item_amount_' + id).addClass('readonly');
+	  $('#item_price_temp_' + id).addClass('readonly');
 	  
 	  $('#item_qty_' + id).focus();
 	}
@@ -301,6 +304,14 @@
 	  let item_qty = $('#item_qty_' + id).val();
 	  let item_price = $('#item_price_' + id).val();
 	  $('#item_amount_' + id).val(new Intl.NumberFormat().format(item_qty * item_price));
+	}
+	
+	/* ============================================================== */
+	/* Fungsi price history											= */
+	/* ============================================================== */
+	
+	function getPriceHistory(id){
+	  alert(id);
 	}
 	
 	/* ============================================================== */

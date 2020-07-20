@@ -48,12 +48,17 @@
 <div class="row">
   <div class="col-lg-8 col-md-12 col-12 col-sm-12">
     <div class="card">
-      <div class="card-header"><h4>Statistik Penjualan</h4>
+      <div class="card-header"><h4>Statistik Penjualan Tahun {{ @year }}</h4>
 	    <div class="card-header-action">
-          <div class="btn-group">
-            <a href="#" class="btn btn-primary">Bulan</a>
-            <a href="#" class="btn">Tahun</a>
-          </div>
+		  <form action="{{ @BASE.'/' }}" method="POST" class="dropdown">
+			<button type="button" id="dropdownMenuButton" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			  Tahun
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			  <input type="submit" name="year" class="dropdown-item" value="2020">
+			  <input type="submit" name="year" class="dropdown-item" value="2019">
+			</div>
+		  </form>
         </div>
       </div>
       <div class="card-body">
