@@ -74,11 +74,20 @@ class User extends DB\SQL\Mapper {
 		$this->load(array('user_name = ?', $user_name));
 	}
 	
+	public function getByLastLogin(){
+		$this->load(NULL, array('limit'=>3, 'order'=>'user_last_login DESC'));
+		return $this->query;
+	}
+	
 	public function edit($user_id, $user_image){
 		$this->load(array('user_id = ?', $user_id));
 		
 		$this->user_image = $user_image;
 		$this->copyFrom('POST');
 		$this->update();
+	}
+	
+	public function lastLogin($user_id){
+		$this->db->exec("UPDATE user SET user_last_login = ? WHERE user_id = ?", array(date('Y-m-d H:i:s'), $user_id));
 	}
 }

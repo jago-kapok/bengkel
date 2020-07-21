@@ -83,4 +83,10 @@ class Stock extends DB\SQL\Mapper {
 		$this->load(array('stock_on_hand < stock_min'));
 		return $this->query;
 	}
+	
+	public function edit($stock_id){
+		$this->load(array('stock_id = ?', $stock_id));
+		$this->copyFrom('POST');
+		$this->update();
+	}
 }

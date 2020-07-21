@@ -49,14 +49,14 @@ class ItemController extends Controller {
 			$item = new Item($this->db);
 			
 			if($this->f3->get('FILES.item_image["name"]') != ''){
-				$item_image = str_replace(" ", "_", $this->f3->get('POST.item_image')).'.'.pathinfo($this->f3->get('FILES.item_image["name"]'), PATHINFO_EXTENSION);
+				$item_image = str_replace(" ", "_", $this->f3->get('POST.item_code')).'.'.pathinfo($this->f3->get('FILES.item_image["name"]'), PATHINFO_EXTENSION);
 			} else {
 				$item_image = $this->f3->get('POST.item_image_temp');
 			}
 			
 			$item->edit($this->f3->get('PARAMS.item_id'), $item_image);
 			
-			self::upload($this->f3->get('FILES.item_image'), str_replace(" ", "_", $this->f3->get('POST.item_image')));
+			self::upload($this->f3->get('FILES.item_image'), str_replace(" ", "_", $this->f3->get('POST.item_code')));
 			
 			\Flash::instance()->addMessage('Berhasil memperbarui data "'.$this->f3->get('POST.item_code').'"', 'success');
 			$this->f3->reroute('/item');

@@ -26,6 +26,7 @@ class LoginController extends Controller {
 
 			$user = new User($this->db);
 			$user->getById($user_id);
+			$user->lastLogin($user_id);
 			
 			$this->f3->set('SESSION.id', $user->user_id);
 			$this->f3->set('SESSION.fullname', $user->user_fullname);

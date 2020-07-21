@@ -106,6 +106,11 @@ class Invoice extends DB\SQL\Mapper {
 		return $this->query;
 	}
 	
+	public function getByQuotation($quotation_id){
+		$this->load(array('quotation_id = ?', $quotation_id));
+		return $this->query;
+	}
+	
 	public function edit($invoice_id){
 		$this->load(array('invoice_id = ?', $invoice_id));
 		

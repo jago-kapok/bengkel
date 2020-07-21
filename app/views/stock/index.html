@@ -35,3 +35,52 @@
       <tbody></tbody>
     </table>
 </div>
+
+<div class="modal fade" id="update_stock" role="dialog">
+  <div class="modal-dialog modal-sm">
+	<div class="modal-content">
+	  <div class="modal-header bg-info">
+		<h5 class="modal-title text-white"></h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		  <span>&times;</span>
+		</button>
+	  </div>
+	  <form action="{{ @BASE.'/stock/update/' }}" method="POST">
+		<div class="modal-body">
+		  <input type="hidden" name="stock_id">
+		  <div class="container p-2">
+			<div class="form-group row">
+			  <label>Minimal Stok</label>
+			  <input name="stock_min" class="form-control form-control-sm">
+			</div>
+		  </div>
+		</div>
+		<div class="modal-footer bg-light">
+		  <div class="col-md-6">
+			<button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Perbarui</button>
+		  </div>
+		  <div class="col-md-6">
+			<button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
+		  </div>
+		</div>
+	  </form>
+	</div>
+  </div>
+</div>
+
+<script>
+/* ============================================================== */
+/* Menangkap data dari modal									= */
+/* ============================================================== */
+	
+$('#update_stock').on('show.bs.modal', function(event){
+  var button = $(event.relatedTarget);
+  var stock_id = button.data('stock_id');
+  var stock_min = button.data('stock_min');
+	  
+  var modal = $(this);
+  modal.find('.modal-title').text('Update Minimal Stok');
+  modal.find('.modal-body input[name=stock_id]').val(stock_id);
+  modal.find('.modal-body input[name=stock_min]').val(stock_min);
+});
+</script>

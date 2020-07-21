@@ -32,6 +32,9 @@ class HomeController extends Controller {
 		$stock_history = new StockHistory($this->db);
 		$this->f3->set('data_stock_history', $stock_history->getThree());
 		
+		$user = new User($this->db);
+		$this->f3->set('data_user', $user->getByLastLogin());
+		
 		$this->f3->set('page_title','Monitoring Data dan Transaksi');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','home/index.html');

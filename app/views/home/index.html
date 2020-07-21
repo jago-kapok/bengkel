@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
-      <div class="card-icon bg-success">
+      <a href="{{ @BASE.'/invoice' }}" class="card-icon bg-success">
         <i class="fas fa-file-invoice-dollar"></i>
-      </div>
+      </a>
       <div class="card-wrap">
         <div class="card-header"><h4>Penjualan</h4></div>
         <div class="card-body">{{ @total_invoice }}</div>
@@ -12,9 +12,9 @@
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
-      <div class="card-icon bg-info">
+      <a href="{{ @BASE.'/quotation' }}" class="card-icon bg-info">
         <i class="fas fa-newspaper"></i>
-      </div>
+      </a>
       <div class="card-wrap">
         <div class="card-header"><h4>Penawaran</h4></div>
         <div class="card-body">{{ @total_quotation }}</div>
@@ -23,9 +23,9 @@
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
-      <div class="card-icon bg-danger">
+      <a href="{{ @BASE.'/rework' }}" class="card-icon bg-danger">
         <i class="fas fa-recycle"></i>
-      </div>
+      </a>
       <div class="card-wrap">
         <div class="card-header"><h4>Rework</h4></div>
         <div class="card-body">{{ @total_rework }}</div>
@@ -34,9 +34,9 @@
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
-      <div class="card-icon bg-warning">
+      <a href="{{ @BASE.'/item' }}" class="card-icon bg-warning">
         <i class="fas fa-boxes"></i>
-      </div>
+      </a>
       <div class="card-wrap">
         <div class="card-header"><h4>Barang</h4></div>
         <div class="card-body">{{ @total_item }}</div>
@@ -62,18 +62,35 @@
         </div>
       </div>
       <div class="card-body">
-        <canvas id="myChart" height="182"></canvas>
+        <canvas id="myChart" height="300"></canvas>
       </div>
     </div>
   </div>
   <div class="col-lg-4 col-md-12 col-12 col-sm-12">
+	<div class="card">
+      <div class="card-header"><h4>Riwayat Login Pengguna</h4></div>
+      <div class="card-body">
+        <ul class="list-unstyled list-unstyled-border">
+		  <repeat group="{{ @data_user }}" value="{{ $user }}">
+            <li class="media" style="margin-bottom:0">
+              <span class="mr-3 rounded-circle" style="width:20px"><i class="fa fa-user"></i></span>
+              <div class="media-body">
+                <div class="float-right text-small text-muted">{{ date('d/m/y H:i:s', strtotime(@user.user_last_login)) }}</div>
+                <div class="media-title">{{ @user.user_fullname }}</div>
+              </div>
+            </li>
+		  </repeat>
+		</ul>
+      </div>
+    </div>
+	
     <div class="card">
-      <div class="card-header"><h4>History Stok</h4></div>
+      <div class="card-header"><h4>Riwayat Stok Keluar</h4></div>
       <div class="card-body">
         <ul class="list-unstyled list-unstyled-border">
 		  <repeat group="{{ @data_stock_history }}" value="{{ $stock_history }}">
             <li class="media">
-              <img class="mr-3 rounded-circle" width="50" src="../../ui/assets/img/img.png" alt="avatar">
+              <span class="mr-3 rounded-circle" style="width:20px"><i class="fa fa-cube"></i></span>
               <div class="media-body">
                 <div class="float-right text-primary">{{ date('d/m/y', strtotime(@stock_history.stock_history_date)) }}</div>
                 <div class="media-title">{{ @stock_history.item_desc }}</div>
@@ -86,3 +103,5 @@
     </div>
   </div>
 </div>
+
+<include href="home/chart.html">

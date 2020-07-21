@@ -42,7 +42,7 @@ class StockController extends Controller {
 		$stock = new Stock($this->db);
 		$stock->edit($this->f3->get('POST.stock_id'));			
 			
-		\Flash::instance()->addMessage('Berhasil memperbarui data "'.$this->f3->get('POST.item_id').'"', 'success');
+		\Flash::instance()->addMessage('Berhasil memperbarui data "'.$this->f3->get('POST.stock_id').'"', 'success');
 		$this->f3->reroute('/stock');
 	}
 }

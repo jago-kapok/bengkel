@@ -16,9 +16,13 @@ class Quotation extends DB\SQL\Mapper {
 		$query = $this->db->exec("SELECT quotation.*, invoice.invoice_number AS invoice_number, customer.customer_name FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
 			(quotation_number LIKE ? OR
 			customer_name LIKE ? OR
-			invoice_number LIKE ?) AND
+			invoice_number LIKE ? OR
+			quotation_engine LIKE ? OR
+			quotation_serial_number LIKE ?) AND
 			quotation_status != 2 ORDER BY quotation.quotation_id DESC LIMIT ? OFFSET ?",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -30,9 +34,13 @@ class Quotation extends DB\SQL\Mapper {
 		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
 			(quotation_number LIKE ? OR
 			customer_name LIKE ? OR
-			invoice_number LIKE ?) AND
+			invoice_number LIKE ? OR
+			quotation_engine LIKE ? OR
+			quotation_serial_number LIKE ?) AND
 			quotation_status != 2",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%'

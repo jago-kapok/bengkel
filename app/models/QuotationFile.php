@@ -16,6 +16,11 @@ class QuotationFile extends DB\SQL\Mapper {
 		$this->load(array('quotation_id = ?', $quotation_id));
 		$this->copyTo('POST');
 	}
+	
+	public function getDataExist($quotation_id){
+		$this->load(array('quotation_id = ?', $quotation_id));
+		return $this->query;
+	}
 
     public function receipt($quotation_id, $quotation_number, $quotation_file_receipt){
 		$f3 = \Base::instance();

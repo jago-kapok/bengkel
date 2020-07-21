@@ -75,7 +75,21 @@ class QuotationController extends Controller {
 			$model = new Model($this->db);
 			$this->f3->set('data_model', $model->getAll());
 			
-			$this->f3->set('page_title','PENAWARAN : '.$quotation->quotation_number);
+			$quotation_file = new QuotationFile($this->db);
+			$quotation_file_exist = count($quotation_file->getDataExist($this->f3->get('PARAMS.quotation_id')));
+			
+			if($quotation_file_exist == 0){
+				$quotation_file->add($this->f3->get('PARAMS.quotation_id'));
+			}
+			
+			$invoice = new Invoice($this->db);
+			$invoice->getByQuotation($this->f3->get('PARAMS.quotation_id'));
+			if(count($invoice->getByQuotation($this->f3->get('PARAMS.quotation_id'))) > 0){
+				$this->f3->set('invoice_tax_number', $invoice->invoice_tax_number);
+				$invoice_number = ' - INVOICE : '.$invoice->invoice_number;
+			}
+			
+			$this->f3->set('page_title','PENAWARAN : '.$quotation->quotation_number.''.$invoice_number);
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','quotation/update.html');
 		}

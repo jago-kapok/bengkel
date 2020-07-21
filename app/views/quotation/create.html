@@ -219,3 +219,41 @@
 	</div>
   </form>
 </div>
+
+<script>
+/* ============================================================== */
+/* Autocomplete													= */
+/* ============================================================== */
+	
+// Customer
+var data = "../../app/views/autocomplete/customer.php";
+$("input[name=customer_code]").autocomplete({
+  source: data,
+  minLength: 3,
+  select: function(event, ui){
+    $(this).val(ui.item.customer_code);
+	  return false;
+  }
+}).autocomplete("instance")._renderItem = function(ul, item){
+  return $("<li>")
+  .append("<div style='font-size:12px; line-height:20px'><span style='display:block'><b>" + item.customer_code + "</b></span><span><i>" + item.customer_name + "</i> | <i>" + item.customer_address + "</i> | <i>" + item.customer_city + "</i></span></div>")
+  .appendTo(ul);
+};
+	
+// Item
+var data = "../../app/views/autocomplete/item.php";
+$(".item").autocomplete({
+  source: data,
+  minLength: 2,
+  select: function(event, ui){
+    $(this).val(ui.item.item_code);
+      return false;
+  }
+}).each(function(){
+  $(this).autocomplete("instance")._renderItem = function(ul, item){
+    return $("<li>")
+    .append("<div style='font-size:12px; line-height:20px'><span style='display:block'><b>" + item.item_code + "</b></span><span><i>" + item.item_part_no + "</i> | <i>" + item.item_desc + "</i></span></div>")
+    .appendTo(ul);
+  }
+});
+</script>
