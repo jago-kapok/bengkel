@@ -21,6 +21,13 @@ class InvoiceController extends Controller {
 		die($invoice->data($draw, $length, $offset, $search));
 	}
 	
+	public function get_price(){
+		$invoice_detail_item_code = $this->f3->get('PARAMS.invoice_detail_item_code');
+		
+		$invoice_detail = new InvoiceDetail($this->db);
+		die($invoice_detail->getPriceHistory($invoice_detail_item_code));
+	}
+	
 	public function from_quotation(){
 		if($this->f3->exists('POST.create')){
 			$current = '/'.date("Y");

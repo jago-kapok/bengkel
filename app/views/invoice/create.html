@@ -15,7 +15,7 @@
 		<div class="col-md-2 offset-2">
 		  <div class="input-group mb-2">
 			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">PNWRN</span>
+			  <span class="input-group-text form-app">PNW</span>
 			</div>
 			<input class="form-control form-control-sm form-app" value="{{ date('d F Y', strtotime(@POST.quotation_date)) }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
 		  </div>
@@ -182,7 +182,7 @@
 			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price_temp]" class="number-only" style="width:75px">
 			  </td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})" data-toggle="tooltip" title="Tgl. INVOICE">
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})" data-toggle="tooltip" data-html="true">
 			  </td>
 			  <td><input name="data[{{ @i }}][invoice_detail_unit_price_up]" class="number-only bg-info" style="width:75px"></td>
 			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][invoice_detail_brand]" style="width:100px"></td>
@@ -226,6 +226,12 @@
 			<label class="col-md-2">CASH</label>
 			<div class="col-md-8">
 			  <input name="invoice_note_payment" class="form-control form-control-sm form-app">
+			</div>
+		  </div>
+		  <div class="form-group row">
+			<label class="col-md-2">FAKTUR PAJAK</label>
+			<div class="col-md-3">
+			  <input name="invoice_tax_number" class="form-control form-control-sm form-app">
 			</div>
 		  </div>
 		</div>

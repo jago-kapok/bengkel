@@ -130,7 +130,7 @@
 			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price_temp]" class="number-only" style="width:75px">
 			  </td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})">
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})" data-toggle="popover">
 			  </td>
 			  <td><input type="number" name="data[{{ @i }}][quotation_detail_unit_price_up]" class="number-only bg-info" style="width:75px" step="1000"></td>
 			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][quotation_detail_brand]" style="width:100px"></td>

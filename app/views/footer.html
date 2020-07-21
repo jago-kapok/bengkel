@@ -36,7 +36,7 @@
   <include href="datatables/invoice_cash.html">
   <include href="datatables/rework.html">
   
-  <include href="home/chart.html">
+  <!-- <include href="home/chart.html"> -->
   
   <script>	
 	/* ============================================================== */
@@ -310,9 +310,21 @@
 	/* Fungsi price history											= */
 	/* ============================================================== */
 	
-	function getPriceHistory(id){
-	  alert(id);
-	}
+	$('[data-toggle="popover"]').each(function(){
+      $(this).popover({
+		trigger: 'focus',
+        html: true,
+        <!-- content: $(this).attr('id') -->
+        content: function(){
+		  return $.ajax({
+		    url: '{{ @BASE."/invoice/get-price/M7653" }}',
+			dataType: 'json',
+			contentType: 'application/json; charset=utf-8',
+			async: false
+		  }).responseText;
+		}
+      });
+	});
 	
 	/* ============================================================== */
 	/* Fungsi clear row												= */

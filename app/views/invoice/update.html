@@ -142,7 +142,7 @@
 			    <input id="item_price_temp_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price_temp]" class="number-only readonly" value="{{ number_format(@invoice_detail.invoice_detail_unit_price_temp) }}" style="width:75px" readonly>
 			  </td>
 			  <td>
-			    <input id="item_price_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price]" class="number-only" value="{{ number_format(@invoice_detail.invoice_detail_unit_price) }}" style="width:75px" onkeyup="return getTotal({{ @no + 50 }})" onfocus="return getPriceHistory({{ @no + 50 }})">
+			    <input id="item_price_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price]" class="number-only" value="{{ number_format(@invoice_detail.invoice_detail_unit_price) }}" style="width:75px" onkeyup="return getTotal({{ @no + 50 }})" onfocus="return getPriceHistory({{ @no + 50 }})" data-toggle="tooltip" data-html="true">
 			  </td>
 			  <td><input name="data[{{ @no + 50 }}][invoice_detail_unit_price_up]" class="number-only bg-info" value="{{ number_format(@quotation.invoice_detail_unit_price_up) }}" style="width:75px"></td>
 			  <td><input id="item_brand_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_brand]" value="{{ @invoice_detail.invoice_detail_brand }}" style="width:100px"></td>
@@ -176,7 +176,7 @@
 			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price_temp]" class="number-only" style="width:75px">
 			  </td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})" onfocus="return getPriceHistory({{ @i }})" data-toggle="tooltip" data-html="true" title="">
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})" onfocus="return getPriceHistory({{ @i }})" data-toggle="tooltip" data-html="true">
 			  </td>
 			  <td><input name="data[{{ @i }}][invoice_detail_unit_price_up]" class="number-only bg-info" style="width:75px"></td>
 			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][invoice_detail_brand]" style="width:100px"></td>
