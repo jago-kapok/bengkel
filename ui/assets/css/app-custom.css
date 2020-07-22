@@ -141,3 +141,9 @@ input:focus {
 .btn.btn-sm {
 	padding: 3px 10px;
 }
+.popover-body {
+	font-size: 12px;
+}
+hr {
+	margin: 5px;
+}

@@ -68,11 +68,11 @@
   </div>
   <div class="col-lg-4 col-md-12 col-12 col-sm-12">
 	<div class="card">
-      <div class="card-header"><h4>Riwayat Login Pengguna</h4></div>
-      <div class="card-body">
+      <div class="card-header" style="min-height:50px; padding:5px 25px"><h4>Riwayat Login Pengguna</h4></div>
+      <div class="card-body" style="padding-top:10px; padding-bottom:10px">
         <ul class="list-unstyled list-unstyled-border">
 		  <repeat group="{{ @data_user }}" value="{{ $user }}">
-            <li class="media" style="margin-bottom:0">
+            <li class="media" style="margin-bottom:-15px">
               <span class="mr-3 rounded-circle" style="width:20px"><i class="fa fa-user"></i></span>
               <div class="media-body">
                 <div class="float-right text-small text-muted">{{ date('d/m/y H:i:s', strtotime(@user.user_last_login)) }}</div>
@@ -85,11 +85,11 @@
     </div>
 	
     <div class="card">
-      <div class="card-header"><h4>Riwayat Stok Keluar</h4></div>
-      <div class="card-body">
+      <div class="card-header" style="min-height:50px; padding:5px 25px"><h4>Riwayat Stok Keluar</h4></div>
+      <div class="card-body" style="padding-top:10px; padding-bottom:10px">
         <ul class="list-unstyled list-unstyled-border">
 		  <repeat group="{{ @data_stock_history }}" value="{{ $stock_history }}">
-            <li class="media">
+            <li class="media" style="margin-bottom:-10px">
               <span class="mr-3 rounded-circle" style="width:20px"><i class="fa fa-cube"></i></span>
               <div class="media-body">
                 <div class="float-right text-primary">{{ date('d/m/y', strtotime(@stock_history.stock_history_date)) }}</div>

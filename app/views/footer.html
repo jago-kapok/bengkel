@@ -305,19 +305,14 @@
 	/* Fungsi price history											= */
 	/* ============================================================== */
 	
+	$.ajaxSetup({
+	  async: false
+	});
+ 
 	$('[data-toggle="popover"]').each(function(){
       $(this).popover({
 		trigger: 'focus',
         html: true,
-        <!-- content: $(this).attr('id').substr(11, 2) -->
-        <!-- content: function(){ -->
-		  <!-- return $.ajax({ -->
-		    <!-- url: '{{ @BASE."/invoice/get-price/M7653" }}', -->
-			<!-- dataType: 'json', -->
-			<!-- contentType: 'application/json; charset=utf-8', -->
-			<!-- async: false -->
-		  <!-- }).responseText; -->
-		<!-- } -->
 		content: function(){
 		  var tmp_id =  $(this).attr('id').substr(11, 2);
 		  return getPriceHistory(tmp_id);
@@ -327,14 +322,15 @@
 	
 	function getPriceHistory(id){
 	  var item_code = $('#' + id).val();
+	  var item_desc = [];
 	  
 	  $.getJSON("{{ @BASE.'/invoice/get-price/' }}" + item_code, function(data){
 		$.each(data, function(key, value){
-		  $('#' + id).append(value.invoice_detail_unit_price);
+		  item_desc.push('<span>' + value.customer_name + '<br>' + value.invoice_detail_unit_price + '</span><hr>');
 		});
 	  });
 	  
-	  <!-- return '<div id="' + id + '">Loading ...</div>'; -->
+	  return '<div id="' + id + '">' + item_desc + '</div>';
 	}
 	
 	/* ============================================================== */

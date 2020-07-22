@@ -98,7 +98,7 @@ class InvoiceController extends Controller {
 			$stock = new Stock($this->db);
 			$stock->beforeEdit($this->f3->get('PARAMS.invoice_id'));
 			
-			$this->f3->set('page_title','INVOICE : '.$invoice->invoice_number);
+			$this->f3->set('page_title','INVOICE : '.$invoice->invoice_number.' ( '.date('d F Y', strtotime($invoice->invoice_date)).' )');
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','invoice/update.html');
 		}

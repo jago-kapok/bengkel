@@ -91,11 +91,12 @@ class InvoiceDetail extends DB\SQL\Mapper {
 	public function getPriceHistory($invoice_detail_item_code){
 		$output = array();
 		
-		$query = $this->db->exec("SELECT c.customer_name, i.invoice_date, d.invoice_detail_unit_price FROM invoice i JOIN customer c ON i.customer_id = c.customer_id JOIN invoice_detail d ON i.invoice_id = d.invoice_id LIMIT 5");
+		$query = $this->db->exec("SELECT c.customer_name, i.invoice_date, d.invoice_detail_unit_price FROM invoice i JOIN customer c ON i.customer_id = c.customer_id JOIN invoice_detail d ON i.invoice_id = d.invoice_id WHERE d.invoice_detail_item_code = ? LIMIT 5", $invoice_detail_item_code);
 			
 		foreach($query as $data){
 			$output[] = array(
-				"invoice_detail_unit_price" => $data['customer_name'].' | '.date('d F Y', strtotime($data['invoice_date'])).' | Rp '.number_format($data['invoice_detail_unit_price'])
+				"customer_name" => $data['customer_name'],
+				"invoice_detail_unit_price" => date('d-M-Y', strtotime($data['invoice_date'])).' | Rp '.number_format($data['invoice_detail_unit_price'])
 			);
 		}
 		

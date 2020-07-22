@@ -28,15 +28,15 @@
 			<input type="hidden" name="invoice_received_date" value="{{ date('Y-m-d', strtotime(@POST.quotation_received_date)) }}">
 		  </div>
 		</div>
-		<div class="col-md-2">
-		  <div class="input-group mb-2">
-			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">INV</span>
-			</div>
-			<input name="invoice_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" data-toggle="tooltip" title="Tgl. INVOICE" readonly>
-		  </div>
-		</div>
-		<div class="col-md-2">
+		<!-- <div class="col-md-2"> -->
+		  <!-- <div class="input-group mb-2"> -->
+			<!-- <div class="input-group-prepend"> -->
+			  <!-- <span class="input-group-text form-app">INV</span> -->
+			<!-- </div> -->
+			<!-- <input name="invoice_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" data-toggle="tooltip" title="Tgl. INVOICE" readonly> -->
+		  <!-- </div> -->
+		<!-- </div> -->
+		<div class="col-md-2 offset-2">
 		  <div class="form-group">
 			<input name="invoice_mechanic" class="form-control form-control-sm form-app" value="{{ @POST.invoice_mechanic }}" placeholder="Mekanik" data-toggle="tooltip" title="MEKANIK" required>
 		  </div>
@@ -139,10 +139,10 @@
 			  </td>
 			  <td><input name="data[{{ @no + 50 }}][invoice_detail_qty_up]" class="number-only bg-info" value="{{ @invoice_detail.invoice_detail_qty_up }}" style="width:30px"></td>
 			  <td>
-			    <input id="item_price_temp_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price_temp]" class="number-only readonly" value="{{ number_format(@invoice_detail.invoice_detail_unit_price_temp) }}" style="width:75px" readonly>
+			    <input type="hidden" id="item_price_temp_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price_temp]" class="number-only readonly" value="{{ number_format(@invoice_detail.invoice_detail_unit_price_temp) }}" style="width:75px" readonly>
 			  </td>
 			  <td>
-			    <input id="item_price_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price]" class="number-only" value="{{ number_format(@invoice_detail.invoice_detail_unit_price) }}" style="width:75px" onkeyup="return getTotal({{ @no + 50 }})" onfocus="return getPriceHistory({{ @no + 50 }})" data-toggle="tooltip" data-html="true">
+			    <input id="item_price_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_unit_price]" class="number-only" value="{{ number_format(@invoice_detail.invoice_detail_unit_price) }}" style="width:75px" onkeyup="return getTotal({{ @no + 50 }})" data-toggle="popover">
 			  </td>
 			  <td><input name="data[{{ @no + 50 }}][invoice_detail_unit_price_up]" class="number-only bg-info" value="{{ number_format(@quotation.invoice_detail_unit_price_up) }}" style="width:75px"></td>
 			  <td><input id="item_brand_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_brand]" value="{{ @invoice_detail.invoice_detail_brand }}" style="width:100px"></td>
@@ -176,7 +176,7 @@
 			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price_temp]" class="number-only" style="width:75px">
 			  </td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})" onfocus="return getPriceHistory({{ @i }})" data-toggle="tooltip" data-html="true">
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][invoice_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})" data-toggle="popover">
 			  </td>
 			  <td><input name="data[{{ @i }}][invoice_detail_unit_price_up]" class="number-only bg-info" style="width:75px"></td>
 			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][invoice_detail_brand]" style="width:100px"></td>
@@ -275,7 +275,7 @@
 	  <button type="submit" name="update" class="btn btn-primary btn-sm btn-form mr-1"><b>Update</b></button>
 	  <a href="{{ @BASE.'/invoice/upload/'.@PARAMS.invoice_id }}" class="btn btn-info btn-sm btn-form mr-1"><b>Foto</b></a>
 	  <a href="{{ @BASE.'/invoice/print/'.@PARAMS.invoice_id }}" class="btn btn-success btn-sm btn-form mr-1"><b>Cetak</b></a>
-	  <a href="{{ @BASE.'/invoice/' }}" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
+	  <a href="{{ @BASE.'/invoice' }}" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
 	</div>
   </form>
 </div>

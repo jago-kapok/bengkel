@@ -127,10 +127,10 @@
 			  </td>
 			  <td><input name="data[{{ @no + 10 }}][quotation_detail_qty_up]" class="number-only bg-info" value="{{ @quotation.quotation_detail_qty_up }}" style="width:30px"></td>
 			  <td>
-			    <input id="item_price_temp_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price_temp]" class="number-only readonly" value="{{ @quotation.quotation_detail_unit_price_temp }}" style="width:75px" readonly>
+			    <input type="hidden" id="item_price_temp_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price_temp]" class="number-only readonly" value="{{ @quotation.quotation_detail_unit_price_temp }}" style="width:75px" readonly>
 			  </td>
 			  <td>
-			    <input id="item_price_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price]" class="number-only" value="{{ number_format(@quotation_detail.quotation_detail_unit_price) }}" style="width:75px" onkeyup="return getTotal({{ @no + 10 }})" data-toggle="tooltip" data-html="true" onfocus="return getPriceHistory({{ @no + 10 }})">
+			    <input id="item_price_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_unit_price]" class="number-only" value="{{ number_format(@quotation_detail.quotation_detail_unit_price) }}" style="width:75px" onkeyup="return getTotal({{ @no + 10 }})" data-toggle="popover">
 			  </td>
 			  <td><input name="data[{{ @no + 10 }}][quotation_detail_unit_price_up]" class="number-only bg-info" value="{{ number_format(@quotation.quotation_detail_unit_price_up) }}" style="width:75px"></td>
 			  <td><input id="item_brand_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_brand]" value="{{ @quotation_detail.quotation_detail_brand }}" style="width:100px"></td>
@@ -164,7 +164,7 @@
 			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price_temp]" class="number-only" style="width:75px" readonly>
 			  </td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})" data-toggle="tooltip" data-html="true" onfocus="return getPriceHistory({{ @i }})">
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][quotation_detail_unit_price]" class="number-only" style="width:75px" onkeyup="return getTotal({{ @i }})" data-toggle="popover">
 			  </td>
 			  <td><input name="data[{{ @i }}][quotation_detail_unit_price_up]" class="number-only bg-info" style="width:75px"></td>
 			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][quotation_detail_brand]" style="width:100px"></td>

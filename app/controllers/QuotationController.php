@@ -86,7 +86,7 @@ class QuotationController extends Controller {
 			$invoice->getByQuotation($this->f3->get('PARAMS.quotation_id'));
 			if(count($invoice->getByQuotation($this->f3->get('PARAMS.quotation_id'))) > 0){
 				$this->f3->set('invoice_tax_number', $invoice->invoice_tax_number);
-				$invoice_number = ' - INVOICE : '.$invoice->invoice_number;
+				$invoice_number = ' - INVOICE : '.$invoice->invoice_number.' ('.date('d/m/y', strtotime($invoice->invoice_date)).')';
 			}
 			
 			$this->f3->set('page_title','PENAWARAN : '.$quotation->quotation_number.''.$invoice_number);

@@ -5,6 +5,9 @@ class LoginController extends Controller {
 	public function beforeroute(){}
 	
 	public function index(){
+		$company = new Company($this->db);
+		$company->getData();
+		
 		$this->f3->set('header','header/login.html');
         $this->f3->set('view','home/login.html');
 	}
