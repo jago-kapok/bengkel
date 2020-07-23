@@ -95,10 +95,13 @@ class InvoiceController extends Controller {
 			$invoice_detail = new InvoiceDetail($this->db);
 			$this->f3->set('data_invoice_detail', $invoice_detail->getById($this->f3->get('PARAMS.invoice_id')));
 			
+			$quotation = new Quotation($this->db);
+			$quotation->getById($invoice->quotation_id);
+			
 			$stock = new Stock($this->db);
 			$stock->beforeEdit($this->f3->get('PARAMS.invoice_id'));
 			
-			$this->f3->set('page_title','INVOICE : '.$invoice->invoice_number.' ( '.date('d F Y', strtotime($invoice->invoice_date)).' )');
+			$this->f3->set('page_title','INVOICE : '.$invoice->invoice_number.' ( '.date('d F Y', strtotime($invoice->invoice_date)).' ) - PENAWARAN : '.$quotation->quotation_number);
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','invoice/update.html');
 		}
