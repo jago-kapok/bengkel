@@ -60,7 +60,17 @@ class Invoice extends DB\SQL\Mapper {
 	}
 	
 	public function getAll(){
+		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = invoice.customer_id";
+		$this->quotation_number = "SELECT quotation_number FROM quotation WHERE quotation.quotation_id = invoice.quotation_id";
+		
 		$this->load();
+		return $this->query;
+	}
+	
+	public function getThree(){
+		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = invoice.customer_id";
+		
+		$this->load(NULL, array('limit'=>3, 'order'=>'invoice_number DESC'));
 		return $this->query;
 	}
 	

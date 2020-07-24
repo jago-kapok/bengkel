@@ -85,16 +85,16 @@
     </div>
 	
     <div class="card">
-      <div class="card-header" style="min-height:50px; padding:5px 25px"><h4>Riwayat Stok Keluar</h4></div>
+      <div class="card-header" style="min-height:50px; padding:5px 25px"><h4>Riwayat Transaksi (Invoice)</h4></div>
       <div class="card-body" style="padding-top:10px; padding-bottom:10px">
         <ul class="list-unstyled list-unstyled-border">
-		  <repeat group="{{ @data_stock_history }}" value="{{ $stock_history }}">
+		  <repeat group="{{ @data_invoice }}" value="{{ $invoice }}">
             <li class="media" style="margin-bottom:-10px">
-              <span class="mr-3 rounded-circle" style="width:20px"><i class="fa fa-cube"></i></span>
+              <span class="mr-3 rounded-circle" style="width:20px"><i class="fa fa-file"></i></span>
               <div class="media-body">
-                <div class="float-right text-primary">{{ date('d/m/y', strtotime(@stock_history.stock_history_date)) }}</div>
-                <div class="media-title">{{ @stock_history.item_desc }}</div>
-                <span class="text-small text-muted">Purchase / Invoice No. : {{ @stock_history.purchase_number }} {{ @stock_history.invoice_number }} {{ @stock_history.rework_number }}</span>
+                <div class="float-right text-primary">{{ date('d/m/y', strtotime(@invoice.invoice_date)) }}</div>
+                <div class="media-title">{{ @invoice.invoice_number }}</div>
+                <span class="text-small text-muted">{{ @invoice.customer_name }} - Rp {{ number_format(@invoice.invoice_total) }}</span>
               </div>
             </li>
 		  </repeat>

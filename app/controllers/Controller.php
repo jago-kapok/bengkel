@@ -38,5 +38,8 @@ class Controller extends FPDF {
 		  } else
 			return FALSE;
 		};
+		
+		$stock = new Stock($db);
+		$f3->set('data_min_stock', $stock->getMinStock());
 	}
 }

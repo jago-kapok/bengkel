@@ -12,7 +12,15 @@
 			<input name="" class="form-control form-control-sm form-app" value="{{ @invoice_number }}" readonly>
 		  </div>
 		</div>
-		<div class="col-md-2 offset-2">
+		<div class="col-md-2">
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">FP</span>
+			</div>
+			<input class="form-control form-control-sm form-app" value="{{ @POST.invoice_tax_number }}" data-toggle="tooltip" title="FAKTUR PAJAK">
+		  </div>
+		</div>
+		<div class="col-md-2">
 		  <div class="input-group mb-2">
 			<div class="input-group-prepend">
 			  <span class="input-group-text form-app">PNW</span>
@@ -226,12 +234,6 @@
 			<label class="col-md-2">CASH</label>
 			<div class="col-md-8">
 			  <input name="invoice_note_payment" class="form-control form-control-sm form-app">
-			</div>
-		  </div>
-		  <div class="form-group row">
-			<label class="col-md-2">FAKTUR PAJAK</label>
-			<div class="col-md-3">
-			  <input name="invoice_tax_number" class="form-control form-control-sm form-app">
 			</div>
 		  </div>
 		</div>

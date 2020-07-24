@@ -26,11 +26,8 @@ class HomeController extends Controller {
 		$this->f3->set('nov', $report->getReport($year, 11));
 		$this->f3->set('dec', $report->getReport($year, 12));
 		
-		$stock = new Stock($this->db);
-		$this->f3->set('data_min_stock', $stock->getMinStock());
-		
-		$stock_history = new StockHistory($this->db);
-		$this->f3->set('data_stock_history', $stock_history->getThree());
+		$invoice = new Invoice($this->db);
+		$this->f3->set('data_invoice', $invoice->getThree());
 		
 		$user = new User($this->db);
 		$this->f3->set('data_user', $user->getByLastLogin());

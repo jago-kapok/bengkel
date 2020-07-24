@@ -6,6 +6,9 @@ class InvoiceController extends Controller {
 		$quotation = new Quotation($this->db);
 		$this->f3->set('data_quotation', $quotation->getAll());
 		
+		$invoice = new Invoice($this->db);
+		$this->f3->set('data_invoice', $invoice->getAll());
+		
 		$this->f3->set('page_title','INVOICE');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','invoice/index.html');

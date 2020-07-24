@@ -70,6 +70,9 @@ class Quotation extends DB\SQL\Mapper {
 	}
 	
 	public function getAll(){
+		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = quotation.customer_id";
+		$this->invoice_number = "SELECT invoice_number FROM invoice WHERE invoice.quotation_id = quotation.quotation_id";
+		
 		$this->load(array('quotation_status = 1'));
 		return $this->query;
 	}
