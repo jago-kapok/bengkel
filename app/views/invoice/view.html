@@ -120,14 +120,14 @@
 		</tr>
 		<tr>
 		  <th colspan="6" style="border:none">
-			Cash :
+			Cash : {{ strtoupper(@POST.invoice_note_payment) }}
 		  </th>
 		  <th class="bg-secondary"><center>TOTAL</center></th>
 		  <td class="bg-secondary text-right"><b>Rp {{ number_format(@POST.invoice_total) }}</b></td>
 		</tr>
 		<tr>
 		  <th colspan="6" style="border:none">
-			<span>{{ strtoupper(@POST.invoice_note_payment) }}</span>
+			Terbilang : <i>{{ @invoice_terbilang }}</i></span>
 		  </th>
 		  <th class="bg-info"><center>TOTAL PROFIT</center></th>
 		  <td class="bg-info text-right"><b>Rp {{ number_format(@POST.invoice_total - @profit_total) }}</b></td>

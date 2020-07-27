@@ -71,6 +71,7 @@ class QuotationController extends Controller {
 			$quotation_total = $quotation->quotation_part_charge + $quotation->quotation_service_charge - $quotation->quotation_discount;
 			$quotation_ppn = $quotation_total * ($quotation->quotation_ppn / 100);
 			$this->f3->set('quotation_ppn', $quotation_ppn);
+			$this->f3->set('quotation_terbilang', self::terbilang($quotation_total));
 			
 			$quotation_detail = new QuotationDetail($this->db);
 			$this->f3->set('data_quotation_detail', $quotation_detail->getById($this->f3->get('PARAMS.quotation_id')));
@@ -105,6 +106,7 @@ class QuotationController extends Controller {
 		$quotation_total = ($quotation->quotation_part_charge + $quotation->quotation_service_charge) - $quotation->quotation_discount;
 		$quotation_ppn = $quotation_total * ($quotation->quotation_ppn / 100);
 		$this->f3->set('quotation_ppn', $quotation_ppn);
+		$this->f3->set('quotation_terbilang', self::terbilang($quotation_total));
 		
 		$quotation_detail = new QuotationDetail($this->db);
 		$this->f3->set('data_quotation_detail', $quotation_detail->getById($this->f3->get('PARAMS.quotation_id')));
@@ -126,5 +128,34 @@ class QuotationController extends Controller {
 		$quotation->active($this->f3->get('PARAMS.quotation_id'));
 		
 		$this->f3->reroute('/quotation/view/'.$this->f3->get('PARAMS.quotation_id'));
+	}
+	
+	public function terbilang($nominal){
+		$a = array("", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas");
+        if($nominal == 0){
+            return "";
+        } elseif ($nominal < 12 & $nominal != 0) {
+            return "" . $a[$nominal];
+        } elseif ($nominal < 20) {
+            return self::terbilang($nominal - 10) . " Belas ";
+        } elseif ($nominal < 100) {
+            return self::terbilang($nominal / 10) . " Puluh " . self::terbilang($nominal % 10);
+        } elseif ($nominal < 200) {
+            return " Seratus " . self::terbilang($nominal - 100);
+        } elseif ($nominal < 1000) {
+            return self::terbilang($nominal / 100) . " Ratus " . self::terbilang($nominal % 100);
+        } elseif ($nominal < 2000) {
+            return " Seribu " . self::terbilang($nominal - 1000);
+        } elseif ($nominal < 1000000) {
+            return self::terbilang($nominal / 1000) . " Ribu " . self::terbilang($nominal % 1000);
+        } elseif ($nominal < 1000000000) {
+            return self::terbilang($nominal / 1000000) . " Juta " . self::terbilang($nominal % 1000000);
+        } elseif ($nominal < 1000000000000) {
+            return self::terbilang($nominal / 1000000000) . " Milyar " . self::terbilang($nominal % 1000000000);
+        } elseif ($nominal < 100000000000000) {
+            return self::terbilang($nominal / 1000000000000) . " Trilyun " . self::terbilang($nominal % 1000000000000);
+        } elseif ($nominal <= 100000000000000) {
+            return "Maaf Tidak Dapat di Prose Karena Jumlah nominal Terlalu Besar ";
+        }
 	}
 }

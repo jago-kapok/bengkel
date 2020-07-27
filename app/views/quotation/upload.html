@@ -1,12 +1,19 @@
   <div class="row">
     <div class="col-md-4">
-	  <form action="{{ @BASE.'/quotation/upload/'.@quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+	  <form action="{{ @BASE.'/quotation/upload/'.@POST.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
 	    <div class="card-body">
 		  <h6>Tanda Terima Barang</h6>
 		  <div class="card-body box-profile">
 			<div class="text-center">
 			  <a href="../../ui/assets/img/quotation/{{ @POST.quotation_file_receipt }}" target="_blank">
-			  <img id="preview_image_1" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_receipt }}">
+				<check if="{{ pathinfo(@POST.quotation_file_receipt, PATHINFO_EXTENSION) == 'pdf' }}">
+				  <true>
+					<img id="preview_image_1" class="profile-user-img img-fluid" src="../../ui/assets/img/img.png">
+				  </true>
+				  <false>
+					<img id="preview_image_1" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_receipt }}">
+				  </false>
+				</check>
 			  </a>
 			</div>
 		  </div>
@@ -21,7 +28,7 @@
     </div>
   
     <div class="col-md-4">
-	  <form action="{{ @BASE.'/quotation/upload/'.@quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+	  <form action="{{ @BASE.'/quotation/upload/'.@POST.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
 		<div class="card-body">
 		  <h6>Surat Jalan</h6>
 		  <div class="card-body box-profile">
@@ -42,7 +49,7 @@
     </div>
   
     <div class="col-md-4">
-	  <form action="{{ @BASE.'/quotation/upload/'.@quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+	  <form action="{{ @BASE.'/quotation/upload/'.@POST.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
 	    <div class="card-body">
 		  <h6>Foto FIP</h6>
 		  <div class="card-body box-profile">
@@ -63,7 +70,7 @@
     </div>
 	
 	<div class="col-md-4">
-	  <form action="{{ @BASE.'/quotation/upload/'.@quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+	  <form action="{{ @BASE.'/quotation/upload/'.@POST.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
 	    <div class="card-body">
 		  <h6>Surat Jalan Batal</h6>
 		  <div class="card-body box-profile">
@@ -84,7 +91,7 @@
     </div>
 	
 	<div class="col-md-4">
-	  <form action="{{ @BASE.'/quotation/upload/'.@quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+	  <form action="{{ @BASE.'/quotation/upload/'.@POST.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
 	    <div class="card-body">
 		  <h6>Persetujuan FIP</h6>
 		  <div class="card-body box-profile">
@@ -105,7 +112,7 @@
     </div>
 	
 	<div class="col-md-4">
-	  <form action="{{ @BASE.'/quotation/upload/'.@quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
+	  <form action="{{ @BASE.'/quotation/upload/'.@POST.quotation_id }}" class="card card-primary card-outline" method="POST" enctype="multipart/form-data">
 	    <div class="card-body">
 		  <h6>PO / WO</h6>
 		  <div class="card-body box-profile">
