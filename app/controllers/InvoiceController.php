@@ -51,7 +51,7 @@ class InvoiceController extends Controller {
 			$quotation_total = $quotation->quotation_part_charge + $quotation->quotation_service_charge - $quotation->quotation_discount;
 			$quotation_ppn = $quotation_total * ($quotation->quotation_ppn / 100);
 			$this->f3->set('quotation_ppn', $quotation_ppn);
-			$this->f3->set('invoice_terbilang', self::terbilang($quotation_total));
+			$this->f3->set('invoice_terbilang', self::terbilang($quotation_total + $invoice_ppn));
 			
 			$quotation_detail = new QuotationDetail($this->db);
 			$this->f3->set('data_quotation_detail', $quotation_detail->getById($quotation->quotation_id));
@@ -95,7 +95,7 @@ class InvoiceController extends Controller {
 			$invoice_total = $invoice->invoice_part_charge + $invoice->invoice_service_charge - $invoice->invoice_discount;
 			$invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
 			$this->f3->set('invoice_ppn', $invoice_ppn);
-			$this->f3->set('invoice_terbilang', self::terbilang($invoice_total));
+			$this->f3->set('invoice_terbilang', self::terbilang($invoice_total + $invoice_ppn));
 			
 			$invoice_detail = new InvoiceDetail($this->db);
 			$this->f3->set('data_invoice_detail', $invoice_detail->getById($this->f3->get('PARAMS.invoice_id')));
@@ -119,7 +119,7 @@ class InvoiceController extends Controller {
 		$invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
 		$invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
 		$this->f3->set('invoice_ppn', $invoice_ppn);
-		$this->f3->set('invoice_terbilang', self::terbilang($invoice_total));
+		$this->f3->set('invoice_terbilang', self::terbilang($invoice_total + $invoice_ppn));
 		
 		$invoice_detail = new InvoiceDetail($this->db);
 		$this->f3->set('data_invoice_detail', $invoice_detail->getById($this->f3->get('PARAMS.invoice_id')));

@@ -71,7 +71,7 @@ class QuotationController extends Controller {
 			$quotation_total = $quotation->quotation_part_charge + $quotation->quotation_service_charge - $quotation->quotation_discount;
 			$quotation_ppn = $quotation_total * ($quotation->quotation_ppn / 100);
 			$this->f3->set('quotation_ppn', $quotation_ppn);
-			$this->f3->set('quotation_terbilang', self::terbilang($quotation_total));
+			$this->f3->set('quotation_terbilang', self::terbilang($quotation_total + $quotation_ppn));
 			
 			$quotation_detail = new QuotationDetail($this->db);
 			$this->f3->set('data_quotation_detail', $quotation_detail->getById($this->f3->get('PARAMS.quotation_id')));
@@ -106,7 +106,7 @@ class QuotationController extends Controller {
 		$quotation_total = ($quotation->quotation_part_charge + $quotation->quotation_service_charge) - $quotation->quotation_discount;
 		$quotation_ppn = $quotation_total * ($quotation->quotation_ppn / 100);
 		$this->f3->set('quotation_ppn', $quotation_ppn);
-		$this->f3->set('quotation_terbilang', self::terbilang($quotation_total));
+		$this->f3->set('quotation_terbilang', self::terbilang($quotation_total + $quotation_ppn));
 		
 		$quotation_detail = new QuotationDetail($this->db);
 		$this->f3->set('data_quotation_detail', $quotation_detail->getById($this->f3->get('PARAMS.quotation_id')));

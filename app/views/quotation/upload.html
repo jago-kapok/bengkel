@@ -8,7 +8,7 @@
 			  <a href="../../ui/assets/img/quotation/{{ @POST.quotation_file_receipt }}" target="_blank">
 				<check if="{{ pathinfo(@POST.quotation_file_receipt, PATHINFO_EXTENSION) == 'pdf' }}">
 				  <true>
-					<img id="preview_image_1" class="profile-user-img img-fluid" src="../../ui/assets/img/img.png">
+					<img id="preview_image_1" class="profile-user-img img-fluid" src="../../ui/assets/img/pdf.png">
 				  </true>
 				  <false>
 					<img id="preview_image_1" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_receipt }}">
@@ -34,7 +34,14 @@
 		  <div class="card-body box-profile">
 			<div class="text-center">
 			  <a href="../../ui/assets/img/quotation/{{ @POST.quotation_file_delivery }}" target="_blank">
-			  <img id="preview_image_2" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_delivery }}">
+				<check if="{{ pathinfo(@POST.quotation_file_delivery, PATHINFO_EXTENSION) == 'pdf' }}">
+				  <true>
+					<img id="preview_image_2" class="profile-user-img img-fluid" src="../../ui/assets/img/pdf.png">
+				  </true>
+				  <false>
+					<img id="preview_image_2" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_delivery }}">
+				  </false>
+				</check>
 			  </a>
 			</div>
 		  </div>
@@ -55,7 +62,14 @@
 		  <div class="card-body box-profile">
 			<div class="text-center">
 			  <a href="../../ui/assets/img/quotation/{{ @POST.quotation_file_fip }}" target="_blank">
-			  <img id="preview_image_3" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_fip }}">
+				<check if="{{ pathinfo(@POST.quotation_file_fip, PATHINFO_EXTENSION) == 'pdf' }}">
+				  <true>
+					<img id="preview_image_3" class="profile-user-img img-fluid" src="../../ui/assets/img/pdf.png">
+				  </true>
+				  <false>
+					<img id="preview_image_3" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_fip }}">
+				  </false>
+				</check>
 			  </a>
 			</div>
 		  </div>
@@ -76,7 +90,14 @@
 		  <div class="card-body box-profile">
 			<div class="text-center">
 			  <a href="../../ui/assets/img/quotation/{{ @POST.quotation_file_delivery_cancel }}" target="_blank">
-			  <img id="preview_image_4" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_delivery_cancel }}">
+				<check if="{{ pathinfo(@POST.quotation_file_delivery_cancel, PATHINFO_EXTENSION) == 'pdf' }}">
+				  <true>
+					<img id="preview_image_4" class="profile-user-img img-fluid" src="../../ui/assets/img/pdf.png">
+				  </true>
+				  <false>
+					<img id="preview_image_4" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_delivery_cancel }}">
+				  </false>
+				</check>
 			  </a>
 			</div>
 		  </div>
@@ -97,7 +118,14 @@
 		  <div class="card-body box-profile">
 			<div class="text-center">
 			  <a href="../../ui/assets/img/quotation/{{ @POST.quotation_file_fip_agreement }}" target="_blank">
-			  <img id="preview_image_5" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_fip_agreement }}">
+				<check if="{{ pathinfo(@POST.quotation_file_fip_agreement, PATHINFO_EXTENSION) == 'pdf' }}">
+				  <true>
+					<img id="preview_image_5" class="profile-user-img img-fluid" src="../../ui/assets/img/pdf.png">
+				  </true>
+				  <false>
+					<img id="preview_image_5" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_fip_agreement }}">
+				  </false>
+				</check>
 			  </a>
 			</div>
 		  </div>
@@ -118,7 +146,14 @@
 		  <div class="card-body box-profile">
 			<div class="text-center">
 			  <a href="../../ui/assets/img/quotation/{{ @POST.quotation_file_po_wo }}" target="_blank">
-			  <img id="preview_image_6" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_po_wo }}">
+				<check if="{{ pathinfo(@POST.quotation_file_po_wo, PATHINFO_EXTENSION) == 'pdf' }}">
+				  <true>
+					<img id="preview_image_6" class="profile-user-img img-fluid" src="../../ui/assets/img/pdf.png">
+				  </true>
+				  <false>
+					<img id="preview_image_6" class="profile-user-img img-fluid" src="../../ui/assets/img/quotation/{{ @POST.quotation_file_po_wo }}">
+				  </false>
+				</check>
 			  </a>
 			</div>
 		  </div>
