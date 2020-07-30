@@ -3,6 +3,9 @@
 class ItemController extends Controller {
 
 	public function index(){
+		$item = new Item($this->db);
+		$this->f3->set('data_item', $item->getAll());
+		
 		$this->f3->set('page_title','Data Barang');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','item/index.html');
@@ -67,7 +70,7 @@ class ItemController extends Controller {
 			$level = new Level($this->db);
 			$this->f3->set('data_level', $level->all());
 			
-			$this->f3->set('page_title','Perbarui Data Barang');
+			$this->f3->set('page_title','Edit Data Barang');
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','item/update.html');
 		}

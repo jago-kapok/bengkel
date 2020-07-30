@@ -6,15 +6,15 @@
 		  <div class="form-row">
 			<div class="form-group col-md-6">
 			  <label>Kode Barang</label>
-			  <input name="item_code" class="form-control form-control-sm" value="{{ @POST.item_code }}">
+			  <input name="item_code" class="form-control form-control-sm" value="{{ @POST.item_code }}" required>
 			</div>
 			<div class="form-group col-md-6">
-			  <label>Nomor Part</label>
+			  <label>Part Number</label>
 			  <input name="item_part_no" class="form-control form-control-sm" value="{{ @POST.item_part_no }}">
 			</div>
 		  </div>
 		  <div class="form-group">
-			<label>Deskripsi</label>
+			<label>Nama Barang</label>
 			<input name="item_desc" class="form-control form-control-sm" value="{{ @POST.item_desc }}">
 		  </div>
 		  <div class="form-row">
@@ -24,24 +24,24 @@
 			</div>
 			<div class="form-group col-md-4">
 			  <label>Unit</label>
-			  <input type="number" name="item_unit" class="form-control form-control-sm" value="{{ @POST.item_unit }}">
+			  <input name="item_unit" class="form-control form-control-sm" value="{{ @POST.item_unit }}">
 			</div>
 			<div class="form-group col-md-4">
 			  <label>Stamping</label>
-			  <input type="number" name="item_stamping" class="form-control form-control-sm" value="{{ @POST.item_stamping }}">
+			  <input name="item_stamping" class="form-control form-control-sm" value="{{ @POST.item_stamping }}">
 			</div>
 		  </div>
 		  <div class="form-row">
 			<div class="form-group col-md-4">
-			  <label>Physical</label>
+			  <label>Data Fisik</label>
 			  <input name="item_physical" class="form-control form-control-sm" value="{{ @POST.item_physical }}">
 			</div>
 		    <div class="form-group col-md-4">
-			  <label>Item Serupa</label>
+			  <label>Cross Reference</label>
 			  <input name="item_similar" class="form-control form-control-sm" value="{{ @POST.item_similar }}">
 			</div>
 			<div class="form-group col-md-4">
-			  <label>P/N</label>
+			  <label>P/N 2</label>
 			  <input name="item_pn" class="form-control form-control-sm" value="{{ @POST.item_pn }}">
 			</div>
 		  </div>
@@ -80,8 +80,8 @@
 	  </div>
 	</div>
     <div class="card-footer bg-whitesmoke">
-      <button type="submit" name="update" class="btn btn-primary btn-sm btn-form"><b>Perbarui</b></button>
-      <a href="{{ @BASE.'/item' }}" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
+      <button type="submit" name="update" class="btn btn-primary btn-sm btn-form"><b>EDIT</b></button>
+      <a href="{{ @BASE.'/item' }}" class="btn btn-danger btn-sm btn-form"><b>EXIT</b></a>
     </div>
   </form>
 </div>

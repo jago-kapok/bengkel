@@ -14,7 +14,7 @@
       </div>
       <div class="col-md-4 pull-right">
         <div class="input-group">
-          <input id="item_search" class="form-control form-control-sm" placeholder="Cari Data ...">
+          <input id="searching" class="form-control form-control-sm" placeholder="Cari Data ...">
           <span class="input-group-append">
             <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
           </span>
@@ -22,16 +22,40 @@
       </div>
     </div>
       
-    <table id="item_table" class="table table-striped" style="width:100%">
+    <table id="simple_table" class="table table-striped" style="width:100%">
       <thead class="bg-app">
         <tr>
-            <th>Kode Barang</th>
-            <th>No. Bagian</th>
-            <th>Deskripsi</th>
-            <th>Harga</th>
-            <th>Pilihan</th>
+          <th>Kode Barang</th>
+          <th>Part Number</th>
+          <th>Nama Barang</th>
+          <th>Unit</th>
+          <th>Stamping</th>
+          <th>Harga</th>
+          <th>Pilihan</th>
         </tr>
       </thead>
-      <tbody></tbody>
+      <tbody>
+		<repeat group="{{ @data_item }}" value="{{ $item }}">
+		  <tr>
+			<td>{{ strtoupper(@item.item_code) }}</td>
+			<td>{{ strtoupper(@item.item_part_no) }}</td>
+			<td>{{ strtoupper(@item.item_desc) }}</td>
+			<td>{{ strtoupper(@item.item_unit) }}</td>
+			<td>{{ strtoupper(@item.item_stamping) }}</td>
+			<td>Rp <span style="float:right; margin-right:25px">{{ @item.item_price }}</span></td>
+			<td>
+			  <check if="{{ @item.item_image === NULL }}">
+				<true>
+				  <a href="javascript:voice(0)" class="badge badge-success p-1" title="Lihat Produk" onclick="return alert('Gambar tidak ditemukan !')"><i class="fa fa-image"></i></a>
+				</true>
+				<false>
+				  <a href="../../ui/assets/img/item/{{ @item.item_image }}" class="badge badge-success p-1" title="Lihat Produk" target="_blank"><i class="fa fa-image"></i></a>
+				</false>
+			  </check>
+			  <a href="{{ @BASE.'/item/update/'.@item.item_id }}" class="badge badge-info p-1" title="Edit Data"><i class="fa fa-pen"></i></a>
+			</td>
+		  </tr>
+		</repeat>
+	  </tbody>
     </table>
   </div>

@@ -17,8 +17,12 @@ class Item extends DB\SQL\Mapper {
 			item_code LIKE ? OR
 			item_part_no LIKE ? OR
 			item_desc LIKE ? OR
-			item_unit LIKE ? ORDER BY item_id DESC LIMIT ? OFFSET ?",
+			item_unit LIKE ? OR
+			item_stamping LIKE ? OR
+			item_price LIKE ? ORDER BY item_id DESC LIMIT ? OFFSET ?",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -32,8 +36,12 @@ class Item extends DB\SQL\Mapper {
 			item_code LIKE ? OR
 			item_part_no LIKE ? OR
 			item_desc LIKE ? OR
-			item_unit LIKE ?",
+			item_unit LIKE ? OR
+			item_stamping LIKE ? OR
+			item_price LIKE ?",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -52,9 +60,9 @@ class Item extends DB\SQL\Mapper {
 				$data['item_code'],
 				$data['item_part_no'],
 				$data['item_desc'],
-				number_format($data['item_price']),
 				$data['item_unit'],
 				$data['item_stamping'],
+				number_format($data['item_price']),
 				$data['item_physical'],
 				$data['item_similar'],
 				$data['item_pn'],
