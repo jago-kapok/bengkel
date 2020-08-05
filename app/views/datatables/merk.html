@@ -1,0 +1,30 @@
+<script>
+	$(document).ready(function () {
+        var table = $('#merk_table').DataTable({
+            "scrollX": false,
+            "ordering": false,
+            "scrollCollapse": true,
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "searching": true,
+			"pageLength": 15,
+            "ajax": {
+                "url": "{{ @BASE.'/merk/data' }}",
+                "type": "POST"
+            },
+            "columns": [
+                { data: 0 }, { data: 1 },
+                {
+                    "render": function (data, type, full) {
+                        return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Perbarui Data" data-toggle="modal" data-target="#update_merk" data-merk_id="' + data + '" data-merk_code="' + full[0] + '" data-merk_desc="' + full[1] + '"><i class="fa fa-pen"></i></>';
+                    }
+                }
+            ]
+        });
+
+        $('#merk_search').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+    });
+</script>

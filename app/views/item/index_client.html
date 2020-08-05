@@ -1,0 +1,61 @@
+<div class="card p-2 font-12">
+    <F3:repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
+      <div class="alert alert-{{ @msg.status }} alert-dismissible show fade">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <i class="fa fa-info-circle"></i>&nbsp;&nbsp;{{ @msg.text | esc }}
+      </div>
+    </F3:repeat>
+    
+    <div class="row mb-1">
+      <div class="col-md-8">
+        <a href="{{ @BASE.'/item/create' }}" class="btn btn-success btn-sm">
+          Tambah Barang
+        </a>
+      </div>
+      <div class="col-md-4 pull-right">
+        <div class="input-group">
+          <input id="searching" class="form-control form-control-sm" placeholder="Cari Data ...">
+          <span class="input-group-append">
+            <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
+          </span>
+        </div>
+      </div>
+    </div>
+      
+    <table id="simple_table" class="table table-striped" style="width:100%">
+      <thead class="bg-app">
+        <tr>
+          <th>Kode Barang</th>
+          <th>Part Number</th>
+          <th>Nama Barang</th>
+          <th>Unit</th>
+          <th>Stamping</th>
+          <th>Harga</th>
+          <th>Pilihan</th>
+        </tr>
+      </thead>
+      <tbody>
+		<repeat group="{{ @data_item }}" value="{{ $item }}">
+		  <tr>
+			<td>{{ strtoupper(@item.item_code) }}</td>
+			<td>{{ strtoupper(@item.item_part_no) }}</td>
+			<td>{{ strtoupper(@item.item_desc) }}</td>
+			<td>{{ strtoupper(@item.item_unit) }}</td>
+			<td>{{ strtoupper(@item.item_stamping) }}</td>
+			<td>Rp <span style="float:right; margin-right:25px">{{ @item.item_price }}</span></td>
+			<td>
+			  <check if="{{ @item.item_image === NULL }}">
+				<true>
+				  <a href="javascript:voice(0)" class="badge badge-success p-1" title="Lihat Produk" onclick="return alert('Gambar tidak ditemukan !')"><i class="fa fa-image"></i></a>
+				</true>
+				<false>
+				  <a href="../../ui/assets/img/item/{{ @item.item_image }}" class="badge badge-success p-1" title="Lihat Produk" target="_blank"><i class="fa fa-image"></i></a>
+				</false>
+			  </check>
+			  <a href="{{ @BASE.'/item/update/'.@item.item_id }}" class="badge badge-info p-1" title="Edit Data"><i class="fa fa-pen"></i></a>
+			</td>
+		  </tr>
+		</repeat>
+	  </tbody>
+    </table>
+  </div>

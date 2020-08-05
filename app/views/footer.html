@@ -19,6 +19,7 @@
   <!-- Datatable Data -->
   <include href="datatables/user.html">
   <include href="datatables/model.html">
+  <include href="datatables/merk.html">
   <include href="datatables/customer.html">
   <include href="datatables/item.html">
   <include href="datatables/stock.html">
@@ -93,6 +94,20 @@
 	  modal.find('.modal-body input[name=model_desc]').val(model_desc);
 	});
 	
+	/* Model */
+	$('#update_merk').on('show.bs.modal', function(event){
+	  var button = $(event.relatedTarget);
+	  var merk_id = button.data('merk_id');
+	  var merk_code = button.data('merk_code');
+	  var merk_desc = button.data('merk_desc');
+	  
+	  var modal = $(this);
+	  modal.find('.modal-title').text('Update : ' + merk_code);
+	  modal.find('.modal-body input[name=merk_id]').val(merk_id);
+	  modal.find('.modal-body input[name=merk_code]').val(merk_code);
+	  modal.find('.modal-body input[name=merk_desc]').val(merk_desc);
+	});
+	
 	/* Customer */
 	$('#update_customer').on('show.bs.modal', function(event){
 	  var button = $(event.relatedTarget);
@@ -107,20 +122,22 @@
 	  var customer_city_other = button.data('customer_city_other');
 	  var customer_phone_other = button.data('customer_phone_other');
 	  var customer_note = button.data('customer_note');
+	  var customer_npwp = button.data('customer_npwp');
 	  
 	  var modal = $(this);
 	  modal.find('.modal-title').text('Update : ' + customer_code);
 	  modal.find('.modal-body input[name=customer_id]').val(customer_id);
 	  modal.find('.modal-body input[name=customer_code]').val(customer_code);
 	  modal.find('.modal-body input[name=customer_name]').val(customer_name);
-	  modal.find('.modal-body textarea[name=customer_address]').val(customer_address);
+	  modal.find('.modal-body input[name=customer_address]').val(customer_address);
 	  modal.find('.modal-body input[name=customer_city]').val(customer_city);
 	  modal.find('.modal-body input[name=customer_phone]').val(customer_phone);
 	  modal.find('.modal-body input[name=customer_name_other]').val(customer_name_other);
-	  modal.find('.modal-body textarea[name=customer_address_other]').val(customer_address_other);
+	  modal.find('.modal-body input[name=customer_address_other]').val(customer_address_other);
 	  modal.find('.modal-body input[name=customer_city_other]').val(customer_city_other);
 	  modal.find('.modal-body input[name=customer_phone_other]').val(customer_phone_other);
-	  modal.find('.modal-body textarea[name=customer_note]').val(customer_note);
+	  modal.find('.modal-body input[name=customer_note]').val(customer_note);
+	  modal.find('.modal-body input[name=customer_npwp]').val(customer_npwp);
 	});
 
 	/* Item */

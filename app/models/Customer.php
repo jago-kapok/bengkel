@@ -83,6 +83,7 @@ class Customer extends DB\SQL\Mapper {
 				$data['customer_city_other'],
 				$data['customer_phone_other'],
 				$data['customer_note'],
+				$data['customer_npwp'],
 				$data['customer_id']
 			);
 		}

@@ -8,13 +8,13 @@
   
   <div class="row mb-1">
     <div class="col-md-8">
-      <a class="btn btn-success btn-sm" data-toggle="collapse" href="#create_model">
-	    Tambah Model
+      <a class="btn btn-success btn-sm" data-toggle="collapse" href="#create_merk">
+	    Tambah Merk
 	  </a>
     </div>
     <div class="col-md-4 pull-right">
       <div class="input-group">
-        <input id="model_search" class="form-control form-control-sm" placeholder="Cari Data ...">
+        <input id="merk_search" class="form-control form-control-sm" placeholder="Cari Data ...">
         <span class="input-group-append">
           <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
         </span>
@@ -22,17 +22,17 @@
     </div>
   </div>
   
-  <div id="create_model" class="collapse">
-    <form action="{{ @BASE.'/model/create' }}" method="POST">
+  <div id="create_merk" class="collapse">
+    <form action="{{ @BASE.'/merk/create' }}" method="POST">
 	  <div class="card card-body">
 		<div class="row">
 		<div class="col-md-3">
-		  <label>Kode Model <span class="text-danger">*</span></label>
-		  <input name="model_code" class="form-control form-control-sm" required>
+		  <label>Kode Merk <span class="text-danger">*</span></label>
+		  <input name="merk_code" maxlength="5" class="form-control form-control-sm" value="{{ @merk_code }}" readonly>
 		</div>
 		<div class="col-md-3">
-		  <label>Model <span class="text-danger">*</span></label>
-		  <input name="model_desc" class="form-control form-control-sm" required>
+		  <label>Merk <span class="text-danger">*</span></label>
+		  <input name="merk_desc" class="form-control form-control-sm" required>
 		</div>
 		<div class="col-md-2">
 		  <button type="submit" name="create" class="btn btn-primary btn-sm btn-block" style="margin-top:17px">SAVE</button>
@@ -42,11 +42,11 @@
 	</form>
   </div>
     
-  <table id="model_table" class="table table-striped" style="width:100%">
+  <table id="merk_table" class="table table-striped" style="width:100%">
     <thead class="bg-app">
       <tr>
-        <th>Kode Model</th>
-        <th>Model</th>
+        <th>Kode Merk</th>
+        <th>Merk</th>
         <th>Pilihan</th>
       </tr>
     </thead>
@@ -54,7 +54,7 @@
   </table>
 </div>
 
-<div class="modal fade" id="update_model" role="dialog">
+<div class="modal fade" id="update_merk" role="dialog">
   <div class="modal-dialog modal-sm">
 	<div class="modal-content">
 	  <div class="modal-header bg-info">
@@ -63,17 +63,17 @@
 		  <span>&times;</span>
 		</button>
 	  </div>
-	  <form action="{{ @BASE.'/model/update/' }}" method="POST">
+	  <form action="{{ @BASE.'/merk/update/' }}" method="POST">
 		<div class="modal-body">
-		  <input type="hidden" name="model_id">
+		  <input type="hidden" name="merk_id">
 		  <div class="container p-2">
 			<div class="form-group row">
-			  <label>Kode Model <span class="text-danger">*</span></label>
-			  <input name="model_code" class="form-control form-control-sm" required>
+			  <label>Kode merk <span class="text-danger">*</span></label>
+			  <input name="merk_code" maxlength="5" class="form-control form-control-sm" readonly>
 			</div>
 			<div class="form-group row">
-			  <label>Model <span class="text-danger">*</span></label>
-			  <input name="model_desc" class="form-control form-control-sm" required>
+			  <label>Deskripsi <span class="text-danger">*</span></label>
+			  <input name="merk_desc" class="form-control form-control-sm" required>
 			</div>
 		  </div>
 		</div>

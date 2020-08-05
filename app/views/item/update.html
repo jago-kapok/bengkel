@@ -5,7 +5,7 @@
 		<div class="col-md-8">
 		  <div class="form-row">
 			<div class="form-group col-md-6">
-			  <label>Kode Barang</label>
+			  <label>Kode Barang <span class="text-danger">*</span></label>
 			  <input name="item_code" class="form-control form-control-sm" value="{{ @POST.item_code }}" required>
 			</div>
 			<div class="form-group col-md-6">
@@ -69,7 +69,11 @@
 			<div class="card" style="margin-bottom: 24px;">
 			  <div class="card-body box-profile">
 				<div class="text-center">
-				  <img id="preview_image" class="profile-user-img img-fluid" src="../../ui/assets/img/img.png">
+				  <check if="{{ pathinfo(@POST.item_image, PATHINFO_EXTENSION) == 'pdf' }}">
+				    <true>
+					  <img id="preview_image" class="profile-user-img img-fluid" src="../../ui/assets/img/pdf.png" width="250">
+				    </true>
+				  </check>
 				</div>
 			  </div>
 			</div>
