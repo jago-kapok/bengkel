@@ -26,11 +26,11 @@
     <table id="supplier_table" class="table table-striped" style="width:100%">
         <thead class="bg-app">
             <tr>
-                <th>ID Supplier</th>
+                <th>Kode Supplier</th>
                 <th>Nama</th>
                 <th>Alamat</th>
                 <th>Kota</th>
-                <th>No. Telepon</th>
+                <th>Telepon</th>
                 <th>Pilihan</th>
             </tr>
         </thead>
@@ -51,13 +51,13 @@
                 <div class="modal-body">
                     <div class="container p-2">
                         <div class="form-group">
-                            <label>ID Supplier</label>
-                            <input name="supplier_code" class="form-control form-control-sm">
+                            <label>Kode Supplier</label>
+                            <input name="supplier_code" class="form-control form-control-sm" value="{{ @supplier_code }}" readonly>
                         </div>
 
                         <div class="form-group">
-                            <label>Nama</label>
-                            <input name="supplier_name" class="form-control form-control-sm">
+                            <label>Nama <span class="text-danger">*</span></label>
+                            <input name="supplier_name" class="form-control form-control-sm" required>
                         </div>
 
                         <div class="form-group">
@@ -68,20 +68,25 @@
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label>Kota</label>
-								<input name="supplier_city" class="form-control form-control-sm">
+								<input name="supplier_city" class="form-control form-control-sm" required>
 							</div>
 
 							<div class="form-group col-md-6">
-								<label>No. Telepon</label>
+								<label>Telepon</label>
 								<input name="supplier_phone" class="form-control form-control-sm">
 							</div>
 						</div>
+						
+						<div class="form-group">
+                            <label>NPWP</label>
+                            <input name="supplier_npwp" class="form-control form-control-sm">
+                        </div>
                     </div>
                 </div>
 
                 <div class="modal-footer bg-light">
-                    <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Simpan</button>
-                    <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
+                    <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">SAVE</button>
+                    <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">EXIT</button>
                 </div>
             </form>
         </div>
@@ -102,13 +107,13 @@
                     <input type="hidden" name="supplier_id">
                     <div class="container p-2">
                         <div class="form-group">
-                            <label>ID Supplier</label>
-                            <input name="supplier_code" class="form-control form-control-sm">
+                            <label>Kode Supplier</label>
+                            <input name="supplier_code" class="form-control form-control-sm" readonly>
                         </div>
 
                         <div class="form-group">
-                            <label>Nama</label>
-                            <input name="supplier_name" class="form-control form-control-sm">
+                            <label>Nama <span class="text-danger">*</span></label>
+                            <input name="supplier_name" class="form-control form-control-sm" required>
                         </div>
 
                         <div class="form-group">
@@ -118,21 +123,26 @@
 
 						<div class="form-row">
 							<div class="form-group col-md-6">
-								<label>Kota</label>
-								<input name="supplier_city" class="form-control form-control-sm">
+								<label>Kota <span class="text-danger">*</span></label>
+								<input name="supplier_city" class="form-control form-control-sm" required>
 							</div>
 
 							<div class="form-group col-md-6">
-								<label>No. Telepon</label>
+								<label>Telepon</label>
 								<input name="supplier_phone" class="form-control form-control-sm">
 							</div>
 						</div>
+						
+						<div class="form-group">
+                            <label>NPWP</label>
+                            <input name="supplier_npwp" class="form-control form-control-sm">
+                        </div>
                     </div>
                 </div>
 
                 <div class="modal-footer bg-light">
-                    <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">Simpan</button>
-                    <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
+                    <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">SAVE</button>
+                    <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">EXIT</button>
                 </div>
             </form>
         </div>

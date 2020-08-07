@@ -56,7 +56,7 @@ class Quotation extends DB\SQL\Mapper {
 		foreach($query as $data) {
 			$output['data'][] = array(
 				$data['quotation_number'],
-				date('d F Y', strtotime($data['quotation_date'])),
+				date('d-m-Y', strtotime($data['quotation_date'])),
 				$data['customer_name'],
 				$data['quotation_serial_number'],
 				$data['quotation_engine'],

@@ -187,6 +187,7 @@
 	  var supplier_address = button.data('supplier_address');
 	  var supplier_city = button.data('supplier_city');
 	  var supplier_phone = button.data('supplier_phone');
+	  var supplier_npwp = button.data('supplier_npwp');
 	  
 	  var modal = $(this);
 	  modal.find('.modal-title').text('Update : ' + supplier_code);
@@ -196,6 +197,7 @@
 	  modal.find('.modal-body input[name=supplier_address]').val(supplier_address);
 	  modal.find('.modal-body input[name=supplier_city]').val(supplier_city);
 	  modal.find('.modal-body input[name=supplier_phone]').val(supplier_phone);
+	  modal.find('.modal-body input[name=supplier_npwp]').val(supplier_npwp);
 	});
 	
 	/* ============================================================== */
@@ -236,6 +238,10 @@
 	  $('input[name=customer_phone]').empty();
 	  $('input[name=customer_city]').empty();
 	  $('input[name=customer_address]').empty();
+	  $('input[name=customer_name_other]').empty();
+	  $('input[name=customer_phone_other]').empty();
+	  $('input[name=customer_city_other]').empty();
+	  $('input[name=customer_address_other]').empty();
 	  $('input[name=customer_notes]').empty();
 	  
 	  $.getJSON("{{ @BASE.'/customer/get-data/' }}" + this.value, function(data){
@@ -245,6 +251,10 @@
 		  $('input[name=customer_phone]').val(value.customer_phone);
 		  $('input[name=customer_city]').val(value.customer_city);
 		  $('input[name=customer_address]').val(value.customer_address);
+		  $('input[name=customer_name_other]').val(value.customer_name_other);
+		  $('input[name=customer_phone_other]').val(value.customer_phone_other);
+		  $('input[name=customer_city_other]').val(value.customer_city_other);
+		  $('input[name=customer_address_other]').val(value.customer_address_other);
 		  $('input[name=customer_notes]').val(value.customer_notes);
 		});
 	  });
@@ -395,7 +405,7 @@
 	  let quotation_service_charge = $("#service_charge").val();
 	  let quotation_ppn_percentage = $("#ppn").val();
 	  
-	  let total_no_ppn = (parseInt(quotation_part_charge) + parseInt(quotation_service_charge) - parseInt(quotation_discount));
+	  let total_no_ppn = (parseInt(quotation_part_charge) - parseInt(quotation_discount)) + parseInt(quotation_service_charge);
 	  let quotation_ppn =  parseInt(total_no_ppn) * (parseInt(quotation_ppn_percentage) / 100);
 	  let grand_total = parseInt(total_no_ppn) + parseInt(quotation_ppn);
 	  
@@ -433,7 +443,7 @@
 	  let quotation_service_charge = $("#service_charge").val();
 	  let quotation_ppn_percentage = $("#ppn").val();
 	  
-	  let total_no_ppn = (parseInt(quotation_part_charge) + parseInt(quotation_service_charge) - parseInt(quotation_discount));
+	  let total_no_ppn = (parseInt(quotation_part_charge) - parseInt(quotation_discount)) + parseInt(quotation_service_charge);
 	  let quotation_ppn =  parseInt(total_no_ppn) * (parseInt(quotation_ppn_percentage) / 100);
 	  let grand_total = parseInt(total_no_ppn) + parseInt(quotation_ppn);
 	  

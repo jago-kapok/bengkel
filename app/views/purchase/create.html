@@ -3,15 +3,15 @@
     <div class="row">
 	  <div class="col-md-6">
 		<div class="form-group row">
-		  <label class="col-sm-3"><b>No. Penawaran</b></label>
+		  <label class="col-sm-3"><b>No. Invoice</b></label>
 		  <div class="col-md-4">
-		    <input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice / Nota Pembelian" data-toggle="tooltip" title="No. Invoice / Nota Pembelian" required>
+		    <input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" required>
 		  </div>
 		</div>
 		<div class="form-group row">
-		  <label class="col-sm-3"><b>Tgl. Penawaran</b></label>
+		  <label class="col-sm-3"><b>Tanggal</b></label>
 		  <div class="col-md-4">
-		    <input type="date" name="purchase_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. Pembelian" required>
+		    <input type="date" name="purchase_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tanggal" required>
 		  </div>
 		</div>
 	  </div>
@@ -19,38 +19,43 @@
 	  <div class="col-md-6">
 		<div class="form-group row">
 		  <label class="col-sm-3"><b>Kode Supplier</b></label>
-		  <div class="col-md-4">
-			<input name="supplier_code" class="form-control form-control-sm form-app" list="data-supplier" placeholder="ID Supplier" data-toggle="tooltip" title="ID SUPPLIER" autocomplete="off" required>
+		  <div class="col-md-3">
+			<input name="supplier_code" class="form-control form-control-sm form-app" list="data-supplier" placeholder="Kode Supplier" data-toggle="tooltip" title="KODE SUPPLIER" autocomplete="off" required>
 			<input type="hidden" name="supplier_id" class="form-control form-control-sm form-app">
 		  </div>
-		  <div class="col-md-5">
+		  <div class="col-md-6">
 			<input name="supplier_name" class="form-control form-control-sm form-app" placeholder="Nama Supplier" readonly>
 		  </div>
 		</div>
 		<div class="form-group row">
 		  <label class="col-sm-3"><b>Alamat</b></label>
-		  <div class="col-md-9">
+		  <div class="col-md-6">
 			<input name="supplier_address" class="form-control form-control-sm form-app" placeholder="Alamat" readonly>
+		  </div>
+		  <div class="col-md-3">
+			<input name="supplier_city" class="form-control form-control-sm form-app" placeholder="Kota" readonly>
 		  </div>
 		</div>
 		<div class="form-group row">
-		  <label class="col-sm-3"><b>No. Telepon</b></label>
+		  <label class="col-sm-3"><b>Telepon</b></label>
 		  <div class="col-md-4">
-			<input name="supplier_phone" class="form-control form-control-sm form-app" placeholder="No. Telepon" readonly>
+			<input name="supplier_phone" class="form-control form-control-sm form-app" placeholder="Telepon" readonly>
 		  </div>
 		</div>
 	  </div>
 	  
-	  <div class="row m-0">
+	  <div class="row m-3">
 		<table class="table table-bordered table-responsive">
 		  <thead>
 			<tr class="bg-primary">
 			  <th class="width-100">Kode</th>
-			  <th class="width-100">No. Part</th>
-			  <th class="width-500">Deskripsi</th>
-			  <th>Qty</th>
-			  <th class="width-150">Harga / Unit</th>
+			  <th class="width-100">Part Number</th>
+			  <th class="width-500">Nama Barang</th>
+			  <th class="width-75">Qty</th>
+			  <th class="width-150">Price</th>
 			  <th class="width-150">Merk</th>
+			  <th class="width-150">Siapa</th>
+			  <th class="width-150">Amount</th>
 			  <th>#</th>
 			</tr>
 		  </thead>
@@ -69,10 +74,16 @@
 			    <input type="number" id="item_qty_{{ @i }}" name="data[{{ @i }}][item_qty]" class="number-only" style="width:100%" onkeyup="return getTotal({{ @i }})">
 			  </td>
 			  <td>
-			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][item_price]" class="number-only readonly" style="width:100%" onkeyup="return getTotal({{ @i }})" readonly>
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][item_price]" class="number-only" style="width:100%" onkeyup="return getTotal({{ @i }})">
 			  </td>
 			  <td>
-			    <input id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand_1]" class="readonly" style="width:100%" readonly>
+			    <input id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand_1]" style="width:100%">
+			  </td>
+			  <td>
+			    <input id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand_1]" style="width:100%">
+			  </td>
+			  <td>
+			    <input id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand_1]" class="number-only" style="width:100%">
 			  </td>
 			  <td>
 			    <center>
@@ -84,12 +95,29 @@
 			</tr>
 			</loop>
 		  </tbody>
+		  <tbody style="border-top:1px double">
+			<tr>
+			  <td colspan="6" style="border-color:transparent; border-right:1px solid"></td>
+			  <td><b>Total Harga</b></td>
+			  <td colspan="2"><input name="" class="number-only"></td>
+			</tr>
+			<tr>
+			  <td colspan="6" style="border-color:transparent; border-right:1px solid"></td>
+			  <td><b>PPN</b></td>
+			  <td colspan="2"><input name="purchase_ppn" class="number-only"></td>
+			</tr>
+			<tr>
+			  <td colspan="6" style="border-color:transparent; border-right:1px solid"></td>
+			  <td><b>Grand Total</b></td>
+			  <td colspan="2"><input name="purchase_total" class="number-only"></td>
+			</tr>
+		  </tbody>
 		</table>
 	  </div>
 	</div>
 	<div class="card-footer">
 	  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form"><b>Simpan</b></button>
-	  <a href="../../quotation" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
+	  <a href="../../purchase" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
 	</div>
   </form>
 </div>

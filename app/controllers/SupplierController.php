@@ -3,6 +3,17 @@
 class SupplierController extends Controller {
 
 	public function index(){
+		$current = 'S';
+		$query = $this->db->exec("SELECT MAX(supplier_code) AS last FROM supplier WHERE supplier_code LIKE '$current%'");
+		foreach($query as $result){
+			$last = $result['last'];
+		}
+		$lastNo = substr($last, 1, 4);
+		$nextNo = $lastNo + 1;
+		$supplier_code = $current.sprintf('%04s', $nextNo);
+		$this->f3->set('supplier_code', $supplier_code);
+		/* Supplier Code */
+		
 		$this->f3->set('page_title','Data Supplier');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','supplier/index.html');

@@ -1,54 +1,42 @@
 <div class="">
   <form action="{{ @BASE.'/quotation/update/'.@PARAMS.quotation_id }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="quotation_status" value="1">
+    <input type="hidden" name="quotation_number" value="{{ @POST.quotation_number }}">
     <div class="">
 	  <div class="row">
-		<div class="col-md-2">
+		<div class="col-md-2 offset-md-8">
 		  <div class="input-group mb-2">
 			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">No. :</span>
-			</div>
-			<input name="quotation_number" class="form-control form-control-sm form-app" value="{{ @POST.quotation_number }}" readonly>
-		  </div>
-		</div>
-		<div class="col-md-2 offset-4">
-		  <div class="input-group mb-2">
-			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">FP</span>
-			</div>
-			<input class="form-control form-control-sm form-app" value="{{ @invoice_tax_number }}" data-toggle="tooltip" title="FAKTUR PAJAK" readonly>
-		  </div>
-		</div>
-		<div class="col-md-2">
-		  <div class="input-group mb-2">
-			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">TT</span>
+			  <span class="input-group-text form-app">TT IN</span>
 			</div>
 			<input type="date" name="quotation_received_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d', strtotime(@POST.quotation_received_date)) }}" data-toggle="tooltip" title="Tgl. TANDA TERIMA" required>
 		  </div>
 		</div>
 		<div class="col-md-2">
-		  <div class="form-group">
-			<input type="date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d', strtotime(@POST.quotation_date)) }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">TANGGAL</span>
+			</div>
+			<input type="date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d', strtotime(@POST.quotation_date)) }}" data-toggle="tooltip" title="Tgl. PENAWARAN">
 		  </div>
 		</div>
 	  </div>
 	  
 	  <div class="row">
-		<div class="col-md-2">
+		<div class="col-md-1">
 		  <div class="form-group">
-			<input name="customer_code" class="form-control form-control-sm form-app" value="{{ @POST.customer_code }}" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" required>
+			<input name="customer_code" class="form-control form-control-sm form-app" value="{{ @POST.customer_code }}" placeholder="KODE" data-toggle="tooltip" title="ID PELANGGAN" style="font-weight:bold" required>
 			<input type="hidden" name="customer_id" class="form-control form-control-sm form-app" value="{{ @POST.customer_id }}">
 		  </div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-3">
 		  <div class="form-group">
-			<input name="customer_name" class="form-control form-control-sm form-app" placeholder="Nama Pelanggan" value="{{ @POST.customer_name }}" readonly>
+			<input name="customer_name" class="form-control form-control-sm form-app" placeholder="Nama Pelanggan" value="{{ @POST.customer_name }}" style="font-weight:bold" readonly>
 		  </div>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-4">
 		  <div class="form-group">
-			<input name="customer_phone" class="form-control form-control-sm form-app" placeholder="No. Telepon" value="{{ @POST.customer_phone }}" readonly>
+			<input name="customer_address" class="form-control form-control-sm form-app" placeholder="Alamat" value="{{ @POST.customer_address }}" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2">
@@ -56,32 +44,47 @@
 			<input name="customer_city" class="form-control form-control-sm form-app" placeholder="Kota" value="{{ @POST.customer_city }}" readonly>
 		  </div>
 		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input name="customer_phone" class="form-control form-control-sm form-app" placeholder="Telepon" value="{{ @POST.customer_phone }}" readonly>
+		  </div>
+		</div>
 	  </div>
 	  <div class="row">
-		<div class="col-md-6 offset-md-2">
+		<div class="col-md-3 offset-md-1">
 		  <div class="form-group">
-			<input name="customer_address" class="form-control form-control-sm form-app" placeholder="Alamat Pelanggan" value="{{ @POST.customer_address }}" readonly>
+			<input name="customer_note" class="form-control form-control-sm form-app" placeholder="Catatan" value="{{ @POST.customer_note }}" readonly>
 		  </div>
 		</div>
 		<div class="col-md-4">
 		  <div class="form-group">
-			<input name="customer_note" class="form-control form-control-sm form-app" placeholder="Catatan" value="{{ @POST.customer_note }}" readonly>
+			<input name="customer_address_other" class="form-control form-control-sm form-app" placeholder="Alamat" value="{{ @POST.customer_address_other }}" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input name="customer_city_other" class="form-control form-control-sm form-app" placeholder="Kota" value="{{ @POST.customer_city_other }}" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input name="customer_phone_other" class="form-control form-control-sm form-app" placeholder="Telepon" value="{{ @POST.customer_phone_other }}" readonly>
 		  </div>
 		</div>
 	  </div>
 	  
 	  <div class="row">
-		<div class="col-md-2">
+		<div class="col-md-1">
 		  <div class="form-group">
 			<select name="quotation_model" class="form-control form-control-sm form-app" data-toggle="tooltip" title="MODEL" required>
-			  <option disabled selected>-- PILIH MODEL --</option>
+			  <option disabled selected>- MODEL -</option>
 			  <repeat group="{{ @data_model }}" value="{{ $model }}">
-				<option value="{{ @model.model_desc }}" <check if="{{ @POST.quotation_model == @model.model_desc }}">selected</check>>{{ @model.model_code }} | {{ @model.model_desc }}</option>
+				<option value="{{ @model.model_desc }}" <check if="{{ @POST.quotation_model == @model.model_desc }}">selected</check>>{{ @model.model_desc }}</option>
 			  </repeat>
 			</select>
 		  </div>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 		  <div class="form-group">
 			<input name="quotation_engine" class="form-control form-control-sm form-app" placeholder="Engine" value="{{ @POST.quotation_engine }}" data-toggle="tooltip" title="ENGINE">
 		  </div>
@@ -108,15 +111,15 @@
 		  <thead>
 			<tr class="bg-primary">
 			  <th class="col-md-1">Kode</th>
-			  <th class="col-md-1">No. Part</th>
-			  <th class="col-md-1">Deskripsi</th>
+			  <th class="col-md-1">Part Number</th>
+			  <th class="col-md-1">Nama Barang</th>
 			  <th class="col-md-1">Qty</th>
 			  <th class="col-md-1">Up</th>
 			  <th class="col-md-1">Modal</th>
-			  <th class="col-md-1">Harga</th>
-			  <th class="col-md-1">Harga (Up)</th>
+			  <th class="col-md-1">Price</th>
+			  <th class="col-md-1">Price (Up)</th>
 			  <th class="col-md-1">Merk</th>
-			  <th class="col-md-1">Total</th>
+			  <th class="col-md-1">Amount</th>
 			  <th class="col-md-1">#</th>
 			</tr>
 		  </thead>
@@ -195,27 +198,35 @@
 	  <div class="row">
 		<div class="col-md-9">
 		  <div class="form-group row">
-			<label class="col-md-2">NOZZLE</label>
-			<div class="col-md-8">
+			<label class="col-md-1">NOZZLE</label>
+			<div class="col-md-6">
 			  <input name="quotation_nozzle" class="form-control form-control-sm form-app" value="{{ @POST.quotation_nozzle }}">
+			</div>
+			<div class="col-md-3">
+			  <div class="input-group">
+				<div class="input-group-prepend">
+				  <span class="input-group-text form-app">FAKTUR</span>
+				</div>
+				<input class="form-control form-control-sm form-app" value="{{ @invoice_tax_number }}" data-toggle="tooltip" title="FAKTUR PAJAK" readonly>
+			  </div>
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2">KETERANGAN</label>
-			<div class="col-md-8">
+			<label class="col-md-1">KET.</label>
+			<div class="col-md-9">
 			  <input name="quotation_note_1" class="form-control form-control-sm form-app" value="{{ @POST.quotation_note_1 }}">
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2"></label>
-			<div class="col-md-8">
+			<label class="col-md-1"></label>
+			<div class="col-md-9">
 			  <input name="quotation_note_2" class="form-control form-control-sm form-app" value="{{ @POST.quotation_note_2 }}">
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2">TERBILANG</label>
+			<label class="col-md-1">CASH</label>
 			<div class="col-md-8">
-			  <span class="font-12"><i>{{ @quotation_terbilang }} Rupiah</i></span>
+			  <span class="font-12"><i>{{ @POST.invoice_note_payment }}</i></span>
 			</div>
 		  </div>
 		</div>
@@ -262,10 +273,10 @@
 	  </div>
 	</div>
 	<div class="card-footer">
-	  <button type="submit" name="update" class="btn btn-primary btn-sm btn-form mr-1"><b>Update</b></button>
-	  <a href="{{ @BASE.'/quotation/upload/'.@PARAMS.quotation_id }}" class="btn btn-info btn-sm btn-form mr-1"><b>Foto</b></a>
-	  <a href="{{ @BASE.'/quotation/print/'.@PARAMS.quotation_id }}" class="btn btn-success btn-sm btn-form mr-1"><b>Cetak</b></a>
-	  <a href="{{ @BASE.'/quotation' }}" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
+	  <button type="submit" name="update" class="btn btn-primary btn-sm btn-form mr-1"><b>SAVE</b></button>
+	  <a href="{{ @BASE.'/quotation/upload/'.@PARAMS.quotation_id }}" class="btn btn-info btn-sm btn-form mr-1"><b>FOTO</b></a>
+	  <a href="{{ @BASE.'/quotation/print/'.@PARAMS.quotation_id }}" class="btn btn-success btn-sm btn-form mr-1"><b>PRINT</b></a>
+	  <a href="{{ @BASE.'/quotation' }}" class="btn btn-danger btn-sm btn-form"><b>EXIT</b></a>
 	</div>
   </form>
 </div>

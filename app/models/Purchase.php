@@ -48,7 +48,7 @@ class Purchase extends DB\SQL\Mapper {
 				$data['purchase_number'],
 				date('d F Y', strtotime($data['purchase_date'])),
 				$data['supplier_name'],
-				$data['supplier_phone'],
+				$data['purchase_amount'],
 				$data['purchase_id']
 			);
 		}

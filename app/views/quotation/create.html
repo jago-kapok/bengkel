@@ -3,44 +3,39 @@
     <input type="hidden" name="quotation_status" value="1">
     <div class="">
 	  <div class="row">
-		<div class="col-md-2">
+		<div class="col-md-2 offset-8">
 		  <div class="input-group mb-2">
 			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">NO. :</span>
-			</div>
-			<input name="" class="form-control form-control-sm form-app" value="{{ @quotation_number }}" readonly>
-		  </div>
-		</div>
-		<div class="col-md-2 offset-6">
-		  <div class="input-group mb-2">
-			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">TT</span>
+			  <span class="input-group-text form-app">TT IN</span>
 			</div>
 			<input type="date" name="quotation_received_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. TANDA TERIMA" required>
 		  </div>
 		</div>
 		<div class="col-md-2">
-		  <div class="form-group">
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">TANGGAL</span>
+			</div>
 			<input type="date" name="" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
 		  </div>
 		</div>
 	  </div>
 	  
 	  <div class="row">
-		<div class="col-md-2">
+		<div class="col-md-1">
 		  <div class="form-group">
-			<input name="customer_code" class="form-control form-control-sm form-app" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" required>
+			<input name="customer_code" class="form-control form-control-sm form-app" placeholder="KODE" data-toggle="tooltip" title="ID PELANGGAN" style="font-weight:bold" required>
 			<input type="hidden" name="customer_id" class="form-control form-control-sm form-app">
 		  </div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-3">
 		  <div class="form-group">
-			<input name="customer_name" class="form-control form-control-sm form-app" placeholder="Nama Pelanggan" readonly>
+			<input name="customer_name" class="form-control form-control-sm form-app" placeholder="Nama Pelanggan" style="font-weight:bold" readonly>
 		  </div>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-4">
 		  <div class="form-group">
-			<input name="customer_phone" class="form-control form-control-sm form-app" placeholder="No. Telepon" readonly>
+			<input name="customer_address" class="form-control form-control-sm form-app" placeholder="Alamat" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2">
@@ -48,32 +43,47 @@
 			<input name="customer_city" class="form-control form-control-sm form-app" placeholder="Kota" readonly>
 		  </div>
 		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input name="customer_phone" class="form-control form-control-sm form-app" placeholder="Telepon" readonly>
+		  </div>
+		</div>
 	  </div>
 	  <div class="row">
-		<div class="col-md-6 offset-md-2">
+		<div class="col-md-3 offset-md-1">
 		  <div class="form-group">
-			<input name="customer_address" class="form-control form-control-sm form-app" placeholder="Alamat Pelanggan" readonly>
+			<input name="customer_note" class="form-control form-control-sm form-app" placeholder="Catatan" readonly>
 		  </div>
 		</div>
 		<div class="col-md-4">
 		  <div class="form-group">
-			<input name="customer_note" class="form-control form-control-sm form-app" placeholder="Catatan" readonly>
+			<input name="customer_address_other" class="form-control form-control-sm form-app" placeholder="Alamat" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input name="customer_city_other" class="form-control form-control-sm form-app" placeholder="Kota" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input name="customer_phone_other" class="form-control form-control-sm form-app" placeholder="Telepon" readonly>
 		  </div>
 		</div>
 	  </div>
 	  
 	  <div class="row">
-		<div class="col-md-2">
+		<div class="col-md-1">
 		  <div class="form-group">
 			<select name="quotation_model" class="form-control form-control-sm form-app" data-toggle="tooltip" title="MODEL" required>
-			  <option disabled selected>-- PILIH MODEL --</option>
+			  <option disabled selected>- MODEL -</option>
 			  <repeat group="{{ @data_model }}" value="{{ $model }}">
-				<option value="{{ @model.model_desc }}">{{ @model.model_code }} | {{ @model.model_desc }}</option>
+				<option value="{{ @model.model_desc }}">{{ @model.model_desc }}</option>
 			  </repeat>
 			</select>
 		  </div>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 		  <div class="form-group">
 			<input name="quotation_engine" class="form-control form-control-sm form-app" placeholder="Engine" data-toggle="tooltip" title="ENGINE">
 		  </div>
@@ -105,10 +115,10 @@
 			  <th class="col-md-1">Qty</th>
 			  <th class="col-md-1">Up</th>
 			  <th class="col-md-1">Modal</th>
-			  <th class="col-md-1">Harga</th>
-			  <th class="col-md-1">Harga (Up)</th>
+			  <th class="col-md-1">Price</th>
+			  <th class="col-md-1">Price (Up)</th>
 			  <th class="col-md-1">Merk</th>
-			  <th class="col-md-1">Total</th>
+			  <th class="col-md-1">Amount</th>
 			  <th class="col-md-1">#</th>
 			</tr>
 		  </thead>
@@ -153,20 +163,20 @@
 	  <div class="row">
 		<div class="col-md-9">
 		  <div class="form-group row">
-			<label class="col-md-2">NOZZLE</label>
-			<div class="col-md-8">
+			<label class="col-md-1">NOZZLE</label>
+			<div class="col-md-9">
 			  <input name="quotation_nozzle" class="form-control form-control-sm form-app">
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2">KETERANGAN</label>
-			<div class="col-md-8">
+			<label class="col-md-1">KET.</label>
+			<div class="col-md-9">
 			  <input name="quotation_note_1" class="form-control form-control-sm form-app">
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2"></label>
-			<div class="col-md-8">
+			<label class="col-md-1"></label>
+			<div class="col-md-9">
 			  <input name="quotation_note_2" class="form-control form-control-sm form-app">
 			</div>
 		  </div>
@@ -214,8 +224,8 @@
 	  </div>
 	</div>
 	<div class="card-footer">
-	  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form"><b>Simpan</b></button>
-	  <a href="../../quotation" class="btn btn-danger btn-sm btn-form"><b>Kembali</b></a>
+	  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form"><b>SAVE</b></button>
+	  <a href="../../quotation" class="btn btn-danger btn-sm btn-form"><b>EXIT</b></a>
 	</div>
   </form>
 </div>

@@ -58,7 +58,8 @@ class Supplier extends DB\SQL\Mapper {
 				$data['supplier_address'],
 				$data['supplier_city'],
 				$data['supplier_phone'],
-				$data['supplier_id']
+				$data['supplier_id'],
+				$data['supplier_npwp']
 			);
 		}
 

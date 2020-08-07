@@ -29,7 +29,7 @@ $(document).ready(function(){
 			var admin = 'hidden';
 		  }
 		  
-		  return '<a href="{{ @BASE."/quotation/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Penawaran" target="_blank"><i class="fa fa-print"></i></a> <a href="{{ @BASE."/quotation/update/' + data + '" }}" class="badge badge-info p-1" title="Perbarui Data"><i class="fa fa-pen"></i></a> <a href="{{ @BASE."/quotation/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Penawaran"' + admin + '><i class="fa fa-search"></i></a> <a href="{{ @BASE."/quotation/cancel/' + data + '" }}" class="badge badge-danger p-1" title="Batalkan Penawaran" onclick="return confirm(\'Anda ingin membatalkan penawaran : ' + full[0] + ' ?\')"><i class="fa fa-ban"></i></a>';
+		  return '<a href="{{ @BASE."/quotation/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Penawaran" target="_blank"><i class="fa fa-print"></i></a> <a href="{{ @BASE."/quotation/update/' + data + '" }}" class="badge badge-info p-1" title="Edit Data"><i class="fa fa-pen"></i></a> <a href="{{ @BASE."/quotation/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Penawaran"' + admin + '><i class="fa fa-search"></i></a> <a href="{{ @BASE."/quotation/cancel/' + data + '" }}" class="badge badge-danger p-1" title="Batalkan Penawaran" onclick="return confirm(\'Anda ingin membatalkan penawaran : ' + full[0] + ' ?\')"><i class="fa fa-ban"></i></a>';
 		}
 	  }
 	]

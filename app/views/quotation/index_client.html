@@ -1,0 +1,49 @@
+<div class="card p-2 font-12">
+  <div class="row mb-1">
+	<div class="col-md-8">
+	  <a href="{{ @BASE.'/quotation/create' }}" class="btn btn-success btn-sm mr-1">
+	    Penawaran Baru
+	  </a>
+	  <a href="{{ @BASE.'/quotation-cancel' }}" class="btn btn-danger btn-sm">Lihat Penawaran Batal</a>
+	</div>
+	<div class="col-md-4 pull-right">
+	  <input id="searching" class="form-control form-control-sm" placeholder="Cari Data ...">
+	</div>
+  </div>
+  
+  <table id="simple_table" class="table table-striped" style="width:100%">
+	<thead class="bg-app">
+      <tr>
+        <th>Penawaran</th>
+		<th class="width-125">Tgl. Penawaran</th>
+        <th>Nama Pelanggan</th>
+        <th>S/N</th>
+        <th>Engine</th>
+        <th class="width-100">Total</th>
+        <th>Invoice</th>
+        <th class="width-75">Pilihan</th>
+      </tr>
+    </thead>
+	<tbody>
+	  <repeat group="{{ @data_quotation }}" value="{{ $quotation }}">
+	    <tr>
+		  <td>{{ @quotation.quotation_number }}</td>
+		  <td>{{ date('d F Y', strtotime(@quotation.quotation_date)) }}</td>
+		  <td>{{ @quotation.customer_name }}</td>
+		  <td>{{ @quotation.quotation_serial_number }}</td>
+		  <td>{{ @quotation.quotation_engine }}</td>
+		  <td>Rp <span style="float:right; margin-right:25px">{{ number_format(@quotation.quotation_total) }}</span></td>
+		  <td>{{ @quotation.invoice_number }}</td>
+		  <td>
+			<a href="{{ @BASE.'/quotation/print/'.@quotation.quotation_id }}" class="badge badge-success p-1" title="Cetak Quotation" target="_blank"><i class="fa fa-print"></i></a>
+			<check if="{{ @SESSION.level == 1 }}">
+			  <a href="{{ @BASE.'/quotation/view/'.@quotation.quotation_id }}" class="badge badge-warning p-1" title="Lihat Quotation"><i class="fa fa-search"></i></a>
+			</check>
+			<a href="{{ @BASE.'/quotation/update/'.@quotation.quotation_id }}" class="badge badge-info p-1" title="Perbarui Data"><i class="fa fa-pen"></i></a>
+			<a href="{{ @BASE.'/quotation/cancel/'.@quotation.quotation_id }}" class="badge badge-danger p-1" title="Batalkan Quotation" onclick="return confirm('Anda ingin membatalkan quotation nomor : {{ @quotation.quotation_number }} ?')"><i class="fa fa-ban"></i></a>
+		  </td>
+		</tr>
+	  </repeat>
+	</tbody>
+  </table>
+</div>
