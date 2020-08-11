@@ -15,13 +15,22 @@ $(document).ready(function(){
 	  "type": "POST"
 	},
 	"columns": [
-	  { data: 0 }, { data: 1 }, { data: 2 },
+	  {
+	    "render": function (data, type, full){
+		  return '<b>' + data + '</b>';
+		}
+	  }, { data: 1 },
+	  {
+	    "render": function (data, type, full){
+		  return '<b>' + data + '</b>';
+		}
+	  }, { data: 3 }, { data: 4 },
 	  {
 	    "render": function (data, type, full){
 		  return 'Rp <span style="float:right; margin-right:25px">' + data + '</span>';
 		}
 	  },
-	  { data: 4 },
+	  { data: 6 },
 	  {
 		"render": function (data, type, full){
 		  var session_level = $("#session_level").data('value');
@@ -29,7 +38,7 @@ $(document).ready(function(){
 			var admin = 'hidden';
 		  }
 		  
-		  return '<a href="{{ @BASE."/invoice/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Invoice" target="_blank"><i class="fa fa-print"></i></a> <a href="{{ @BASE."/invoice/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Invoice"' + admin + '><i class="fa fa-search"></i></a> <a href="{{ @BASE."/invoice/update/' + data + '" }}" class="badge badge-info p-1" title="Perbarui Data"><i class="fa fa-pen"></i></a> <a href="{{ @BASE."/invoice/cancel/' + full[6] + '" }}" class="badge badge-danger p-1" title="Batalkan Invoice" onclick="return confirm(\'Anda ingin membatalkan invoice nomor : ' + full[0] + ' ?\')"><i class="fa fa-ban"></i></a>';
+		  return '<a href="{{ @BASE."/invoice/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Invoice" target="_blank"><i class="fa fa-print"></i></a> <a href="{{ @BASE."/invoice/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Invoice"' + admin + '><i class="fa fa-search"></i></a> <a href="{{ @BASE."/invoice/update/' + data + '" }}" class="badge badge-info p-1" title="Edit Data"><i class="fa fa-pen"></i></a>';
 		}
 	  }
 	]

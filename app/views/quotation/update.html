@@ -132,7 +132,7 @@
 			  <td>
 			    <input id="item_part_no_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_item_part_no]" value="{{ @quotation_detail.quotation_detail_item_part_no }}" style="width:100px" readonly>
 			  </td>
-			  <td><input id="item_desc_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_item_desc]" value="{{ @quotation_detail.quotation_detail_item_desc }}" style="width:250px" readonly></td>
+			  <td><input id="item_desc_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_item_desc]" value="{{ @quotation_detail.quotation_detail_item_desc }}" style="width:425px" readonly></td>
 			  <td>
 			    <input id="item_qty_{{ @no + 10 }}" name="data[{{ @no + 10 }}][quotation_detail_qty]" class="number-only" value="{{ @quotation_detail.quotation_detail_qty }}" style="width:30px" onkeyup="return getTotal({{ @no + 10 }})">
 			  </td>
@@ -166,7 +166,7 @@
 			  <td>
 			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_part_no]" style="width:100px">
 			  </td>
-			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_desc]" style="width:250px"></td>
+			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][quotation_detail_item_desc]" style="width:425px"></td>
 			  <td>
 			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][quotation_detail_qty]" class="number-only" style="width:30px" onkeyup="return getTotal({{ @i }})">
 			  </td>

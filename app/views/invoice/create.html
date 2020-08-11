@@ -7,42 +7,26 @@
 		<div class="col-md-2">
 		  <div class="input-group mb-2">
 			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">NO. :</span>
-			</div>
-			<input name="" class="form-control form-control-sm form-app" value="{{ @invoice_number }}" readonly>
-		  </div>
-		</div>
-		<div class="col-md-2">
-		  <div class="input-group mb-2">
-			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">FP</span>
-			</div>
-			<input class="form-control form-control-sm form-app" value="{{ @POST.invoice_tax_number }}" data-toggle="tooltip" title="FAKTUR PAJAK">
-		  </div>
-		</div>
-		<div class="col-md-2">
-		  <div class="input-group mb-2">
-			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">PNW</span>
-			</div>
-			<input class="form-control form-control-sm form-app" value="{{ date('d F Y', strtotime(@POST.quotation_date)) }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
-		  </div>
-		</div>
-		<div class="col-md-2">
-		  <div class="input-group mb-2">
-			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">TT</span>
-			</div>
-			<input class="form-control form-control-sm form-app" value="{{ date('d F Y', strtotime(@POST.quotation_received_date)) }}" data-toggle="tooltip" title="Tgl. TANDA TERIMA" readonly>
-			<input type="hidden" name="invoice_received_date" value="{{ date('Y-m-d', strtotime(@POST.quotation_received_date)) }}">
-		  </div>
-		</div>
-		<div class="col-md-2">
-		  <div class="input-group mb-2">
-			<div class="input-group-prepend">
 			  <span class="input-group-text form-app">INV</span>
 			</div>
-			<input name="invoice_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" data-toggle="tooltip" title="Tgl. INVOICE" readonly>
+			<input type="date" name="invoice_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" data-toggle="tooltip" title="Tgl. INVOICE">
+		  </div>
+		</div>
+		<div class="col-md-2 offset-md-4">
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">PNWRN</span>
+			</div>
+			<input class="form-control form-control-sm form-app" value="{{ date('d-m-Y', strtotime(@POST.quotation_date)) }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">TT IN</span>
+			</div>
+			<input class="form-control form-control-sm form-app" value="{{ date('d-m-Y', strtotime(@POST.quotation_received_date)) }}" data-toggle="tooltip" title="Tgl. TANDA TERIMA" readonly>
+			<input type="hidden" name="invoice_received_date" value="{{ date('Y-m-d', strtotime(@POST.quotation_received_date)) }}">
 		  </div>
 		</div>
 		<div class="col-md-2">
@@ -53,20 +37,20 @@
 	  </div>
 	  
 	  <div class="row">
-		<div class="col-md-2">
+		<div class="col-md-1">
 		  <div class="form-group">
-			<input name="customer_code" class="form-control form-control-sm form-app" value="{{ @POST.customer_code }}" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" readonly>
+			<input name="customer_code" class="form-control form-control-sm form-app" value="{{ @POST.customer_code }}" placeholder="ID Pelanggan" data-toggle="tooltip" title="ID PELANGGAN" style="font-weight:bold" readonly>
 			<input type="hidden" name="customer_id" class="form-control form-control-sm form-app" value="{{ @POST.customer_id }}">
 		  </div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-3">
 		  <div class="form-group">
-			<input class="form-control form-control-sm form-app" placeholder="Nama Pelanggan" value="{{ @POST.customer_name }}" readonly>
+			<input class="form-control form-control-sm form-app" placeholder="Nama Pelanggan" value="{{ @POST.customer_name }}" style="font-weight:bold" readonly>
 		  </div>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-4">
 		  <div class="form-group">
-			<input class="form-control form-control-sm form-app" placeholder="No. Telepon" value="{{ @POST.customer_phone }}" readonly>
+			<input class="form-control form-control-sm form-app" placeholder="Alamat" value="{{ @POST.customer_address }}" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2">
@@ -74,32 +58,48 @@
 			<input class="form-control form-control-sm form-app" placeholder="Kota" value="{{ @POST.customer_city }}" readonly>
 		  </div>
 		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="Telepon" value="{{ @POST.customer_phone }}" readonly>
+		  </div>
+		</div>
 	  </div>
 	  <div class="row">
-		<div class="col-md-6 offset-md-2">
+		<div class="col-md-3 offset-md-1">
 		  <div class="form-group">
-			<input class="form-control form-control-sm form-app" placeholder="Alamat Pelanggan" value="{{ @POST.customer_address }}" readonly>
+			<input class="form-control form-control-sm form-app" placeholder="Catatan" value="{{ @POST.customer_note }}" readonly>
 		  </div>
 		</div>
 		<div class="col-md-4">
 		  <div class="form-group">
-			<input class="form-control form-control-sm form-app" placeholder="Catatan" value="{{ @POST.customer_note }}" readonly>
+			<input class="form-control form-control-sm form-app" placeholder="Alamat" value="{{ @POST.customer_address_other }}" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="Kota" value="{{ @POST.customer_city_other }}" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input class="form-control form-control-sm form-app" placeholder="Telepon" value="{{ @POST.customer_phone_other }}" readonly>
 		  </div>
 		</div>
 	  </div>
 	  
 	  <div class="row">
-		<div class="col-md-2">
+		<div class="col-md-1">
 		  <div class="form-group">
-			<select class="form-control form-control-sm form-app" data-toggle="tooltip" title="MODEL" readonly>
-			  <option disabled selected>-- PILIH MODEL --</option>
-			  <repeat group="{{ @data_model }}" value="{{ $model }}">
-				<option value="{{ @model.model_desc }}" <check if="{{ @POST.quotation_model == @model.model_desc }}">selected</check>>{{ @model.model_code }} | {{ @model.model_desc }}</option>
-			  </repeat>
-			</select>
+		    <input class="form-control form-control-sm form-app" placeholder="Model" value="{{ @POST.quotation_model }}" data-toggle="tooltip" title="MODEL" readonly>
+			<!-- <select class="form-control form-control-sm form-app" data-toggle="tooltip" title="MODEL" readonly> -->
+			  <!-- <option disabled selected>- MODEL -</option> -->
+			  <!-- <repeat group="{{ @data_model }}" value="{{ $model }}"> -->
+				<!-- <option value="{{ @model.model_desc }}" <check if="{{ @POST.quotation_model == @model.model_desc }}">selected</check>>{{ @model.model_desc }}</option> -->
+			  <!-- </repeat> -->
+			<!-- </select> -->
 		  </div>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 		  <div class="form-group">
 			<input class="form-control form-control-sm form-app" placeholder="Engine" value="{{ @POST.quotation_engine }}" data-toggle="tooltip" title="ENGINE" readonly>
 		  </div>
@@ -126,13 +126,13 @@
 		  <thead>
 			<tr class="bg-primary">
 			  <th class="col-md-1">Kode</th>
-			  <th class="col-md-1">No. Part</th>
-			  <th class="col-md-1">Deskripsi</th>
+			  <th class="col-md-1">Part Number</th>
+			  <th class="col-md-1">Nama Barang</th>
 			  <th class="col-md-1">Qty</th>
 			  <th class="col-md-1">Up</th>
 			  <th class="col-md-1">Modal</th>
-			  <th class="col-md-1">Harga</th>
-			  <th class="col-md-1">Harga (Up)</th>
+			  <th class="col-md-1">Price</th>
+			  <th class="col-md-1">Price (Up)</th>
 			  <th class="col-md-1">Merk</th>
 			  <th class="col-md-1">Total</th>
 			  <th class="col-md-1">#</th>
@@ -147,7 +147,7 @@
 			  <td>
 			    <input id="item_part_no_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_item_part_no]" value="{{ @quotation_detail.quotation_detail_item_part_no }}" style="width:100px" readonly>
 			  </td>
-			  <td><input id="item_desc_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_item_desc]" value="{{ @quotation_detail.quotation_detail_item_desc }}" style="width:250px" readonly></td>
+			  <td><input id="item_desc_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_item_desc]" value="{{ @quotation_detail.quotation_detail_item_desc }}" style="width:425px" readonly></td>
 			  <td>
 			    <input id="item_qty_{{ @no + 50 }}" name="data[{{ @no + 50 }}][invoice_detail_qty]" class="number-only" value="{{ @quotation_detail.quotation_detail_qty }}" style="width:30px" onkeyup="return getTotal({{ @no + 50 }})">
 			  </td>
@@ -213,32 +213,40 @@
 	  <div class="row">
 		<div class="col-md-9">
 		  <div class="form-group row">
-			<label class="col-md-2">NOZZLE</label>
-			<div class="col-md-8">
+			<label class="col-md-1">NOZZLE</label>
+			<div class="col-md-6">
 			  <input class="form-control form-control-sm form-app" value="{{ @POST.quotation_nozzle }}" readonly>
+			</div>
+			<div class="col-md-3">
+			  <div class="input-group">
+			    <div class="input-group-prepend">
+				  <span class="input-group-text form-app">FAKTUR</span>
+			    </div>
+			    <input class="form-control form-control-sm form-app" value="{{ @POST.invoice_tax_number }}" data-toggle="tooltip" title="FAKTUR PAJAK">
+			  </div>
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2">KETERANGAN</label>
-			<div class="col-md-8">
+			<label class="col-md-1">KET.</label>
+			<div class="col-md-9">
 			  <input name="invoice_note_customer" class="form-control form-control-sm form-app" value="{{ @POST.quotation_note_1 }}">
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2"></label>
-			<div class="col-md-8">
+			<label class="col-md-1"></label>
+			<div class="col-md-9">
 			  <input name="invoice_note_internal" class="form-control form-control-sm form-app" value="{{ @POST.quotation_note_2 }}">
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2">CASH</label>
-			<div class="col-md-8">
+			<label class="col-md-1">CASH</label>
+			<div class="col-md-9">
 			  <input name="invoice_note_payment" class="form-control form-control-sm form-app">
 			</div>
 		  </div>
 		  <div class="form-group row">
-			<label class="col-md-2">TERBILANG</label>
-			<div class="col-md-8">
+			<label class="col-md-1">TERBILANG</label>
+			<div class="col-md-9">
 			  <span class="font-12"><i>{{ @invoice_terbilang }} Rupiah</i></span>
 			</div>
 		  </div>

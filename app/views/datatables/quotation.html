@@ -15,7 +15,16 @@ $(document).ready(function(){
 	  "type": "POST"
 	},
 	"columns": [
-	  { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
+	  {
+	    "render": function (data, type, full){
+		  return '<b>' + data + '</b>';
+		}
+	  }, { data: 1 },
+	  {
+	    "render": function (data, type, full){
+		  return '<b>' + data + '</b>';
+		}
+	  }, { data: 3 }, { data: 4 },
 	  {
 	    "render": function (data, type, full){
 		  return 'Rp <span style="float:right; margin-right:25px">' + data + '</span>';

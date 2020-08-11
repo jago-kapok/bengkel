@@ -7,11 +7,11 @@
 	  <a href="{{ @BASE.'/invoice-cancel' }}" class="btn btn-danger btn-sm">Lihat Invoice Batal</a>
 	</div>
 	<div class="col-md-4 pull-right">
-	  <input id="invoice_search" class="form-control form-control-sm" placeholder="Cari Data ...">
+	  <input id="searching" class="form-control form-control-sm" placeholder="Cari Data ...">
 	</div>
   </div>
   
-  <table id="invoice_table" class="table table-striped" style="width:100%">
+  <table id="simple_table" class="table table-striped" style="width:100%">
 	<thead class="bg-app">
       <tr>
 		<th class="width-75">Invoice</th>
@@ -22,7 +22,25 @@
         <th class="width-150">Pilihan</th>
       </tr>
     </thead>
-	<tbody></tbody>
+	<tbody>
+	  <repeat group="{{ @data_invoice }}" value="{{ $invoice }}">
+	    <tr>
+		  <td>{{ @invoice.invoice_number }}</td>
+		  <td>{{ date('d F Y', strtotime(@invoice.invoice_date)) }}</td>
+		  <td>{{ @invoice.customer_name }}</td>
+		  <td>Rp <span style="float:right; margin-right:25px">{{ number_format(@invoice.invoice_total) }}</span></td>
+		  <td>{{ @invoice.quotation_number }}</td>
+		  <td>
+			<a href="{{ @BASE.'/invoice/print/'.@invoice.invoice_id }}" class="badge badge-success p-1" title="Cetak Invoice" target="_blank"><i class="fa fa-print"></i></a>
+			<check if="{{ @SESSION.level == 1 }}">
+			  <a href="{{ @BASE.'/invoice/view/'.@invoice.invoice_id }}" class="badge badge-warning p-1" title="Lihat Invoice"><i class="fa fa-search"></i></a>
+			</check>
+			<a href="{{ @BASE.'/invoice/update/'.@invoice.invoice_id }}" class="badge badge-info p-1" title="Perbarui Data"><i class="fa fa-pen"></i></a>
+			<a href="{{ @BASE.'/invoice/cancel/'.@invoice.invoice_id }}" class="badge badge-danger p-1" title="Batalkan Invoice" onclick="return confirm('Anda ingin membatalkan invoice nomor : {{ @invoice.invoice_number }} ?')"><i class="fa fa-ban"></i></a>
+		  </td>
+		</tr>
+	  </repeat>
+	</tbody>
   </table>
 </div>
 

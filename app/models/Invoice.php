@@ -16,9 +16,13 @@ class Invoice extends DB\SQL\Mapper {
 		$query = $this->db->exec("SELECT * FROM invoice JOIN customer ON invoice.customer_id = customer.customer_id JOIN quotation ON invoice.quotation_id = quotation.quotation_id WHERE
 			(invoice_number LIKE ? OR
 			customer_name LIKE ? OR
-			quotation_number LIKE ?) AND
+			quotation_number LIKE ? OR
+			quotation_serial_number LIKE ? OR
+			quotation_engine LIKE ?) AND
 			invoice_status != 2 ORDER BY invoice.invoice_number DESC LIMIT ? OFFSET ?",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -30,9 +34,13 @@ class Invoice extends DB\SQL\Mapper {
 		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM invoice JOIN customer ON invoice.customer_id = customer.customer_id JOIN quotation ON invoice.quotation_id = quotation.quotation_id WHERE
 			(invoice_number LIKE ? OR
 			customer_name LIKE ? OR
-			quotation_number LIKE ?) AND
+			quotation_number LIKE ? OR
+			quotation_serial_number LIKE ? OR
+			quotation_engine LIKE ?) AND
 			invoice_status != 2",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%'
@@ -48,8 +56,10 @@ class Invoice extends DB\SQL\Mapper {
 		foreach($query as $data) {
 			$output['data'][] = array(
 				$data['invoice_number'],
-				date('d F Y', strtotime($data['invoice_date'])),
+				date('d-m-Y', strtotime($data['invoice_date'])),
 				$data['customer_name'],
+				$data['quotation_serial_number'],
+				$data['quotation_engine'],
 				number_format($data['invoice_part_charge'] + $data['invoice_service_charge']),
 				$data['quotation_number'],
 				$data['invoice_id']
@@ -100,6 +110,9 @@ class Invoice extends DB\SQL\Mapper {
 		$this->customer_address = "SELECT customer_address FROM customer WHERE customer.customer_id = invoice.customer_id";
 		$this->customer_city = "SELECT customer_city FROM customer WHERE customer.customer_id = invoice.customer_id";
 		$this->customer_phone = "SELECT customer_phone FROM customer WHERE customer.customer_id = invoice.customer_id";
+		$this->customer_address_other = "SELECT customer_address_other FROM customer WHERE customer.customer_id = invoice.customer_id";
+		$this->customer_city_other = "SELECT customer_city_other FROM customer WHERE customer.customer_id = invoice.customer_id";
+		$this->customer_phone_other = "SELECT customer_phone_other FROM customer WHERE customer.customer_id = invoice.customer_id";
 		$this->customer_note = "SELECT customer_note FROM customer WHERE customer.customer_id = invoice.customer_id";
 		$this->quotation_number = "SELECT quotation_number FROM quotation WHERE quotation.quotation_id = invoice.quotation_id";
 		$this->quotation_date = "SELECT quotation_date FROM quotation WHERE quotation.quotation_id = invoice.quotation_id";
