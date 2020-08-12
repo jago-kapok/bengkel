@@ -66,6 +66,7 @@ class Purchase extends DB\SQL\Mapper {
 	}
 	
 	public function getById($purchase_id){
+		$this->supplier_id = "SELECT supplier_id FROM supplier WHERE supplier.supplier_id = purchase.supplier_id";
 		$this->supplier_code = "SELECT supplier_code FROM supplier WHERE supplier.supplier_id = purchase.supplier_id";
 		$this->supplier_name = "SELECT supplier_name FROM supplier WHERE supplier.supplier_id = purchase.supplier_id";
 		$this->supplier_address = "SELECT supplier_address FROM supplier WHERE supplier.supplier_id = purchase.supplier_id";

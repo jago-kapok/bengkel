@@ -6,7 +6,7 @@
 		<div class="form-group row">
 		  <label class="col-sm-3"><b>No. Invoice</b></label>
 		  <div class="col-md-4">
-		    <input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" required>
+		    <input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" style="font-weight:bold" required>
 		  </div>
 		</div>
 		<div class="form-group row">
@@ -49,9 +49,10 @@
 		<table class="table table-bordered table-responsive">
 		  <thead>
 			<tr class="bg-primary">
-			  <th class="width-100">Kode</th>
-			  <th class="width-100">Part Number</th>
+			  <th class="width-125">Kode</th>
+			  <th class="width-125">Part Number</th>
 			  <th class="width-500">Nama Barang</th>
+			  <th class="width-75">Unit</th>
 			  <th class="width-75">Qty</th>
 			  <th class="width-150">Price</th>
 			  <th class="width-150">Merk</th>
@@ -71,6 +72,7 @@
 			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][item_part_no]" style="width:100%">
 			  </td>
 			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][item_desc]" style="width:100%"></td>
+			  <td><input id="item_unit_{{ @i }}" name="data[{{ @i }}][item_unit]" style="width:100%"></td>
 			  <td>
 			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][item_qty]" class="number-only" style="width:100%" onkeyup="return getTotal({{ @i }})">
 			  </td>
@@ -98,7 +100,7 @@
 		  </tbody>
 		  <tbody style="border-top:1px double">
 			<tr>
-			  <td colspan="6" style="border-color:transparent; border-right:1px solid"></td>
+			  <td colspan="7" style="border-color:transparent; border-right:1px solid"></td>
 			  <td><b>Total Harga</b></td>
 			  <td class="text-right" colspan="2">
 				<b><span id="part_charge_display"></span></b>
@@ -110,7 +112,7 @@
 			</tr>
 			<tr>
 			  <td style="border-color:transparent"><b>KETERANGAN</b></td>
-			  <td colspan="4" style="border-color:transparent">
+			  <td colspan="5" style="border-color:transparent">
 			    <input name="purchase_note" class="form-control form-control-sm form-app">
 			  </td>
 			  <td style="border-color:transparent; border-right:1px solid"></td>
@@ -120,7 +122,7 @@
 			  </td>
 			</tr>
 			<tr>
-			  <td colspan="6" style="border-color:transparent; border-right:1px solid"></td>
+			  <td colspan="7" style="border-color:transparent; border-right:1px solid"></td>
 			  <td><b>Grand Total</b></td>
 			  <td class="text-right" colspan="2">
 				<b><span id="grand_total_display"></span></b>
