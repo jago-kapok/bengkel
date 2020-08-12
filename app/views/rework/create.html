@@ -1,6 +1,7 @@
 <div class="">
   <form action="{{ @BASE.'/rework/create' }}" method="POST" enctype="multipart/form-data">
 	<input type="hidden" name="invoice_id" value="{{ @POST.invoice_id }}">
+	<input type="hidden" name="rework_by" value="{{ @SESSION.id }}">
     <div class="row">
 	  <div class="col-md-6">
 		<div class="form-group row">

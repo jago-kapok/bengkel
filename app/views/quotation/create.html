@@ -1,6 +1,7 @@
 <div class="">
   <form action="{{ @BASE.'/quotation/create' }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="quotation_status" value="1">
+	<input type="hidden" name="quotation_by" value="{{ @SESSION.id }}">
     <div class="">
 	  <div class="row">
 		<div class="col-md-2 offset-8">

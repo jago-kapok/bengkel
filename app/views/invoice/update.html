@@ -1,6 +1,7 @@
 <div class="">
   <form action="{{ @BASE.'/invoice/update/'.@PARAMS.invoice_id }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="invoice_status" value="1">
+	<input type="hidden" name="invoice_by" value="{{ @SESSION.id }}">
     <div class="">
 	  <div class="row">
 		<div class="col-md-2">

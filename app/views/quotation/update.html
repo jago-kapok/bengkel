@@ -2,6 +2,7 @@
   <form action="{{ @BASE.'/quotation/update/'.@PARAMS.quotation_id }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="quotation_status" value="1">
     <input type="hidden" name="quotation_number" value="{{ @POST.quotation_number }}">
+	<input type="hidden" name="quotation_by" value="{{ @SESSION.id }}">
     <div class="">
 	  <div class="row">
 		<div class="col-md-2 offset-md-8">

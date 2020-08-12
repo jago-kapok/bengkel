@@ -1,18 +1,18 @@
 <div class="" style="font-size:12px">
-  <form action="{{ @BASE.'/purchase/create' }}" method="POST" enctype="multipart/form-data">
+  <form action="{{ @BASE.'/purchase/update/'.@PARAMS.purchase_id }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="purchase_by" value="{{ @SESSION.id }}">
     <div class="row">
 	  <div class="col-md-6">
 		<div class="form-group row">
 		  <label class="col-sm-3"><b>No. Invoice</b></label>
 		  <div class="col-md-4">
-		    <input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" required>
+		    <input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" value="{{ @POST.purchase_number }}" required>
 		  </div>
 		</div>
 		<div class="form-group row">
 		  <label class="col-sm-3"><b>Tanggal</b></label>
 		  <div class="col-md-4">
-		    <input type="date" name="purchase_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tanggal" value="{{ date('Y-m-d') }}" required>
+		    <input type="date" name="purchase_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tanggal" value="{{ date('Y-m-d', strtotime(@POST.purchase_date)) }}" required>
 		  </div>
 		</div>
 	  </div>
@@ -21,26 +21,26 @@
 		<div class="form-group row">
 		  <label class="col-sm-3"><b>Kode Supplier</b></label>
 		  <div class="col-md-3">
-			<input name="supplier_code" class="form-control form-control-sm form-app" list="data-supplier" placeholder="Kode Supplier" data-toggle="tooltip" title="KODE SUPPLIER" autocomplete="off" required>
-			<input type="hidden" name="supplier_id" class="form-control form-control-sm form-app">
+			<input name="supplier_code" class="form-control form-control-sm form-app" list="data-supplier" placeholder="Kode Supplier" data-toggle="tooltip" title="KODE SUPPLIER" autocomplete="off" value="{{ @POST.supplier_code }}" required>
+			<input type="hidden" name="supplier_id" class="form-control form-control-sm form-app" vaue="{{ @POST.supplier_id }}">
 		  </div>
 		  <div class="col-md-6">
-			<input name="supplier_name" class="form-control form-control-sm form-app" placeholder="Nama Supplier" readonly>
+			<input name="supplier_name" class="form-control form-control-sm form-app" placeholder="Nama Supplier" value="{{ @POST.supplier_name }}" readonly>
 		  </div>
 		</div>
 		<div class="form-group row">
 		  <label class="col-sm-3"><b>Alamat</b></label>
 		  <div class="col-md-6">
-			<input name="supplier_address" class="form-control form-control-sm form-app" placeholder="Alamat" readonly>
+			<input name="supplier_address" class="form-control form-control-sm form-app" placeholder="Alamat" value="{{ @POST.supplier_address }}" readonly>
 		  </div>
 		  <div class="col-md-3">
-			<input name="supplier_city" class="form-control form-control-sm form-app" placeholder="Kota" readonly>
+			<input name="supplier_city" class="form-control form-control-sm form-app" placeholder="Kota" value="{{ @POST.supplier_city }}" readonly>
 		  </div>
 		</div>
 		<div class="form-group row">
 		  <label class="col-sm-3"><b>Telepon</b></label>
 		  <div class="col-md-4">
-			<input name="supplier_phone" class="form-control form-control-sm form-app" placeholder="Telepon" readonly>
+			<input name="supplier_phone" class="form-control form-control-sm form-app" placeholder="Telepon" value="{{ @POST.supplier_phone }}" readonly>
 		  </div>
 		</div>
 	  </div>
@@ -61,7 +61,42 @@
 			</tr>
 		  </thead>
 		  <tbody>
-			<loop from="{{ @i=0 }}" to="{{ @i < 10 }}" step="{{ @i++ }}">
+		    <repeat group="{{ @data_purchase_detail }}" key="{{ @i }}" value="{{ $purchase_detail }}">
+			<tr id="item_1{{ @i }}">
+			  <td>
+			    <input id="1{{ @i }}" name="data[1{{ @i }}][item_code]" style="width:100%" onchange="return getData(this.id, this.value)" list="data-item" autocomplete="off" value="{{ @purchase_detail.item_code }}">
+			    <input id="item_id_1{{ @i }}" type="hidden" name="data[1{{ @i }}][item_id]" value="{{ @purchase_detail.item_id }}">
+			  </td>
+			  <td>
+			    <input id="item_part_no_1{{ @i }}" name="data[1{{ @i }}][item_part_no]" style="width:100%" value="{{ @purchase_detail.item_part_no }}">
+			  </td>
+			  <td><input id="item_desc_1{{ @i }}" name="data[1{{ @i }}][item_desc]" style="width:100%" value="{{ @purchase_detail.item_desc }}"></td>
+			  <td>
+			    <input id="item_qty_1{{ @i }}" name="data[1{{ @i }}][item_qty]" class="number-only" style="width:100%" onkeyup="return getTotal(1{{ @i }})" value="{{ @purchase_detail.purchase_detail_value }}">
+			  </td>
+			  <td>
+			    <input id="item_price_1{{ @i }}" name="data[1{{ @i }}][item_price]" class="number-only" style="width:100%" onkeyup="return getTotal(1{{ @i }})" value="{{ number_format(@purchase_detail.item_price) }}">
+			  </td>
+			  <td>
+			    <input id="item_brand_1{{ @i }}" name="data[1{{ @i }}][item_brand]" style="width:100%" value="{{ @purchase_detail.item_brand }}">
+			  </td>
+			  <td>
+			    <input id="item_to_1{{ @i }}" name="data[1{{ @i }}][item_to]" style="width:100%" value="{{ @purchase_detail.item_to }}">
+			  </td>
+			  <td>
+			    <input id="item_amount_1{{ @i }}" name="data[1{{ @i }}][item_amount]" class="number-only amount" style="width:100%" value="{{ number_format(@purchase_detail.item_amount) }}" readonly>
+			  </td>
+			  <td>
+			    <center>
+				  <a href="javascript:void(0)" class="text-danger" onclick="return clearRow(1{{ @i }})">
+				    <i class="fa fa-trash"></i>
+				  </a>
+				</center>
+			  </td>
+			</tr>
+			</repeat>
+			
+			<loop from="{{ @i=0 }}" to="{{ @i < (10 - count(@data_purchase_detail)) }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
 			    <input id="{{ @i }}" name="data[{{ @i }}][item_code]" style="width:100%" onchange="return getData(this.id, this.value)" list="data-item" autocomplete="off">
@@ -101,7 +136,7 @@
 			  <td colspan="6" style="border-color:transparent; border-right:1px solid"></td>
 			  <td><b>Total Harga</b></td>
 			  <td class="text-right" colspan="2">
-				<b><span id="part_charge_display"></span></b>
+				<b><span id="part_charge_display">{{ number_format(@POST.purchase_total - @POST.purchase_ppn) }}</span></b>
 			    <input type="hidden" id="part_charge">
 			    <input type="hidden" id="service_charge" value="0">
 			    <input type="hidden" id="discount" value="0">
@@ -111,20 +146,20 @@
 			<tr>
 			  <td style="border-color:transparent"><b>KETERANGAN</b></td>
 			  <td colspan="4" style="border-color:transparent">
-			    <input name="purchase_note" class="form-control form-control-sm form-app">
+			    <input name="purchase_note" class="form-control form-control-sm form-app" value="{{ @POST.purchase_note }}">
 			  </td>
 			  <td style="border-color:transparent; border-right:1px solid"></td>
 			  <td><b>PPN</b></td>
 			  <td colspan="2" style="text-align:right">
-			    <input id="ppn_amount" name="purchase_ppn" style="text-align:right">
+			    <input id="ppn_amount" name="purchase_ppn" style="text-align:right" value="{{ number_format(@POST.purchase_ppn) }}">
 			  </td>
 			</tr>
 			<tr>
 			  <td colspan="6" style="border-color:transparent; border-right:1px solid"></td>
 			  <td><b>Grand Total</b></td>
 			  <td class="text-right" colspan="2">
-				<b><span id="grand_total_display"></span></b>
-			    <input type="hidden" id="grand_total" name="purchase_total">
+				<b><span id="grand_total_display">{{ number_format(@POST.purchase_total) }}</span></b>
+			    <input type="hidden" id="grand_total" name="purchase_total" value="{{ number_format(@POST.purchase_total) }}">
 			  </td>
 			</tr>
 		  </tbody>
@@ -132,7 +167,7 @@
 	  </div>
 	</div>
 	<div class="card-footer">
-	  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form"><b>SAVE</b></button>
+	  <button type="submit" name="update" class="btn btn-primary btn-sm btn-form"><b>SAVE</b></button>
 	  <a href="../../purchase" class="btn btn-danger btn-sm btn-form"><b>EXIT</b></a>
 	</div>
   </form>

@@ -2,6 +2,7 @@
   <form action="{{ @BASE.'/invoice/create' }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="invoice_status" value="1">
 	<input type="hidden" name="quotation_id" value="{{ @POST.quotation_id }}">
+	<input type="hidden" name="invoice_by" value="{{ @SESSION.id }}">
     <div class="">
 	  <div class="row">
 		<div class="col-md-2">

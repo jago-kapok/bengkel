@@ -46,7 +46,7 @@ class Purchase extends DB\SQL\Mapper {
 		foreach($query as $data) {
 			$output['data'][] = array(
 				$data['purchase_number'],
-				date('d F Y', strtotime($data['purchase_date'])),
+				date('d-m-Y', strtotime($data['purchase_date'])),
 				$data['supplier_name'],
 				$data['purchase_amount'],
 				$data['purchase_id']
@@ -57,7 +57,11 @@ class Purchase extends DB\SQL\Mapper {
 	}
 	
 	public function add(){
+		$f3 = \Base::instance();
+		
 		$this->copyFrom('POST');
+		$this->purchase_ppn = str_replace(',', '', $f3->get('POST.purchase_ppn'));
+		$this->purchase_total = str_replace(',', '', $f3->get('POST.purchase_total'));
 		$this->save();
 	}
 	
@@ -72,8 +76,8 @@ class Purchase extends DB\SQL\Mapper {
 		$this->copyTo('POST');
 	}
 	
-	public function edit($stock_id){
-		$this->load(array('stock_id = ?', $stock_id));
+	public function edit($purchase_id){
+		$this->load(array('purchase_id = ?', $purchase_id));
 		$this->copyFrom('POST');
 		$this->update();
 	}

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2020 at 12:24 PM
+-- Generation Time: Aug 12, 2020 at 11:34 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -14169,6 +14169,9 @@ CREATE TABLE `purchase` (
   `supplier_id` int(11) DEFAULT NULL,
   `purchase_number` varchar(15) DEFAULT NULL,
   `purchase_date` datetime DEFAULT NULL,
+  `purchase_note` varchar(200) DEFAULT NULL,
+  `purchase_total` double DEFAULT NULL,
+  `purchase_ppn` int(11) DEFAULT NULL,
   `purchase_by` int(11) DEFAULT NULL,
   `purchase_created_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -14177,8 +14180,10 @@ CREATE TABLE `purchase` (
 -- Dumping data for table `purchase`
 --
 
-INSERT INTO `purchase` (`purchase_id`, `supplier_id`, `purchase_number`, `purchase_date`, `purchase_by`, `purchase_created_date`) VALUES
-(3, 1, 'PO-123', '2020-07-06 00:00:00', NULL, '2020-07-13 16:05:54');
+INSERT INTO `purchase` (`purchase_id`, `supplier_id`, `purchase_number`, `purchase_date`, `purchase_note`, `purchase_total`, `purchase_ppn`, `purchase_by`, `purchase_created_date`) VALUES
+(3, 1, 'PO-123', '2020-07-06 00:00:00', NULL, NULL, NULL, NULL, '2020-07-13 16:05:54'),
+(4, 1, '123', '2020-08-12 00:00:00', 'keterangan', 1232000, 112000, NULL, '2020-08-12 06:15:58'),
+(5, 2, '12345-up', '2020-08-12 00:00:00', 'cek1', 190, 14, 7, '2020-08-12 06:21:57');
 
 -- --------------------------------------------------------
 
@@ -14190,16 +14195,26 @@ CREATE TABLE `purchase_detail` (
   `purchase_detail_id` int(11) NOT NULL,
   `purchase_id` int(11) DEFAULT NULL,
   `item_id` int(11) DEFAULT NULL,
-  `purchase_detail_value` int(11) DEFAULT NULL
+  `purchase_detail_value` int(11) DEFAULT NULL,
+  `item_code` varchar(25) DEFAULT NULL,
+  `item_part_no` varchar(25) DEFAULT NULL,
+  `item_desc` varchar(50) DEFAULT NULL,
+  `item_price` double DEFAULT NULL,
+  `item_brand` varchar(20) DEFAULT NULL,
+  `item_to` varchar(50) DEFAULT NULL,
+  `item_amount` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `purchase_detail`
 --
 
-INSERT INTO `purchase_detail` (`purchase_detail_id`, `purchase_id`, `item_id`, `purchase_detail_value`) VALUES
-(2, 3, 1, 5),
-(3, 3, 2, 5);
+INSERT INTO `purchase_detail` (`purchase_detail_id`, `purchase_id`, `item_id`, `purchase_detail_value`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_brand`, `item_to`, `item_amount`) VALUES
+(2, 3, 1, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 3, 2, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 4, 3412, 5, '--------', 'OK', 'Barang', 200000, 'merk', NULL, 1000000),
+(9, 5, 0, 6, '--------', 'ok1', 'barang1', 25000, 'merk', 'siapa', 150000),
+(10, 5, 0, 1, 'B455324', '2.418.455.324', 'PLUNGER', 40000, '1', '2', 40000);
 
 -- --------------------------------------------------------
 
@@ -20671,7 +20686,7 @@ INSERT INTO `stock` (`stock_id`, `item_id`, `stock_min`, `stock_on_hand`) VALUES
 (229, 229, 1, 10),
 (230, 230, 1, 10),
 (231, 231, 1, 10),
-(232, 232, 1, 10),
+(232, 232, 1, 18),
 (233, 233, 1, 10),
 (234, 234, 1, 10),
 (235, 235, 1, 10),
@@ -23927,7 +23942,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `user_fullname`, `user_name`, `user_password`, `user_level`, `user_image`, `user_last_login`) VALUES
 (6, 'Administrator', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 'Administrator.', '2020-07-27 12:21:02'),
-(7, 'Ini User', 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 2, 'Ini_User.', '2020-08-05 09:09:35');
+(7, 'Ini User', 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 2, 'Ini_User.', '2020-08-12 16:34:00');
 
 --
 -- Indexes for dumped tables
@@ -24101,12 +24116,12 @@ ALTER TABLE `model`
 -- AUTO_INCREMENT for table `purchase`
 --
 ALTER TABLE `purchase`
-  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `purchase_detail`
 --
 ALTER TABLE `purchase_detail`
-  MODIFY `purchase_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `purchase_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `quotation`
 --
@@ -24146,7 +24161,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT for table `stock_history`
 --
 ALTER TABLE `stock_history`
-  MODIFY `stock_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `stock_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `supplier`
 --

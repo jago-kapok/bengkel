@@ -26,7 +26,7 @@ class PurchaseController extends Controller {
 			$purchase_detail = new PurchaseDetail($this->db);
 			$purchase_detail->add($purchase->purchase_id);
 				
-			$this->f3->reroute('/stock');
+			$this->f3->reroute('/purchase');
 		} else {
 			$item = new Item($this->db);
 			$this->f3->set('data_item', $item->getAll());
@@ -37,6 +37,36 @@ class PurchaseController extends Controller {
 			$this->f3->set('page_title','Transaksi Pembelian');
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','purchase/create.html');
+		}
+	}
+	
+	public function update(){
+		if($this->f3->exists('POST.update')){
+			$purchase = new Purchase($this->db);
+			$purchase->edit($this->f3->get('PARAMS.purchase_id'));
+			
+			$purchase_detail = new PurchaseDetail($this->db);
+			$purchase_detail->beforeEdit($this->f3->get('PARAMS.purchase_id'));
+			$purchase_detail->add($this->f3->get('PARAMS.purchase_id'));
+				
+			$this->f3->reroute('/purchase');
+		} else {
+			$purchase = new Purchase($this->db);
+			$purchase->getById($this->f3->get('PARAMS.purchase_id'));
+			
+			$purchase_detail = new PurchaseDetail($this->db);
+			$this->f3->set('data_purchase_detail', $purchase_detail->getById($this->f3->get('PARAMS.purchase_id')));
+			$purchase_detail->resetStock($this->f3->get('PARAMS.purchase_id'));
+			
+			$item = new Item($this->db);
+			$this->f3->set('data_item', $item->getAll());
+			
+			$supplier = new Supplier($this->db);
+			$this->f3->set('data_supplier', $supplier->getAll());
+			
+			$this->f3->set('page_title','Transaksi Pembelian');
+			$this->f3->set('header','header/header.html');
+			$this->f3->set('view','purchase/update.html');
 		}
 	}
 	
