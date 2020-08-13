@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2020 at 11:34 AM
+-- Generation Time: Aug 13, 2020 at 08:40 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -14183,7 +14183,8 @@ CREATE TABLE `purchase` (
 INSERT INTO `purchase` (`purchase_id`, `supplier_id`, `purchase_number`, `purchase_date`, `purchase_note`, `purchase_total`, `purchase_ppn`, `purchase_by`, `purchase_created_date`) VALUES
 (3, 1, 'PO-123', '2020-07-06 00:00:00', NULL, NULL, NULL, NULL, '2020-07-13 16:05:54'),
 (4, 1, '123', '2020-08-12 00:00:00', 'keterangan', 1232000, 112000, NULL, '2020-08-12 06:15:58'),
-(5, 2, '12345-up', '2020-08-12 00:00:00', 'cek1', 190, 14, 7, '2020-08-12 06:21:57');
+(5, 2, '12345-up', '2020-08-12 00:00:00', 'cek1', 190, 14, 7, '2020-08-12 06:21:57'),
+(6, 2, '11111', '2020-08-13 00:00:00', 'catatan up 3', 99993, 15000, 7, '2020-08-13 05:11:39');
 
 -- --------------------------------------------------------
 
@@ -14202,19 +14203,22 @@ CREATE TABLE `purchase_detail` (
   `item_price` double DEFAULT NULL,
   `item_brand` varchar(20) DEFAULT NULL,
   `item_to` varchar(50) DEFAULT NULL,
-  `item_amount` double DEFAULT NULL
+  `item_amount` double DEFAULT NULL,
+  `item_unit` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `purchase_detail`
 --
 
-INSERT INTO `purchase_detail` (`purchase_detail_id`, `purchase_id`, `item_id`, `purchase_detail_value`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_brand`, `item_to`, `item_amount`) VALUES
-(2, 3, 1, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 3, 2, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 4, 3412, 5, '--------', 'OK', 'Barang', 200000, 'merk', NULL, 1000000),
-(9, 5, 0, 6, '--------', 'ok1', 'barang1', 25000, 'merk', 'siapa', 150000),
-(10, 5, 0, 1, 'B455324', '2.418.455.324', 'PLUNGER', 40000, '1', '2', 40000);
+INSERT INTO `purchase_detail` (`purchase_detail_id`, `purchase_id`, `item_id`, `purchase_detail_value`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_brand`, `item_to`, `item_amount`, `item_unit`) VALUES
+(2, 3, 1, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 3, 2, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 4, 3412, 5, '--------', 'OK', 'Barang', 200000, 'merk', NULL, 1000000, NULL),
+(9, 5, 0, 6, '--------', 'ok1', 'barang1', 25000, 'merk', 'siapa', 150000, NULL),
+(10, 5, 0, 1, 'B455324', '2.418.455.324', 'PLUNGER', 40000, '1', '2', 40000, NULL),
+(15, 6, 3412, 2, '--------', 'part', 'barang', 20000, 'merk', 'siapa', 40000, ''),
+(16, 6, 3412, 3, '--------', 'part 3', 'barang 3', 15000, 'merk 3', 'siapa 3', 45000, 'kg');
 
 -- --------------------------------------------------------
 
@@ -24116,12 +24120,12 @@ ALTER TABLE `model`
 -- AUTO_INCREMENT for table `purchase`
 --
 ALTER TABLE `purchase`
-  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `purchase_detail`
 --
 ALTER TABLE `purchase_detail`
-  MODIFY `purchase_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `purchase_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `quotation`
 --

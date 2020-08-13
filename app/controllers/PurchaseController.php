@@ -27,13 +27,7 @@ class PurchaseController extends Controller {
 			$purchase_detail->add($purchase->purchase_id);
 				
 			$this->f3->reroute('/purchase');
-		} else {
-			$item = new Item($this->db);
-			$this->f3->set('data_item', $item->getAll());
-			
-			$supplier = new Supplier($this->db);
-			$this->f3->set('data_supplier', $supplier->getAll());
-			
+		} else {			
 			$merk = new Merk($this->db);
 			$this->f3->set('data_merk', $merk->getAll());
 			
@@ -60,12 +54,6 @@ class PurchaseController extends Controller {
 			$purchase_detail = new PurchaseDetail($this->db);
 			$this->f3->set('data_purchase_detail', $purchase_detail->getById($this->f3->get('PARAMS.purchase_id')));
 			$purchase_detail->resetStock($this->f3->get('PARAMS.purchase_id'));
-			
-			$item = new Item($this->db);
-			$this->f3->set('data_item', $item->getAll());
-			
-			$supplier = new Supplier($this->db);
-			$this->f3->set('data_supplier', $supplier->getAll());
 			
 			$merk = new Merk($this->db);
 			$this->f3->set('data_merk', $merk->getAll());

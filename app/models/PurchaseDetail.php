@@ -23,6 +23,7 @@ class PurchaseDetail extends DB\SQL\Mapper {
 				item_brand,
 				item_to,
 				item_amount,
+				item_unit,
 				purchase_detail_value) VALUES
 				(:purchase_id,
 				:item_id,
@@ -33,6 +34,7 @@ class PurchaseDetail extends DB\SQL\Mapper {
 				:item_brand,
 				:item_to,
 				:item_amount,
+				:item_unit,
 				:purchase_detail_value)",
 				array(
 					':purchase_id' => $purchase_id,
@@ -44,6 +46,7 @@ class PurchaseDetail extends DB\SQL\Mapper {
 					':item_brand' => $value['item_brand'],
 					':item_to' => $value['item_to'],
 					':item_amount' => str_replace(',', '', $value['item_amount']),
+					':item_unit' => $value['item_unit'],
 					':purchase_detail_value' => $value['item_qty']
 				));
 				

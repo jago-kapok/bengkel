@@ -1,51 +1,56 @@
 <div class="" style="font-size:12px">
   <form action="{{ @BASE.'/purchase/update/'.@PARAMS.purchase_id }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="purchase_by" value="{{ @SESSION.id }}">
-    <div class="row">
-	  <div class="col-md-6">
-		<div class="form-group row">
-		  <label class="col-sm-3"><b>No. Invoice</b></label>
-		  <div class="col-md-4">
-		    <input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" value="{{ @POST.purchase_number }}" style="font-weight:bold" required>
+    <div class="">
+	  <div class="row">
+		<div class="col-md-2">
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">INVOICE</span>
+			</div>
+			<input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" style="font-weight:bold; font-size:15px" value="{{ @POST.purchase_number }}" required>
 		  </div>
 		</div>
-		<div class="form-group row">
-		  <label class="col-sm-3"><b>Tanggal</b></label>
-		  <div class="col-md-4">
-		    <input type="date" name="purchase_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tanggal" value="{{ date('Y-m-d', strtotime(@POST.purchase_date)) }}" required>
+		<div class="col-md-2">
+		  <div class="input-group mb-2">
+			<div class="input-group-prepend">
+			  <span class="input-group-text form-app">TANGGAL</span>
+			</div>
+			<input type="date" name="purchase_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tanggal" value="{{ date('Y-m-d', strtotime(@POST.purchase_date)) }}" required>
 		  </div>
 		</div>
-	  </div>
-	  
-	  <div class="col-md-6">
-		<div class="form-group row">
-		  <label class="col-sm-3"><b>Kode Supplier</b></label>
-		  <div class="col-md-3">
-			<input name="supplier_code" class="form-control form-control-sm form-app" list="data-supplier" placeholder="Kode Supplier" data-toggle="tooltip" title="KODE SUPPLIER" autocomplete="off" value="{{ @POST.supplier_code }}" required>
+		<div class="col-md-1 offset-md-2">
+		  <div class="form-group">
+			<input name="supplier_code" class="form-control form-control-sm form-app" list="data-supplier" placeholder="Supplier" data-toggle="tooltip" title="KODE SUPPLIER" autocomplete="off" style="font-weight:bold" value="{{ @POST.supplier_code }}" required>
 			<input type="hidden" name="supplier_id" class="form-control form-control-sm form-app" value="{{ @POST.supplier_id }}">
 		  </div>
-		  <div class="col-md-6">
-			<input name="supplier_name" class="form-control form-control-sm form-app" placeholder="Nama Supplier" value="{{ @POST.supplier_name }}" readonly>
+		</div>
+		<div class="col-md-3">
+		  <div class="form-group">
+			<input name="supplier_name" class="form-control form-control-sm form-app" placeholder="Nama Supplier" style="font-weight:bold" value="{{ @POST.supplier_name }}" readonly>
 		  </div>
 		</div>
-		<div class="form-group row">
-		  <label class="col-sm-3"><b>Alamat</b></label>
-		  <div class="col-md-6">
-			<input name="supplier_address" class="form-control form-control-sm form-app" placeholder="Alamat" value="{{ @POST.supplier_address }}" readonly>
-		  </div>
-		  <div class="col-md-3">
-			<input name="supplier_city" class="form-control form-control-sm form-app" placeholder="Kota" value="{{ @POST.supplier_city }}" readonly>
-		  </div>
-		</div>
-		<div class="form-group row">
-		  <label class="col-sm-3"><b>Telepon</b></label>
-		  <div class="col-md-4">
+		<div class="col-md-2">
+		  <div class="form-group">
 			<input name="supplier_phone" class="form-control form-control-sm form-app" placeholder="Telepon" value="{{ @POST.supplier_phone }}" readonly>
 		  </div>
 		</div>
 	  </div>
 	  
-	  <div class="row m-3">
+	  <div class="row">
+		<div class="col-md-4 offset-md-6">
+		  <div class="form-group">
+			<input name="supplier_address" class="form-control form-control-sm form-app" placeholder="Alamat" value="{{ @POST.supplier_address }}" readonly>
+		  </div>
+		</div>
+		<div class="col-md-2">
+		  <div class="form-group">
+			<input name="supplier_city" class="form-control form-control-sm form-app" placeholder="Kota" value="{{ @POST.supplier_city }}" readonly>
+		  </div>
+		</div>
+	  </div>
+	  
+	  <div class="row m-0">
 		<table class="table table-bordered table-responsive">
 		  <thead>
 			<tr class="bg-primary">
@@ -65,7 +70,7 @@
 		    <repeat group="{{ @data_purchase_detail }}" key="{{ @i }}" value="{{ $purchase_detail }}">
 			<tr id="item_1{{ @i }}">
 			  <td>
-			    <input id="1{{ @i }}" name="data[1{{ @i }}][item_code]" style="width:100%" onchange="return getData(this.id, this.value)" list="data-item" autocomplete="off" value="{{ @purchase_detail.item_code }}">
+			    <input id="1{{ @i }}" name="data[1{{ @i }}][item_code]" class="item" style="width:100%" onchange="return getData(this.id, this.value)" list="data-item" autocomplete="off" value="{{ @purchase_detail.item_code }}">
 			    <input id="item_id_1{{ @i }}" type="hidden" name="data[1{{ @i }}][item_id]" value="{{ @purchase_detail.item_id }}">
 			  </td>
 			  <td>
@@ -80,7 +85,13 @@
 			    <input id="item_price_1{{ @i }}" name="data[1{{ @i }}][item_price]" class="number-only" style="width:100%" onkeyup="return getTotal(1{{ @i }})" value="{{ number_format(@purchase_detail.item_price) }}">
 			  </td>
 			  <td>
-			    <input id="item_brand_1{{ @i }}" name="data[1{{ @i }}][item_brand]" style="width:100%" value="{{ @purchase_detail.item_brand }}">
+			    <!-- <input id="item_brand_1{{ @i }}" name="data[1{{ @i }}][item_brand]" style="width:100%" value="{{ @purchase_detail.item_brand }}"> -->
+				<select id="item_brand_1{{ @i }}" name="data[{{ @i }}][item_brand]" style="width:100%">
+				  <option selected disabled></option>
+				  <repeat group="{{ @data_merk }}" value="{{ $merk }}">
+					<option value="{{ @merk.merk_desc }}" <check if="{{ @purchase_detail.item_brand == @merk.merk_desc }}">selected</check>>{{ @merk.merk_desc }}</option>
+				  </repeat>
+				</select>
 			  </td>
 			  <td>
 			    <input id="item_to_1{{ @i }}" name="data[1{{ @i }}][item_to]" style="width:100%" value="{{ @purchase_detail.item_to }}">
@@ -101,7 +112,7 @@
 			<loop from="{{ @i=0 }}" to="{{ @i < (10 - count(@data_purchase_detail)) }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
-			    <input id="{{ @i }}" name="data[{{ @i }}][item_code]" style="width:100%" onchange="return getData(this.id, this.value)" list="data-item" autocomplete="off">
+			    <input id="{{ @i }}" name="data[{{ @i }}][item_code]" class="item" style="width:100%" onchange="return getData(this.id, this.value)" list="data-item" autocomplete="off">
 			    <input id="item_id_{{ @i }}" type="hidden" name="data[{{ @i }}][item_id]">
 			  </td>
 			  <td>
@@ -116,7 +127,13 @@
 			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][item_price]" class="number-only" style="width:100%" onkeyup="return getTotal({{ @i }})">
 			  </td>
 			  <td>
-			    <input id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand]" style="width:100%">
+			    <!-- <input id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand]" style="width:100%"> -->
+				<select id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand]" style="width:100%">
+				  <option selected disabled></option>
+				  <repeat group="{{ @data_merk }}" value="{{ $merk }}">
+					<option value="{{ @merk.merk_desc }}">{{ @merk.merk_desc }}</option>
+				  </repeat>
+				</select>
 			  </td>
 			  <td>
 			    <input id="item_to_{{ @i }}" name="data[{{ @i }}][item_to]" style="width:100%">
@@ -140,7 +157,7 @@
 			  <td><b>Total Harga</b></td>
 			  <td class="text-right" colspan="2">
 				<b><span id="part_charge_display">{{ number_format(@POST.purchase_total - @POST.purchase_ppn) }}</span></b>
-			    <input type="hidden" id="part_charge">
+			    <input type="hidden" id="part_charge" value="{{ @POST.purchase_total - @POST.purchase_ppn }}">
 			    <input type="hidden" id="service_charge" value="0">
 			    <input type="hidden" id="discount" value="0">
 				<input type="hidden" id="ppn" value="0">
@@ -176,19 +193,47 @@
   </form>
 </div>
 
-<datalist id="data-supplier">
-  <repeat group="{{ @data_supplier }}" value="{{ $supplier }}">
-    <option value="{{ @supplier.supplier_code }}">{{ @supplier.supplier_code }} | {{ @supplier.supplier_name }}
-  </repeat>
-</datalist>
-
-<datalist id="data-item">
-  <repeat group="{{ @data_item }}" value="{{ $item }}">
-    <option value="{{ @item.item_code }}">{{ @item.item_code }} | {{ @item.item_desc }}
-  </repeat>
-</datalist>
-
 <script>
+/* ============================================================== */
+/* Autocomplete													= */
+/* ============================================================== */
+	
+// Customer
+var data = "../../app/views/autocomplete/supplier.php";
+$("input[name=supplier_code]").autocomplete({
+  source: data,
+  minLength: 2,
+  select: function(event, ui){
+    $(this).val(ui.item.supplier_code);
+	  return false;
+  }
+}).autocomplete("instance")._renderItem = function(ul, item){
+  return $("<li>")
+  .append("<div style='font-size:12px; line-height:20px'><span style='display:block'><b>" + item.supplier_code + "</b></span><span><i>" + item.supplier_name + "</i> | <i>" + item.supplier_address + "</i> | <i>" + item.supplier_city + "</i></span></div>")
+  .appendTo(ul);
+};
+	
+// Item
+var data = "../../app/views/autocomplete/item.php";
+$(".item").autocomplete({
+  source: data,
+  minLength: 2,
+  select: function(event, ui){
+    $(this).val(ui.item.item_code);
+      return false;
+  }
+}).each(function(){
+  $(this).autocomplete("instance")._renderItem = function(ul, item){
+    return $("<li>")
+    .append("<div style='font-size:12px; line-height:20px'><span style='display:block'><b>" + item.item_code + "</b></span><span><i>" + item.item_part_no + "</i> | <i>" + item.item_desc + "</i></span></div>")
+    .appendTo(ul);
+  }
+});
+
+/* ============================================================== */
+/* PPN Sum														= */
+/* ============================================================== */
+
 $('#ppn_amount').keyup(function(){
   var total = $('#part_charge').val();
   var ppn = this.value;
