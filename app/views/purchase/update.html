@@ -85,9 +85,8 @@
 			    <input id="item_price_1{{ @i }}" name="data[1{{ @i }}][item_price]" class="number-only" style="width:100%" onkeyup="return getTotal(1{{ @i }})" value="{{ number_format(@purchase_detail.item_price) }}">
 			  </td>
 			  <td>
-			    <!-- <input id="item_brand_1{{ @i }}" name="data[1{{ @i }}][item_brand]" style="width:100%" value="{{ @purchase_detail.item_brand }}"> -->
-				<select id="item_brand_1{{ @i }}" name="data[{{ @i }}][item_brand]" style="width:100%">
-				  <option selected disabled></option>
+			    <select name="data[1{{ @i }}][item_brand]" style="width:100%">
+				  <option disabled selected></option>
 				  <repeat group="{{ @data_merk }}" value="{{ $merk }}">
 					<option value="{{ @merk.merk_desc }}" <check if="{{ @purchase_detail.item_brand == @merk.merk_desc }}">selected</check>>{{ @merk.merk_desc }}</option>
 				  </repeat>
@@ -128,8 +127,8 @@
 			  </td>
 			  <td>
 			    <!-- <input id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand]" style="width:100%"> -->
-				<select id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand]" style="width:100%">
-				  <option selected disabled></option>
+				<select name="data[{{ @i }}][item_brand]" style="width:100%">
+				  <option disabled selected></option>
 				  <repeat group="{{ @data_merk }}" value="{{ $merk }}">
 					<option value="{{ @merk.merk_desc }}">{{ @merk.merk_desc }}</option>
 				  </repeat>

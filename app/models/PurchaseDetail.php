@@ -77,11 +77,6 @@ class PurchaseDetail extends DB\SQL\Mapper {
 	}
 	
 	public function getById($purchase_id){
-		$this->item_code = "SELECT item_code FROM item WHERE item.item_id = purchase_detail.item_id";
-		$this->item_part_no = "SELECT item_part_no FROM item WHERE item.item_id = purchase_detail.item_id";
-		$this->item_desc = "SELECT item_desc FROM item WHERE item.item_id = purchase_detail.item_id";
-		$this->item_brand = "SELECT item_brand_1 FROM item WHERE item.item_id = purchase_detail.item_id";
-		
 		$this->load(array('purchase_id = ?', $purchase_id));
 		return $this->query;
 	}

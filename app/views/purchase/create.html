@@ -86,8 +86,8 @@
 			  </td>
 			  <td>
 			    <!-- <input id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand]" style="width:100%"> -->
-			    <select id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand]" style="width:100%">
-				  <option selected disabled></option>
+			    <select name="data[{{ @i }}][item_brand]" style="width:100%">
+				  <option disabled selected></option>
 				  <repeat group="{{ @data_merk }}" value="{{ $merk }}">
 					<option value="{{ @merk.merk_desc }}">{{ @merk.merk_desc }}</option>
 				  </repeat>
