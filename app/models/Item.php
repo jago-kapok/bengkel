@@ -119,7 +119,8 @@ class Item extends DB\SQL\Mapper {
 				"item_part_no" => $data['item_part_no'],
 				"item_desc" => $data['item_desc'],
 				"item_price" => $data['item_price'],
-				"item_brand_1" => $data['item_brand_1']
+				"item_brand_1" => $data['item_brand_1'],
+				"item_unit" => $data['item_unit']
 			);
 		}
 		

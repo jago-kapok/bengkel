@@ -1,4 +1,4 @@
-<div class="card p-2">
+<div class="card p-2 font-12">
     <F3:repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
       <div class="alert alert-{{ @msg.status }} alert-dismissible show fade">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -25,11 +25,11 @@
     <table id="purchase_table" class="table table-striped" style="width:100%">
       <thead class="bg-app">
         <tr>
-          <th class="col-md-1">Invoice</th>
-          <th class="col-md-1">Tanggal</th>
-          <th class="col-md-4">Supplier</th>
-          <th class="col-md-1">Amount</th>
-          <th class="col-md-1">Pilihan</th>
+          <th width="100px">Invoice</th>
+          <th width="100px">Tanggal</th>
+          <th width="400px">Supplier</th>
+          <th width="100px">Amount</th>
+          <th width="100px">Pilihan</th>
         </tr>
       </thead>
       <tbody></tbody>

@@ -340,11 +340,11 @@
 	  $('#item_price_' + id).empty();
 	  $('#item_price_temp_' + id).empty();
 	  $('#item_brand_' + id).empty();
+	  $('#item_unit_' + id).empty();
 		  
 	  $('#item_part_no_' + id).attr('readonly', false);
 	  $('#item_desc_' + id).attr('readonly', false);
 	  $('#item_amount_' + id).attr('readonly', false);
-	  $('#item_price_temp_' + id).attr('hidden', false);
 			
 	  $('#item_part_no_' + id).removeClass('readonly');
 	  $('#item_desc_' + id).removeClass('readonly');
@@ -356,6 +356,7 @@
 		  $('#item_part_no_' + id).val(value.item_part_no);
 		  $('#item_desc_' + id).val(value.item_desc);
 		  $('#item_brand_' + id).val(value.item_brand_1);
+		  $('#item_unit_' + id).val(value.item_unit);
 		});
 	  });
 		  
@@ -507,6 +508,21 @@
 	    });
 	  }
 	}
+	
+	/* ============================================================== */
+	/* Validasi Purchase											= */
+	/* ============================================================== */
+	
+	$('input[name=purchase_number]').change(function(){
+	  $.getJSON("{{ @BASE.'/purchase/exist/' }}" + this.value, function(data){
+		$.each(data, function(key, value){
+		  if(value.count > 0){
+			alert('Nomor Invoice ' + value.purchase_number + ' sudah ada !');
+			$('input[name=purchase_number]').val('');
+		  }
+		});
+	  });
+	});		  
   </script>
 </body>
 </html>

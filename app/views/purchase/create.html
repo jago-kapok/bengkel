@@ -1,5 +1,5 @@
 <style>
-input, select { font-size:12px }
+input, select, .form-control { font-size:12px }
 </style>
 
 <div class="">
@@ -10,33 +10,33 @@ input, select { font-size:12px }
 		<div class="col-md-2">
 		  <div class="input-group mb-2">
 			<div class="input-group-prepend">
-			  <span class="input-group-text" style="height:28px">INV</span>
+			  <span class="input-group-text form-app">INV</span>
 			</div>
-			<input name="purchase_number" class="form-control form-control-sm" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" style="font-weight:bold; height:28px" required>
+			<input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" style="font-weight:bold" required>
 		  </div>
 		</div>
 		<div class="col-md-2">
 		  <div class="input-group mb-2">
 			<div class="input-group-prepend">
-			  <span class="input-group-text" style="height:28px">TGL</span>
+			  <span class="input-group-text form-app">TGL</span>
 			</div>
-			<input type="date" name="purchase_date" class="form-control form-control-sm" data-toggle="tooltip" title="Tanggal" value="{{ date('Y-m-d') }}" style="height:28px; line-height:10px" required>
+			<input type="date" name="purchase_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tanggal" value="{{ date('Y-m-d') }}" required>
 		  </div>
 		</div>
 		<div class="col-md-1 offset-md-2">
 		  <div class="form-group">
-			<input name="supplier_code" class="form-control form-control-sm" list="data-supplier" placeholder="Kode" data-toggle="tooltip" title="KODE SUPPLIER" autocomplete="off" style="font-weight:bold" required>
+			<input name="supplier_code" class="form-control form-control-sm form-app" list="data-supplier" placeholder="Kode" data-toggle="tooltip" title="KODE SUPPLIER" autocomplete="off" style="font-weight:bold" required>
 			<input type="hidden" name="supplier_id" class="form-control form-control-sm form-app">
 		  </div>
 		</div>
 		<div class="col-md-3">
 		  <div class="form-group">
-			<input name="supplier_name" class="form-control form-control-sm" placeholder="Nama Supplier" style="font-weight:bold" readonly>
+			<input name="supplier_name" class="form-control form-control-sm form-app" placeholder="Nama Supplier" style="font-weight:bold" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="supplier_phone" class="form-control form-control-sm" placeholder="Telepon" readonly>
+			<input name="supplier_phone" class="form-control form-control-sm form-app" placeholder="Telepon" readonly>
 		  </div>
 		</div>
 	  </div>
@@ -44,12 +44,12 @@ input, select { font-size:12px }
 	  <div class="row">
 		<div class="col-md-4 offset-md-6">
 		  <div class="form-group">
-			<input name="supplier_address" class="form-control form-control-sm" placeholder="Alamat" readonly>
+			<input name="supplier_address" class="form-control form-control-sm form-app" placeholder="Alamat" readonly>
 		  </div>
 		</div>
 		<div class="col-md-2">
 		  <div class="form-group">
-			<input name="supplier_city" class="form-control form-control-sm" placeholder="Kota" readonly>
+			<input name="supplier_city" class="form-control form-control-sm form-app" placeholder="Kota" readonly>
 		  </div>
 		</div>
 	  </div>
@@ -128,7 +128,7 @@ input, select { font-size:12px }
 			<tr>
 			  <td style="border-color:transparent"><b>KETERANGAN</b></td>
 			  <td colspan="5" style="border-color:transparent">
-			    <input name="purchase_note" class="form-control form-control-sm">
+			    <input name="purchase_note" class="form-control form-control-sm form-app">
 			  </td>
 			  <td style="border-color:transparent; border-right:1px solid"></td>
 			  <td><b>PPN</b></td>
@@ -202,5 +202,13 @@ $('#ppn_amount').keyup(function(){
   
   $('#grand_total').val(parseInt(total) + parseInt(ppn));
   $('#grand_total_display').text(new Intl.NumberFormat().format(parseInt(total) + parseInt(ppn)));
+});
+
+/* ============================================================== */
+/* Datepicker														= */
+/* ============================================================== */
+
+$('.datepicker').datepicker({
+    dateFormat: 'dd/mm/yy'
 });
 </script>

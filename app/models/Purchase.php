@@ -81,4 +81,20 @@ class Purchase extends DB\SQL\Mapper {
 		$this->copyFrom('POST');
 		$this->update();
 	}
+	
+	public function exist($purchase_number){
+		$output = array();
+		
+		$this->load(array('purchase_number = ?', $purchase_number));
+		$query = $this->query;
+			
+		foreach($query as $data){
+			$output[] = array(
+				"count" => count($data['purchase_number']),
+				"purchase_number" => $data['purchase_number']
+			);
+		}
+		
+		echo json_encode($output);
+	}
 }

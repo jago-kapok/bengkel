@@ -18,6 +18,11 @@ class PurchaseController extends Controller {
 		die($purchase->data($draw, $length, $offset, $search));
 	}
 	
+	public function exist(){
+		$purchase = new Purchase($this->db);
+		die($purchase->exist($this->f3->get('PARAMS.purchase_number')));
+	}
+	
 	public function create(){
 		if($this->f3->exists('POST.create')){
 			$purchase = new Purchase($this->db);
@@ -43,6 +48,7 @@ class PurchaseController extends Controller {
 			$purchase->edit($this->f3->get('PARAMS.purchase_id'));
 			
 			$purchase_detail = new PurchaseDetail($this->db);
+			$purchase_detail->resetStock($this->f3->get('PARAMS.purchase_id'));
 			$purchase_detail->beforeEdit($this->f3->get('PARAMS.purchase_id'));
 			$purchase_detail->add($this->f3->get('PARAMS.purchase_id'));
 				
@@ -53,7 +59,6 @@ class PurchaseController extends Controller {
 			
 			$purchase_detail = new PurchaseDetail($this->db);
 			$this->f3->set('data_purchase_detail', $purchase_detail->getById($this->f3->get('PARAMS.purchase_id')));
-			$purchase_detail->resetStock($this->f3->get('PARAMS.purchase_id'));
 			
 			$merk = new Merk($this->db);
 			$this->f3->set('data_merk', $merk->getAll());

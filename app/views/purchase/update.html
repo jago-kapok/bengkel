@@ -1,5 +1,5 @@
 <style>
-input, .form-control { font-size:12px }
+input, select, .form-control { font-size:12px }
 </style>
 
 <div class="">
@@ -74,7 +74,7 @@ input, .form-control { font-size:12px }
 		    <repeat group="{{ @data_purchase_detail }}" key="{{ @i }}" value="{{ $purchase_detail }}">
 			<tr id="item_1{{ @i }}">
 			  <td>
-			    <input id="1{{ @i }}" name="data[1{{ @i }}][item_code]" class="item" style="width:100%" onchange="return getData(this.id, this.value)" list="data-item" autocomplete="off" value="{{ @purchase_detail.item_code }}">
+			    <input id="1{{ @i }}" name="data[1{{ @i }}][item_code]" class="item" style="width:100%" onchange="return getDataPurchase(this.id, this.value)" list="data-item" autocomplete="off" value="{{ @purchase_detail.item_code }}">
 			    <input id="item_id_1{{ @i }}" type="hidden" name="data[1{{ @i }}][item_id]" value="{{ @purchase_detail.item_id }}">
 			  </td>
 			  <td>
@@ -115,7 +115,7 @@ input, .form-control { font-size:12px }
 			<loop from="{{ @i=0 }}" to="{{ @i < (10 - count(@data_purchase_detail)) }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
-			    <input id="{{ @i }}" name="data[{{ @i }}][item_code]" class="item" style="width:100%" onchange="return getData(this.id, this.value)" list="data-item" autocomplete="off">
+			    <input id="{{ @i }}" name="data[{{ @i }}][item_code]" class="item" style="width:100%" onchange="return getDataPurchase(this.id, this.value)" list="data-item" autocomplete="off">
 			    <input id="item_id_{{ @i }}" type="hidden" name="data[{{ @i }}][item_id]">
 			  </td>
 			  <td>
@@ -160,7 +160,7 @@ input, .form-control { font-size:12px }
 			  <td><b>Total Harga</b></td>
 			  <td class="text-right" colspan="2">
 				<b><span id="part_charge_display">{{ number_format(@POST.purchase_total - @POST.purchase_ppn) }}</span></b>
-			    <input type="hidden" id="part_charge" value="{{ @POST.purchase_total - @POST.purchase_ppn }}">
+			    <input type="text" id="part_charge" value="{{ @POST.purchase_total - @POST.purchase_ppn }}">
 			    <input type="hidden" id="service_charge" value="0">
 			    <input type="hidden" id="discount" value="0">
 				<input type="hidden" id="ppn" value="0">
@@ -182,7 +182,7 @@ input, .form-control { font-size:12px }
 			  <td><b>Grand Total</b></td>
 			  <td class="text-right" colspan="2">
 				<b><span id="grand_total_display">{{ number_format(@POST.purchase_total) }}</span></b>
-			    <input type="hidden" id="grand_total" name="purchase_total" value="{{ number_format(@POST.purchase_total) }}">
+			    <input type="text" id="grand_total" name="purchase_total" value="{{ @POST.purchase_total }}">
 			  </td>
 			</tr>
 		  </tbody>
