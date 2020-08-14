@@ -1,4 +1,8 @@
-<div class="" style="font-size:12px">
+<style>
+input, .form-control { font-size:12px }
+</style>
+
+<div class="">
   <form action="{{ @BASE.'/purchase/update/'.@PARAMS.purchase_id }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="purchase_by" value="{{ @SESSION.id }}">
     <div class="">
@@ -6,9 +10,9 @@
 		<div class="col-md-2">
 		  <div class="input-group mb-2">
 			<div class="input-group-prepend">
-			  <span class="input-group-text form-app">INVOICE</span>
+			  <span class="input-group-text form-app">INV</span>
 			</div>
-			<input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" style="font-weight:bold; font-size:15px" value="{{ @POST.purchase_number }}" required>
+			<input name="purchase_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" style="font-weight:bold; font-size:14px" value="{{ @POST.purchase_number }}" required>
 		  </div>
 		</div>
 		<div class="col-md-2">
@@ -56,12 +60,12 @@
 			<tr class="bg-primary">
 			  <th class="width-125">Kode</th>
 			  <th class="width-125">Part Number</th>
-			  <th class="width-500">Nama Barang</th>
-			  <th class="width-75">Unit</th>
+			  <th class="width-400">Nama Barang</th>
+			  <th class="width-125">Unit</th>
 			  <th class="width-75">Qty</th>
 			  <th class="width-150">Price</th>
 			  <th class="width-150">Merk</th>
-			  <th class="width-150">Siapa</th>
+			  <th class="width-400">Siapa</th>
 			  <th class="width-150">Amount</th>
 			  <th>#</th>
 			</tr>

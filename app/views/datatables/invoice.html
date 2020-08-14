@@ -38,7 +38,7 @@ $(document).ready(function(){
 			var admin = 'hidden';
 		  }
 		  
-		  return '<a href="{{ @BASE."/invoice/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Invoice" target="_blank"><i class="fa fa-print"></i></a> <a href="{{ @BASE."/invoice/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Invoice"' + admin + '><i class="fa fa-search"></i></a> <a href="{{ @BASE."/invoice/update/' + data + '" }}" class="badge badge-info p-1" title="Edit Data"><i class="fa fa-pen"></i></a>';
+		  return '<a href="{{ @BASE."/invoice/print/' + data + '" }}" class="badge badge-success p-1" title="Cetak Invoice" target="_blank"><i class="fa fa-print"></i></a> <a href="{{ @BASE."/invoice/view/' + data + '" }}" class="badge badge-warning p-1" title="Lihat Invoice"' + admin + '><i class="fa fa-search"></i></a> <a href="{{ @BASE."/invoice/update/' + data + '" }}" class="badge badge-info p-1" title="Edit Data" target="_blank"><i class="fa fa-pen"></i></a>';
 		}
 	  }
 	]

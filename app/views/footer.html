@@ -315,17 +315,52 @@
 		  if(val != '--------'){
 			$('#item_part_no_' + id).attr('readonly', true);
 			$('#item_desc_' + id).attr('readonly', true);
-			$('#item_amount_' + id).attr('readonly', true);
 			$('#item_price_temp_' + id).attr('hidden', true);
 			
 			$('#item_part_no_' + id).addClass('readonly');
 			$('#item_desc_' + id).addClass('readonly');
-			$('#item_amount_' + id).addClass('readonly');
 		  }
 		});
 	  });
 	  
+	  $('#item_amount_' + id).attr('readonly', true);
+	  $('#item_amount_' + id).addClass('readonly');
+	  
 	  $('#item_qty_' + id).focus();
+	}
+	
+	/* ============================================================== */
+	/* Fungsi get data item											= */
+	/* ============================================================== */
+		
+	function getDataPurchase(id, val){
+	  $('#item_id_' + id).empty();
+	  $('#item_part_no_' + id).empty();
+	  $('#item_desc_' + id).empty();
+	  $('#item_price_' + id).empty();
+	  $('#item_price_temp_' + id).empty();
+	  $('#item_brand_' + id).empty();
+		  
+	  $('#item_part_no_' + id).attr('readonly', false);
+	  $('#item_desc_' + id).attr('readonly', false);
+	  $('#item_amount_' + id).attr('readonly', false);
+	  $('#item_price_temp_' + id).attr('hidden', false);
+			
+	  $('#item_part_no_' + id).removeClass('readonly');
+	  $('#item_desc_' + id).removeClass('readonly');
+	  $('#item_amount_' + id).removeClass('readonly');
+		  
+	  $.getJSON("{{ @BASE.'/item/get-data/' }}" + val, function(data){
+		$.each(data, function(key, value){
+		  $('#item_id_' + id).val(value.item_id);
+		  $('#item_part_no_' + id).val(value.item_part_no);
+		  $('#item_desc_' + id).val(value.item_desc);
+		  $('#item_brand_' + id).val(value.item_brand_1);
+		});
+	  });
+		  
+	  $('#item_amount_' + id).attr('readonly', true);
+	  $('#item_amount_' + id).addClass('readonly');
 	}
 	
 	/* ============================================================== */
