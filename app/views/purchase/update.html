@@ -112,7 +112,7 @@ input, select, .form-control { font-size:12px }
 			</tr>
 			</repeat>
 			
-			<loop from="{{ @i=0 }}" to="{{ @i < (10 - count(@data_purchase_detail)) }}" step="{{ @i++ }}">
+			<loop from="{{ @i=0 }}" to="{{ @i < 1 }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
 			    <input id="{{ @i }}" name="data[{{ @i }}][item_code]" class="item" style="width:100%" onchange="return getDataPurchase(this.id, this.value)" list="data-item" autocomplete="off">
@@ -159,22 +159,36 @@ input, select, .form-control { font-size:12px }
 			  <td colspan="7" style="border-color:transparent; border-right:1px solid"></td>
 			  <td><b>Total Harga</b></td>
 			  <td class="text-right" colspan="2">
-				<b><span id="part_charge_display">{{ number_format(@POST.purchase_total - @POST.purchase_ppn) }}</span></b>
-			    <input type="text" id="part_charge" value="{{ @POST.purchase_total - @POST.purchase_ppn }}">
+				<b><span id="part_charge_display">{{ number_format((@POST.purchase_total - @POST.purchase_ppn) + @POST.purchase_discount) }}</span></b>
+			    <input type="hidden" id="part_charge" value="{{ (@POST.purchase_total - @POST.purchase_ppn) + @POST.purchase_discount }}">
 			    <input type="hidden" id="service_charge" value="0">
 			    <input type="hidden" id="discount" value="0">
 				<input type="hidden" id="ppn" value="0">
 			  </td>
 			</tr>
 			<tr>
+			  <td colspan="7" style="border-color:transparent; border-right:1px solid"></td>
+			  <td><b>Diskon</b></td>
+			  <td colspan="2" style="text-align:right">
+			    <input id="discount_amount" name="purchase_discount" style="text-align:right" value="{{ @POST.purchase_discount }}" autocomplete="off">
+			  </td>
+			</tr>
+			<tr>
+			  <td colspan="7" style="border-color:transparent; border-right:1px solid"></td>
+			  <td><b>TOTAL SEBELUM PPN</b></td>
+			  <td colspan="2" style="text-align:right">
+			    <span id="before_ppn" class="number-only">{{ number_format(((@POST.purchase_total - @POST.purchase_ppn) + @POST.purchase_discount) - @POST.purchase_discount) }}</span>
+			  </td>
+			</tr>
+			<tr>
 			  <td style="border-color:transparent"><b>KETERANGAN</b></td>
 			  <td colspan="5" style="border-color:transparent">
-			    <input name="purchase_note" class="form-control form-control-sm form-app" value="{{ @POST.purchase_note }}">
+			    <input name="purchase_note" class="form-control form-control-sm form-app" value="{{ @POST.purchase_note }}" autocomplete="off">
 			  </td>
 			  <td style="border-color:transparent; border-right:1px solid"></td>
 			  <td><b>PPN</b></td>
 			  <td colspan="2" style="text-align:right">
-			    <input id="ppn_amount" name="purchase_ppn" style="text-align:right" value="{{ number_format(@POST.purchase_ppn) }}">
+			    <input id="ppn_amount" name="purchase_ppn" style="text-align:right" value="{{ @POST.purchase_ppn }}">
 			  </td>
 			</tr>
 			<tr>
@@ -182,7 +196,7 @@ input, select, .form-control { font-size:12px }
 			  <td><b>Grand Total</b></td>
 			  <td class="text-right" colspan="2">
 				<b><span id="grand_total_display">{{ number_format(@POST.purchase_total) }}</span></b>
-			    <input type="text" id="grand_total" name="purchase_total" value="{{ @POST.purchase_total }}">
+			    <input type="hidden" id="grand_total" name="purchase_total" value="{{ @POST.purchase_total }}">
 			  </td>
 			</tr>
 		  </tbody>
@@ -237,11 +251,15 @@ $(".item").autocomplete({
 /* PPN Sum														= */
 /* ============================================================== */
 
-$('#ppn_amount').keyup(function(){
+$('#ppn_amount, #discount_amount').keyup(function(){
   var total = $('#part_charge').val();
-  var ppn = this.value;
+  var discount = $('#discount_amount').val();
+  var ppn = $('#ppn_amount').val();
   
-  $('#grand_total').val(parseInt(total) + parseInt(ppn));
-  $('#grand_total_display').text(new Intl.NumberFormat().format(parseInt(total) + parseInt(ppn)));
+  var before_ppn = total - discount;
+  
+  $('#before_ppn').text(before_ppn);
+  $('#grand_total').val(parseInt(before_ppn) + parseInt(ppn));
+  $('#grand_total_display').text(new Intl.NumberFormat().format(parseInt(before_ppn) + parseInt(ppn)));
 });
 </script>

@@ -71,7 +71,7 @@ input, select, .form-control { font-size:12px }
 			</tr>
 		  </thead>
 		  <tbody>
-			<loop from="{{ @i=0 }}" to="{{ @i < 10 }}" step="{{ @i++ }}">
+			<loop from="{{ @i=0 }}" to="{{ @i < @total_detail }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
 			    <input id="{{ @i }}" name="data[{{ @i }}][item_code]" class="item" style="width:100%" onchange="return getDataPurchase(this.id, this.value)" list="data-item" autocomplete="off">
@@ -126,6 +126,20 @@ input, select, .form-control { font-size:12px }
 			  </td>
 			</tr>
 			<tr>
+			  <td colspan="7" style="border-color:transparent; border-right:1px solid"></td>
+			  <td><b>Diskon</b></td>
+			  <td colspan="2" style="text-align:right">
+			    <input id="discount_amount" name="purchase_discount" class="number-only" value="0" autocomplete="off">
+			  </td>
+			</tr>
+			<tr>
+			  <td colspan="7" style="border-color:transparent; border-right:1px solid"></td>
+			  <td><b>TOTAL SEBELUM PPN</b></td>
+			  <td colspan="2" style="text-align:right">
+			    <span id="before_ppn" class="number-only"></span>
+			  </td>
+			</tr>
+			<tr>
 			  <td style="border-color:transparent"><b>KETERANGAN</b></td>
 			  <td colspan="5" style="border-color:transparent">
 			    <input name="purchase_note" class="form-control form-control-sm form-app">
@@ -133,7 +147,7 @@ input, select, .form-control { font-size:12px }
 			  <td style="border-color:transparent; border-right:1px solid"></td>
 			  <td><b>PPN</b></td>
 			  <td colspan="2" style="text-align:right">
-			    <input id="ppn_amount" name="purchase_ppn" style="text-align:right">
+			    <input id="ppn_amount" name="purchase_ppn" style="text-align:right" value="0" autocomplete="off">
 			  </td>
 			</tr>
 			<tr>
@@ -193,15 +207,19 @@ $(".item").autocomplete({
 });
 
 /* ============================================================== */
-/* PPN Sum														= */
+/* PPN dan Discount Sum											= */
 /* ============================================================== */
 
-$('#ppn_amount').keyup(function(){
+$('#ppn_amount, #discount_amount').keyup(function(){
   var total = $('#part_charge').val();
-  var ppn = this.value;
+  var discount = $('#discount_amount').val();
+  var ppn = $('#ppn_amount').val();
   
-  $('#grand_total').val(parseInt(total) + parseInt(ppn));
-  $('#grand_total_display').text(new Intl.NumberFormat().format(parseInt(total) + parseInt(ppn)));
+  var before_ppn = total - discount;
+  
+  $('#before_ppn').text(before_ppn);
+  $('#grand_total').val(parseInt(before_ppn) + parseInt(ppn));
+  $('#grand_total_display').text(new Intl.NumberFormat().format(parseInt(before_ppn) + parseInt(ppn)));
 });
 
 /* ============================================================== */

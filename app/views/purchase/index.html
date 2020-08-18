@@ -8,7 +8,7 @@
     
     <div class="row mb-1">
       <div class="col-md-8">
-        <a href="{{ @BASE.'/purchase/create' }}" class="btn btn-success btn-sm">
+        <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#create_purchase">
           Tambah Pembelian
         </a>
       </div>
@@ -28,10 +28,36 @@
           <th width="100px">Invoice</th>
           <th width="100px">Tanggal</th>
           <th width="400px">Supplier</th>
+          <th width="100px">PPN</th>
           <th width="100px">Amount</th>
           <th width="100px">Pilihan</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
+</div>
+
+<div class="modal fade" id="create_purchase" role="dialog">
+  <div class="modal-dialog modal-sm">
+	<div class="modal-content">
+	  <div class="modal-header bg-info">
+		<h5 class="modal-title"><span class="text-white">Pilih No. Penawaran</span></h5>
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		  <span>&times;</span>
+		</button>
+	  </div>
+	  <form action="{{ @BASE.'/purchase/create' }}" method="POST">
+		<div class="modal-body">
+		  <div class="row p-2">
+			<label><b>Jumlah Detail <span class="text-danger">*</span></b></label>
+			<input name="purchase_total_detail" class="form-control form-control-sm number-only" required>
+		  </div>
+		</div>
+		<div class="modal-footer bg-light">
+		  <button type="submit" class="btn btn-primary btn-sm btn-form">Submit</button>
+		  <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">Tutup</button>
+		</div>
+	  </form>
+	</div>
+  </div>
 </div>

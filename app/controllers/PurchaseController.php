@@ -32,9 +32,11 @@ class PurchaseController extends Controller {
 			$purchase_detail->add($purchase->purchase_id);
 				
 			$this->f3->reroute('/purchase/update/'.$purchase->purchase_id);
-		} else {			
+		} else {
 			$merk = new Merk($this->db);
 			$this->f3->set('data_merk', $merk->getAll());
+			
+			$this->f3->set('total_detail', $this->f3->get('POST.purchase_total_detail'));
 			
 			$this->f3->set('page_title','Transaksi Pembelian');
 			$this->f3->set('header','header/header.html');

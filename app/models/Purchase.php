@@ -16,8 +16,10 @@ class Purchase extends DB\SQL\Mapper {
 		$query = $this->db->exec("SELECT * FROM purchase JOIN supplier ON purchase.supplier_id = supplier.supplier_id WHERE
 			purchase_number LIKE ? OR
 			supplier_name LIKE ? OR
-			purchase_date LIKE ? ORDER BY purchase_id DESC LIMIT ? OFFSET ?",
+			DATE_FORMAT(purchase_date, '%d-%m-%Y') LIKE ? OR
+			DATE_FORMAT(purchase_date, '%d-%M-%Y') LIKE ? ORDER BY purchase_id DESC LIMIT ? OFFSET ?",
 			array(
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -29,8 +31,10 @@ class Purchase extends DB\SQL\Mapper {
 		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM purchase JOIN supplier ON purchase.supplier_id = supplier.supplier_id WHERE
 			purchase_number LIKE ? OR
 			supplier_name LIKE ? OR
-			purchase_date LIKE ?",
+			DATE_FORMAT(purchase_date, '%d-%m-%Y') LIKE ? OR
+			DATE_FORMAT(purchase_date, '%d-%M-%Y') LIKE ?",
 			array(
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%'
@@ -48,6 +52,7 @@ class Purchase extends DB\SQL\Mapper {
 				$data['purchase_number'],
 				date('d-m-Y', strtotime($data['purchase_date'])),
 				$data['supplier_name'],
+				number_format($data['purchase_ppn']),
 				number_format($data['purchase_total']),
 				$data['purchase_id']
 			);
@@ -61,6 +66,7 @@ class Purchase extends DB\SQL\Mapper {
 		
 		$this->copyFrom('POST');
 		$this->purchase_ppn = str_replace(',', '', $f3->get('POST.purchase_ppn'));
+		$this->purchase_discount = str_replace(',', '', $f3->get('POST.purchase_discount'));
 		$this->purchase_total = str_replace(',', '', $f3->get('POST.purchase_total'));
 		$this->save();
 	}
