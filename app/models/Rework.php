@@ -46,7 +46,7 @@ class Rework extends DB\SQL\Mapper {
 		foreach($query as $data) {
 			$output['data'][] = array(
 				$data['invoice_number'],
-				date('d F Y', strtotime($data['rework_date'])),
+				date('d-m-Y', strtotime($data['rework_date'])),
 				$data['customer_name'],
 				number_format($data['rework_total']),
 				$data['rework_id']

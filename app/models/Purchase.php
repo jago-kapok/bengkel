@@ -17,8 +17,12 @@ class Purchase extends DB\SQL\Mapper {
 			purchase_number LIKE ? OR
 			supplier_name LIKE ? OR
 			DATE_FORMAT(purchase_date, '%d-%m-%Y') LIKE ? OR
-			DATE_FORMAT(purchase_date, '%d-%M-%Y') LIKE ? ORDER BY purchase_id DESC LIMIT ? OFFSET ?",
+			DATE_FORMAT(purchase_date, '%d-%M-%Y') LIKE ? OR
+			purchase_ppn LIKE ? OR
+			purchase_total LIKE ? ORDER BY purchase_id DESC LIMIT ? OFFSET ?",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -32,8 +36,12 @@ class Purchase extends DB\SQL\Mapper {
 			purchase_number LIKE ? OR
 			supplier_name LIKE ? OR
 			DATE_FORMAT(purchase_date, '%d-%m-%Y') LIKE ? OR
-			DATE_FORMAT(purchase_date, '%d-%M-%Y') LIKE ?",
+			DATE_FORMAT(purchase_date, '%d-%M-%Y') LIKE ? OR
+			purchase_ppn LIKE ? OR
+			purchase_total LIKE ?",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',

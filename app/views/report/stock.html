@@ -1,4 +1,4 @@
-<div class="card p-2">
+<div class="card p-2 font-12">
   <input type="hidden" name="customer_code">
   <div class="row mb-1">
     <div class="col-md-8">
@@ -30,7 +30,7 @@
     <tbody>
 	  <repeat group="{{ @data_stock_history }}" key="{{ @no }}" value="{{ $stock_history }}">
 		<tr>
-		  <td>{{ date('d F Y', strtotime(@stock_history.stock_history_date)) }}</td>
+		  <td>{{ date('d-m-Y', strtotime(@stock_history.stock_history_date)) }}</td>
 		  <td>{{ @stock_history.item_code }} | {{ @stock_history.item_desc }}</td>
 		  <td>{{ @stock_history.purchase_number }}</td>
 		  <td>{{ @stock_history.invoice_number }}</td>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2020 at 08:40 AM
+-- Generation Time: Aug 18, 2020 at 12:00 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -14171,6 +14171,7 @@ CREATE TABLE `purchase` (
   `purchase_date` datetime DEFAULT NULL,
   `purchase_note` varchar(200) DEFAULT NULL,
   `purchase_total` double DEFAULT NULL,
+  `purchase_discount` int(11) DEFAULT NULL,
   `purchase_ppn` int(11) DEFAULT NULL,
   `purchase_by` int(11) DEFAULT NULL,
   `purchase_created_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
@@ -14180,11 +14181,13 @@ CREATE TABLE `purchase` (
 -- Dumping data for table `purchase`
 --
 
-INSERT INTO `purchase` (`purchase_id`, `supplier_id`, `purchase_number`, `purchase_date`, `purchase_note`, `purchase_total`, `purchase_ppn`, `purchase_by`, `purchase_created_date`) VALUES
-(3, 1, 'PO-123', '2020-07-06 00:00:00', NULL, NULL, NULL, NULL, '2020-07-13 16:05:54'),
-(4, 1, '123', '2020-08-12 00:00:00', 'keterangan', 1232000, 112000, NULL, '2020-08-12 06:15:58'),
-(5, 2, '12345-up', '2020-08-12 00:00:00', 'cek1', 190, 14, 7, '2020-08-12 06:21:57'),
-(6, 2, '11111', '2020-08-13 00:00:00', 'catatan up 3', 99993, 15000, 7, '2020-08-13 05:11:39');
+INSERT INTO `purchase` (`purchase_id`, `supplier_id`, `purchase_number`, `purchase_date`, `purchase_note`, `purchase_total`, `purchase_discount`, `purchase_ppn`, `purchase_by`, `purchase_created_date`) VALUES
+(3, 1, 'PO-123', '2020-07-06 00:00:00', NULL, NULL, NULL, NULL, NULL, '2020-07-13 16:05:54'),
+(4, 1, '123', '2020-08-12 00:00:00', 'keterangan', 220, NULL, 20, 7, '2020-08-12 06:15:58'),
+(5, 2, '12345-up', '2020-08-12 00:00:00', 'cek1', 190, NULL, 14, 7, '2020-08-12 06:21:57'),
+(6, 2, '11111', '2020-08-13 00:00:00', 'catatan up 3', 99, NULL, 15, 7, '2020-08-13 05:11:39'),
+(7, 2, '22222', '2020-08-13 00:00:00', '', 22020, NULL, 2, 7, '2020-08-13 08:50:46'),
+(8, 2, '1212', '2020-08-14 00:00:00', '', 5560, 1200, 560, 7, '2020-08-14 03:42:20');
 
 -- --------------------------------------------------------
 
@@ -14204,7 +14207,7 @@ CREATE TABLE `purchase_detail` (
   `item_brand` varchar(20) DEFAULT NULL,
   `item_to` varchar(50) DEFAULT NULL,
   `item_amount` double DEFAULT NULL,
-  `item_unit` varchar(20) DEFAULT NULL
+  `item_unit` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -14214,11 +14217,15 @@ CREATE TABLE `purchase_detail` (
 INSERT INTO `purchase_detail` (`purchase_detail_id`, `purchase_id`, `item_id`, `purchase_detail_value`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_brand`, `item_to`, `item_amount`, `item_unit`) VALUES
 (2, 3, 1, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (3, 3, 2, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 4, 3412, 5, '--------', 'OK', 'Barang', 200000, 'merk', NULL, 1000000, NULL),
 (9, 5, 0, 6, '--------', 'ok1', 'barang1', 25000, 'merk', 'siapa', 150000, NULL),
 (10, 5, 0, 1, 'B455324', '2.418.455.324', 'PLUNGER', 40000, '1', '2', 40000, NULL),
-(15, 6, 3412, 2, '--------', 'part', 'barang', 20000, 'merk', 'siapa', 40000, ''),
-(16, 6, 3412, 3, '--------', 'part 3', 'barang 3', 15000, 'merk 3', 'siapa 3', 45000, 'kg');
+(35, 6, 3412, 2, '--------', 'part', 'barang', 20000, NULL, 'siapa', 40000, ''),
+(36, 6, 3412, 3, '--------', 'part 3', 'barang 3', 15000, NULL, 'siapa 3', 45000, 'kg'),
+(72, 4, 3412, 1, '--------', 'OK', 'Barang', 200000, NULL, '', 200000, ''),
+(81, 7, 3412, 4, '--------', '1', '2', 5, 'OKE2', '6', 20, '3'),
+(82, 7, 3412, 1, '--------', 'b', 'b', 10000, 'tes1', 'b', 10000, 'b'),
+(83, 7, 3412, 1, '--------', 'a', 'a', 10000, 'OKE2', 'a', 10000, 'a'),
+(90, 8, 3412, 2, '--------', '1', '1', 3100, NULL, '', 6200, 'kg');
 
 -- --------------------------------------------------------
 
@@ -20360,7 +20367,9 @@ INSERT INTO `quotation_file` (`quotation_file_id`, `quotation_id`, `quotation_fi
 (6, 1, NULL, NULL, NULL, NULL, NULL, NULL),
 (7, 6, '0523052020/quotation_file_receipt.png', NULL, NULL, NULL, NULL, NULL),
 (8, 2, '0523012020/quotation_file_receipt.pdf', NULL, NULL, NULL, NULL, NULL),
-(9, 4, '0523032020/quotation_file_receipt.pdf', '0523032020/quotation_file_delivery.png', NULL, NULL, NULL, NULL);
+(9, 4, '0523032020/quotation_file_receipt.pdf', '0523032020/quotation_file_delivery.png', NULL, NULL, NULL, NULL),
+(10, 734, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 733, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -20460,7 +20469,7 @@ CREATE TABLE `stock` (
 
 INSERT INTO `stock` (`stock_id`, `item_id`, `stock_min`, `stock_on_hand`) VALUES
 (1, 1, 10, 6),
-(2, 2, 1, 15),
+(2, 2, 1, 16),
 (3, 3, 15, 10),
 (4, 4, 1, 10),
 (5, 5, 1, 10),
@@ -23898,7 +23907,12 @@ INSERT INTO `stock_history` (`stock_history_id`, `item_id`, `invoice_id`, `purch
 (2, 2, NULL, 3, NULL, NULL, NULL, '2020-07-13 23:05:54'),
 (14, 1, NULL, 3, NULL, NULL, 1, '2020-07-16 22:23:51'),
 (15, 448, NULL, NULL, 3, '000001/2020', 1, '2020-07-16 22:23:51'),
-(16, 1, NULL, NULL, 4, '000001/2020', 5, '2020-07-16 22:24:39');
+(16, 1, NULL, NULL, 4, '000001/2020', 5, '2020-07-16 22:24:39'),
+(32, 3412, NULL, 4, NULL, NULL, 1, '2020-08-14 16:56:29'),
+(41, 3412, NULL, 7, NULL, NULL, 4, '2020-08-14 18:10:00'),
+(42, 3412, NULL, 7, NULL, NULL, 1, '2020-08-14 18:10:00'),
+(43, 3412, NULL, 7, NULL, NULL, 1, '2020-08-14 18:10:00'),
+(50, 3412, NULL, 8, NULL, NULL, 2, '2020-08-18 16:40:20');
 
 -- --------------------------------------------------------
 
@@ -23946,7 +23960,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `user_fullname`, `user_name`, `user_password`, `user_level`, `user_image`, `user_last_login`) VALUES
 (6, 'Administrator', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 'Administrator.', '2020-07-27 12:21:02'),
-(7, 'Ini User', 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 2, 'Ini_User.', '2020-08-12 16:34:00');
+(7, 'Ini User', 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 2, 'Ini_User.', '2020-08-14 13:57:17');
 
 --
 -- Indexes for dumped tables
@@ -24120,12 +24134,12 @@ ALTER TABLE `model`
 -- AUTO_INCREMENT for table `purchase`
 --
 ALTER TABLE `purchase`
-  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `purchase_detail`
 --
 ALTER TABLE `purchase_detail`
-  MODIFY `purchase_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `purchase_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 --
 -- AUTO_INCREMENT for table `quotation`
 --
@@ -24140,7 +24154,7 @@ ALTER TABLE `quotation_detail`
 -- AUTO_INCREMENT for table `quotation_file`
 --
 ALTER TABLE `quotation_file`
-  MODIFY `quotation_file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `quotation_file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `rework`
 --
@@ -24165,7 +24179,7 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT for table `stock_history`
 --
 ALTER TABLE `stock_history`
-  MODIFY `stock_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `stock_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
