@@ -450,11 +450,13 @@
 	  let quotation_discount = $("#discount").val();
 	  let quotation_service_charge = $("#service_charge").val();
 	  let quotation_ppn_percentage = $("#ppn").val();
+	  let quotation_ppn_amount = $("#ppn_amount").val();
 	  
 	  let total_no_ppn = (parseInt(quotation_part_charge) - parseInt(quotation_discount)) + parseInt(quotation_service_charge);
 	  let quotation_ppn =  parseInt(total_no_ppn) * (parseInt(quotation_ppn_percentage) / 100);
-	  let grand_total = parseInt(total_no_ppn) + parseInt(quotation_ppn);
+	  let grand_total = parseInt(total_no_ppn) + parseInt(quotation_ppn) + parseInt(quotation_ppn_amount);
 	  
+	  $("#before_ppn").html(new Intl.NumberFormat().format(total_no_ppn));
 	  $("#ppn_display").html(new Intl.NumberFormat().format(quotation_ppn));
 	  
 	  $("#grand_total_display").html(new Intl.NumberFormat().format(grand_total));
@@ -488,11 +490,13 @@
 	  let quotation_discount = $("#discount").val();
 	  let quotation_service_charge = $("#service_charge").val();
 	  let quotation_ppn_percentage = $("#ppn").val();
+	  let quotation_ppn_amount = $("#ppn_amount").val();
 	  
 	  let total_no_ppn = (parseInt(quotation_part_charge) - parseInt(quotation_discount)) + parseInt(quotation_service_charge);
 	  let quotation_ppn =  parseInt(total_no_ppn) * (parseInt(quotation_ppn_percentage) / 100);
-	  let grand_total = parseInt(total_no_ppn) + parseInt(quotation_ppn);
+	  let grand_total = parseInt(total_no_ppn) + parseInt(quotation_ppn) + parseInt(quotation_ppn_amount);
 	  
+	  $("#before_ppn").html(new Intl.NumberFormat().format(total_no_ppn));
 	  $("#ppn_display").html(new Intl.NumberFormat().format(quotation_ppn));
 	  
 	  $("#grand_total_display").html(new Intl.NumberFormat().format(grand_total));

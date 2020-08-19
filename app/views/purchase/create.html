@@ -129,7 +129,7 @@ input, select, .form-control { font-size:12px }
 			  <td colspan="7" style="border-color:transparent; border-right:1px solid"></td>
 			  <td><b>Diskon</b></td>
 			  <td colspan="2" style="text-align:right">
-			    <input id="discount_amount" name="purchase_discount" class="number-only" value="0" autocomplete="off">
+			    <input id="discount_amount" name="purchase_discount" style="text-align:right" value="0" autocomplete="off">
 			  </td>
 			</tr>
 			<tr>
@@ -217,7 +217,7 @@ $('#ppn_amount, #discount_amount').keyup(function(){
   
   var before_ppn = total - discount;
   
-  $('#before_ppn').text(before_ppn);
+  $('#before_ppn').text(new Intl.NumberFormat().format(before_ppn));
   $('#grand_total').val(parseInt(before_ppn) + parseInt(ppn));
   $('#grand_total_display').text(new Intl.NumberFormat().format(parseInt(before_ppn) + parseInt(ppn)));
 });
