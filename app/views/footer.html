@@ -5,7 +5,7 @@
   <script src="../../ui/assets/js/popper.min.js"></script>
   <script src="../../ui/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="../../ui/assets/js/jquery.nicescroll.min.js"></script>
-  <script src="../../ui/assets/js/jquery.number.min.js"></script>
+  <script src="../../ui/assets/js/jquery.number.js"></script>
   <!-- DataTables -->
   <script src="../../ui/assets/plugins/datatables/jquery.dataTables.js"></script>
   <script src="../../ui/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -38,7 +38,7 @@
 	/* Inisialisasi Jquery number pada class money-mask				= */
 	/* ============================================================== */
 	
-	$('input').autocomplete(false);
+	<!-- $('input').autocomplete(false); -->
 	
 	/* ============================================================== */
 	/* Inisialisasi Jquery number pada class money-mask				= */
@@ -269,6 +269,10 @@
 	/* ============================================================== */
 	/* Fungsi get data customer										= */
 	/* ============================================================== */
+	
+	$('#tester').keyup(function(){
+	  alert();
+	});
 	
 	$('input[name=supplier_code]').change(function(){
 	  $('input[name=supplier_id]').empty();
