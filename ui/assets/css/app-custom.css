@@ -12,7 +12,7 @@ section {
 .dataTables_filter {
 	display: none;
 }
-.number-only {
+.number-only, .number-format {
 	text-align: right;
 }
 .dropdown-divider {

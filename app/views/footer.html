@@ -39,12 +39,14 @@
 	/* ============================================================== */
 	
 	<!-- $('input').autocomplete(false); -->
+	$.fn.dataTable.ext.errMode = 'throw';
 	
 	/* ============================================================== */
 	/* Inisialisasi Jquery number pada class money-mask				= */
 	/* ============================================================== */
 	
 	$('.number-only').number(true);
+	$('.number-format').number(true);
 	
 	/* ============================================================== */
 	/* Fungsi input hanya nomer										= */
