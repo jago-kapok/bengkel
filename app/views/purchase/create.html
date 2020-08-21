@@ -89,8 +89,7 @@ input, select, .form-control { font-size:12px }
 			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][item_price]" class="number-only" style="width:100%" onkeyup="return getTotal({{ @i }})">
 			  </td>
 			  <td>
-			    <!-- <input id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand]" style="width:100%"> -->
-			    <select name="data[{{ @i }}][item_brand]" style="width:100%">
+			    <select id="item_brand_{{ @i }}" name="data[{{ @i }}][item_brand]" style="width:100%">
 				  <option disabled selected></option>
 				  <repeat group="{{ @data_merk }}" value="{{ $merk }}">
 					<option value="{{ @merk.merk_desc }}">{{ @merk.merk_desc }}</option>
@@ -119,7 +118,7 @@ input, select, .form-control { font-size:12px }
 			  <td><b>Total Harga</b></td>
 			  <td class="text-right" colspan="2">
 				<b><span id="part_charge_display"></span></b>
-			    <input type="hidden" id="part_charge">
+			    <input type="hidden" id="part_charge" name="purchase_total">
 			    <input type="hidden" id="service_charge" value="0">
 			    <input type="hidden" id="discount" value="0">
 				<input type="hidden" id="ppn" value="0">
@@ -155,7 +154,7 @@ input, select, .form-control { font-size:12px }
 			  <td><b>Grand Total</b></td>
 			  <td class="text-right" colspan="2">
 				<b><span id="grand_total_display"></span></b>
-			    <input type="hidden" id="grand_total" name="purchase_total">
+			    <input type="hidden" id="grand_total"">
 			  </td>
 			</tr>
 		  </tbody>

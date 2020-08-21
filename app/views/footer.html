@@ -272,10 +272,6 @@
 	/* Fungsi get data customer										= */
 	/* ============================================================== */
 	
-	$('#tester').keyup(function(){
-	  alert();
-	});
-	
 	$('input[name=supplier_code]').change(function(){
 	  $('input[name=supplier_id]').empty();
 	  $('input[name=supplier_name]').empty();
@@ -346,13 +342,15 @@
 	/* ============================================================== */
 		
 	function getDataPurchase(id, val){
-	  $('#item_id_' + id).empty();
-	  $('#item_part_no_' + id).empty();
-	  $('#item_desc_' + id).empty();
-	  $('#item_price_' + id).empty();
-	  $('#item_price_temp_' + id).empty();
-	  $('#item_brand_' + id).empty();
-	  $('#item_unit_' + id).empty();
+	  $('#item_id_' + id).val('');
+	  $('#item_part_no_' + id).val('');
+	  $('#item_desc_' + id).val('');
+	  $('#item_qty_' + id).val('');
+	  $('#item_price_' + id).val('');
+	  $('#item_brand_' + id).val('');
+	  $('#item_to_' + id).val('');
+	  $('#item_unit_' + id).val('');
+	  $('#item_amount_' + id).val('');
 		  
 	  $('#item_part_no_' + id).attr('readonly', false);
 	  $('#item_desc_' + id).attr('readonly', false);
@@ -361,15 +359,30 @@
 	  $('#item_part_no_' + id).removeClass('readonly');
 	  $('#item_desc_' + id).removeClass('readonly');
 	  $('#item_amount_' + id).removeClass('readonly');
-		  
+	  
 	  $.getJSON("{{ @BASE.'/item/get-data/' }}" + val, function(data){
-		$.each(data, function(key, value){
-		  $('#item_id_' + id).val(value.item_id);
-		  $('#item_part_no_' + id).val(value.item_part_no);
-		  $('#item_desc_' + id).val(value.item_desc);
-		  $('#item_brand_' + id).val(value.item_brand_1);
-		  $('#item_unit_' + id).val(value.item_unit);
-		});
+	    if(data == ''){
+		  alert('Kode tidak ada !');
+		  
+		  $('#' + id).val('');
+		  $('#item_id_' + id).val('');
+		  $('#item_part_no_' + id).val('');
+		  $('#item_desc_' + id).val('');
+		  $('#item_qty_' + id).val('');
+		  $('#item_price_' + id).val('');
+		  $('#item_brand_' + id).val('');
+		  $('#item_to_' + id).val('');
+		  $('#item_unit_' + id).val('');
+		  $('#item_amount_' + id).val('');
+		} else {
+		  $.each(data, function(key, value){
+			$('#item_id_' + id).val(value.item_id);
+			$('#item_part_no_' + id).val(value.item_part_no);
+			$('#item_desc_' + id).val(value.item_desc);
+			$('#item_brand_' + id).val(value.item_brand_1);
+			$('#item_unit_' + id).val(value.item_unit);
+		  });
+		}
 	  });
 		  
 	  $('#item_amount_' + id).attr('readonly', true);
@@ -538,7 +551,22 @@
 		  }
 		});
 	  });
-	});		  
+	});
+	
+	/* ============================================================== */
+	/* Validasi Item												= */
+	/* ============================================================== */
+	
+	<!-- $('input[name=item_code]').change(function(){ -->
+	  <!-- $.getJSON("{{ @BASE.'/purchase/exist/' }}" + this.value, function(data){ -->
+		<!-- $.each(data, function(key, value){ -->
+		  <!-- if(value.count > 0){ -->
+			<!-- alert('Nomor Invoice ' + value.purchase_number + ' sudah ada !'); -->
+			<!-- $('input[name=purchase_number]').val(''); -->
+		  <!-- } -->
+		<!-- }); -->
+	  <!-- }); -->
+	<!-- }); -->
   </script>
 </body>
 </html>

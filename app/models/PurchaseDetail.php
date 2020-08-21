@@ -12,7 +12,7 @@ class PurchaseDetail extends DB\SQL\Mapper {
 		$data = $f3->get('POST.data');
 		
 		foreach($data as $value){
-			if($value['item_desc'] <> ''){
+			if($value['item_code'] <> ''){
 				$this->db->exec("INSERT INTO purchase_detail
 				(purchase_id,
 				item_id,

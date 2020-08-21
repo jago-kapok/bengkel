@@ -91,8 +91,13 @@ class Purchase extends DB\SQL\Mapper {
 	}
 	
 	public function edit($purchase_id){
+		$f3 = \Base::instance();
+		
 		$this->load(array('purchase_id = ?', $purchase_id));
 		$this->copyFrom('POST');
+		$this->purchase_ppn = str_replace(',', '', $f3->get('POST.purchase_ppn'));
+		$this->purchase_discount = str_replace(',', '', $f3->get('POST.purchase_discount'));
+		$this->purchase_total = str_replace(',', '', $f3->get('POST.purchase_total'));
 		$this->update();
 	}
 	
