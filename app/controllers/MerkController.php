@@ -14,7 +14,7 @@ class MerkController extends Controller {
 		$this->f3->set('merk_code', $merk_code);
 		/* Merk Code */
 		
-		$this->f3->set('page_title','Data Merk');
+		$this->f3->set('page_title','Master Merk');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','merk/index.html');
 	}

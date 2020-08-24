@@ -198,7 +198,7 @@
 	  var supplier_npwp = button.data('supplier_npwp');
 	  
 	  var modal = $(this);
-	  modal.find('.modal-title').text('Update : ' + supplier_code);
+	  modal.find('.modal-title').text('Edit Master Supplier : ' + supplier_code);
 	  modal.find('.modal-body input[name=supplier_id]').val(supplier_id);
 	  modal.find('.modal-body input[name=supplier_code]').val(supplier_code);
 	  modal.find('.modal-body input[name=supplier_name]').val(supplier_name);
@@ -557,16 +557,16 @@
 	/* Validasi Item												= */
 	/* ============================================================== */
 	
-	<!-- $('input[name=item_code]').change(function(){ -->
-	  <!-- $.getJSON("{{ @BASE.'/purchase/exist/' }}" + this.value, function(data){ -->
-		<!-- $.each(data, function(key, value){ -->
-		  <!-- if(value.count > 0){ -->
-			<!-- alert('Nomor Invoice ' + value.purchase_number + ' sudah ada !'); -->
-			<!-- $('input[name=purchase_number]').val(''); -->
-		  <!-- } -->
-		<!-- }); -->
-	  <!-- }); -->
-	<!-- }); -->
+	$('input[name=item_code]').change(function(){
+	  $.getJSON("{{ @BASE.'/item/exist/' }}" + this.value, function(data){
+		$.each(data, function(key, value){
+		  if(value.count > 0){
+			alert('Kode Barang ' + value.item_code + ' sudah ada !');
+			$('input[name=item_code]').val('');
+		  }
+		});
+	  });
+	});
   </script>
 </body>
 </html>

@@ -62,8 +62,8 @@ class Item extends DB\SQL\Mapper {
 				$data['item_desc'],
 				$data['item_unit'],
 				$data['item_stamping'],
-				number_format($data['item_price']),
 				$data['item_physical'],
+				number_format($data['item_price']),
 				$data['item_similar'],
 				$data['item_pn'],
 				$data['item_brand_1'],
@@ -126,4 +126,20 @@ class Item extends DB\SQL\Mapper {
 		
 		echo json_encode($output);
     }
+	
+	public function exist($item_code){
+		$output = array();
+		
+		$this->load(array('item_code = ?', $item_code));
+		$query = $this->query;
+			
+		foreach($query as $data){
+			$output[] = array(
+				"count" => count($data['item_code']),
+				"item_code" => $data['item_code']
+			);
+		}
+		
+		echo json_encode($output);
+	}
 }

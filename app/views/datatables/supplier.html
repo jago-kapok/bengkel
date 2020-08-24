@@ -8,7 +8,7 @@
             "serverSide": true,
             "lengthChange": false,
             "searching": true,
-			"pageLength": 15,
+			"pageLength": 12,
             "ajax": {
                 "url": "{{ @BASE.'/supplier/data' }}",
                 "type": "POST"
@@ -17,7 +17,7 @@
                 { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
                 {
                     "render": function (data, type, full) {
-                        return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Perbarui Data" data-toggle="modal" data-target="#update_supplier" data-supplier_id="' + data + '" data-supplier_code="' + full[0] + '" data-supplier_name="' + full[1] + '" data-supplier_address="' + full[2] + '" data-supplier_city="' + full[3] + '" data-supplier_phone="' + full[4] + '" data-supplier_npwp="' + full[6] + '"><i class="fa fa-pen"></i></>';
+                        return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Edit Supplier" data-toggle="modal" data-target="#update_supplier" data-supplier_id="' + data + '" data-supplier_code="' + full[0] + '" data-supplier_name="' + full[1] + '" data-supplier_address="' + full[2] + '" data-supplier_city="' + full[3] + '" data-supplier_phone="' + full[4] + '" data-supplier_npwp="' + full[6] + '"><i class="fa fa-pen"></i></>';
                     }
                 }
             ]

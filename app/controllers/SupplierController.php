@@ -14,7 +14,7 @@ class SupplierController extends Controller {
 		$this->f3->set('supplier_code', $supplier_code);
 		/* Supplier Code */
 		
-		$this->f3->set('page_title','Data Supplier');
+		$this->f3->set('page_title','Master Supplier');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','supplier/index.html');
 	}

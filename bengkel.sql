@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2020 at 12:00 PM
+-- Generation Time: Aug 24, 2020 at 11:56 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -10661,7 +10661,7 @@ CREATE TABLE `item` (
   `item_similar` varchar(25) DEFAULT NULL,
   `item_pn` varchar(25) DEFAULT NULL,
   `item_brand_1` varchar(30) DEFAULT NULL,
-  `item_bradn_2` varchar(30) DEFAULT NULL,
+  `item_brand_2` varchar(30) DEFAULT NULL,
   `item_brand_3` varchar(30) DEFAULT NULL,
   `item_note` text,
   `item_image` text
@@ -10671,7 +10671,7 @@ CREATE TABLE `item` (
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_bradn_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
+INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_brand_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
 (1, '29639', '150S6705', 'NOZZLE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2, '4682110000', '468211-0000', 'MAJOT KIT', 600000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (3, '6710713360', '6710-71-3360', 'GOV PLUNGER UPPER', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -11140,7 +11140,7 @@ INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_p
 (466, 'CD6N7527', '6N 7527', 'PLUNGER', 200000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (467, 'CD7N1183', '7N 1183', 'PLUNGER', 450000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (468, 'CD7N1220', '7N 1220', 'PLUNGER', 375000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_bradn_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
+INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_brand_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
 (469, 'CD7S2374', '7S 2374', 'GASKET', 6000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (470, 'CD7S4439', '7S 4439', 'RING', 7500, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (471, 'CD7W0182', '7W 0182', 'PLUNGER', 290000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -11625,7 +11625,7 @@ INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_p
 (950, 'D1470', '090140-1470', 'VALVE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (951, 'D1480', '090140-1480', 'VALVE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (952, 'D161S1', '090140-0021', 'VALVE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_bradn_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
+INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_brand_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
 (953, 'D1660', '090150-1660', 'PLUNGER', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (954, 'D1660V', '090140-1660', 'VALVE', 34800, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (955, 'D1670', '090140-1670', 'VALVE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -12088,7 +12088,7 @@ INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_p
 (1412, 'F6801019', '6801019', 'NOZZLE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1413, 'F6801022', '6801022', 'NOZZLE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1414, 'F6801029', '6801029', 'NOZZLE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_bradn_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
+INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_brand_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
 (1415, 'F6801047', '----', 'NOZZLE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1416, 'F6801058', '6801058', 'NOZZLE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1417, 'F6801072', '6801072', 'NOZZLE', 246000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -12558,7 +12558,7 @@ INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_p
 (1881, 'KCAM3520', '146220-3520', 'CAMPLATE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1882, 'KCAM3820', '146220-2020', 'CAMPLATE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1883, 'KCAM4720', '146220-4720', 'CAMPLATE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_bradn_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
+INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_brand_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
 (1884, 'KCAM4820', '146220-4820', 'CAMPLATE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1885, 'KCAM5320', '146220-5320', 'CAMPLATE', 254000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (1886, 'KCAM5720', '146220-5720', 'CAMPLATE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -13024,7 +13024,7 @@ INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_p
 (2346, 'KRH4420A', '146405-4420', 'ROTOR HEAD', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2347, 'KRH4720', '146401-4720', 'ROTOR HEAD', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2348, 'KRH4720A', '146402-4720', 'ROTOR HEAD', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_bradn_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
+INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_brand_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
 (2349, 'KRH4920', '146403-4920', 'ROTOR HEAD', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2350, 'KRH4920(A)', '146401-4920', 'ROTOR HEAD', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2351, 'KRH5220', '146402-5220', 'ROTOR HEAD', 902000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -13495,7 +13495,7 @@ INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_p
 (2816, 'MP83K', '134151-0120', 'PLUNGER', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2817, 'MP84', '134151-0220', 'PLUNGER', 100000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2818, 'MP84D', '093400-5840', 'NOZZLE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_bradn_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
+INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_brand_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
 (2819, 'MP84K', '134151-0220', 'PLUNGER', 100000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2820, 'MP84V', '134110-8520', 'VALVE', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2821, 'MP86', '134151-0420', 'PLUNGER', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -13969,7 +13969,7 @@ INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_p
 (3289, 'SEAL304207', '----', 'SEAL', 2600, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (3290, 'SEAL304407', '----', 'SEAL', 1950, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (3291, 'SEAL304508', '----', 'SEAL', 9500, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_bradn_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
+INSERT INTO `item` (`item_id`, `item_code`, `item_part_no`, `item_desc`, `item_price`, `item_unit`, `item_stamping`, `item_physical`, `item_similar`, `item_pn`, `item_brand_1`, `item_brand_2`, `item_brand_3`, `item_note`, `item_image`) VALUES
 (3292, 'SEAL344806', '----', 'SEAL', 15300, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (3293, 'SEAL354707', '----', 'SEAL', 1925, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (3294, 'SEAL355008', '----', 'SEAL', 4025, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -14173,6 +14173,7 @@ CREATE TABLE `purchase` (
   `purchase_total` double DEFAULT NULL,
   `purchase_discount` int(11) DEFAULT NULL,
   `purchase_ppn` int(11) DEFAULT NULL,
+  `purchase_tax_number` varchar(35) DEFAULT NULL,
   `purchase_by` int(11) DEFAULT NULL,
   `purchase_created_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -14181,13 +14182,13 @@ CREATE TABLE `purchase` (
 -- Dumping data for table `purchase`
 --
 
-INSERT INTO `purchase` (`purchase_id`, `supplier_id`, `purchase_number`, `purchase_date`, `purchase_note`, `purchase_total`, `purchase_discount`, `purchase_ppn`, `purchase_by`, `purchase_created_date`) VALUES
-(3, 1, 'PO-123', '2020-07-06 00:00:00', NULL, NULL, NULL, NULL, NULL, '2020-07-13 16:05:54'),
-(4, 1, '123', '2020-08-12 00:00:00', 'keterangan', 220, NULL, 20, 7, '2020-08-12 06:15:58'),
-(5, 2, '12345-up', '2020-08-12 00:00:00', 'cek1', 190, NULL, 14, 7, '2020-08-12 06:21:57'),
-(6, 2, '11111', '2020-08-13 00:00:00', 'catatan up 3', 99, NULL, 15, 7, '2020-08-13 05:11:39'),
-(7, 2, '22222', '2020-08-13 00:00:00', '', 22020, NULL, 2, 7, '2020-08-13 08:50:46'),
-(8, 2, '1212', '2020-08-14 00:00:00', '', 5560, 1200, 560, 7, '2020-08-14 03:42:20');
+INSERT INTO `purchase` (`purchase_id`, `supplier_id`, `purchase_number`, `purchase_date`, `purchase_note`, `purchase_total`, `purchase_discount`, `purchase_ppn`, `purchase_tax_number`, `purchase_by`, `purchase_created_date`) VALUES
+(3, 1, 'PO-123', '2020-07-06 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, '2020-07-13 16:05:54'),
+(4, 1, '123', '2020-08-12 00:00:00', 'keterangan', 220, NULL, 20, NULL, 7, '2020-08-12 06:15:58'),
+(5, 2, '12345-up', '2020-08-12 00:00:00', 'cek1', 190, NULL, 14, NULL, 7, '2020-08-12 06:21:57'),
+(6, 2, '11111', '2020-08-13 00:00:00', 'catatan up 3', 99, NULL, 15, NULL, 7, '2020-08-13 05:11:39'),
+(7, 2, '22222', '2020-08-13 00:00:00', '', 22020, NULL, 2, NULL, 7, '2020-08-13 08:50:46'),
+(8, 2, '1212', '2020-08-14 00:00:00', '', 5560, 1200, 560, NULL, 7, '2020-08-14 03:42:20');
 
 -- --------------------------------------------------------
 
@@ -23959,8 +23960,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_fullname`, `user_name`, `user_password`, `user_level`, `user_image`, `user_last_login`) VALUES
-(6, 'Administrator', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 'Administrator.', '2020-07-27 12:21:02'),
-(7, 'Ini User', 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 2, 'Ini_User.', '2020-08-14 13:57:17');
+(6, 'Administrator', 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 'Administrator.', '2020-08-19 16:29:44'),
+(7, 'Ini User', 'user', 'ee11cbb19052e40b07aac0ca060c23ee', 2, 'Ini_User.', '2020-08-24 13:40:50');
 
 --
 -- Indexes for dumped tables

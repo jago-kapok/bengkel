@@ -6,7 +6,7 @@ class ItemController extends Controller {
 		$item = new Item($this->db);
 		$this->f3->set('data_item', $item->getAll());
 		
-		$this->f3->set('page_title','Data Barang');
+		$this->f3->set('page_title','Master Barang');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','item/index.html');
 	}
@@ -28,6 +28,11 @@ class ItemController extends Controller {
 		die($item->getData($item_code));
 	}
 	
+	public function exist(){
+		$item = new Item($this->db);
+		die($item->exist($this->f3->get('PARAMS.item_code')));
+	}
+	
 	public function create(){
 		if($this->f3->exists('POST.create')){
 			$item = new Item($this->db);
@@ -36,12 +41,12 @@ class ItemController extends Controller {
 			self::upload($this->f3->get('FILES.item_image'), str_replace(" ", "_", $this->f3->get('POST.item_code')));
 			
 			\Flash::instance()->addMessage('Berhasil menambah data "'.$this->f3->get('POST.otem_code').'"', 'success');
-			$this->f3->reroute('/item');
+			$this->f3->reroute('/item/update/'.$item->item_id);
 		} else {
 			$level = new Level($this->db);
 			$this->f3->set('data_level', $level->all());
 			
-			$this->f3->set('page_title','Tambah Data Barang');
+			$this->f3->set('page_title','Tambah Master Barang');
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','item/create.html');
 		}
@@ -62,7 +67,7 @@ class ItemController extends Controller {
 			self::upload($this->f3->get('FILES.item_image'), str_replace(" ", "_", $this->f3->get('POST.item_code')));
 			
 			\Flash::instance()->addMessage('Berhasil memperbarui data "'.$this->f3->get('POST.item_code').'"', 'success');
-			$this->f3->reroute('/item');
+			$this->f3->reroute('/item/update/'.$this->f3->get('PARAMS.item_id'));
 		} else {
 			$item = new Item($this->db);
 			$item->getById($this->f3->get('PARAMS.item_id'));

@@ -3,7 +3,7 @@
 class ModelController extends Controller {
 
 	public function index(){
-		$this->f3->set('page_title','Data Model');
+		$this->f3->set('page_title','Master Model');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','model/index.html');
 	}
