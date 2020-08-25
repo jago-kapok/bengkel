@@ -1,150 +1,108 @@
 <div class="card p-2 font-12">
-    <F3:repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
-        <div class="alert alert-{{ @msg.status }} alert-dismissible show fade">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <i class="fa fa-info-circle"></i>&nbsp;&nbsp;{{ @msg.text | esc }}
-        </div>
-    </F3:repeat>
-
-    <div class="row mb-1">
-        <div class="col-md-8">
-            <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal"
-                data-target="#create_supplier">
-                Tambah Supplier
-            </a>
-        </div>
-        <div class="col-md-4 pull-right">
-            <div class="input-group">
-                <input id="supplier_search" class="form-control form-control-sm" placeholder="Find ........">
-                <span class="input-group-append">
-                    <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
-                </span>
-            </div>
-        </div>
+  <div class="row mb-1">
+    <div class="col-md-8">
+      <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal"
+        data-target="#supplier_form">
+        Tambah Supplier
+      </a>
     </div>
+    <div class="col-md-4 pull-right">
+      <div class="input-group">
+        <input id="supplier_search" class="form-control form-control-sm" placeholder="Find ........">
+        <span class="input-group-append">
+		  <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
+        </span>
+      </div>
+    </div>
+  </div>
 
-    <table id="supplier_table" class="table table-striped" style="width:100%">
-        <thead class="bg-app">
-            <tr>
-                <th>Kode Supplier</th>
-                <th>Nama</th>
-                <th>Alamat</th>
-                <th>Kota</th>
-                <th>Telepon</th>
-                <th>Pilihan</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+  <table id="supplier_table" class="table table-striped" style="width:100%">
+    <thead class="bg-app">
+      <tr>
+        <th>Kode Supplier</th>
+		<th>Nama</th>
+        <th>Alamat</th>
+        <th>Kota</th>
+        <th>Telepon</th>
+        <th>Pilihan</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 </div>
 
-<div class="modal fade" id="create_supplier" role="dialog">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header bg-info">
-                <h5 class="modal-title"><span class="text-white">Tambah Master Supplier</span></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span>&times;</span>
-                </button>
+<div class="modal fade" id="supplier_form" role="dialog">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+      <h5 class="modal-title text-white"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <form method="POST">
+        <div class="modal-body">
+		  <input type="hidden" id="supplier_code" value="{{ @supplier_code }}">
+		  <input type="hidden" name="supplier_id">
+          <div class="container p-2">
+            <div class="form-group">
+              <label>Kode Supplier</label>
+              <input name="supplier_code" class="form-control form-control-sm" readonly>
             </div>
-            <form action="{{ @BASE.'/supplier/create/' }}" method="POST">
-                <div class="modal-body">
-                    <div class="container p-2">
-                        <div class="form-group">
-                            <label>Kode Supplier</label>
-                            <input name="supplier_code" class="form-control form-control-sm" value="{{ @supplier_code }}" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Nama <span class="text-danger">*</span></label>
-                            <input name="supplier_name" class="form-control form-control-sm" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Alamat</label>
-                            <input name="supplier_address" class="form-control form-control-sm">
-                        </div>
-						
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label>Kota <span class="text-danger">*</span></label>
-								<input name="supplier_city" class="form-control form-control-sm" required>
-							</div>
-
-							<div class="form-group col-md-6">
-								<label>Telepon</label>
-								<input name="supplier_phone" class="form-control form-control-sm">
-							</div>
-						</div>
-						
-						<div class="form-group">
-                            <label>NPWP</label>
-                            <input name="supplier_npwp" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer bg-light">
-                    <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">SAVE</button>
-                    <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">EXIT</button>
-                </div>
-            </form>
+            <div class="form-group">
+              <label>Nama <span class="text-danger">*</span></label>
+              <input name="supplier_name" class="form-control form-control-sm" required>
+            </div>
+            <div class="form-group">
+              <label>Alamat</label>
+              <input name="supplier_address" class="form-control form-control-sm">
+			</div>
+			<div class="form-row">
+			  <div class="form-group col-md-6">
+				<label>Kota <span class="text-danger">*</span></label>
+				<input name="supplier_city" class="form-control form-control-sm" required>
+			  </div>
+			  <div class="form-group col-md-6">
+				<label>Telepon</label>
+				<input name="supplier_phone" class="form-control form-control-sm">
+			  </div>
+			</div>
+			<div class="form-group">
+              <label>NPWP</label>
+              <input name="supplier_npwp" class="form-control form-control-sm">
+            </div>
+          </div>
         </div>
+		<div class="modal-footer bg-light">
+          <button id="saves" type="button" class="btn btn-primary btn-sm btn-form">SAVE</button>
+          <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">EXIT</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 
-<div class="modal fade" id="update_supplier" role="dialog">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header bg-info">
-                <h5 class="modal-title text-white"><span class="text-white"></span></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <form action="{{ @BASE.'/supplier/update/' }}" method="POST">
-                <div class="modal-body">
-                    <input type="hidden" name="supplier_id">
-                    <div class="container p-2">
-                        <div class="form-group">
-                            <label>Kode Supplier</label>
-                            <input name="supplier_code" class="form-control form-control-sm" readonly>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Nama <span class="text-danger">*</span></label>
-                            <input name="supplier_name" class="form-control form-control-sm" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Alamat</label>
-                            <input name="supplier_address" class="form-control form-control-sm">
-                        </div>
-
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label>Kota <span class="text-danger">*</span></label>
-								<input name="supplier_city" class="form-control form-control-sm" required>
-							</div>
-
-							<div class="form-group col-md-6">
-								<label>Telepon</label>
-								<input name="supplier_phone" class="form-control form-control-sm">
-							</div>
-						</div>
-						
-						<div class="form-group">
-                            <label>NPWP</label>
-                            <input name="supplier_npwp" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer bg-light">
-                    <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">SAVE</button>
-                    <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">EXIT</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<script>
+$('#supplier_form').on('show.bs.modal', function(event){
+  var button = $(event.relatedTarget);
+  var supplier_id = button.data('supplier_id');
+  var supplier_code = button.data('supplier_code') === undefined ? $('#supplier_code').val() : button.data('supplier_code');
+  var supplier_name = button.data('supplier_name');
+  var supplier_address = button.data('supplier_address');
+  var supplier_city = button.data('supplier_city');
+  var supplier_phone = button.data('supplier_phone');
+  var supplier_npwp = button.data('supplier_npwp');
+  
+  var modal_title = button.data('supplier_id') === undefined ? 'Tambah Master Supplier' : 'Edit Master Supplier : ' + supplier_code;
+  
+  var modal = $(this);
+  modal.find('.modal-title').text(modal_title);
+  modal.find('.modal-body input[name=supplier_id]').val(supplier_id);
+  modal.find('.modal-body input[name=supplier_code]').val(supplier_code);
+  modal.find('.modal-body input[name=supplier_name]').val(supplier_name);
+  modal.find('.modal-body input[name=supplier_address]').val(supplier_address);
+  modal.find('.modal-body input[name=supplier_city]').val(supplier_city);
+  modal.find('.modal-body input[name=supplier_phone]').val(supplier_phone);
+  modal.find('.modal-body input[name=supplier_npwp]').val(supplier_npwp);
+});
+</script>

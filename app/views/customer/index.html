@@ -1,14 +1,7 @@
 <div class="card p-2 font-12">
-  <F3:repeat group="{{ \Flash::instance()->getMessages() }}" value="{{ @msg }}">
-    <div class="alert alert-{{ @msg.status }} alert-dismissible show fade">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <i class="fa fa-info-circle"></i>&nbsp;&nbsp;{{ @msg.text | esc }}
-    </div>
-  </F3:repeat>
-  
   <div class="row mb-1">
     <div class="col-md-8">
-      <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#create_customer">
+      <a href="javascript:void(0)" class="btn btn-success btn-sm" data-toggle="modal" data-target="#customer_form">
         Tambah Pelanggan
       </a>
     </div>
@@ -37,35 +30,37 @@
   </table>
 </div>
 
-<div class="modal fade" id="create_customer" role="dialog">
+<div class="modal fade" id="customer_form" role="dialog">
   <div class="modal-dialog modal-lg">
 	<div class="modal-content">
 	  <div class="modal-header bg-info">
-		<h5 class="modal-title"><span class="text-white">Tambah Pelanggan</span></h5>
+		<h5 class="modal-title text-white"></h5>
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		  <span>&times;</span>
 		</button>
 	  </div>
-	  <form action="{{ @BASE.'/customer/create/' }}" method="POST">
+	  <form method="POST">
 		<div class="modal-body">
+		  <input type="hidden" id="customer_code" value="{{ @customer_code }}">
+		  <input type="hidden" name="customer_id">
 		  <div class="row p-2">
 			<div class="col-md-6">
 			  <div class="form-group">
 			    <label>ID Pelanggan</label>
-			    <input name="customer_code" class="form-control form-control-sm" value="{{ @customer_code }}" readonly>
+			    <input name="customer_code" class="form-control form-control-sm" readonly>
 			  </div>
 			  <div class="form-group">
 				<label>Nama 1 <span class="text-danger">*</span></label>
 				<input name="customer_name" class="form-control form-control-sm" required>
 			  </div>
 			  <div class="form-group">
-			    <label>Alamat 1 <span class="text-danger">*</span></label>
-			    <input name="customer_address" class="form-control form-control-sm" required>
+			    <label>Alamat 1</label>
+			    <input name="customer_address" class="form-control form-control-sm">
 			  </div>
 			  <div class="form-row">
 			    <div class="form-group col-md-6">
-				  <label>Kota 1</label>
-				  <input name="customer_city" class="form-control form-control-sm">
+				  <label>Kota 1 <span class="text-danger">*</span></label>
+				  <input name="customer_city" class="form-control form-control-sm" required>
 			    </div>
 				<div class="form-group col-md-6">
 				  <label>Telepon 1</label>
@@ -104,7 +99,7 @@
 		  </div>
 		</div>
 		<div class="modal-footer bg-light">
-		  <button type="submit" name="create" class="btn btn-primary btn-sm btn-form">SAVE</button>
+		  <button id="save" type="button" class="btn btn-primary btn-sm btn-form">SAVE</button>
 		  <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">EXIT</button>
 		</div>
 	  </form>
@@ -112,78 +107,37 @@
   </div>
 </div>
 
-<div class="modal fade" id="update_customer" role="dialog">
-  <div class="modal-dialog modal-lg">
-	<div class="modal-content">
-	  <div class="modal-header bg-info">
-		<h5 class="modal-title text-white"><span class="text-white"></span></h5>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		  <span>&times;</span>
-		</button>
-	  </div>
-	  <form action="{{ @BASE.'/customer/update/' }}" method="POST">
-		<div class="modal-body">
-		  <input type="hidden" name="customer_id">
-		  <div class="row p-2">
-			<div class="col-md-6">
-			  <div class="form-group">
-			    <label>Pelanggan</label>
-			    <input name="customer_code" class="form-control form-control-sm" readonly>
-			  </div>
-			  <div class="form-group">
-				<label>Nama 1 <span class="text-danger">*</span></label>
-				<input name="customer_name" class="form-control form-control-sm">
-			  </div>
-			  <div class="form-group">
-			    <label>Alamat 1 <span class="text-danger">*</span></label>
-			    <input name="customer_address" class="form-control form-control-sm">
-			  </div>
-			  <div class="form-row">
-			    <div class="form-group col-md-6">
-				  <label>Kota 1</label>
-				  <input name="customer_city" class="form-control form-control-sm">
-			    </div>
-				<div class="form-group col-md-6">
-				  <label>No. Telepon 1</label>
-				  <input name="customer_phone" class="form-control form-control-sm">
-			    </div>
-			  </div>
-			  <div class="form-group">
-				<label>Catatan</label>
-				<input name="customer_note" class="form-control form-control-sm">
-			  </div>
-			</div>
-			<div class="col-md-6">
-			  <div class="form-group">
-			    <label>NPWP</label>
-			    <input name="customer_npwp" maxlength="25" class="form-control form-control-sm">
-			  </div>
-			  <div class="form-group">
-			    <label class="text-primary">Nama 1</label>
-			    <input name="customer_name_other" class="form-control form-control-sm">
-			  </div>
-			  <div class="form-group">
-			    <label class="text-primary">Alamat 2</label>
-			    <input name="customer_address_other" class="form-control form-control-sm">
-			  </div>
-			  <div class="form-row">
-			    <div class="form-group col-md-6">
-				  <label class="text-primary">Kota 2</label>
-				  <input name="customer_city_other" class="form-control form-control-sm">
-			    </div>
-				<div class="form-group col-md-6">
-				  <label class="text-primary">Telepon 2</label>
-				  <input name="customer_phone_other" class="form-control form-control-sm">
-			    </div>
-			  </div>
-			</div>
-		  </div>
-		</div>
-		<div class="modal-footer bg-light">
-		  <button type="submit" name="update" class="btn btn-primary btn-sm btn-form">SAVE</button>
-		  <button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">EXIT</button>
-		</div>
-	  </form>
-	</div>
-  </div>
-</div>
+<script>
+$('#customer_form').on('show.bs.modal', function(event){
+  var button = $(event.relatedTarget);
+  var customer_id = button.data('customer_id');
+  var customer_code = button.data('customer_code') === undefined ? $('#customer_code').val() : button.data('customer_code');
+  var customer_name = button.data('customer_name');
+  var customer_address = button.data('customer_address');
+  var customer_city = button.data('customer_city');
+  var customer_phone = button.data('customer_phone');
+  var customer_name_other = button.data('customer_name_other');
+  var customer_address_other = button.data('customer_address_other');
+  var customer_city_other = button.data('customer_city_other');
+  var customer_phone_other = button.data('customer_phone_other');
+  var customer_note = button.data('customer_note');
+  var customer_npwp = button.data('customer_npwp');
+  
+  var modal_title = button.data('customer_id') === undefined ? 'Tambah Master Customer' : 'Edit Master Customer : ' + customer_code;
+  
+  var modal = $(this);
+  modal.find('.modal-title').text(modal_title);
+  modal.find('.modal-body input[name=customer_id]').val(customer_id);
+  modal.find('.modal-body input[name=customer_code]').val(customer_code);
+  modal.find('.modal-body input[name=customer_name]').val(customer_name);
+  modal.find('.modal-body input[name=customer_address]').val(customer_address);
+  modal.find('.modal-body input[name=customer_city]').val(customer_city);
+  modal.find('.modal-body input[name=customer_phone]').val(customer_phone);
+  modal.find('.modal-body input[name=customer_name_other]').val(customer_name_other);
+  modal.find('.modal-body input[name=customer_address_other]').val(customer_address_other);
+  modal.find('.modal-body input[name=customer_city_other]').val(customer_city_other);
+  modal.find('.modal-body input[name=customer_phone_other]').val(customer_phone_other);
+  modal.find('.modal-body input[name=customer_note]').val(customer_note);
+  modal.find('.modal-body input[name=customer_npwp]').val(customer_npwp);
+});
+</script>

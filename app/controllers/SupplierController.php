@@ -36,19 +36,25 @@ class SupplierController extends Controller {
 		die($supplier->getData($supplier_code));
 	}
 	
-	public function create(){
-		$supplier = new Supplier($this->db);
-		$supplier->add();
+	public function save(){
+		if(empty($this->f3->get('POST.supplier_name'))){
+			echo json_encode(array("status"=>100));
+		} else if(empty($this->f3->get('POST.supplier_city'))){
+			echo json_encode(array("status"=>150));
+		} else {
+			if(empty($this->f3->get('POST.supplier_id'))){
+				$supplier = new Supplier($this->db);
+				$supplier->add();
 			
-		\Flash::instance()->addMessage('Berhasil menambah data "'.$this->f3->get('POST.supplier_code').'"', 'success');
-		$this->f3->reroute('/supplier');
-	}
-	
-	public function update(){
-		$supplier = new Supplier($this->db);
-		$supplier->edit($this->f3->get('POST.supplier_id'));			
-			
-		\Flash::instance()->addMessage('Berhasil memperbarui data "'.$this->f3->get('POST.supplier_code').'"', 'success');
-		$this->f3->reroute('/supplier');
+				echo json_encode(array("status"=>200, "supplier_id"=>$supplier->supplier_id));
+			} else {
+				$supplier = new Supplier($this->db);
+				$supplier->edit($this->f3->get('POST.supplier_id'));
+				
+				echo json_encode(array("status"=>250));
+			}
+		}
+		
+		die();
 	}
 }

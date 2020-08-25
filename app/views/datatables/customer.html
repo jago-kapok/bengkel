@@ -1,30 +1,65 @@
 <script>
-    $(document).ready(function () {
-        var table = $('#customer_table').DataTable({
-            "scrollX": false,
-            "ordering": false,
-            "scrollCollapse": true,
-            "processing": true,
-            "serverSide": true,
-            "lengthChange": false,
-            "searching": true,
-			"pageLength": 12,
-            "ajax": {
-                "url": "{{ @BASE.'/customer/data' }}",
-                "type": "POST"
-            },
-            "columns": [
-                { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
-                {
-                    "render": function (data, type, full) {
-                        return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Edit Data" data-toggle="modal" data-target="#update_customer" data-customer_id="' + full[11] + '" data-customer_code="' + full[0] + '" data-customer_name="' + full[1] + '" data-customer_address="' + full[2] + '" data-customer_city="' + full[3] + '" data-customer_phone="' + full[4] + '" data-customer_name_other="' + full[5] + '" data-customer_address_other="' + full[6] + '" data-customer_city_other="' + full[7] + '" data-customer_phone_other="' + full[8] + '" data-customer_note="' + full[9] + '" data-customer_npwp="' + full[10] + '"><i class="fa fa-pen"></i></>';
-                    }
-                }
-            ]
-        });
+$(document).ready(function(){
+  var table = $('#customer_table').DataTable({
+    "scrollX": false,
+    "ordering": false,
+    "scrollCollapse": true,
+    "processing": true,
+    "serverSide": true,
+    "lengthChange": false,
+    "searching": true,
+	"pageLength": 12,
+    "ajax": {
+      "url": "{{ @BASE.'/customer/data' }}",
+      "type": "POST"
+    },
+    "columns": [
+      { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
+      {
+        "render": function(data, type, full){
+          return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Edit Data" data-toggle="modal" data-target="#customer_form" data-customer_id="' + full[11] + '" data-customer_code="' + full[0] + '" data-customer_name="' + full[1] + '" data-customer_address="' + full[2] + '" data-customer_city="' + full[3] + '" data-customer_phone="' + full[4] + '" data-customer_name_other="' + full[5] + '" data-customer_address_other="' + full[6] + '" data-customer_city_other="' + full[7] + '" data-customer_phone_other="' + full[8] + '" data-customer_note="' + full[9] + '" data-customer_npwp="' + full[10] + '"><i class="fa fa-pen"></i></>';
+        }
+      }
+    ]
+  });
 
-        $('#customer_search').on('keyup', function () {
-            table.search(this.value).draw();
-        });
-    });
+  $('#customer_search').on('keyup', function(){
+    table.search(this.value).draw();
+  });
+  
+  $('#save').click(function(){
+    var id = $('input[name=customer_id]').val();
+    var code = $('input[name=customer_code]').val();
+	var name = $('input[name=customer_name]').val();
+	var address = $('input[name=customer_address]').val();
+	var city = $('input[name=customer_city]').val();
+	var phone = $('input[name=customer_phone]').val();
+	var name_other = $('input[name=customer_name_other]').val();
+	var address_other = $('input[name=customer_address_other]').val();
+	var city_other = $('input[name=customer_city_other]').val();
+	var phone_other = $('input[name=customer_phone_other]').val();
+	var npwp = $('input[name=customer_npwp]').val();
+	var note = $('input[name=customer_note]').val();
+  
+	$.post("{{ @BASE.'/customer/save' }}", { customer_id: id, customer_code: code, customer_name: name, customer_address: address, customer_city: city, customer_phone: phone, customer_name_other: name_other, customer_address_other: address_other, customer_city_other: city_other, customer_phone_other: phone_other, customer_npwp: npwp, customer_note: note }, 
+	function(data){
+	  if(data.status == 100){
+		alert('Kolom NAMA harus diisi !');
+		$('input[name=customer_name]').focus();
+	  } else if(data.status == 150){
+	    alert('Kolom KOTA harus diisi !');
+		$('input[name=customer_city]').focus();
+	  } else if(data.status == 200){
+		alert('Data ' + code + ' berhasil disimpan !');
+		$('input[name=customer_id]').val(data.customer_id);
+		 
+		table.ajax.reload(null, false);
+	  } else {
+	    alert('Data ' + code + ' berhasil diperbarui !');
+		 
+		table.ajax.reload(null, false);
+	  }
+	}, "json");
+  });
+});
 </script>

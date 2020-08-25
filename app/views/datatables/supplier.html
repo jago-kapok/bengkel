@@ -1,30 +1,64 @@
 <script>
-    $(document).ready(function () {
-        var table = $('#supplier_table').DataTable({
-            "scrollX": false,
-            "ordering": false,
-            "scrollCollapse": true,
-            "processing": true,
-            "serverSide": true,
-            "lengthChange": false,
-            "searching": true,
-			"pageLength": 12,
-            "ajax": {
-                "url": "{{ @BASE.'/supplier/data' }}",
-                "type": "POST"
-            },
-            "columns": [
-                { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
-                {
-                    "render": function (data, type, full) {
-                        return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Edit Supplier" data-toggle="modal" data-target="#update_supplier" data-supplier_id="' + data + '" data-supplier_code="' + full[0] + '" data-supplier_name="' + full[1] + '" data-supplier_address="' + full[2] + '" data-supplier_city="' + full[3] + '" data-supplier_phone="' + full[4] + '" data-supplier_npwp="' + full[6] + '"><i class="fa fa-pen"></i></>';
-                    }
-                }
-            ]
-        });
+$(document).ready(function(){
+  var table = $('#supplier_table').DataTable({
+    "scrollX": false,
+    "ordering": false,
+    "scrollCollapse": true,
+    "processing": true,
+    "serverSide": true,
+    "lengthChange": false,
+    "searching": true,
+	"pageLength": 12,
+    "ajax": {
+      "url": "{{ @BASE.'/supplier/data' }}",
+      "type": "POST"
+    },
+    "columns": [
+      { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
+      {
+        "render": function(data, type, full){
+          return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Edit Supplier" data-toggle="modal" data-target="#supplier_form" data-supplier_id="' + data + '" data-supplier_code="' + full[0] + '" data-supplier_name="' + full[1] + '" data-supplier_address="' + full[2] + '" data-supplier_city="' + full[3] + '" data-supplier_phone="' + full[4] + '" data-supplier_npwp="' + full[6] + '"><i class="fa fa-pen"></i></>';
+        }
+      }
+    ]
+  });
 
-        $('#supplier_search').on('keyup', function () {
-            table.search(this.value).draw();
-        });
-    });
+  $('#supplier_search').on('keyup', function(){
+    table.search(this.value).draw();
+  });
+  
+  $('#supplier_search').on('keyup', function(){
+    table.search(this.value).draw();
+  });
+  
+  $('#saves').click(function(){
+    var id = $('input[name=supplier_id]').val();
+    var code = $('input[name=supplier_code]').val();
+	var name = $('input[name=supplier_name]').val();
+	var address = $('input[name=supplier_address]').val();
+	var city = $('input[name=supplier_city]').val();
+	var phone = $('input[name=supplier_phone]').val();
+	var npwp = $('input[name=supplier_npwp]').val();
+  
+	$.post("{{ @BASE.'/supplier/save' }}", { supplier_id: id, supplier_code: code, supplier_name: name, supplier_address: address, supplier_city: city, supplier_phone: phone, supplier_npwp: npwp }, 
+	function(data){
+	  if(data.status == 100){
+		alert('Kolom NAMA harus diisi !');
+		$('input[name=supplier_name]').focus();
+	  } else if(data.status == 150){
+	    alert('Kolom KOTA harus diisi !');
+		$('input[name=supplier_city]').focus();
+	  } else if(data.status == 200){
+		alert('Data ' + code + ' berhasil disimpan !');
+		$('input[name=supplier_id]').val(data.supplier_id);
+		 
+		table.ajax.reload(null, false);
+	  } else {
+	    alert('Data ' + code + ' berhasil diperbarui !');
+		 
+		table.ajax.reload(null, false);
+	  }
+	}, "json");
+  });
+});
 </script>
