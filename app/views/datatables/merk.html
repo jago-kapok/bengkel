@@ -1,30 +1,53 @@
 <script>
-	$(document).ready(function () {
-        var table = $('#merk_table').DataTable({
-            "scrollX": false,
-            "ordering": false,
-            "scrollCollapse": true,
-            "processing": true,
-            "serverSide": true,
-            "lengthChange": false,
-            "searching": true,
-			"pageLength": 12,
-            "ajax": {
-                "url": "{{ @BASE.'/merk/data' }}",
-                "type": "POST"
-            },
-            "columns": [
-                { data: 0 }, { data: 1 },
-                {
-                    "render": function (data, type, full) {
-                        return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Perbarui Data" data-toggle="modal" data-target="#update_merk" data-merk_id="' + data + '" data-merk_code="' + full[0] + '" data-merk_desc="' + full[1] + '"><i class="fa fa-pen"></i></>';
-                    }
-                }
-            ]
-        });
+$(document).ready(function(){
+  var table = $('#merk_table').DataTable({
+    "scrollX": false,
+    "ordering": false,
+    "scrollCollapse": true,
+    "processing": true,
+    "serverSide": true,
+    "lengthChange": false,
+    "searching": true,
+	"pageLength": 12,
+    "ajax": {
+      "url": "{{ @BASE.'/merk/data' }}",
+      "type": "POST"
+    },
+    "columns": [
+      { data: 0 }, { data: 1 },
+      {
+        "render": function(data, type, full){
+          return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Perbarui Data" data-toggle="modal" data-target="#merk_form" data-merk_id="' + data + '" data-merk_code="' + full[0] + '" data-merk_desc="' + full[1] + '"><i class="fa fa-pen"></i></>';
+        }
+      }
+    ]
+  });
 
-        $('#merk_search').on('keyup', function () {
-            table.search(this.value).draw();
-        });
-    });
+  $('#merk_search').on('keyup', function(){
+    table.search(this.value).draw();
+  });
+  
+  $('#savessss').click(function(){
+    var id = $('input[name=merk_id]').val();
+    var code = $('#merk_code').val();
+    var desc = $('#merk_desc').val();
+	
+	$.post("{{ @BASE.'/merk/save' }}", { merk_id: id, merk_code: code, merk_desc: desc }, 
+	function(data){
+	  if(data.status == 100){
+		alert('Kolom MERK harus diisi !');
+		$('input[name=merk_desc]').focus();
+	  } else if(data.status == 200){
+		alert('Data ' + code + ' berhasil disimpan !');
+		$('input[name=merk_id]').val(data.merk_id);
+		 
+		table.ajax.reload(null, false);
+	  } else {
+	    alert('Data ' + code + ' berhasil diperbarui !');
+		 
+		table.ajax.reload(null, false);
+	  }
+	}, "json");
+  });
+});
 </script>

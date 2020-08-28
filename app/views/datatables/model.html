@@ -1,30 +1,59 @@
 <script>
-	$(document).ready(function () {
-        var table = $('#model_table').DataTable({
-            "scrollX": false,
-            "ordering": false,
-            "scrollCollapse": true,
-            "processing": true,
-            "serverSide": true,
-            "lengthChange": false,
-            "searching": true,
-			"pageLength": 12,
-            "ajax": {
-                "url": "{{ @BASE.'/model/data' }}",
-                "type": "POST"
-            },
-            "columns": [
-                { data: 0 }, { data: 1 },
-                {
-                    "render": function (data, type, full) {
-                        return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Perbarui Data" data-toggle="modal" data-target="#update_model" data-model_id="' + data + '" data-model_code="' + full[0] + '" data-model_desc="' + full[1] + '"><i class="fa fa-pen"></i></>';
-                    }
-                }
-            ]
-        });
+$(document).ready(function(){
+  var table = $('#model_table').DataTable({
+    "scrollX": false,
+    "ordering": false,
+    "scrollCollapse": true,
+    "processing": true,
+    "serverSide": true,
+    "lengthChange": false,
+    "searching": true,
+	"pageLength": 12,
+    "ajax": {
+      "url": "{{ @BASE.'/model/data' }}",
+      "type": "POST"
+    },
+    "columns": [
+      { data: 0 }, { data: 1 },
+      {
+        "render": function(data, type, full){
+          return '<a href="javascript:void(0)" class="badge badge-info p-1" title="Perbarui Data" data-toggle="modal" data-target="#model_form" data-model_id="' + data + '" data-model_code="' + full[0] + '" data-model_desc="' + full[1] + '"><i class="fa fa-pen"></i></>';
+        }
+      }
+    ]
+  });
 
-        $('#model_search').on('keyup', function () {
-            table.search(this.value).draw();
-        });
-    });
+  $('#model_search').on('keyup', function () {
+    table.search(this.value).draw();
+  });
+  
+  $('#savess').click(function(){
+    var id = $('input[name=model_id]').val();
+    var code = $('#model_code').val();
+    var desc = $('#model_desc').val();
+	
+	$.post("{{ @BASE.'/model/save' }}", { model_id: id, model_code: code, model_desc: desc }, 
+	function(data){
+	  if(data.status == 100){
+		alert('Kolom KODE harus diisi !');
+		$('input[name=model_code]').focus();
+	  } else if(data.status == 150){
+	    alert('Kolom MODEL harus diisi !');
+		$('input[name=model_desc]').focus();
+	  } else if(data.status == 200){
+		alert('Data ' + code + ' berhasil disimpan !');
+		$('input[name=model_id]').val(data.model_id);
+		 
+		table.ajax.reload(null, false);
+	  } else if(data.status == 250){
+	    alert('Kode sudah ada !');
+		$('input[name=model_code]').focus();
+	  } else {
+	    alert('Data ' + code + ' berhasil diperbarui !');
+		 
+		table.ajax.reload(null, false);
+	  }
+	}, "json");
+  });
+});
 </script>

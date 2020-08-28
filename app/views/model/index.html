@@ -8,7 +8,7 @@
   
   <div class="row mb-1">
     <div class="col-md-8">
-      <a class="btn btn-success btn-sm" data-toggle="collapse" href="#create_model">
+      <a class="btn btn-success btn-sm" data-toggle="modal" href="#model_form">
 	    Tambah Model
 	  </a>
     </div>
@@ -54,7 +54,7 @@
   </table>
 </div>
 
-<div class="modal fade" id="update_model" role="dialog">
+<div class="modal fade" id="model_form" role="dialog">
   <div class="modal-dialog modal-sm">
 	<div class="modal-content">
 	  <div class="modal-header bg-info">
@@ -63,23 +63,23 @@
 		  <span>&times;</span>
 		</button>
 	  </div>
-	  <form action="{{ @BASE.'/model/update/' }}" method="POST">
+	  <form method="POST">
 		<div class="modal-body">
 		  <input type="hidden" name="model_id">
 		  <div class="container p-2">
 			<div class="form-group row">
 			  <label>Kode Model <span class="text-danger">*</span></label>
-			  <input name="model_code" class="form-control form-control-sm" required>
+			  <input id="model_code" name="model_code" class="form-control form-control-sm" required>
 			</div>
 			<div class="form-group row">
 			  <label>Model <span class="text-danger">*</span></label>
-			  <input name="model_desc" class="form-control form-control-sm" required>
+			  <input id="model_desc" name="model_desc" class="form-control form-control-sm" required>
 			</div>
 		  </div>
 		</div>
 		<div class="modal-footer bg-light">
 		  <div class="col-md-6">
-			<button type="submit" name="update" class="btn btn-primary btn-sm btn-form">SAVE</button>
+			<button id="savess" type="button" class="btn btn-primary btn-sm btn-form">SAVE</button>
 		  </div>
 		  <div class="col-md-6">
 			<button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">EXIT</button>
@@ -89,3 +89,20 @@
 	</div>
   </div>
 </div>
+
+<script>
+$('#model_form').on('show.bs.modal', function(event){
+  var button = $(event.relatedTarget);
+  var model_id = button.data('model_id');
+  var model_code = button.data('model_code');
+  var model_desc = button.data('model_desc');
+  
+  var modal_title = button.data('model_id') === undefined ? 'Tambah Master Model' : 'Edit Master Model : ' + model_code;
+	  
+  var modal = $(this);
+  modal.find('.modal-title').text(modal_title);
+  modal.find('.modal-body input[name=model_id]').val(model_id);
+  modal.find('.modal-body input[name=model_code]').val(model_code);
+  modal.find('.modal-body input[name=model_desc]').val(model_desc);
+});
+</script>

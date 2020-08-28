@@ -85,38 +85,6 @@
     });
 	
 	/* ============================================================== */
-	/* Menangkap data dari modal									= */
-	/* ============================================================== */
-	
-	/* Model */
-	$('#update_model').on('show.bs.modal', function(event){
-	  var button = $(event.relatedTarget);
-	  var model_id = button.data('model_id');
-	  var model_code = button.data('model_code');
-	  var model_desc = button.data('model_desc');
-	  
-	  var modal = $(this);
-	  modal.find('.modal-title').text('Edit Master Model : ' + model_code);
-	  modal.find('.modal-body input[name=model_id]').val(model_id);
-	  modal.find('.modal-body input[name=model_code]').val(model_code);
-	  modal.find('.modal-body input[name=model_desc]').val(model_desc);
-	});
-	
-	/* Model */
-	$('#update_merk').on('show.bs.modal', function(event){
-	  var button = $(event.relatedTarget);
-	  var merk_id = button.data('merk_id');
-	  var merk_code = button.data('merk_code');
-	  var merk_desc = button.data('merk_desc');
-	  
-	  var modal = $(this);
-	  modal.find('.modal-title').text('Edit Master Merk : ' + merk_code);
-	  modal.find('.modal-body input[name=merk_id]').val(merk_id);
-	  modal.find('.modal-body input[name=merk_code]').val(merk_code);
-	  modal.find('.modal-body input[name=merk_desc]').val(merk_desc);
-	});
-	
-	/* ============================================================== */
 	/* Fungsi preview image											= */
 	/* ============================================================== */
 	

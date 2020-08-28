@@ -29,19 +29,23 @@ class MerkController extends Controller {
 		die($merk->data($draw, $length, $offset, $search));
 	}
 	
-	public function create(){
-		$merk = new Merk($this->db);
-		$merk->add();
+	public function save(){
+		if(empty($this->f3->get('POST.merk_desc'))){
+			echo json_encode(array("status"=>100));
+		} else {
+			if(empty($this->f3->get('POST.merk_id'))){
+				$merk = new Merk($this->db);
+				$merk->add();
 			
-		\Flash::instance()->addMessage('Berhasil menambah data "'.$this->f3->get('POST.merk_desc').'"', 'success');
-		$this->f3->reroute('/merk');
-	}
-	
-	public function update(){
-		$merk = new Merk($this->db);
-		$merk->edit($this->f3->get('POST.merk_id'));			
-			
-		\Flash::instance()->addMessage('Berhasil memperbarui data "'.$this->f3->get('POST.merk_desc').'"', 'success');
-		$this->f3->reroute('/merk');
+				echo json_encode(array("status"=>200, "merk_id"=>$merk->merk_id));
+			} else {
+				$merk = new Merk($this->db);
+				$merk->edit($this->f3->get('POST.merk_id'));
+				
+				echo json_encode(array("status"=>250));
+			}
+		}
+		
+		die();
 	}
 }

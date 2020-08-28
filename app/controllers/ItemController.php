@@ -75,7 +75,7 @@ class ItemController extends Controller {
 			$level = new Level($this->db);
 			$this->f3->set('data_level', $level->all());
 			
-			$this->f3->set('page_title','Edit Data Barang');
+			$this->f3->set('page_title','Edit Master Barang');
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','item/update.html');
 		}

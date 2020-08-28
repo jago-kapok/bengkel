@@ -8,7 +8,7 @@
   
   <div class="row mb-1">
     <div class="col-md-8">
-      <a class="btn btn-success btn-sm" data-toggle="collapse" href="#create_merk">
+      <a class="btn btn-success btn-sm" data-toggle="modal" href="#merk_form">
 	    Tambah Merk
 	  </a>
     </div>
@@ -54,7 +54,7 @@
   </table>
 </div>
 
-<div class="modal fade" id="update_merk" role="dialog">
+<div class="modal fade" id="merk_form" role="dialog">
   <div class="modal-dialog modal-sm">
 	<div class="modal-content">
 	  <div class="modal-header bg-info">
@@ -63,23 +63,24 @@
 		  <span>&times;</span>
 		</button>
 	  </div>
-	  <form action="{{ @BASE.'/merk/update/' }}" method="POST">
+	  <form method="POST">
 		<div class="modal-body">
+		  <input type="hidden" id="merk_code" value="{{ @merk_code }}">
 		  <input type="hidden" name="merk_id">
 		  <div class="container p-2">
 			<div class="form-group row">
 			  <label>Kode merk <span class="text-danger">*</span></label>
-			  <input name="merk_code" maxlength="5" class="form-control form-control-sm" readonly>
+			  <input id="merk_code" name="merk_code" class="form-control form-control-sm" readonly>
 			</div>
 			<div class="form-group row">
 			  <label>Deskripsi <span class="text-danger">*</span></label>
-			  <input name="merk_desc" class="form-control form-control-sm" required>
+			  <input id="merk_desc" name="merk_desc" class="form-control form-control-sm" required>
 			</div>
 		  </div>
 		</div>
 		<div class="modal-footer bg-light">
 		  <div class="col-md-6">
-			<button type="submit" name="update" class="btn btn-primary btn-sm btn-form">SAVE</button>
+			<button id="savessss" type="button" class="btn btn-primary btn-sm btn-form">SAVE</button>
 		  </div>
 		  <div class="col-md-6">
 			<button type="button" class="btn btn-danger btn-sm btn-form" data-dismiss="modal">EXIT</button>
@@ -89,3 +90,20 @@
 	</div>
   </div>
 </div>
+
+<script>
+$('#merk_form').on('show.bs.modal', function(event){
+  var button = $(event.relatedTarget);
+  var merk_id = button.data('merk_id');
+  var merk_code = button.data('merk_code') === undefined ? $('#merk_code').val() : button.data('merk_code');
+  var merk_desc = button.data('merk_desc');
+  
+  var modal_title = button.data('merk_id') === undefined ? 'Tambah Master Merk' : 'Edit Master Merk : ' + merk_code;
+	  
+  var modal = $(this);
+  modal.find('.modal-title').text(modal_title);
+  modal.find('.modal-body input[name=merk_id]').val(merk_id);
+  modal.find('.modal-body input[name=merk_code]').val(merk_code);
+  modal.find('.modal-body input[name=merk_desc]').val(merk_desc);
+});
+</script>

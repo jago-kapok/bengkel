@@ -18,19 +18,30 @@ class ModelController extends Controller {
 		die($model->data($draw, $length, $offset, $search));
 	}
 	
-	public function create(){
-		$model = new Model($this->db);
-		$model->add();
-			
-		\Flash::instance()->addMessage('Berhasil menambah data "'.$this->f3->get('POST.model_desc').'"', 'success');
-		$this->f3->reroute('/model');
-	}
-	
-	public function update(){
-		$model = new Model($this->db);
-		$model->edit($this->f3->get('POST.model_id'));			
-			
-		\Flash::instance()->addMessage('Berhasil memperbarui data "'.$this->f3->get('POST.model_desc').'"', 'success');
-		$this->f3->reroute('/model');
+	public function save(){
+		if(empty($this->f3->get('POST.model_code'))){
+			echo json_encode(array("status"=>100));
+		} else if(empty($this->f3->get('POST.model_desc'))){
+			echo json_encode(array("status"=>150));
+		} else {
+			if(empty($this->f3->get('POST.model_id'))){
+				$model = new Model($this->db);
+				
+				if(count($model->exist($this->f3->get('POST.model_code'))) == 0){
+					$model->add();
+					
+					echo json_encode(array("status"=>200, "model_id"=>$model->model_id));
+				} else {
+					echo json_encode(array("status"=>250));
+				}
+			} else {
+				$model = new Model($this->db);
+				$model->edit($this->f3->get('POST.model_id'));
+				
+				echo json_encode(array("status"=>300));
+			}
+		}
+		
+		die();
 	}
 }

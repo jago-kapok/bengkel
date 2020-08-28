@@ -14,7 +14,7 @@ class CustomerController extends Controller {
 		$this->f3->set('customer_code', $customer_code);
 		/* Customer Code */
 		
-		$this->f3->set('page_title','Master Customer');
+		$this->f3->set('page_title','Master Pelanggan');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','customer/index.html');
 	}

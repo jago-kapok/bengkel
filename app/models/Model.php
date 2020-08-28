@@ -70,4 +70,9 @@ class Model extends DB\SQL\Mapper {
 		$this->copyFrom('POST');
 		$this->update();
 	}
+	
+	public function exist($model_code){
+		$this->load(array('model_code = ?', $model_code));
+		return $this->query;
+	}
 }
