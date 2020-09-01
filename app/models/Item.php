@@ -57,19 +57,10 @@ class Item extends DB\SQL\Mapper {
 		
 		foreach($query as $data) {
 			$output['data'][] = array(
-				$data['item_code'],
-				$data['item_part_no'],
-				$data['item_desc'],
-				$data['item_unit'],
-				$data['item_stamping'],
-				$data['item_physical'],
+				$data['item_code'].' | '.$data['item_part_no'],
+				$data['item_desc'].' | '.$data['item_unit'],
+				$data['item_stamping'].' | '.$data['item_physical'],
 				number_format($data['item_price']),
-				$data['item_similar'],
-				$data['item_pn'],
-				$data['item_brand_1'],
-				$data['item_brand_2'],
-				$data['item_brand_3'],
-				$data['item_note'],
 				$data['item_image'],
 				$data['item_id']
 			);

@@ -9,15 +9,16 @@ $(document).ready(function(){
 	"serverSide": true,
 	"lengthChange": false,
 	"searching": true,
+	"pageLength": 12,
 	"ajax": {
 	  "url": "{{ @BASE.'/rework/data' }}",
 	  "type": "POST"
 	},
 	"columns": [
-	  { data: 0 }, { data: 1 }, { data: 2 },
+	  { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 },
 	  {
 	    "render": function (data, type, full){
-		  return 'Rp <span style="float:right; margin-right:25px">' + data + '</span>';
+		  return '<span style="float:right; margin-right:25px">' + data + '</span>';
 		}
 	  },
 	  {

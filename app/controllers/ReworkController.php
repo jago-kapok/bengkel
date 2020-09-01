@@ -27,7 +27,7 @@ class ReworkController extends Controller {
 			$invoice->getByNumber($this->f3->get('POST.invoice_number'));
 			$invoice->getById($invoice->invoice_id);
 			
-			$this->f3->set('page_title','REWORK - INVOICE : '.$invoice->invoice_number);
+			$this->f3->set('page_title','REWORK -- INVOICE : '.$invoice->invoice_number.' ('.date('d/m/y', strtotime($invoice->invoice_date)).')');
 			$this->f3->set('header','header/header.html');
 			$this->f3->set('view','rework/create.html');
 		}

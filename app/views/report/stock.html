@@ -2,13 +2,16 @@
   <input type="hidden" name="customer_code">
   <div class="row mb-1">
     <div class="col-md-8">
-      <a href="{{ @BASE.'/report/stock/print/' }}" class="btn btn-danger btn-sm" target="_blank">
+      <a href="{{ @BASE.'/report/stock/print/' }}" class="btn btn-danger btn-sm mr-1" target="_blank">
 	    Cetak Rekapitulasi
 	  </a>
+	  <a href="{{ @BASE.'/purchase' }}" class="btn btn-primary btn-sm mr-1">Pembelian</a>
+	  <a href="{{ @BASE.'/invoice' }}" class="btn btn-success btn-sm mr-1">Invoice</a>
+	  <a href="{{ @BASE.'/rework' }}" class="btn btn-warning btn-sm">Rework</a>
     </div>
     <div class="col-md-4 pull-right">
       <div class="input-group">
-        <input id="searching" class="form-control form-control-sm" placeholder="Cari Data ...">
+        <input id="stock_history_search" class="form-control form-control-sm" placeholder="Fing ........">
         <span class="input-group-append">
           <a href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fa fa-search"></i></a>
         </span>
@@ -16,27 +19,28 @@
     </div>
   </div>
     
-  <table id="simple_table" class="table table-striped" style="width:100%">
+  <table id="stock_history_table" class="table table-striped" style="width:100%">
     <thead class="bg-app">
       <tr>
         <th class="width-100">Tanggal</th>
-        <th>Nama Barang</th>
-        <th>Pembelian</th>
-        <th>Invoice</th>
+        <th>Kode Barang | Part Number</th>
+        <th>Nama Barang | Unit</th>
+        <th>Pembelian | Price</th>
+        <th>Invoice | Price</th>
         <th>Rework</th>
-        <th>QTY</th>
+        <th>Qty</th>
       </tr>
     </thead>
     <tbody>
-	  <repeat group="{{ @data_stock_history }}" key="{{ @no }}" value="{{ $stock_history }}">
-		<tr>
-		  <td>{{ date('d-m-Y', strtotime(@stock_history.stock_history_date)) }}</td>
-		  <td>{{ @stock_history.item_code }} | {{ @stock_history.item_desc }}</td>
-		  <td>{{ @stock_history.purchase_number }}</td>
-		  <td>{{ @stock_history.invoice_number }}</td>
-		  <td>{{ @stock_history.rework_invoice }}</td>
-		  <td>{{ @stock_history.stock_history_value }}</td>
-	  </repeat>
+	  <!-- <repeat group="{{ @data_stock_history }}" key="{{ @no }}" value="{{ $stock_history }}"> -->
+		<!-- <tr> -->
+		  <!-- <td>{{ date('d-m-Y', strtotime(@stock_history.stock_history_date)) }}</td> -->
+		  <!-- <td>{{ @stock_history.item_code }} | {{ @stock_history.item_desc }}</td> -->
+		  <!-- <td>{{ @stock_history.purchase_number }}</td> -->
+		  <!-- <td>{{ @stock_history.invoice_number }}</td> -->
+		  <!-- <td>{{ @stock_history.rework_invoice }}</td> -->
+		  <!-- <td>{{ @stock_history.stock_history_value }}</td> -->
+	  <!-- </repeat> -->
 	</tbody>
   </table>
 </div>

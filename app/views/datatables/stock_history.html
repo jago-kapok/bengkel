@@ -1,0 +1,25 @@
+<script>
+$(document).ready(function(){
+  var table = $('#stock_history_table').DataTable({
+    "scrollX": false,
+    "ordering": false,
+    "scrollCollapse": true,
+    "processing": true,
+    "serverSide": true,
+    "lengthChange": false,
+    "searching": true,
+	"pageLength": 12,
+    "ajax": {
+      "url": "{{ @BASE.'/stock-history/data' }}",
+      "type": "POST"
+    },
+    "columns": [
+      { data: 0 }, { data: 1 }, { data: 2 }, { data: 3 }, { data: 4 }, { data: 5 }, { data: 6 }
+    ]
+  });
+
+  $('#stock_history_search').on('keyup', function () {
+    table.search(this.value).draw();
+  });
+});
+</script>

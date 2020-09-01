@@ -13,11 +13,19 @@ class Rework extends DB\SQL\Mapper {
 		$output['recordsTotal'] = $output['recordsFiltered'] = $total;
 		$output['data'] = array();
 		
-		$query = $this->db->exec("SELECT * FROM rework JOIN invoice ON rework.invoice_id = invoice.invoice_id JOIN customer ON invoice.customer_id = customer.customer_id WHERE
+		$query = $this->db->exec("SELECT * FROM rework JOIN invoice ON rework.invoice_id = invoice.invoice_id JOIN customer ON invoice.customer_id = customer.customer_id JOIN quotation ON invoice.invoice_id = quotation.quotation_id WHERE
 			invoice_number LIKE ? OR
 			rework_total LIKE ? OR
-			customer_name LIKE ? ORDER BY rework.rework_id DESC LIMIT ? OFFSET ?",
+			DATE_FORMAT(rework_date, '%d-%m-%Y') LIKE ? OR
+			DATE_FORMAT(rework_date, '%d-%M-%Y') LIKE ? OR
+			customer_name LIKE ? OR
+			quotation_serial_number LIKE ? OR
+			quotation_engine LIKE ? ORDER BY rework.rework_id DESC LIMIT ? OFFSET ?",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -26,11 +34,19 @@ class Rework extends DB\SQL\Mapper {
 			)
 		);
 			
-		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM rework JOIN invoice ON rework.invoice_id = invoice.invoice_id JOIN customer ON invoice.customer_id = customer.customer_id WHERE
+		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM rework JOIN invoice ON rework.invoice_id = invoice.invoice_id JOIN customer ON invoice.customer_id = customer.customer_id JOIN quotation ON invoice.invoice_id = quotation.quotation_id WHERE
 			invoice_number LIKE ? OR
 			rework_total LIKE ? OR
-			customer_name LIKE ?",
+			DATE_FORMAT(rework_date, '%d-%m-%Y') LIKE ? OR
+			DATE_FORMAT(rework_date, '%d-%M-%Y') LIKE ? OR
+			customer_name LIKE ? OR
+			quotation_serial_number LIKE ? OR
+			quotation_engine LIKE ?",
 			array(
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
+				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%'
@@ -46,8 +62,10 @@ class Rework extends DB\SQL\Mapper {
 		foreach($query as $data) {
 			$output['data'][] = array(
 				$data['invoice_number'],
+				date('d-m-Y', strtotime($data['invoice_date'])),
 				date('d-m-Y', strtotime($data['rework_date'])),
 				$data['customer_name'],
+				$data['quotation_serial_number'].' | '.$data['quotation_engine'],
 				number_format($data['rework_total']),
 				$data['rework_id']
 			);

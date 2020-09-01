@@ -18,30 +18,33 @@ class ReworkDetail extends DB\SQL\Mapper {
 				rework_detail_item_code,
 				rework_detail_item_part_no,
 				rework_detail_item_desc,
+				rework_detail_unit,
 				rework_detail_qty,
 				rework_detail_unit_price,
 				rework_detail_unit_price_temp,
-				rework_detail_amount,
-				rework_detail_profit) VALUES
+				rework_detail_brand,
+				rework_detail_amount) VALUES
 				(:rework_id,
 				:rework_detail_item_code,
 				:rework_detail_item_part_no,
 				:rework_detail_item_desc,
+				:rework_detail_unit,
 				:rework_detail_qty,
 				:rework_detail_unit_price,
 				:rework_detail_unit_price_temp,
-				:rework_detail_amount,
-				:rework_detail_profit)",
+				:rework_detail_brand,
+				:rework_detail_amount)",
 				array(
 					':rework_id' => $rework_id,
 					':rework_detail_item_code' => $value['rework_detail_item_code'],
 					':rework_detail_item_part_no' => $value['rework_detail_item_part_no'],
 					':rework_detail_item_desc' => $value['rework_detail_item_desc'],
+					':rework_detail_unit' => $value['rework_detail_unit'],
 					':rework_detail_qty' => str_replace(',', '', $value['rework_detail_qty']),
 					':rework_detail_unit_price' => str_replace(',', '', $value['rework_detail_unit_price']),
 					':rework_detail_unit_price_temp' => str_replace(',', '', $value['rework_detail_unit_price_temp']),
-					':rework_detail_amount' => str_replace(',', '', $value['rework_detail_qty']) * str_replace(',', '', $value['rework_detail_unit_price']),
-					':rework_detail_profit' => (str_replace(',', '', $value['rework_detail_unit_price']) - $value['rework_detail_unit_price_temp']) * str_replace(',', '', $value['rework_detail_qty'])
+					':rework_detail_brand' => $value['rework_detail_brand'],
+					':rework_detail_amount' => str_replace(',', '', $value['rework_detail_qty']) * str_replace(',', '', $value['rework_detail_unit_price'])
 				));
 				
 				$this->db->exec("UPDATE stock SET stock_on_hand = (stock_on_hand - ?) WHERE item_id IN (SELECT item_id FROM item WHERE item_code = ?)",

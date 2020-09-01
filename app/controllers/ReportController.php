@@ -78,7 +78,7 @@ class ReportController extends Controller {
 		$stock_history = new StockHistory($this->db);
 		$this->f3->set('data_stock_history', $stock_history->getAll());
 		
-		$this->f3->set('page_title','Riwayat Stok');
+		$this->f3->set('page_title','Kartu Stok');
 		$this->f3->set('header','header/header.html');
         $this->f3->set('view','report/stock.html');
 	}

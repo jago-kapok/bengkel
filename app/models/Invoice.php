@@ -119,6 +119,7 @@ class Invoice extends DB\SQL\Mapper {
 		$this->quotation_model = "SELECT quotation_model FROM quotation WHERE quotation.quotation_id = invoice.quotation_id";
 		$this->quotation_engine = "SELECT quotation_engine FROM quotation WHERE quotation.quotation_id = invoice.quotation_id";
 		$this->quotation_serial_number = "SELECT quotation_serial_number FROM quotation WHERE quotation.quotation_id = invoice.quotation_id";
+		$this->quotation_nozzle = "SELECT quotation_nozzle FROM quotation WHERE quotation.quotation_id = invoice.quotation_id";
 		
 		$this->load(array('invoice_id = ?', $invoice_id));
 		$this->copyTo('POST');

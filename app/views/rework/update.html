@@ -5,15 +5,27 @@
     <div class="row">
 	  <div class="col-md-6">
 		<div class="form-group row">
-		  <label class="col-sm-3"><b>No. Invoice</b></label>
+		  <label class="col-sm-3"><b>Tgl. Rework</b></label>
 		  <div class="col-md-4">
-		    <input name="invoice_number" class="form-control form-control-sm form-app" placeholder="No. Invoice" data-toggle="tooltip" title="No. Invoice" value="{{ @POST.invoice_number }}" readonly>
+		    <input type="date" name="rework_date_in" class="form-control form-control-sm form-app" value="{{ date('Y-m-d', strtotime($POST.rework_date_in)) }}">
 		  </div>
 		</div>
 		<div class="form-group row">
-		  <label class="col-sm-3"><b>Tgl. Invoice</b></label>
+		  <label class="col-sm-3"><b>Mekanik</b></label>
 		  <div class="col-md-4">
-		    <input name="invoice_date" class="form-control form-control-sm form-app" data-toggle="tooltip" title="Tgl. Invoice" value="{{ date('d F Y', strtotime(@POST.invoice_date)) }}" readonly>
+		    <input name="rework_mechanic" class="form-control form-control-sm form-app" value="{{ @POST.rework_mechanic }}">
+		  </div>
+		</div>
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>Serial Number</b></label>
+		  <div class="col-md-4">
+		    <input class="form-control form-control-sm form-app" value="{{ @POST.quotation_serial_number }}" readonly>
+		  </div>
+		</div>
+		<div class="form-group row">
+		  <label class="col-sm-3"><b>Engine</b></label>
+		  <div class="col-md-4">
+		    <input class="form-control form-control-sm form-app" value="{{ @POST.quotaiton_engine }}" readonly>
 		  </div>
 		</div>
 	  </div>
@@ -48,11 +60,13 @@
 		  <thead>
 			<tr class="bg-primary">
 			  <th class="col-md-1">Kode</th>
-			  <th class="col-md-1">No. Part</th>
-			  <th class="col-md-1">Deskripsi</th>
+			  <th class="col-md-1">Part Number</th>
+			  <th class="col-md-1">Nama Barang</th>
+			  <th class="col-md-1">Unit</th>
 			  <th class="col-md-1">Qty</th>
 			  <th class="col-md-1">Modal</th>
-			  <th class="col-md-1">Harga</th>
+			  <th class="col-md-1">Price</th>
+			  <th class="col-md-1">Merk</th>
 			  <th class="col-md-1">Total</th>
 			  <th class="col-md-1">#</th>
 			</tr>
@@ -61,21 +75,23 @@
 			<repeat group="{{ @data_rework_detail }}" key="{{ @no }}" value="{{ $rework_detail }}">
 			  <tr id="item_{{ @no + 50 }}">
 			    <td>
-			      <input id="{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_item_code]" class="item" value="{{ @rework_detail.rework_detail_item_code }}" style="width:100px" onchange="return getData(this.id, this.value)">
+			      <input id="{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_item_code]" class="item" value="{{ @rework_detail.rework_detail_item_code }}" style="width:150px" onchange="return getData(this.id, this.value)">
 			    </td>
 			    <td>
-			      <input id="item_part_no_{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_item_part_no]" value="{{ @rework_detail.rework_detail_item_part_no }}" style="width:100px">
+			      <input id="item_part_no_{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_item_part_no]" value="{{ @rework_detail.rework_detail_item_part_no }}" style="width:150px">
 			    </td>
-			    <td><input id="item_desc_{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_item_desc]" value="{{ @rework_detail.rework_detail_item_desc }}" style="width:455px"></td>
+			    <td><input id="item_desc_{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_item_desc]" value="{{ @rework_detail.rework_detail_item_desc }}" style="width:250px"></td>
+				<td><input id="item_unit_{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_unit]" value="{{ @rework_detail.rework_detail_unit }}" style="width:150px"></td>
 			    <td>
 			      <input id="item_qty_{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_qty]" class="number-only" value="{{ @rework_detail.rework_detail_qty }}" style="width:30px" onkeyup="return getTotal({{ @i }})">
 			    </td>
 			    <td>
-			      <input id="item_price_temp_{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_unit_price_temp]" class="number-only readonly" value="{{ @rework_detail.rework_detail_unit_price_temp }}" style="width:100px" readonly>
+			      <input id="item_price_temp_{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_unit_price_temp]" class="number-only" value="{{ @rework_detail.rework_detail_unit_price_temp }}" style="width:100px">
 			    </td>
 			    <td>
 			      <input id="item_price_{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_unit_price]" class="number-only" value="{{ @rework_detail.rework_detail_unit_price }}" style="width:100px" onkeyup="return getTotal({{ @no + 50 }})">
 			    </td>
+				<td><input id="item_brand_{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_brand]" value="{{ @rework_detail.rework_detail_brand }}" style="width:100px"></td>
 			    <td>
 			      <input id="item_amount_{{ @no + 50 }}" name="data[{{ @no + 50 }}][rework_detail_amount]" class="number-only amount" value="{{ @rework_detail.rework_detail_amount }}" style="width:100px">
 			    </td>
@@ -91,33 +107,35 @@
 			
 			<loop from="{{ @i=0 }}" to="{{ @i < 5 }}" step="{{ @i++ }}">
 			  <tr id="item_{{ @i }}">
-			    <td>
-			      <input id="{{ @i }}" name="data[{{ @i }}][rework_detail_item_code]" class="item" style="width:100px" onchange="return getData(this.id, this.value)">
-			    </td>
-			    <td>
-			      <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][rework_detail_item_part_no]" style="width:100px">
-			    </td>
-			    <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][rework_detail_item_desc]" style="width:455px"></td>
-			    <td>
-			      <input id="item_qty_{{ @i }}" name="data[{{ @i }}][rework_detail_qty]" class="number-only" style="width:30px" onkeyup="return getTotal({{ @i }})">
-			    </td>
-			    <td>
-			      <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][rework_detail_unit_price_temp]" class="number-only readonly" style="width:100px" readonly>
-			    </td>
-			    <td>
-			      <input id="item_price_{{ @i }}" name="data[{{ @i }}][rework_detail_unit_price]" class="number-only" style="width:100px" onkeyup="return getTotal({{ @i }})">
-			    </td>
-			    <td>
-			      <input id="item_amount_{{ @i }}" name="data[{{ @i }}][rework_detail_amount]" class="number-only amount" style="width:100px">
-			    </td>
-			    <td>
-			      <center>
-				    <a href="javascript:void(0)" class="text-danger" onclick="return clearRow({{ @i }})">
-				      <i class="fa fa-trash"></i>
-				    </a>
-				  </center>
-			    </td>
-			  </tr>
+			  <td>
+			    <input id="{{ @i }}" name="data[{{ @i }}][rework_detail_item_code]" class="item" style="width:150px" onchange="return getData(this.id, this.value)">
+			  </td>
+			  <td>
+			    <input id="item_part_no_{{ @i }}" name="data[{{ @i }}][rework_detail_item_part_no]" style="width:150px">
+			  </td>
+			  <td><input id="item_desc_{{ @i }}" name="data[{{ @i }}][rework_detail_item_desc]" style="width:250px"></td>
+			  <td><input id="item_unit_{{ @i }}" name="data[{{ @i }}][rework_detail_unit]" style="width:150px"></td>
+			  <td>
+			    <input id="item_qty_{{ @i }}" name="data[{{ @i }}][rework_detail_qty]" class="number-only" style="width:30px" onkeyup="return getTotal({{ @i }})">
+			  </td>
+			  <td>
+			    <input id="item_price_temp_{{ @i }}" name="data[{{ @i }}][rework_detail_unit_price_temp]" class="number-only" style="width:100px">
+			  </td>
+			  <td>
+			    <input id="item_price_{{ @i }}" name="data[{{ @i }}][rework_detail_unit_price]" class="number-only" style="width:100px" onkeyup="return getTotal({{ @i }})">
+			  </td>
+			  <td><input id="item_brand_{{ @i }}" name="data[{{ @i }}][rework_detail_brand]" style="width:100px"></td>
+			  <td>
+			    <input id="item_amount_{{ @i }}" name="data[{{ @i }}][rework_detail_amount]" class="number-only amount" style="width:100px">
+			  </td>
+			  <td>
+			    <center>
+				  <a href="javascript:void(0)" class="text-danger" onclick="return clearRow({{ @i }})">
+				    <i class="fa fa-trash"></i>
+				  </a>
+				</center>
+			  </td>
+			</tr>
 			</loop>
 		  </tbody>
 		</table>
@@ -125,6 +143,12 @@
 	  
 	  <div class="row">
 		<div class="col-md-9">
+		  <div class="form-group row">
+			<label class="col-md-2"><b>Nozzle</b></label>
+			<div class="col-md-8">
+			  <input class="form-control form-control-sm form-app" value="{{ @POST.quotation_nozzle }}">
+			</div>
+		  </div>
 		  <div class="form-group row">
 			<label class="col-md-2"><b>Problem</b></label>
 			<div class="col-md-8">
