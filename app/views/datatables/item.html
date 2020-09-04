@@ -21,11 +21,15 @@ $(document).ready(function(){
 		}
 	  },
       {
-        "render": function (data, type, full) {
-		  if(full[4] === null){
+        "render": function(data, type, full){
+		  if(full[4] == null || full[4] == ''){
 			var button_image = '<a href="javascript:voice(0)" class="badge badge-success p-1" title="Lihat Produk" onclick="return alert(\'Gambar tidak ditemukan !\')"><i class="fa fa-image"></i></a>';
 		  } else {
-			var button_image = '<a href="../../ui/assets/img/item/' + full[4] + '" class="badge badge-success p-1" title="Lihat Produk" target="_blank"><i class="fa fa-image"></i></a>';
+		    if(full[4].charAt(full[4].length-1) == '.'){
+			  var button_image = '<a href="javascript:voice(0)" class="badge badge-success p-1" title="Lihat Produk" onclick="return alert(\'Format tidak sesuai !\')"><i class="fa fa-image"></i></a>';
+		    } else {
+			  var button_image = '<a href="../../ui/assets/img/item/' + full[4] + '" class="badge badge-success p-1" title="Lihat Produk" target="_blank"><i class="fa fa-image"></i></a>';
+			}
 		  }
 			
           return button_image + '&nbsp;<a href="{{ @BASE."/item/update/' + full[5] + '" }}" class="badge badge-info p-1" title="Edit Barang" target="_blank"><i class="fa fa-pen"></i></a>';
@@ -41,7 +45,9 @@ $(document).ready(function(){
   function refreshTable(){
 	table.ajax.reload(null, false);
   }
-
-  table_refresh.onclick = refreshTable;
+  
+  $('#table_refresh').click(function(){
+	refreshTable();
+  });
 });
 </script>

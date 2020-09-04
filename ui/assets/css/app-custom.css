@@ -146,3 +146,6 @@ input:focus {
 hr {
 	margin: 5px;
 }
+body.sidebar-mini .main-sidebar .sidebar-menu > li {
+	padding: 5px;
+}

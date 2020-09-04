@@ -18,8 +18,19 @@ $(document).ready(function(){
     ]
   });
 
-  $('#stock_history_search').on('keyup', function () {
+  $('#stock_history_search').on('keyup', function(){
     table.search(this.value).draw();
+  });
+  
+  $('#month, #year').on('change', function(){
+	var month = $('#month').val();
+	var year = $('#year').val();
+	
+    table.column(0).search(month + '-' + year).draw();
+  });
+  
+  $('#sorting').on('change', function(){
+    table.column(6).search(this.value).draw();
   });
 });
 </script>

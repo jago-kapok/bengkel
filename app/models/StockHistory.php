@@ -6,7 +6,7 @@ class StockHistory extends DB\SQL\Mapper {
         parent::__construct($db, 'stock_history');
     }
 	
-	public function data($draw, $length, $offset, $search){
+	public function data($draw, $length, $offset, $search, $date, $sorting){
 		$total = $this->count();
 		$output = array();
 		$output['draw'] = $draw;
@@ -14,15 +14,15 @@ class StockHistory extends DB\SQL\Mapper {
 		$output['data'] = array();
 		
 		$query = $this->db->exec("SELECT * FROM stock_history JOIN item ON stock_history.item_id = item.item_id LEFT JOIN purchase ON stock_history.purchase_id = purchase.purchase_id LEFT JOIN invoice ON stock_history.invoice_id = invoice.invoice_id LEFT JOIN rework ON stock_history.rework_id = rework.rework_id WHERE
-			DATE_FORMAT(stock_history_date, '%d-%m-%Y') LIKE ? OR
-			DATE_FORMAT(stock_history_date, '%d-%M-%Y') LIKE ? OR
+			DATE_FORMAT(stock_history_date, '%d-%m-%Y') LIKE ? AND
+			(DATE_FORMAT(stock_history_date, '%d-%M-%Y') LIKE ? OR
 			item.item_code LIKE ? OR
 			item.item_desc LIKE ? OR
 			purchase.purchase_number LIKE ? OR
 			invoice.invoice_number LIKE ? OR
-			stock_history.rework_invoice LIKE ? ORDER BY stock_history_id DESC LIMIT ? OFFSET ?",
+			stock_history.rework_invoice LIKE ?) ORDER BY stock_history_id $sorting LIMIT ? OFFSET ?",
 			array(
-				'%'.$search.'%',
+				'%'.$date,
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -35,15 +35,15 @@ class StockHistory extends DB\SQL\Mapper {
 		);
 			
 		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM stock_history JOIN item ON stock_history.item_id = item.item_id LEFT JOIN purchase ON stock_history.purchase_id = purchase.purchase_id LEFT JOIN invoice ON stock_history.invoice_id = invoice.invoice_id LEFT JOIN rework ON stock_history.rework_id = rework.rework_id WHERE
-			DATE_FORMAT(stock_history_date, '%d-%m-%Y') LIKE ? OR
-			DATE_FORMAT(stock_history_date, '%d-%M-%Y') LIKE ? OR
+			DATE_FORMAT(stock_history_date, '%d-%m-%Y') LIKE ? AND
+			(DATE_FORMAT(stock_history_date, '%d-%M-%Y') LIKE ? OR
 			item.item_code LIKE ? OR
 			item.item_desc LIKE ? OR
 			purchase.purchase_number LIKE ? OR
 			invoice.invoice_number LIKE ? OR
-			stock_history.rework_invoice LIKE ?",
+			stock_history.rework_invoice LIKE ?)",
 			array(
-				'%'.$search.'%',
+				'%'.$date,
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',

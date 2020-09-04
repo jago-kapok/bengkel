@@ -25,16 +25,16 @@ class InvoicePrintController extends Controller {
 	}
 	
 	public function prints(){
-		$invoice = new invoice($this->db);
+		$invoice = new Invoice($this->db);
 		$invoice->getById($this->f3->get('PARAMS.invoice_id'));
 		
 		$invoice_total = $invoice->invoice_part_charge + $invoice->invoice_service_charge - $invoice->invoice_discount;
 		$invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
 		
-		$invoice_detail = new invoiceDetail($this->db);
+		$invoice_detail = new InvoiceDetail($this->db);
 		$invoice_detail_list = $invoice_detail->getById($this->f3->get('PARAMS.invoice_id'));
 		
-		$pdf = new invoicePrintController();
+		$pdf = new InvoicePrintController();
 		$pdf->AliasNbPages();
 		$pdf->AddPage('P','A4');
 		$pdf->SetMargins(8,1,8);
