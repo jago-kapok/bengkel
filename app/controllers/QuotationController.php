@@ -16,9 +16,10 @@ class QuotationController extends Controller {
 		$length = intval($this->f3->get('REQUEST.length'));
 		$offset = intval($this->f3->get('REQUEST.start'));
 		$search = $_REQUEST['search']['value'] ? $_REQUEST['search']['value'] : '%';
+		$date = $_REQUEST['columns'][1]['search']['value'] ? $_REQUEST['columns'][1]['search']['value'] : '%';
 		
 		$quotation = new Quotation($this->db);
-		die($quotation->data($draw, $length, $offset, $search));
+		die($quotation->data($draw, $length, $offset, $search, $date));
 	}
 	
 	public function create(){

@@ -6,7 +6,7 @@ class Quotation extends DB\SQL\Mapper {
         parent::__construct($db, 'quotation');
     }
 
-    public function data($draw, $length, $offset, $search){
+    public function data($draw, $length, $offset, $search, $date){
 		$total = $this->count();
 		$output = array();
 		$output['draw'] = $draw;
@@ -14,6 +14,7 @@ class Quotation extends DB\SQL\Mapper {
 		$output['data'] = array();
 		
 		$query = $this->db->exec("SELECT quotation.*, invoice.invoice_number AS invoice_number, customer.customer_name FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
+			DATE_FORMAT(quotation_date, '%d-%m-%Y') LIKE ? AND
 			(quotation_number LIKE ? OR
 			customer_name LIKE ? OR
 			invoice_number LIKE ? OR
@@ -21,6 +22,7 @@ class Quotation extends DB\SQL\Mapper {
 			quotation_serial_number LIKE ?) AND
 			quotation_status != 2 ORDER BY quotation.quotation_id DESC LIMIT ? OFFSET ?",
 			array(
+				'%'.$date,
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',
@@ -32,6 +34,7 @@ class Quotation extends DB\SQL\Mapper {
 		);
 			
 		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM quotation JOIN customer ON quotation.customer_id = customer.customer_id LEFT JOIN invoice ON quotation.quotation_id = invoice.quotation_id WHERE
+			DATE_FORMAT(quotation_date, '%d-%m-%Y') LIKE ? AND
 			(quotation_number LIKE ? OR
 			customer_name LIKE ? OR
 			invoice_number LIKE ? OR
@@ -39,6 +42,7 @@ class Quotation extends DB\SQL\Mapper {
 			quotation_serial_number LIKE ?) AND
 			quotation_status != 2",
 			array(
+				'%'.$date,
 				'%'.$search.'%',
 				'%'.$search.'%',
 				'%'.$search.'%',

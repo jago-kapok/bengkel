@@ -44,18 +44,23 @@ $(document).ready(function(){
 	]
   });
   
-  $('a.toggle-vis').on( 'click', function (e) {
-    e.preventDefault();
- 
-    // Get the column API objec
-	var column = table.column( $(this).attr('data-column') );
- 
-    // Toggle the visibility
-    column.visible(!column.visible());
-  });
-	
   $('#quotation_search').on('keyup', function(){
 	table.search(this.value).draw();
+  });
+  
+  $('#month, #year').on('change', function(){
+	var month = $('#month').val();
+	var year = $('#year').val();
+	
+    table.column(1).search(month + '-' + year).draw();
+  });
+  
+  function refreshTable(){
+	table.ajax.reload(null, false);
+  }
+  
+  $('#table_refresh').click(function(){
+	refreshTable();
   });
 });
 </script>

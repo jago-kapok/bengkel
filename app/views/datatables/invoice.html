@@ -47,5 +47,20 @@ $(document).ready(function(){
   $('#invoice_search').on('keyup', function(){
 	table.search(this.value).draw();
   });
+  
+  $('#month, #year').on('change', function(){
+	var month = $('#month').val();
+	var year = $('#year').val();
+	
+    table.column(1).search(month + '-' + year).draw();
+  });
+  
+  function refreshTable(){
+	table.ajax.reload(null, false);
+  }
+  
+  $('#table_refresh').click(function(){
+	refreshTable();
+  });
 });
 </script>
