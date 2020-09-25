@@ -34,7 +34,7 @@
 		  <td>{{ date('d F Y', strtotime(@invoice.invoice_date)) }}</td>
 		  <td>{{ @invoice.invoice_number }}</td>
 		  <td>{{ @invoice.customer_name }}</td>
-		  <td class="text-right">Rp {{ number_format(@invoice.invoice_total) }}</td>
+		  <td class="text-right">{{ number_format(@invoice.invoice_total) }}</td>
 		  <td>{{ @invoice.invoice_note_payment }}</td>
 	  </repeat>
 	</tbody>
