@@ -28,6 +28,14 @@ $(document).ready(function(){
 	  }
 	]
   });
+  
+  function refreshTable(){
+	table.ajax.reload(null, false);
+  }
+  
+  $('#table_refresh').click(function(){
+	refreshTable();
+  });
 	
   $('#rework_search').on('keyup', function(){
 	table.search(this.value).draw();
