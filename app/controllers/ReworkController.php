@@ -52,7 +52,7 @@ class ReworkController extends Controller {
 			$rework_detail->beforeEdit($this->f3->get('PARAMS.rework_id'));
 			$rework_detail->add($this->f3->get('PARAMS.rework_id'), $this->f3->get('POST.invoice_number'));
 						
-			$this->f3->reroute('/rework');
+			$this->f3->reroute('/rework/update/'.$this->f3->get('PARAMS.rework_id'));
 		} else {
 			$rework = new Rework($this->db);
 			$rework->getById($this->f3->get('PARAMS.rework_id'));
