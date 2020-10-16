@@ -18,8 +18,8 @@ class ReportPrintController extends Controller {
 		$quotation = new quotation($this->db);
 		$quotation_list = $quotation->getDataMonth($quotation_month, $this->f3->get('PARAMS.quotation_year'));
 		
-		$quotation_total = ($quotation->quotation_part_charge + $quotation->quotation_service_charge) - $quotation->quotation_discount;
-		$quotation_ppn = $quotation_total * ($quotation->quotation_ppn / 100);
+		// $quotation_total = ($quotation->quotation_part_charge + $quotation->quotation_service_charge) - $quotation->quotation_discount;
+		// $quotation_ppn = $quotation_total * ($quotation->quotation_ppn / 100);
 		
 		$pdf = new ReportPrintController();
 		$pdf->AliasNbPages();
@@ -32,6 +32,12 @@ class ReportPrintController extends Controller {
 		$pdf->SetFont('Arial','B',10);
 		$header = array('No.', 'Tanggal', 'Penawaran', 'Nama Pelanggan', 'Jasa', 'Parts', 'PPN');
 		$pdf->quotation_list($header, $quotation_list);
+		
+		$pdf->SetFont('Arial','B',8);
+		$pdf->Cell(125,5,'TOTAL',1,0,'C');
+		$pdf->Cell(25,5,number_format($quotation->total_part),1,0,'R');
+		$pdf->Cell(25,5,number_format($quotation->total_service),1,0,'R');
+		$pdf->Cell(20,5,number_format($quotation->total_ppn),1,0,'R');
 		
 		$pdf->Output('Rekapitulasi_Bulan_'.$this->f3->get('PARAMS.quotation_month').'.pdf','I');
 		exit;
@@ -52,12 +58,12 @@ class ReportPrintController extends Controller {
 			$this->Cell($width[1],5,date('d F Y', strtotime($value['quotation_date'])),'LR',0);
 			$this->Cell($width[2],5,$value['quotation_number'],'LR',0);
 			$this->Cell($width[3],5,strtoupper($value['customer_name']),'LR',0);
-			$this->Cell(5,5,'Rp','L',0);
+			$this->Cell(5,5,'','L',0);
 			$this->Cell(20,5,number_format($value['quotation_service_charge']),'R',0,'R');
-			$this->Cell(5,5,'Rp','L',0);
+			$this->Cell(5,5,'','L',0);
 			$this->Cell(20,5,number_format($value['quotation_part_charge']),'R',0,'R');
-			$this->Cell(5,5,'Rp','L',0);
-			$this->Cell(15,5,number_format($quotation_ppn),'R',0,'R');
+			$this->Cell(5,5,'','L',0);
+			$this->Cell(15,5,number_format(($value['quotation_service_charge'] + $value['quotation_part_charge'] - $value['quotation_discount']) * ($value['quotation_ppn'] / 100)),'R',0,'R');
 			$this->Ln();
 		}
 		

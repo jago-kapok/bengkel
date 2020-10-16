@@ -129,6 +129,10 @@ class Quotation extends DB\SQL\Mapper {
 	
 	public function getDataMonth($month, $year){
 		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = quotation.customer_id";
+		$this->total_part = "SELECT SUM(quotation_part_charge) FROM quotation WHERE MONTH(quotation_date) LIKE '%$month%' AND YEAR(quotation_date) = $year";
+		$this->total_service = "SELECT SUM(quotation_service_charge) FROM quotation WHERE MONTH(quotation_date) LIKE '%$month%' AND YEAR(quotation_date) = $year";
+		$this->total_ppn = "SELECT SUM((quotation_part_charge + quotation_service_charge - quotation_discount) * (quotation_ppn / 100)) FROM quotation WHERE MONTH(quotation_date) LIKE '%$month%' AND YEAR(quotation_date) = $year";
+		
 		$this->load(array('MONTH(quotation_date) LIKE ? AND YEAR(quotation_date) = ?', array('%'.$month.'%', $year)));
 		return $this->query;
 	}

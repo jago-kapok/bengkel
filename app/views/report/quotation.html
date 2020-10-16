@@ -32,12 +32,12 @@
 	  <repeat group="{{ @data_quotation }}" key="{{ @no }}" value="{{ $quotation }}">
 		<tr>
 		  <td>{{ @no + 1 }}</td>
-		  <td>{{ date('d/m/Y', strtotime(@quotation.quotation_date)) }}</td>
+		  <td>{{ date('d-m-Y', strtotime(@quotation.quotation_date)) }}</td>
 		  <td>{{ @quotation.quotation_number }}</td>
 		  <td>{{ @quotation.customer_name }}</td>
-		  <td class="text-right">{{ number_format(@quotation.quotation_part_charge) }}</td>
 		  <td class="text-right">{{ number_format(@quotation.quotation_service_charge) }}</td>
-		  <td class="text-right">{{ number_format(@quotation_ppn) }}</td>
+		  <td class="text-right">{{ number_format(@quotation.quotation_part_charge) }}</td>
+		  <td class="text-right">{{ number_format((@quotation.quotation_service_charge + @quotation.quotation_part_charge - @quotation.quotation_discount) * (@quotation.quotation_ppn / 100)) }}</td>
 	  </repeat>
 	</tbody>
   </table>
