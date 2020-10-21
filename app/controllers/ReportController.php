@@ -26,9 +26,9 @@ class ReportController extends Controller {
 		$invoice = new Invoice($this->db);
 		$this->f3->set('data_invoice', $invoice->getDataMonth($invoice_month, $this->f3->get('POST.invoice_year')));
 		
-		$invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
-		$invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
-		$this->f3->set('invoice_ppn', $invoice_ppn);
+		// $invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
+		// $invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
+		// $this->f3->set('invoice_ppn', $invoice_ppn);
 		
 		$this->f3->set('invoice_month', $this->f3->get('POST.invoice_month'));
 		$this->f3->set('invoice_year', $this->f3->get('POST.invoice_year'));
@@ -44,9 +44,9 @@ class ReportController extends Controller {
 		$invoice = new Report($this->db);
 		$this->f3->set('data_invoice', $invoice->getDataPPN($invoice_month, $this->f3->get('POST.invoice_year')));
 		
-		$invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
-		$invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
-		$this->f3->set('invoice_ppn', $invoice_ppn);
+		// $invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
+		// $invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
+		// $this->f3->set('invoice_ppn', $invoice_ppn);
 		
 		$this->f3->set('invoice_month', $this->f3->get('POST.invoice_month'));
 		$this->f3->set('invoice_year', $this->f3->get('POST.invoice_year'));
@@ -62,9 +62,9 @@ class ReportController extends Controller {
 		$invoice = new Report($this->db);
 		$this->f3->set('data_invoice', $invoice->getDataCash($invoice_month, $this->f3->get('POST.invoice_year')));
 		
-		$invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
-		$invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
-		$this->f3->set('invoice_ppn', $invoice_ppn);
+		// $invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
+		// $invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
+		// $this->f3->set('invoice_ppn', $invoice_ppn);
 		
 		$this->f3->set('invoice_month', $this->f3->get('POST.invoice_month'));
 		$this->f3->set('invoice_year', $this->f3->get('POST.invoice_year'));

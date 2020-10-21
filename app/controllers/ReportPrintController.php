@@ -15,7 +15,7 @@ class ReportPrintController extends Controller {
 	public function quotation(){
 		$quotation_month = $this->f3->get('PARAMS.quotation_month') != 'ALL' ? $this->f3->get('PARAMS.quotation_month') : '';
 		
-		$quotation = new quotation($this->db);
+		$quotation = new Quotation($this->db);
 		$quotation_list = $quotation->getDataMonth($quotation_month, $this->f3->get('PARAMS.quotation_year'));
 		
 		// $quotation_total = ($quotation->quotation_part_charge + $quotation->quotation_service_charge) - $quotation->quotation_discount;
@@ -77,8 +77,8 @@ class ReportPrintController extends Controller {
 		$invoice = new Invoice($this->db);
 		$invoice_list = $invoice->getDataMonth($invoice_month, $this->f3->get('PARAMS.invoice_year'));
 		
-		$invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
-		$invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
+		// $invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
+		// $invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
 		
 		$pdf = new ReportPrintController();
 		$pdf->AliasNbPages();
@@ -93,6 +93,12 @@ class ReportPrintController extends Controller {
 		$pdf->SetFont('Arial','B',10);
 		$header = array('No.', 'Tanggal', 'Invoice', 'Nama Pelanggan', 'Jasa', 'Parts', 'PPN');
 		$pdf->invoice_list($header, $invoice_list);
+		
+		$pdf->SetFont('Arial','B',8);
+		$pdf->Cell(125,5,'TOTAL',1,0,'C');
+		$pdf->Cell(25,5,number_format($invoice->total_part),1,0,'R');
+		$pdf->Cell(25,5,number_format($invoice->total_service),1,0,'R');
+		$pdf->Cell(20,5,number_format($invoice->total_ppn),1,0,'R');
 		
 		$pdf->Output('Rekapitulasi_Bulan_'.$this->f3->get('PARAMS.invoice_month').'.pdf','I');
 		exit;
@@ -104,8 +110,8 @@ class ReportPrintController extends Controller {
 		$invoice = new Report($this->db);
 		$invoice_list = $invoice->getDataPPN($invoice_month, $this->f3->get('PARAMS.invoice_year'));
 		
-		$invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
-		$invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
+		// $invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
+		// $invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
 		
 		$pdf = new ReportPrintController();
 		$pdf->AliasNbPages();
@@ -120,6 +126,12 @@ class ReportPrintController extends Controller {
 		$pdf->SetFont('Arial','B',10);
 		$header = array('No.', 'Tanggal', 'Invoice', 'Nama Pelanggan', 'Jasa', 'Parts', 'PPN');
 		$pdf->invoice_list($header, $invoice_list);
+		
+		$pdf->SetFont('Arial','B',8);
+		$pdf->Cell(125,5,'TOTAL',1,0,'C');
+		$pdf->Cell(25,5,number_format($invoice->total_part),1,0,'R');
+		$pdf->Cell(25,5,number_format($invoice->total_service),1,0,'R');
+		$pdf->Cell(20,5,number_format($invoice->total_ppn),1,0,'R');
 		
 		$pdf->Output('Rekapitulasi_PPN_'.$this->f3->get('PARAMS.invoice_month').'.pdf','I');
 		exit;
@@ -140,12 +152,12 @@ class ReportPrintController extends Controller {
 			$this->Cell($width[1],5,date('d F Y', strtotime($value['invoice_date'])),'LR',0);
 			$this->Cell($width[2],5,$value['invoice_number'],'LR',0);
 			$this->Cell($width[3],5,strtoupper($value['customer_name']),'LR',0);
-			$this->Cell(5,5,'Rp','L',0);
+			$this->Cell(5,5,'','L',0);
 			$this->Cell(20,5,number_format($value['invoice_service_charge']),'R',0,'R');
-			$this->Cell(5,5,'Rp','L',0);
+			$this->Cell(5,5,'','L',0);
 			$this->Cell(20,5,number_format($value['invoice_part_charge']),'R',0,'R');
-			$this->Cell(5,5,'Rp','L',0);
-			$this->Cell(15,5,number_format($invoice_ppn),'R',0,'R');
+			$this->Cell(5,5,'','L',0);
+			$this->Cell(15,5,number_format(($value['invoice_service_charge'] + $value['invoice_part_charge'] - $value['invoice_discount']) * ($value['invoice_ppn'] / 100)),'R',0,'R');
 			$this->Ln();
 		}
 		
@@ -159,8 +171,8 @@ class ReportPrintController extends Controller {
 		$invoice = new Report($this->db);
 		$invoice_list = $invoice->getDataCash($invoice_month, $this->f3->get('PARAMS.invoice_year'));
 		
-		$invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
-		$invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
+		// $invoice_total = ($invoice->invoice_part_charge + $invoice->invoice_service_charge) - $invoice->invoice_discount;
+		// $invoice_ppn = $invoice_total * ($invoice->invoice_ppn / 100);
 		
 		$pdf = new ReportPrintController();
 		$pdf->AliasNbPages();
@@ -175,6 +187,11 @@ class ReportPrintController extends Controller {
 		$pdf->SetFont('Arial','B',10);
 		$header = array('No.', 'Tanggal', 'Invoice', 'Nama Pelanggan', 'Total', 'Cash');
 		$pdf->cash_list($header, $invoice_list);
+		
+		$pdf->SetFont('Arial','B',8);
+		$pdf->Cell(115,5,'TOTAL',1,0,'C');
+		$pdf->Cell(25,5,number_format($invoice->total),1,0,'R');
+		$pdf->Cell(55,5,'',1,0,'R');
 		
 		$pdf->Output('Rekapitulasi_Cash_'.$this->f3->get('PARAMS.invoice_month').'.pdf','I');
 		exit;
@@ -195,7 +212,7 @@ class ReportPrintController extends Controller {
 			$this->Cell($width[1],5,date('d F Y', strtotime($value['invoice_date'])),'LR',0);
 			$this->Cell($width[2],5,$value['invoice_number'],'LR',0);
 			$this->Cell($width[3],5,strtoupper($value['customer_name']),'LR',0);
-			$this->Cell(5,5,'Rp','L',0);
+			$this->Cell(5,5,'','L',0);
 			$this->Cell(20,5,number_format($value['invoice_total']),'R',0,'R');
 			$this->MultiCell($width[5],5,$value['invoice_note_payment'],'R',2);
 		}

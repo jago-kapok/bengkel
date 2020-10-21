@@ -49,8 +49,8 @@ class Stock extends DB\SQL\Mapper {
 		
 		foreach($query as $data) {
 			$output['data'][] = array(
-				$data['item_code'],
-				$data['item_desc'],
+				$data['item_code'].' | '.$data['item_part_no'],
+				$data['item_desc'].' | '.$data['item_unit'],
 				$data['stock_min'],
 				$data['stock_on_hand'],
 				$data['stock_id']

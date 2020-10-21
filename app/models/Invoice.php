@@ -148,6 +148,10 @@ class Invoice extends DB\SQL\Mapper {
 	
 	public function getDataMonth($month, $year){
 		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = invoice.customer_id";
+		$this->total_part = "SELECT SUM(invoice_part_charge) FROM invoice WHERE MONTH(invoice_date) LIKE '%$month%' AND YEAR(invoice_date) = $year";
+		$this->total_service = "SELECT SUM(invoice_service_charge) FROM invoice WHERE MONTH(invoice_date) LIKE '%$month%' AND YEAR(invoice_date) = $year";
+		$this->total_ppn = "SELECT SUM((invoice_part_charge + invoice_service_charge - invoice_discount) * (invoice_ppn / 100)) FROM invoice WHERE MONTH(invoice_date) LIKE '%$month%' AND YEAR(invoice_date) = $year";
+		
 		$this->load(array('MONTH(invoice_date) LIKE ? AND YEAR(invoice_date) = ?', array('%'.$month.'%', $year)));
 		return $this->query;
 	}

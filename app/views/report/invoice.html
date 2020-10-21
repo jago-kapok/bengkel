@@ -35,9 +35,9 @@
 		  <td>{{ date('d/m/Y', strtotime(@invoice.invoice_date)) }}</td>
 		  <td>{{ @invoice.invoice_number }}</td>
 		  <td>{{ @invoice.customer_name }}</td>
-		  <td class="text-right">{{ number_format(@invoice.invoice_part_charge) }}</td>
 		  <td class="text-right">{{ number_format(@invoice.invoice_service_charge) }}</td>
-		  <td class="text-right">{{ number_format(@invoice_ppn) }}</td>
+		  <td class="text-right">{{ number_format(@invoice.invoice_part_charge) }}</td>
+		  <td class="text-right">{{ number_format((@invoice.invoice_service_charge + @invoice.invoice_part_charge - @invoice.invoice_discount) * (@invoice.invoice_ppn / 100)) }}</td>
 	  </repeat>
 	</tbody>
   </table>
