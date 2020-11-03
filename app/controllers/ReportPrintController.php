@@ -35,8 +35,8 @@ class ReportPrintController extends Controller {
 		
 		$pdf->SetFont('Arial','B',8);
 		$pdf->Cell(125,5,'TOTAL',1,0,'C');
-		$pdf->Cell(25,5,number_format($quotation->total_part),1,0,'R');
 		$pdf->Cell(25,5,number_format($quotation->total_service),1,0,'R');
+		$pdf->Cell(25,5,number_format($quotation->total_part),1,0,'R');
 		$pdf->Cell(20,5,number_format($quotation->total_ppn),1,0,'R');
 		
 		$pdf->Output('Rekapitulasi_Bulan_'.$this->f3->get('PARAMS.quotation_month').'.pdf','I');
@@ -96,8 +96,8 @@ class ReportPrintController extends Controller {
 		
 		$pdf->SetFont('Arial','B',8);
 		$pdf->Cell(125,5,'TOTAL',1,0,'C');
-		$pdf->Cell(25,5,number_format($invoice->total_part),1,0,'R');
 		$pdf->Cell(25,5,number_format($invoice->total_service),1,0,'R');
+		$pdf->Cell(25,5,number_format($invoice->total_part),1,0,'R');
 		$pdf->Cell(20,5,number_format($invoice->total_ppn),1,0,'R');
 		
 		$pdf->Output('Rekapitulasi_Bulan_'.$this->f3->get('PARAMS.invoice_month').'.pdf','I');
@@ -129,8 +129,8 @@ class ReportPrintController extends Controller {
 		
 		$pdf->SetFont('Arial','B',8);
 		$pdf->Cell(125,5,'TOTAL',1,0,'C');
-		$pdf->Cell(25,5,number_format($invoice->total_part),1,0,'R');
 		$pdf->Cell(25,5,number_format($invoice->total_service),1,0,'R');
+		$pdf->Cell(25,5,number_format($invoice->total_part),1,0,'R');
 		$pdf->Cell(20,5,number_format($invoice->total_ppn),1,0,'R');
 		
 		$pdf->Output('Rekapitulasi_PPN_'.$this->f3->get('PARAMS.invoice_month').'.pdf','I');
