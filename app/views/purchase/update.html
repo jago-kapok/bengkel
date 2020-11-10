@@ -120,7 +120,7 @@ input, select, .form-control { font-size:12px }
 			</tr>
 			</repeat>
 			
-			<loop from="{{ @i=0 }}" to="{{ @i < 1 }}" step="{{ @i++ }}">
+			<loop from="{{ @i=0 }}" to="{{ @i < 5 }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
 			    <input id="{{ @i }}" name="data[{{ @i }}][item_code]" class="item" style="width:100%" onchange="return getDataPurchase(this.id, this.value)" list="data-item" autocomplete="off">

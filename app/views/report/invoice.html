@@ -32,7 +32,7 @@
 	  <repeat group="{{ @data_invoice }}" key="{{ @no }}" value="{{ $invoice }}">
 		<tr>
 		  <td>{{ @no + 1 }}</td>
-		  <td>{{ date('d/m/Y', strtotime(@invoice.invoice_date)) }}</td>
+		  <td>{{ date('d-m-Y', strtotime(@invoice.invoice_date)) }}</td>
 		  <td>{{ @invoice.invoice_number }}</td>
 		  <td>{{ @invoice.customer_name }}</td>
 		  <td class="text-right">{{ number_format(@invoice.invoice_service_charge) }}</td>

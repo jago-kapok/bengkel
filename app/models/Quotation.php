@@ -81,6 +81,11 @@ class Quotation extends DB\SQL\Mapper {
 		return $this->query;
 	}
 	
+	public function getQuotationBeforeInvoice(){
+		$query = $this->db->exec("SELECT * FROM quotation WHERE quotation_id NOT IN (SELECT quotation_id FROM invoice)");
+		return $query;
+	}
+	
 	public function add(){
 		$f3 = \Base::instance();
 		

@@ -20,7 +20,7 @@ class Report extends DB\SQL\Mapper {
 		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = invoice.customer_id";
 		$this->total = "SELECT SUM(invoice_total) FROM invoice WHERE MONTH(invoice_date) LIKE '%$month%' AND YEAR(invoice_date) = $year";
 		
-		$this->load(array('MONTH(invoice_date) LIKE ? AND YEAR(invoice_date) = ? AND invoice_note_payment != ""', array('%'.$month.'%', $year)));
+		$this->load(array('MONTH(invoice_date) LIKE ? AND YEAR(invoice_date) = ?', array('%'.$month.'%', $year)));
 		return $this->query;
 	}
 	

@@ -55,7 +55,7 @@ class ReportPrintController extends Controller {
 		foreach($quotation_list as $key => $value)
 		{
 			$this->Cell($width[0],5,$key + 1,'LR',0,'C');
-			$this->Cell($width[1],5,date('d F Y', strtotime($value['quotation_date'])),'LR',0);
+			$this->Cell($width[1],5,date('d-m-Y', strtotime($value['quotation_date'])),'LR',0);
 			$this->Cell($width[2],5,$value['quotation_number'],'LR',0);
 			$this->Cell($width[3],5,strtoupper($value['customer_name']),'LR',0);
 			$this->Cell(5,5,'','L',0);
@@ -149,7 +149,7 @@ class ReportPrintController extends Controller {
 		foreach($invoice_list as $key => $value)
 		{
 			$this->Cell($width[0],5,$key + 1,'LR',0,'C');
-			$this->Cell($width[1],5,date('d F Y', strtotime($value['invoice_date'])),'LR',0);
+			$this->Cell($width[1],5,date('d-m-Y', strtotime($value['invoice_date'])),'LR',0);
 			$this->Cell($width[2],5,$value['invoice_number'],'LR',0);
 			$this->Cell($width[3],5,strtoupper($value['customer_name']),'LR',0);
 			$this->Cell(5,5,'','L',0);
@@ -209,7 +209,7 @@ class ReportPrintController extends Controller {
 		foreach($invoice_list as $key => $value)
 		{
 			$this->Cell($width[0],5,$key + 1,'LR',0,'C');
-			$this->Cell($width[1],5,date('d F Y', strtotime($value['invoice_date'])),'LR',0);
+			$this->Cell($width[1],5,date('d-m-Y', strtotime($value['invoice_date'])),'LR',0);
 			$this->Cell($width[2],5,$value['invoice_number'],'LR',0);
 			$this->Cell($width[3],5,strtoupper($value['customer_name']),'LR',0);
 			$this->Cell(5,5,'','L',0);
@@ -255,7 +255,7 @@ class ReportPrintController extends Controller {
 		foreach($stock_list as $key => $value)
 		{
 			$this->Cell($width[0],5,$key + 1,'LR',0,'C');
-			$this->Cell($width[1],5,date('d F Y', strtotime($value['stock_history_date'])),'LR',0,'C');
+			$this->Cell($width[1],5,date('d-m-Y', strtotime($value['stock_history_date'])),'LR',0,'C');
 			$this->Cell($width[2],5,strtoupper($value['item_code']).' | '.strtoupper($value['item_desc']),'LR',0);
 			$this->Cell($width[3],5,strtoupper($value['purchase_number']),'LR',0,'C');
 			$this->Cell($width[4],5,strtoupper($value['invoice_number']),'LR',0,'C');

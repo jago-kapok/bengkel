@@ -175,7 +175,8 @@
 			</tr>
 			</repeat>
 			
-			<loop from="{{ @i=0 }}" to="{{ @i < (10 - count(@data_invoice_detail)) }}" step="{{ @i++ }}">
+			<!-- <loop from="{{ @i=0 }}" to="{{ @i < (10 - count(@data_invoice_detail)) }}" step="{{ @i++ }}"> -->
+			<loop from="{{ @i=0 }}" to="{{ @i < 5 }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
 			    <input id="{{ @i }}" name="data[{{ @i }}][invoice_detail_item_code]" class="item" style="width:100px" onchange="return getData(this.id, this.value)">

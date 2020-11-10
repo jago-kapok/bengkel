@@ -4,7 +4,7 @@ class InvoiceController extends Controller {
 
 	public function index(){
 		$quotation = new Quotation($this->db);
-		$this->f3->set('data_quotation', $quotation->getAll());
+		$this->f3->set('data_quotation', $quotation->getQuotationBeforeInvoice());
 		
 		$invoice = new Invoice($this->db);
 		$this->f3->set('data_invoice', $invoice->getAll());
