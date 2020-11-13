@@ -59,6 +59,6 @@ class QuotationDetail extends DB\SQL\Mapper {
 	}
 	
 	function beforeEdit($quotation_id){
-		$this->db->exec("DELETE quotation_detail WHERE quotation_id = ?", $quotation_id);
+		$this->db->exec("DELETE FROM quotation_detail WHERE quotation_id = ?", $quotation_id);
 	}
 }
