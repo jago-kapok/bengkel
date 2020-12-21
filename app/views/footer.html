@@ -189,7 +189,7 @@
 	  $('#item_desc_' + id).removeClass('readonly');
 	  $('#item_amount_' + id).removeClass('readonly');
 	  
-	  $.getJSON("{{ @BASE.'/item/get-data/' }}" + val, function(data){
+	  $.getJSON("{{ @BASE.'/item/get-data/' }}" + val.replace("/", "__"), function(data){
 		$.each(data, function(key, value){
 		  $('#item_id_' + id).val(value.item_id);
 		  $('#item_part_no_' + id).val(value.item_part_no);
@@ -238,7 +238,7 @@
 	  $('#item_desc_' + id).removeClass('readonly');
 	  $('#item_amount_' + id).removeClass('readonly');
 	  
-	  $.getJSON("{{ @BASE.'/item/get-data/' }}" + val, function(data){
+	  $.getJSON("{{ @BASE.'/item/get-data/' }}" + val.replace("/", "__"), function(data){
 	    if(data == ''){
 		  alert('Kode tidak ada !');
 		  

@@ -2,12 +2,12 @@
 /*******************************************************************************
 * FPDF                                                                         *
 *                                                                              *
-* Version: 1.81                                                                *
-* Date:    2015-12-20                                                          *
+* Version: 1.82                                                                *
+* Date:    2019-12-07                                                          *
 * Author:  Olivier PLATHEY                                                     *
 *******************************************************************************/
 
-define('FPDF_VERSION','1.81');
+define('FPDF_VERSION','1.82');
 
 class FPDF
 {
@@ -1039,9 +1039,6 @@ protected function _dochecks()
 	// Check mbstring overloading
 	if(ini_get('mbstring.func_overload') & 2)
 		$this->Error('mbstring overloading must be disabled');
-	// Ensure runtime magic quotes are disabled
-	if(get_magic_quotes_runtime())
-		@set_magic_quotes_runtime(0);
 }
 
 protected function _checkoutput()
@@ -1893,22 +1890,6 @@ protected function _enddoc()
 	$this->_put($offset);
 	$this->_put('%%EOF');
 	$this->state = 3;
-}
-
-function MultiCellNew($w,$h,$text,$border=0,$ln=0,$align='L',$fill=false)
-{
-    // Store reset values for (x,y) positions
-    $x = $this->GetX() + $w;
-    $y = $this->GetY();
-
-    // Make a call to FPDF's MultiCell
-    $this->MultiCell($w,$h,$text,$border,$align,$fill);
-
-    // Reset the line position to the right, like in Cell
-    if( $ln==0 )
-    {
-        $this->SetXY($x,$y);
-    }
 }
 }
 ?>

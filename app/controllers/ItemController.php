@@ -25,7 +25,7 @@ class ItemController extends Controller {
 		$item_code = $this->f3->get('PARAMS.item_code');
 				
 		$item = new Item($this->db);
-		die($item->getData($item_code));
+		die($item->getData(str_replace("__", "/", $item_code)));
 	}
 	
 	public function exist(){
