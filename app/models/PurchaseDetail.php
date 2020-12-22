@@ -8,9 +8,9 @@ class PurchaseDetail extends DB\SQL\Mapper {
 
     public function add($purchase_id){
 		$f3 = \Base::instance();
-		
+
 		$data = $f3->get('POST.data');
-		
+
 		foreach($data as $value){
 			if($value['item_code'] <> ''){
 				$this->db->exec("INSERT INTO purchase_detail
@@ -49,13 +49,13 @@ class PurchaseDetail extends DB\SQL\Mapper {
 					':item_unit' => $value['item_unit'],
 					':purchase_detail_value' => $value['item_qty']
 				));
-				
+
 				$this->db->exec("UPDATE stock SET stock_on_hand = (stock_on_hand + ?) WHERE item_id = ?",
 				array(
 					$value['item_qty'],
 					$value['item_id']
 				));
-				
+
 				$this->db->exec("INSERT INTO stock_history
 					(item_id,
 					purchase_id,
@@ -75,19 +75,19 @@ class PurchaseDetail extends DB\SQL\Mapper {
 			}
 		}
 	}
-	
+
 	public function getById($purchase_id){
 		$this->load(array('purchase_id = ?', $purchase_id));
 		return $this->query;
 	}
-	
+
 	public function beforeEdit($purchase_id){
 		$this->db->exec("DELETE FROM purchase_detail WHERE purchase_id = ?", $purchase_id);
 	}
-	
+
 	public function resetStock($purchase_id){
 		$query = $this->db->exec("SELECT * FROM purchase_detail WHERE purchase_id = ?", $purchase_id);
-		
+
 		foreach($query as $data){
 			$this->db->exec("UPDATE stock SET stock_on_hand = (stock_on_hand + ?) WHERE item_id IN (SELECT item_id FROM stock_history WHERE purchase_id = ?)",
 				array(
@@ -96,7 +96,7 @@ class PurchaseDetail extends DB\SQL\Mapper {
 				)
 			);
 		}
-		
+
 		$this->db->exec("DELETE FROM stock_history WHERE purchase_id = ?", $purchase_id);
 	}
 }

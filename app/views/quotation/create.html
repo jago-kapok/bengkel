@@ -17,11 +17,11 @@
 			<div class="input-group-prepend">
 			  <span class="input-group-text form-app">TANGGAL</span>
 			</div>
-			<input type="date" name="" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
+			<input type="date" name="quotation_date" class="form-control form-control-sm form-app" value="{{ date('Y-m-d') }}" data-toggle="tooltip" title="Tgl. PENAWARAN" readonly>
 		  </div>
 		</div>
 	  </div>
-	  
+
 	  <div class="row">
 		<div class="col-md-1">
 		  <div class="form-group">
@@ -72,7 +72,7 @@
 		  </div>
 		</div>
 	  </div>
-	  
+
 	  <div class="row">
 		<div class="col-md-1">
 		  <div class="form-group">
@@ -105,7 +105,7 @@
 		  </div>
 		</div>
 	  </div>
-	  
+
 	  <div class="row mr-0 ml-0">
 		<table class="table table-bordered table-responsive">
 		  <thead>
@@ -160,7 +160,7 @@
 		  </tbody>
 		</table>
 	  </div>
-	  
+
 	  <div class="row">
 		<div class="col-md-9">
 		  <div class="form-group row">
@@ -182,7 +182,7 @@
 			</div>
 		  </div>
 		</div>
-		
+
 		<div class="col-md-3">
 		  <table class="table table-bordered table-striped">
 			<tr>
@@ -236,7 +236,7 @@
 /* ============================================================== */
 /* Autocomplete													= */
 /* ============================================================== */
-	
+
 // Customer
 var data = "../../app/views/autocomplete/customer.php";
 $("input[name=customer_code]").autocomplete({
@@ -251,7 +251,7 @@ $("input[name=customer_code]").autocomplete({
   .append("<div style='font-size:12px; line-height:20px'><span style='display:block'><b>" + item.customer_code + "</b></span><span><i>" + item.customer_name + "</i> | <i>" + item.customer_address + "</i> | <i>" + item.customer_city + "</i></span></div>")
   .appendTo(ul);
 };
-	
+
 // Item
 var data = "../../app/views/autocomplete/item.php";
 $(".item").autocomplete({

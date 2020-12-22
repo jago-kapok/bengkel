@@ -12,7 +12,7 @@ class Invoice extends DB\SQL\Mapper {
 		$output['draw'] = $draw;
 		$output['recordsTotal'] = $output['recordsFiltered'] = $total;
 		$output['data'] = array();
-		
+
 		$query = $this->db->exec("SELECT * FROM invoice JOIN customer ON invoice.customer_id = customer.customer_id JOIN quotation ON invoice.quotation_id = quotation.quotation_id WHERE
 			DATE_FORMAT(invoice_date, '%d-%m-%Y') LIKE ? AND
 			(invoice_number LIKE ? OR
@@ -32,7 +32,7 @@ class Invoice extends DB\SQL\Mapper {
 				$offset
 			)
 		);
-			
+
 		$total = $this->db->exec("SELECT COUNT(*) AS TotalFilter FROM invoice JOIN customer ON invoice.customer_id = customer.customer_id JOIN quotation ON invoice.quotation_id = quotation.quotation_id WHERE
 			DATE_FORMAT(invoice_date, '%d-%m-%Y') LIKE ? AND
 			(invoice_number LIKE ? OR
@@ -50,13 +50,13 @@ class Invoice extends DB\SQL\Mapper {
 				'%'.$search.'%'
 			)
 		);
-			
+
 		foreach($total as $count){
 			$total_filter = $count['TotalFilter'];
 		}
 
 		$output['recordsTotal'] = $output['recordsFiltered'] = $total_filter;
-		
+
 		foreach($query as $data) {
 			$output['data'][] = array(
 				$data['invoice_number'],
@@ -72,25 +72,25 @@ class Invoice extends DB\SQL\Mapper {
 
 		echo json_encode($output);
 	}
-	
+
 	public function getAll(){
 		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = invoice.customer_id";
 		$this->quotation_number = "SELECT quotation_number FROM quotation WHERE quotation.quotation_id = invoice.quotation_id";
-		
+
 		$this->load();
 		return $this->query;
 	}
-	
+
 	public function getThree(){
 		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = invoice.customer_id";
-		
+
 		$this->load(NULL, array('limit'=>3, 'order'=>'invoice_number DESC'));
 		return $this->query;
 	}
-	
+
 	public function add(){
 		$f3 = \Base::instance();
-		
+
 		$current = '/'.date("Y");
 		$query = $this->db->exec("SELECT MAX(invoice_number) AS last FROM invoice WHERE invoice_number LIKE '%$current'");
 		foreach($query as $result){
@@ -100,14 +100,14 @@ class Invoice extends DB\SQL\Mapper {
 		$nextNo = $lastNo + 1;
 		$invoice_number = sprintf('%06s', $nextNo).$current;
 		/* Invoice Number */
-		
+
 		$this->copyFrom('POST');
 		$this->invoice_number = $invoice_number;
 		$this->invoice_service_charge = str_replace(',', '', $f3->get('POST.invoice_service_charge'));
 		$this->invoice_discount = str_replace(',', '', $f3->get('POST.invoice_discount'));
 		$this->save();
 	}
-	
+
 	public function getById($invoice_id){
 		$this->customer_code = "SELECT customer_code FROM customer WHERE customer.customer_id = invoice.customer_id";
 		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = invoice.customer_id";
@@ -124,42 +124,46 @@ class Invoice extends DB\SQL\Mapper {
 		$this->quotation_engine = "SELECT quotation_engine FROM quotation WHERE quotation.quotation_id = invoice.quotation_id";
 		$this->quotation_serial_number = "SELECT quotation_serial_number FROM quotation WHERE quotation.quotation_id = invoice.quotation_id";
 		$this->quotation_nozzle = "SELECT quotation_nozzle FROM quotation WHERE quotation.quotation_id = invoice.quotation_id";
-		
+
 		$this->load(array('invoice_id = ?', $invoice_id));
 		$this->copyTo('POST');
 	}
-	
+
 	public function getByNumber($invoice_number){
 		$this->load(array('invoice_number = ?', $invoice_number));
 		return $this->query;
 	}
-	
+
 	public function getByQuotation($quotation_id){
 		$this->load(array('quotation_id = ?', $quotation_id));
 		return $this->query;
 	}
-	
+
 	public function edit($invoice_id){
+    $f3 = \Base::instance();
+    
 		$this->load(array('invoice_id = ?', $invoice_id));
-		
+
 		$this->copyFrom('POST');
+    $this->invoice_service_charge = str_replace(',', '', $f3->get('POST.invoice_service_charge'));
+		$this->invoice_discount = str_replace(',', '', $f3->get('POST.invoice_discount'));
 		$this->update();
 	}
-	
+
 	public function getDataMonth($month, $year){
 		$this->customer_name = "SELECT customer_name FROM customer WHERE customer.customer_id = invoice.customer_id";
 		$this->total_part = "SELECT SUM(invoice_part_charge) FROM invoice WHERE MONTH(invoice_date) LIKE '%$month%' AND YEAR(invoice_date) = $year";
 		$this->total_service = "SELECT SUM(invoice_service_charge) FROM invoice WHERE MONTH(invoice_date) LIKE '%$month%' AND YEAR(invoice_date) = $year";
 		$this->total_ppn = "SELECT SUM((invoice_part_charge + invoice_service_charge - invoice_discount) * (invoice_ppn / 100)) FROM invoice WHERE MONTH(invoice_date) LIKE '%$month%' AND YEAR(invoice_date) = $year";
-		
+
 		$this->load(array('MONTH(invoice_date) LIKE ? AND YEAR(invoice_date) = ?', array('%'.$month.'%', $year)));
 		return $this->query;
 	}
-	
+
 	public function cancel($invoice_id){
 		$this->db->exec("UPDATE invoice SET invoice_status = 2 WHERE invoice_id = ?", $invoice_id);
 	}
-	
+
 	public function active($invoice_id){
 		$this->db->exec("UPDATE invoice SET invoice_status = 1 WHERE invoice_id = ?", $invoice_id);
 	}
