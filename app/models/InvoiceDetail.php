@@ -15,6 +15,7 @@ class InvoiceDetail extends DB\SQL\Mapper {
 			if($value['invoice_detail_item_desc'] <> ''){
 				$this->db->exec("INSERT INTO invoice_detail
 				(invoice_id,
+				invoice_detail_item_id,
 				invoice_detail_item_code,
 				invoice_detail_item_part_no,
 				invoice_detail_item_desc,
@@ -25,8 +26,9 @@ class InvoiceDetail extends DB\SQL\Mapper {
 				invoice_detail_unit_price_temp,
 				invoice_detail_amount,
 				invoice_detail_brand,
-				invoice_detail_profit) VALUES
-				(:invoice_id,
+				invoice_detail_profit) SELECT
+				:invoice_id,
+				item_id,
 				:invoice_detail_item_code,
 				:invoice_detail_item_part_no,
 				:invoice_detail_item_desc,
@@ -37,7 +39,7 @@ class InvoiceDetail extends DB\SQL\Mapper {
 				:invoice_detail_unit_price_temp,
 				:invoice_detail_amount,
 				:invoice_detail_brand,
-				:invoice_detail_profit)",
+				:invoice_detail_profit FROM item WHERE item_code = :item_code",
 				array(
 					':invoice_id' => $invoice_id,
 					':invoice_detail_item_code' => $value['invoice_detail_item_code'],
@@ -50,7 +52,8 @@ class InvoiceDetail extends DB\SQL\Mapper {
 					':invoice_detail_unit_price_temp' => str_replace(',', '', $value['invoice_detail_unit_price_temp']),
 					':invoice_detail_amount' => str_replace(',', '', $value['invoice_detail_qty']) * str_replace(',', '', $value['invoice_detail_unit_price']),
 					':invoice_detail_brand' => $value['invoice_detail_brand'],
-					':invoice_detail_profit' => (str_replace(',', '', $value['invoice_detail_unit_price']) - $value['invoice_detail_unit_price_temp']) * str_replace(',', '', $value['invoice_detail_qty'])
+					':invoice_detail_profit' => (str_replace(',', '', $value['invoice_detail_unit_price']) - $value['invoice_detail_unit_price_temp']) * str_replace(',', '', $value['invoice_detail_qty']),
+					':item_code' => $value['invoice_detail_item_code']
 				));
 
 				$this->db->exec("UPDATE stock SET stock_on_hand = (stock_on_hand - ?) WHERE item_id IN (SELECT item_id FROM item WHERE item_code = ?)",

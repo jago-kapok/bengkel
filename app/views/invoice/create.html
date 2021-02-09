@@ -36,7 +36,7 @@
 		  </div>
 		</div>
 	  </div>
-	  
+
 	  <div class="row">
 		<div class="col-md-1">
 		  <div class="form-group">
@@ -87,7 +87,7 @@
 		  </div>
 		</div>
 	  </div>
-	  
+
 	  <div class="row">
 		<div class="col-md-1">
 		  <div class="form-group">
@@ -121,7 +121,7 @@
 		  </div>
 		</div>
 	  </div>
-	  
+
 	  <div class="row mr-0 ml-0">
 		<table class="table table-bordered table-responsive">
 		  <thead>
@@ -173,7 +173,7 @@
 			  </td>
 			</tr>
 			</repeat>
-			
+
 			<loop from="{{ @i=0 }}" to="{{ @i < (10 - count(@data_quotation_detail)) }}" step="{{ @i++ }}">
 			<tr id="item_{{ @i }}">
 			  <td>
@@ -210,7 +210,7 @@
 		  </tbody>
 		</table>
 	  </div>
-	  
+
 	  <div class="row">
 		<div class="col-md-9">
 		  <div class="form-group row">
@@ -223,7 +223,7 @@
 			    <div class="input-group-prepend">
 				  <span class="input-group-text form-app">FAKTUR</span>
 			    </div>
-			    <input class="form-control form-control-sm form-app" value="{{ @POST.invoice_tax_number }}" data-toggle="tooltip" title="FAKTUR PAJAK">
+			    <input name="invoice_tax_number" class="form-control form-control-sm form-app" value="{{ @POST.invoice_tax_number }}" data-toggle="tooltip" title="FAKTUR PAJAK">
 			  </div>
 			</div>
 		  </div>
@@ -252,7 +252,7 @@
 			</div>
 		  </div>
 		</div>
-		
+
 		<div class="col-md-3">
 		  <table class="table table-bordered table-striped">
 			<tr>
